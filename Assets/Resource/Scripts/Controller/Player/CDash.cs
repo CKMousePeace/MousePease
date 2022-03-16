@@ -5,17 +5,10 @@ using UnityEngine;
 public class CDash : CControllerBase
 {
     [SerializeField] private float m_DashForce;
-    [SerializeField] private float m_DashTime;
-    [SerializeField] private LayerMask m_LayerMask;
-    
-    
+    [SerializeField] private float m_DashTime;   
 
     private Vector3 m_Dir;    
     private float m_CurrentTime;
-
-    
-
-
 
     public override void init(CDynamicObject actor)
     {
@@ -57,9 +50,8 @@ public class CDash : CControllerBase
         float DashTime = Time.deltaTime / m_DashTime;
         m_CurrentTime += DashTime;
         var MoveData = m_Dir * m_DashForce * DashTime;
-
                 
-        if (Physics.Linecast(m_Actor.transform.position, m_Actor.transform.position + MoveData, m_LayerMask))
+        if (Physics.Linecast(m_Actor.transform.position, m_Actor.transform.position + MoveData))
         {
             m_Actor.transform.position -= m_Actor.transform.forward * 0.1f;
             gameObject.SetActive(false);

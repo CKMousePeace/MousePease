@@ -30,6 +30,7 @@ public abstract class CDynamicObject : CActor
         }
     }
 
+    //controller를 검사하는 함수 입니다.
     public bool CompareController(string ControllerName)
     {
         if (m_ControllerDic.ContainsKey(ControllerName))
@@ -37,6 +38,7 @@ public abstract class CDynamicObject : CActor
         return false;
     }
 
+    //buff를 검사하는 함수입니다.
     public bool CompareBuff(string BuffName)
     {
         if (m_ControllerDic.ContainsKey("BuffController"))
@@ -46,6 +48,7 @@ public abstract class CDynamicObject : CActor
         }
         return false;
     }
+    // 오브젝트를 검사하는 함수 입니다.
     public bool CompareSkill(string SkillName)
     {
         if (m_ControllerDic.ContainsKey("SkillController"))
@@ -56,6 +59,7 @@ public abstract class CDynamicObject : CActor
         return false;
     }
 
+    // 오브젝트를 활성화 해주는 함수입니다.
     public bool GenerateBuff(string BuffName, CBuffBase.BuffInfo buffinfo)
     {
         if (m_ControllerDic.ContainsKey("BuffController"))
@@ -66,6 +70,7 @@ public abstract class CDynamicObject : CActor
         return false;
     }
 
+    // 오브젝트를 비활성화 해주는 함수입니다.
     public void DestroyController(string ControllerName)
     {
         if (m_ControllerDic.ContainsKey(ControllerName))

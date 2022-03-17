@@ -25,6 +25,7 @@ public class CPlayerMovement : CControllerBase
         
     }
 
+    // 달리는 함수입니다.
     private void Movement()
     {
 
@@ -57,6 +58,7 @@ public class CPlayerMovement : CControllerBase
         TurnRot(DirX);
         if (!m_Actor.CompareController("Dash"))
         {
+            //만약 이동중 오브젝트와 충돌시 전에 있던 좌표로 이동 시킵니다. 
             if (!Physics.Raycast(m_Actor.transform.position + (DirX * extents), transform.forward, 0.1f, m_LayerMask))
             {                
                 m_Actor.transform.position += m_beforeDir * m_currentSpeed * Time.deltaTime;
@@ -65,6 +67,7 @@ public class CPlayerMovement : CControllerBase
         }        
     }
 
+    // y축 angle을 변경하는 함수 입니다.
     private void TurnRot(float DirX)
     {
         if (DirX != 0.0f)
@@ -76,6 +79,7 @@ public class CPlayerMovement : CControllerBase
         m_Actor.transform.rotation = Quaternion.Lerp(m_Actor.transform.rotation, ResulRot, m_turnSpeed);
     }
 
+    //달리는 함수 입니다. 제거해야됨
     private void Running(float Dir)
     {
 

@@ -18,12 +18,14 @@ public class CThornvine : CStaticObject
     {
         var actor = collision.gameObject.GetComponent<CDynamicObject>();
         if (actor == null) return;
+        // 맞은 오브젝트에게 상태를 전달 해줍니다.
         actor.GenerateBuff("KnockBack", m_Buffinfo);
     }
     private void OnTriggerEnter(Collider other)
     {
         var actor = other.gameObject.GetComponent<CDynamicObject>();
         if (actor == null) return;
+        // 맞은 오브젝트에게 상태를 전달 해줍니다.
         actor.GenerateBuff("KnockBack", m_Buffinfo);
     }    
 }

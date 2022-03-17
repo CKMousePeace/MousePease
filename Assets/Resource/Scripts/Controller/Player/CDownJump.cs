@@ -5,9 +5,11 @@ using UnityEngine;
 public class CDownJump : CControllerBase
 {
     [SerializeField] private CColliderChecker m_ColliderChecker;
-    [SerializeField] private LayerMask m_LayerMask;
+    [SerializeField] private LayerMask m_LayerMask; // 다운점프를 사용 할 수 있는 오브젝트를 판별하기 위한 LayerMask입니다.
     public override void init(CDynamicObject actor)
     {
+        // Dash랑 마찬가지로 시작시 오브젝트가 켜져 있을수 있기 때문에 
+        // 바로 오브젝트를 꺼줍니다.
         gameObject.SetActive(false);
         base.init(actor);
         
@@ -18,6 +20,7 @@ public class CDownJump : CControllerBase
         if (m_Actor == null) return;
         var extents = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
         m_ColliderChecker.m_TriggerExit += TriggerExit;
+        //다운 점프를 사용 할 수 있는 상황인지 판별하여 다운 점프를 실행합니다.
         if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -transform.up, 0.3f, m_LayerMask))
         {
             m_ColliderChecker.g_Collider.isTrigger = true;
@@ -37,11 +40,8 @@ public class CDownJump : CControllerBase
 
     private void TriggerExit(Collider other)
     {
-        
-        if (gameObject.activeInHierarchy == true)
-        {
-            m_ColliderChecker.g_Collider.isTrigger = false;
-            gameObject.SetActive(false);
-        }
+        m_ColliderChecker.g_Collider.isTrigger = false;
+        gameObject.SetActive(false);
+
     }
 }

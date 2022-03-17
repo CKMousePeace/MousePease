@@ -12,12 +12,15 @@ public class CDash : CControllerBase
 
     public override void init(CDynamicObject actor)
     {
+        
+        // 게임 시작시 오브젝트를 꺼줍니다.
         gameObject.SetActive(false);
         base.init(actor);
         
     }
     private void OnDisable()
     {
+        //만약 m_Actor가 없을 경우 리턴을 해줍니다.
         if (m_Actor == null) return;
         m_Actor.g_Rigid.useGravity = true;        
     }
@@ -25,7 +28,8 @@ public class CDash : CControllerBase
     private void OnEnable()
     {
         float m_DirX = Input.GetAxisRaw("Horizontal");
-               
+
+        //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다.
         if (m_DirX == 0)
         {
             gameObject.SetActive(false);
@@ -45,14 +49,17 @@ public class CDash : CControllerBase
         Dash();
     }
 
+   
     private void Dash()
     {
-        float DashTime = Time.deltaTime / m_DashTime;
+        
+        float DashTime = Time.deltaTime / m_DashTime;        
         m_CurrentTime += DashTime;
         var MoveData = m_Dir * m_DashForce * DashTime;
-                
+         
+        // 대쉬 할 경우 사이에 오브젝트가 있을 경우 대쉬를 종료 합니다.
         if (Physics.Linecast(m_Actor.transform.position, m_Actor.transform.position + MoveData))
-        {
+        {            
             m_Actor.transform.position -= m_Actor.transform.forward * 0.1f;
             gameObject.SetActive(false);
             return;

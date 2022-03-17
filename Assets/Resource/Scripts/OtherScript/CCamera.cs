@@ -14,6 +14,7 @@ public class CCamera : MonoBehaviour
         CameraMovement();
     }
 
+    //카메라 기획에 맞게 수정 해야됨
     private void CameraMovement()
     {
         if (m_Target == null)

@@ -25,8 +25,10 @@ public class CMagnetSkill : CSkillBase
         Pole();
     }
 
+    // 자석 상태를 변경하는 함수 입니다.
     private void ButtonDown()
     {
+        
         if (Input.GetKeyDown(g_KeyCode))
         {
             m_magnetType++;
@@ -41,6 +43,7 @@ public class CMagnetSkill : CSkillBase
         }
     }
 
+    
     private void Normal()
     {
         if (m_magnetType != CMagnet.MagnetType.Normal) return;
@@ -62,6 +65,7 @@ public class CMagnetSkill : CSkillBase
 
             var Dist = Vector3.Distance(m_Actor.transform.position, magnet.transform.position);
 
+            //자석의 force가 거리보다 작다면 리턴을 해줍니다.
             if (Dist > magnet.g_Force * 0.5f)
             {
                 if (!m_Actor.CompareController("Dash"))                    
@@ -69,10 +73,10 @@ public class CMagnetSkill : CSkillBase
 
                 continue;
             }
-
             
             if (m_magnetType != magnet.g_Pole)
             {
+                //주변에 자석이 있는지 검사합니다.
                 if (Vector3.Distance(m_Actor.transform.position, magnet.transform.position) >= 0.1f)
                 {
                     var Dir = (magnet.transform.position - m_Actor.transform.position).normalized;

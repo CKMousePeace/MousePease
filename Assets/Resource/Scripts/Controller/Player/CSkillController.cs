@@ -7,6 +7,7 @@ public class CSkillController : CControllerBase
     [SerializeField] private List<CSkillBase> m_Skills;
     [SerializeField] private Dictionary<string ,CSkillBase> m_DicSkills = new Dictionary<string, CSkillBase>();
 
+    
     public override void init(CDynamicObject actor)
     {
         base.init(actor);
@@ -18,6 +19,7 @@ public class CSkillController : CControllerBase
         }
     }
 
+    // 스킬 사용중인지 판별 하는 함수
     public bool ComparerSkill(string SkillName)
     {
         if (m_DicSkills.ContainsKey(SkillName))

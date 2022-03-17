@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CColliderChecker : MonoBehaviour
 {
+
+    //콜라이더를 체크하는함수 입니다. 
     [Header("Collider 직접 넣어주세여")]
     [SerializeField] private Collider m_collider;
     public Collider g_Collider => m_collider;

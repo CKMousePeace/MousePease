@@ -12,9 +12,10 @@ public class CJump : CControllerBase
     private bool m_isJump = false;
     private float m_CurrentJumpTime;
     private float m_beforeJumpTime;
-    // Update is called once per frame
+    
     public override void init(CDynamicObject actor)
     {
+        // 시작하자 마자 오브젝트를 꺼줍니다.
         gameObject.SetActive(false);
         base.init(actor);
     }
@@ -55,6 +56,7 @@ public class CJump : CControllerBase
         TriggerCheck();
     }
 
+    //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
     private void ColliderStay(Collision collder)
     {
         if (!gameObject.activeInHierarchy) return;
@@ -67,15 +69,17 @@ public class CJump : CControllerBase
         }
 
     }
+    //Floor를 제외한 다른 오브젝트와 충돌을 할 경우 trigger를 제거 해줍니다.
     private void TriggerEnter(Collider other)
     {
-
         if (!other.CompareTag("Floor") && !other.CompareTag("FirstFloor"))
         {
             m_ColliderChecker.g_Collider.isTrigger = false;
         }
     }
 
+
+    //점프 적용하는 함수 입니다.
     private void Jump()
     {
         if (Input.GetKey(m_Key) && m_CurrentJumpTime <= 1.0f && m_isJump)
@@ -96,6 +100,7 @@ public class CJump : CControllerBase
         }        
     }
 
+    // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
     {        
         if (Input.GetKeyDown(m_Key))
@@ -107,6 +112,8 @@ public class CJump : CControllerBase
             }
         }
     }
+
+    // trigger을 킬지 말지 정하는 함수 입니다.
     private void TriggerCheck()
     {
         if ((!m_isJump) && m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.1f)

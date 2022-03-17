@@ -17,6 +17,8 @@ public class CBuffController : CControllerBase
         }
     }
 
+    
+    //버프가 있는지 검사하는 함수 입니다.
     public bool ComparerBuff(string BuffName)
     {
         if (m_DicBuffs.ContainsKey(BuffName))
@@ -26,6 +28,7 @@ public class CBuffController : CControllerBase
         }
         return false;
     }
+    //버프를 생성하는 로직입니다.
     public bool GenerateBuff(string BuffName , CBuffBase.BuffInfo buffinfo)
     {
         if (m_DicBuffs.ContainsKey(BuffName))

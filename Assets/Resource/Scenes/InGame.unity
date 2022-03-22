@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Offset: {x: 0, y: 3, z: -13}
   m_StartPosX: -3
   m_EndPosX: 17
+  m_CameraLimitY: 10
   m_fSpeed: 0.1
 --- !u!114 &565279447
 MonoBehaviour:
@@ -506,7 +507,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305088854}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.8, z: 0}
+  m_LocalPosition: {x: 0, y: 4.95, z: 0}
   m_LocalScale: {x: 4, y: 0.32425, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

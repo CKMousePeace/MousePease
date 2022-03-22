@@ -9,7 +9,7 @@ public class CJump : CControllerBase
     [SerializeField] private float m_JumpTime;
 
     private bool m_isDoubleJump = false;
-    private bool m_isJump = false;
+    private bool m_isJump = false;       //üũ
     private float m_CurrentJumpTime;
     private float m_beforeJumpTime;
     

@@ -2,86 +2,227 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//이동 혹은 Destroy 가능한 플랫폼(발판)
-
 public class CPlatform : MonoBehaviour
 {
-    public enum PlatformType
+    [Header("디버그용 붉은 선.")]
+    [SerializeField] private bool m_DebugLine = true;
+
+    [Header("좌표 입력")]
+    [SerializeField] private Vector3[] m_RelativeMovePoint;
+
+    [Header("게임 시작과 동시에 움직는가?")]
+    [SerializeField] private bool m_AwakeStart = true;
+
+    [Header("시작 직후 처음 움직이기까지 대기 시간")]
+    [SerializeField] private float m_AwakeWaitTime = 0;
+
+    [Header("이동 속도")]
+    [SerializeField] private float m_Speed = 3;
+
+    [Header("경유지 대기 시간")]
+    [SerializeField] private float m_WaitTime = 0;
+
+    [Header("최종 목적지에 도달하고 삭제되기까지의 대기 시간")]
+    [SerializeField] private float m_DestroyWaitTime = 1.0f;
+
+    [Header("발판 삭제 유무")]
+    [SerializeField] private bool m_PlatformDes = false;
+
+    [Header("발판 플레이어와 첩촉 후 삭제 시간")]
+    [SerializeField] private float m_DestroyTime = 1.0f;
+
+    [Header("재생성 시간")]
+    [SerializeField] private float m_RespawnTime = 1.0f;
+
+    //[Header("점프 관성 포함")]
+    private bool m_JumpInertia = false;
+
+    private float m_JumpInertiaValue;                                            //jumpInertia이 true일 때 점프력에 가감해줄 값
+
+    private int m_Cur = 1;                                                       //Current route number                         현재 가야할 경로 번호
+    private bool m_Back = false;                                                 //Make sure you have arrived at your current destination and are returning 현재 목적지에 도착하고 돌아가고 있는지 확인
+    private bool m_movingOn = false;                                             //check moving                             현재 움직이고 있는지. m_awakeStart가 false 때 필요
+
+    private bool m_playerCheck = false;                                          //Checking player is on the floor     플레이어 캐릭터가 탑승했는지
+    private GameObject m_player;                                                 //correct the player component        플레이어 캐릭터를 찾고 컴포넌트들을 수집
+    private CJump m_playerScript;
+    public GameObject Player;
+
+    Vector3[] m_Pos;                                                             //m_relativeMovePoint값을 토대로 변환한 실제 월드좌표를 가지고 있는 배열
+
+    Vector3 m_firstPos = Vector3.zero;                                           //for OnDrawGizmos 게임 시작 상태를 파악하고 초기 좌표를 저장
+
+    void Awake()
     {
-        MovementLnR = 0,        //Movement Left and Right.                                                  좌 우 이동 플랫폼
-        MovementUnD = 1,        //Movement Up and Down.                                                     위 아래 이동 플랫폼
-        SelfDestroy = 2,        //If the player goes up, it will be destroyed after a set period of time.   플레이어가 올라갈 경우 일정 시간 후에 파괴
-    }
-    [Header("플랫폼 타입 결정")]
-    [SerializeField] private PlatformType m_plattype;      //m_plattype << This part is determines the platform type.                           플랫폼 유형 결정. 왼쪽 - 오른쪽 / 위-아래 / 스스로 파괴
-    [Header("플랫폼 이동 경로 표시")]
-    [SerializeField] private bool m_DebugLine = true;      //m_DebugLine << This part is debugs where the platform will go.                     어디로 이동할지 살짝 보여주는 디버그라인
-    [SerializeField] private Vector3[] m_MovePoint;        //m_MovePoint << Relative coordinates to move relative to the previous coordinates.  이전 좌표를 기준으로 움직일 상대 좌표
-
-
-    [SerializeField] private float m_MoveSpeedLnR = 1.5f;  //m_MoveSpeedLnR << This part is show and edit Left and Right movement of the platform speed.  좌 우 플랫폼 속도 
-    [SerializeField] private float m_MoveSpeedUnD = 1.5f;  //m_MoveSpeedUnD << This part is show and edit Up and Down movement of the platform speed.     위 아래 플랫폼 속도 
-    [SerializeField] private float m_WaitTime = 0.5f;      //m_WaitTime << This part is ecide how long will wait after arrival.                           플랫폼이 목적지에 도착 후 얼마만큼의 대기 시간을 가질 것 인지 시간 정하기
-
-    [SerializeField] private float m_DestroyTime = 2.0f;   //m_DestroyTime << This part is measures time to selfdestroy.                         스스로 파괴하는 플랫폼 언제 Destroy할지 시간 정하기
-    [SerializeField] private float m_Regeneration = 2.0f;  //m_Regeneration << This part is how long after a destroyed platform will respawn.    플랫폼이 파괴된 후 얼마 만큼의 시간 후에 재생성 될 것인지.
-
-    [Header("게임 시작시 바로 발판이 움직일것인지. true면 바로 움직임")]
-    public bool awakeStart = true;
-    [Header("게임 시작 직후 처음 움직이기까지 대기 시간")]
-    public float awakeWaitTime = 0;
-
-
-    private int m_cur = 1;                //This part is Path number for the platform to go.                                        현재 가야할 경로 번호
-    private bool m_Moveback = false;      //This part is Make sure you are on your way back after arriving at your destination.     현재 목적지를 찍고 되돌아 가는 중인지
-    private bool m_MovingOn = false;      //m_MovingOn << Make sure the platform is moving.                                         플랫폼이 이동중인지
-    private bool m_playerCheck = false;   //playerCheck << This part is make sure the player is on top.                             플레이어가 올라와 있는지 확인
-
-    private Vector3[] m_Pos;                      //m_MovePoint값을 토대로 변환한 실제 월드좌표를 가지고 있는 배열
-    private Vector3 m_firstPos = Vector3.zero;    //OnDrawGizmos에서 사용. 게임 시작 상태를 파악하고 초기 좌표를 저장
-
-    private void Awake()
-    {
-        if(m_MovePoint.Length <= 0)
+        if (m_RelativeMovePoint.Length <= 0)                                     //if there is no component, just delet it.       컴포넌트 없으면 삭제.
         {
-            //If m_MovePoint << this thing is noting. just destroy. 이동 경로 없다면 스크립트를 삭제
             Destroy(this);
             return;
+        }
 
+        m_player = GameObject.Find("Jump");                                      //find play character.
+        if (m_player)
+        {
+            m_playerScript = m_player.GetComponent<CJump>();
+        }
+
+        m_Pos = new Vector3[m_RelativeMovePoint.Length + 1];                                    //The reason we do +1 is because we have to store up to the first coordinates. +1? 최초 좌표 저장
+        m_Pos[0] = m_firstPos = transform.position;                                             //Save the first coordinates. firstm_Pos is used for OnDrawGizmos. 최초 좌표 저장, m_firstPos는 OnDrawGizmos에 사용
+        for (int i = 1; i < m_RelativeMovePoint.Length + 1; i++)                                //0 has already been filled, fill in from 1.                  0번은 이미 채웠으므로 1번부터 채운다
+        {
+            m_Pos[i] = m_Pos[i - 1] + transform.TransformDirection(m_RelativeMovePoint[i - 1]); //오브젝트의 방향을 고려, 상대좌표를 더한 값을 이전 좌표에 더함.
+        }
+        if (m_AwakeStart)                                                                       //If m_awakeStart is true, it will start moving immediately.     m_awakeStart가 true라면 바로 움직이게 한다.
+        {
+            m_movingOn = true;
+            StartCoroutine(Move());
+        }
+    }
+
+    IEnumerator Move()
+    {
+        WaitForFixedUpdate delay = new WaitForFixedUpdate();
+        //최적화
+
+        if (m_AwakeStart && m_AwakeWaitTime != 0)               //Used to make other moving objects move at different speeds. 다른 움직이는 오브젝트들과 다른 속도로 움직이게 만들때 사용
+            yield return new WaitForSeconds(m_AwakeWaitTime);
+        while (true)
+        {
+            if (transform.position == m_Pos[m_Cur])             //m_Pos[m_cur]배열 경로 지점에 도착하면 진입
+            {
+                if (!m_Back)
+                {
+                    if (++m_Cur == m_Pos.Length)
+                    {
+                        if (!m_AwakeStart)
+                        {
+                            Invoke("DestroyWait", m_DestroyWaitTime);
+                            this.enabled = false;
+                            yield break;
+                        }
+                        else 
+                        {
+                            m_Back = true;
+                            m_Cur = m_Cur - 2;
+                        }
+                    }
+                }
+                else
+                {
+                    if (--m_Cur == -1)    //It searches the previous path, and if there is no value, it means to return to the beginning.     이전 경로 탐색. 값이 없다? 처음으로 돌아옴.
+                    {
+                        m_Back = false;   //Make m_back false again to make it move in the forward direction.                                 다시 m_back을 false로 만들어 정방향으로 이동하게 만든다.
+                        m_Cur = m_Cur + 2;
+                    }
+                }
+                if (m_WaitTime != 0)
+                    yield return new WaitForSeconds(m_WaitTime);  //If there is a waiting time at the stopover, wait that much. 경유지 대기시간이 있다면 그만큼 기다리고
+                else
+                    yield return delay;                           //If not, it goes directly to the next frame. 없으면 바로 다음 프레임으로 넘긴다.
+            }
+            else                                                  //The platform is moving unless it arrives at a stopover. 경유지에 도착한게 아니라면 이동 중이다.
+            {
+                //Vector3 prevPos = transform.position;  //이동 직전 좌표를 임시로 저장한다.
+
+                transform.position = Vector3.MoveTowards(transform.position, m_Pos[m_Cur], m_Speed * Time.deltaTime); //move towards the destination. 목적지를 향해 이동한다.
+                if (m_playerCheck)
+                {
+                    //if (m_playerScript.m_isJump == false)  //플레이어가 점프 도중이 아닌 제대로 타고 있다면
+                    ////{
+                    //Player.transform.position = (gameObject.transform.position - prevPos);    //이동 후 좌표에서 이동 직전 좌표를 뺀만큼 플레이어 캐릭터를 이동시킨다.
+                    ////Player.transform.position = (new Vector3(0, -2.0f * Time.deltaTime, 0));
+
+
+                    //if (m_JumpInertia == true)
+                    //        m_JumpInertiaValue = ((m_Pos[m_Cur] - transform.position).normalized * m_Speed).y;  //deltatime을 곱하지 않은 그대로의 속도에서 y값만 취한다.
+                    ////}
+                }
+                yield return delay;
+            }
+        }
+    }
+
+    //움직이는 경로를 씬뷰에 그려준다.
+    void OnDrawGizmos()
+    {
+        if (!m_DebugLine || m_RelativeMovePoint.Length <= 0)                        //m_DebugLine != Dont Draw. m_DebugLine꺼져있으면 그리지 않는다.
+            return;
+        Vector3 t1, t2; //임시 좌표
+        if (m_firstPos == Vector3.zero)                                             //firstm_Pos는 Awake에서 현재 오브젝트의 좌표로 초기화된다. 즉, Vector3.zero는 게임이 시작되지 않았다는 소리
+            t1 = t2 = transform.position;                                           //게임이 시작되기 전이라면 자신의 현재 좌표를 임시값에 넣는다.
+        else
+            t1 = t2 = m_firstPos;                                                   //게임이 시작되었다면 firstm_Pos에 들어있는 초기 위치값을 임시값에 넣는다.
+                                                                                    //이러는 이유는 오브젝트가 움직여도 계속 같은 경로를 그려주기 위함에 있다.
+        for (int i = 0; i < m_RelativeMovePoint.Length; i++)                        //입력된 경로의 개수만큼 반복.
+        {
+            t2 += transform.TransformDirection(m_RelativeMovePoint[i]);             //두번째 임시 좌표에 입력된 상대 경로의 값만큼 더해줘서 목적지 좌표를 넣어준다.
+            if (0 < i)                                                              //첫번째 임시 좌표엔 두번째 임시 좌표의 이전좌표가 담기게 한다.
+                t1 += transform.TransformDirection(m_RelativeMovePoint[i - 1]);     //단, 0번째의 경우 i-1 배열이 없으므로 무시한다.
+            Debug.DrawLine(t1, t2, Color.red);                                      //두 좌표를 계속 그려주면 모든 경로가 씬뷰에 그려진다.
+        }
+    }
+
+
+    private void OnCollisionEnter(Collision Col)
+    {
+        if (Col.collider.CompareTag("Player"))
+        {
+            m_playerCheck = true;                           //Player is on the platform 플레이어가 탑승
+            //Player.transform.SetParent(transform,false);
+            Player.transform.parent = transform;            //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
+
+            if (m_PlatformDes == true)                      //if the platform destination is enabled... then start coroutine. m_PlatformDes 가 활성화 되어있으면 삭제 코루틴 실행
+            {
+                StartCoroutine(DestroyWaitForHold());
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision Col)
+    {
+        if (Col.collider.CompareTag("Player"))
+        {
+            m_playerCheck = false;
+            //Player.transform.SetParent(null, false);
+            Player.transform.parent = null;         //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
+
+            //if (m_JumpInertia)                    //점프 관성이 켜져있다면 위에서 구해둔 값을 가감한다. 지금은 사용하지 않는다.
         }
     }
 
 
 
 
-
-
-
-
-
-    private void Respawn()  //재생성 초기화. 모든 값을 초기화 시키고 다시 활성화 시킨다.
+    private void DestroyWait()                //A function that is called when it needs to disappear after reaching the final destination from above. 위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
     {
-        m_cur = 1;
+        
+        this.gameObject.SetActive(false);     //It needs to be reused, so just disable it.  재사용 해야하므로 비활성화만 시켜준다.
+        Invoke("Respawn", m_RespawnTime);     //Wait as much as the regeneration waiting time with the Invoke function.  재생성 대기시간만큼 Invoke함수로 대기시킨다.
+
+    }
+
+    IEnumerator DestroyWaitForHold()          //위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
+    {
+        yield return new WaitForSeconds(m_DestroyTime);
+        Player.transform.parent = null;
+        this.gameObject.SetActive(false);     //비활성화만 시켜준다.
+
+        Invoke("Respawn", m_RespawnTime);     //재생성 대기시간만큼 Invoke함수로 대기시킨다.
+
+    }
+
+
+
+
+    private void Respawn()                     //Rebuild initialization. Initialize all values and re-enable them.   재생성 초기화. 모든 값을 초기화, 다시 활성화 시킨다.
+    {
+        m_Cur = 1;
         transform.position = m_firstPos;
-        m_Moveback = false;
-        m_MovingOn = false;
+        m_Back = false;
+        m_movingOn = false;
         m_playerCheck = false;
         this.enabled = true;
         this.gameObject.SetActive(true);
+        StartCoroutine(Move());
     }
-
-
-
-    protected void Start()
-    {
-
-    }
-
-
-    protected void Update()
-    {
-        
-    }
-
-
 }

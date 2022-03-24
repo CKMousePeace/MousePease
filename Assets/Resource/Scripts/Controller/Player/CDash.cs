@@ -10,16 +10,19 @@ public class CDash : CControllerBase
     private Vector3 m_Dir;    
     private float m_CurrentTime;
 
+    private float m_DelayTime;
+
     public override void init(CDynamicObject actor)
     {
-        
+
         // 게임 시작시 오브젝트를 꺼줍니다.
+        m_DelayTime = 0.0f;
         gameObject.SetActive(false);
         base.init(actor);
         
     }
     private void OnDisable()
-    {
+    {       
         //만약 m_Actor가 없을 경우 리턴을 해줍니다.
         if (m_Actor == null) return;
         m_Actor.g_Rigid.useGravity = true;        
@@ -30,12 +33,13 @@ public class CDash : CControllerBase
         float m_DirX = Input.GetAxisRaw("Horizontal");
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다.
-        if (m_DirX == 0)
+        if (m_DirX == 0 || (m_DelayTime != 0 && Time.time - m_DelayTime  <= 0.3f))
+        //if (m_DirX == 0) 
         {
             gameObject.SetActive(false);
             return;
-        }        
-        
+        }
+        m_DelayTime = Time.time;
         m_Dir = new Vector3(m_DirX, 0.0f, 0.0f);
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;

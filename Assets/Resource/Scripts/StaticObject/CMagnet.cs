@@ -6,9 +6,9 @@ public class CMagnet : CStaticObject
 {
     public enum MagnetType
     {
-        Normal = 0,        
-        NPole = 1,
-        SPole = 2,
+        Normal = 2,        
+        NPole = 0,
+        SPole = 1,
     }
 
     [SerializeField] private float m_Force;

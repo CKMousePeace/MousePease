@@ -384,6 +384,7 @@ MonoBehaviour:
   m_StartPosX: -3
   m_EndPosX: 17
   m_CameraLimitY: 10
+  m_CameraPosYSpeed: 0
   m_fSpeed: 0.1
 --- !u!114 &565279447
 MonoBehaviour:
@@ -418,6 +419,17 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1030035890 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8771119827405689142, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+  m_PrefabInstance: {fileID: 3545175931829563265}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d58f88bd41ee24c9369cbde616aa46, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305088854
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,6 +741,14 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8771119825539923029, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_DashTime
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119825539923029, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_ColliderChecker
+      value: 
+      objectReference: {fileID: 1030035890}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -857,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5290270615044924572, guid: 8d545d9b907370c4a8e8bc9789452156, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.55
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5290270615044924572, guid: 8d545d9b907370c4a8e8bc9789452156, type: 3}
       propertyPath: m_LocalPosition.z

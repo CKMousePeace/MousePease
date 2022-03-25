@@ -8,8 +8,8 @@ public class CJump : CControllerBase
     [SerializeField] private CColliderChecker m_ColliderChecker;
     [SerializeField] private float m_JumpTime;
 
-    private bool m_isDoubleJump = false;
-    private bool m_isJump = false;
+    public bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool m_isJump = false;       //체크            플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     private float m_CurrentJumpTime;
     private float m_beforeJumpTime;
     

@@ -78,9 +78,6 @@ Recordings by David at Track Time Audio.</value>
 		</relationship>
 	</object>
 	<object class="MixerInput" id="{23bbdaf8-e6d7-41d5-8f7a-bbd854aa6a6c}">
-		<relationship name="masters">
-			<destination>{62d29c9d-bd2f-46ac-8dea-c37c666f3cfd}</destination>
-		</relationship>
 		<relationship name="effectChain">
 			<destination>{2ec4c27a-6772-4ae4-924c-86c827f5cda8}</destination>
 		</relationship>

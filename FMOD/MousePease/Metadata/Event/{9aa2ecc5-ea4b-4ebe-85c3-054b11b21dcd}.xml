@@ -72,9 +72,6 @@ https://www.fmod.com/resources/documentation-studio?page=advanced-topics.html#ke
 		</relationship>
 	</object>
 	<object class="MixerInput" id="{03f92815-b960-4318-aeca-8034c13ec3f2}">
-		<relationship name="masters">
-			<destination>{62d29c9d-bd2f-46ac-8dea-c37c666f3cfd}</destination>
-		</relationship>
 		<relationship name="effectChain">
 			<destination>{c22e5355-cc4a-43b4-988c-d26d18e70f4a}</destination>
 		</relationship>

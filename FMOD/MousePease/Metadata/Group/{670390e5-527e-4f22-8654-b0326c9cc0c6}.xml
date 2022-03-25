@@ -2,8 +2,11 @@
 <objects serializationModel="Studio.02.01.00">
 	<object class="MixerGroup" id="{670390e5-527e-4f22-8654-b0326c9cc0c6}">
 		<property name="name">
-			<value>UI</value>
+			<value>BGM</value>
 		</property>
+		<relationship name="masters">
+			<destination>{4a4cd58e-8456-449c-908a-6e57575c7c0a}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{3fe8b833-ece6-4a31-a7a3-44ed0e82b1fc}</destination>
 		</relationship>
@@ -11,7 +14,7 @@
 			<destination>{3cc9c7e5-121a-481e-bc88-5e4148a54b99}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{af9d027a-3a1f-49a8-a9ef-4cbe20673632}</destination>
+			<destination>{7e33a2b3-db05-4b7a-ba1e-e862f2bfde36}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{3fe8b833-ece6-4a31-a7a3-44ed0e82b1fc}">

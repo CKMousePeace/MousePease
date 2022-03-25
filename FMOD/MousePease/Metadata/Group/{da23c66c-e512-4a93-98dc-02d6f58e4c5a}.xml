@@ -4,9 +4,6 @@
 		<property name="name">
 			<value>Explosions</value>
 		</property>
-		<relationship name="masters">
-			<destination>{3f0b7d64-e765-400e-ae74-c2d973ad4ca1}</destination>
-		</relationship>
 		<relationship name="effectChain">
 			<destination>{30990ff2-375e-47f6-b140-60c0fa26843b}</destination>
 		</relationship>

@@ -15,8 +15,8 @@ public class CPlayerMovement : CControllerBase
 
     private float m_PlayerYaw = 90.0f;
     private bool m_isRun = false;
-    private float m_currentSpeed;
-    
+    public float m_currentSpeed;
+
     private Vector3 m_beforeDir = Vector3.zero;
 
     private void Update()
@@ -26,9 +26,8 @@ public class CPlayerMovement : CControllerBase
     }
 
     // 달리는 함수입니다.
-    private void Movement()
+    public void Movement()
     {
-
         var DirX = Input.GetAxisRaw("Horizontal");
         Running(DirX);
         if (DirX == 0.0f)

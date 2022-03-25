@@ -35,13 +35,13 @@ public class CPlatform : MonoBehaviour
     [SerializeField] private float m_RespawnTime = 1.0f;
 
     //[Header("점프 관성 포함")]
-    private bool m_JumpInertia = false;
+    //private bool m_JumpInertia = false;
 
     private float m_JumpInertiaValue;                                            //jumpInertia이 true일 때 점프력에 가감해줄 값
 
     private int m_Cur = 1;                                                       //Current route number                         현재 가야할 경로 번호
     private bool m_Back = false;                                                 //Make sure you have arrived at your current destination and are returning 현재 목적지에 도착하고 돌아가고 있는지 확인
-    private bool m_movingOn = false;                                             //check moving                             현재 움직이고 있는지. m_awakeStart가 false 때 필요
+    //private bool m_movingOn = false;                                             //check moving                             현재 움직이고 있는지. m_awakeStart가 false 때 필요
 
     private bool m_playerCheck = false;                                          //Checking player is on the floor     플레이어 캐릭터가 탑승했는지
     private GameObject m_player;                                                 //correct the player component        플레이어 캐릭터를 찾고 컴포넌트들을 수집
@@ -74,7 +74,7 @@ public class CPlatform : MonoBehaviour
         }
         if (m_AwakeStart)                                                                       //If m_awakeStart is true, it will start moving immediately.     m_awakeStart가 true라면 바로 움직이게 한다.
         {
-            m_movingOn = true;
+            //m_movingOn = true;
             StartCoroutine(Move());
         }
     }
@@ -169,7 +169,7 @@ public class CPlatform : MonoBehaviour
         {
             m_playerCheck = true;                           //Player is on the platform 플레이어가 탑승
             //Player.transform.SetParent(transform,false);
-            Player.transform.parent = transform;            //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
+           // Player.transform.parent = transform;            //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
 
             if (m_PlatformDes == true)                      //if the platform destination is enabled... then start coroutine. m_PlatformDes 가 활성화 되어있으면 삭제 코루틴 실행
             {
@@ -184,7 +184,7 @@ public class CPlatform : MonoBehaviour
         {
             m_playerCheck = false;
             //Player.transform.SetParent(null, false);
-            Player.transform.parent = null;         //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
+            //Player.transform.parent = null;         //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
 
             //if (m_JumpInertia)                    //점프 관성이 켜져있다면 위에서 구해둔 값을 가감한다. 지금은 사용하지 않는다.
         }
@@ -204,7 +204,7 @@ public class CPlatform : MonoBehaviour
     IEnumerator DestroyWaitForHold()          //위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
     {
         yield return new WaitForSeconds(m_DestroyTime);
-        Player.transform.parent = null;
+       // Player.transform.parent = null;
         this.gameObject.SetActive(false);     //비활성화만 시켜준다.
 
         Invoke("Respawn", m_RespawnTime);     //재생성 대기시간만큼 Invoke함수로 대기시킨다.
@@ -219,7 +219,7 @@ public class CPlatform : MonoBehaviour
         m_Cur = 1;
         transform.position = m_firstPos;
         m_Back = false;
-        m_movingOn = false;
+        //m_movingOn = false;
         m_playerCheck = false;
         this.enabled = true;
         this.gameObject.SetActive(true);

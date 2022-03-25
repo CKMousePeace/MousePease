@@ -57,7 +57,7 @@ public class CNockBack : CBuffBase
         if (g_DynamicObject.g_Rigid.velocity.y <= 0)
         {
             // 레이케스트를 사용해서 아래에 물체가 있으면 버프가 종료 됩니다.
-            if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -Vector3.up, 0.3f))
+            if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -Vector3.up, 0.1f))
             {
                 gameObject.SetActive(false);
             }

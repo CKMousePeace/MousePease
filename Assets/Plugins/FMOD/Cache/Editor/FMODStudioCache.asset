@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Dialogue_CN.bank
   Name: Dialogue_CN
   StudioPath: bank:/Dialogue_CN
-  lastModified: 637838437480987793
+  lastModified: 637838428031153048
   FileSizes:
   - Name: Desktop
     Value: 52416
@@ -188,7 +188,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637838437481007740
+  lastModified: 637838428031183044
   FileSizes:
   - Name: Desktop
     Value: 15192
@@ -258,7 +258,7 @@ MonoBehaviour:
   - {fileID: -2937438210590170229}
   StringsBanks:
   - {fileID: 1500898631182137132}
-  cacheTime: 637838437481027687
+  cacheTime: 637838428031203042
   cacheVersion: 10
 --- !u!114 &1500898631182137132
 MonoBehaviour:
@@ -275,7 +275,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637838437481017716
+  lastModified: 637838428031183044
   FileSizes:
   - Name: Desktop
     Value: 2250
@@ -319,7 +319,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637838437481027687
+  lastModified: 637838428031203042
   FileSizes:
   - Name: Desktop
     Value: 168064
@@ -419,7 +419,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 637838437481017716
+  lastModified: 637838428031193041
   FileSizes:
   - Name: Desktop
     Value: 30496
@@ -439,7 +439,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Dialogue_JP.bank
   Name: Dialogue_JP
   StudioPath: bank:/Dialogue_JP
-  lastModified: 637838437481007740
+  lastModified: 637838428031173048
   FileSizes:
   - Name: Desktop
     Value: 66560
@@ -543,7 +543,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Dialogue_EN.bank
   Name: Dialogue_EN
   StudioPath: bank:/Dialogue_EN
-  lastModified: 637838437480997767
+  lastModified: 637838428031163048
   FileSizes:
   - Name: Desktop
     Value: 61120

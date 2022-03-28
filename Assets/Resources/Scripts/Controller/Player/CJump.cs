@@ -79,10 +79,16 @@ public class CJump : CControllerBase
     private void ColliderStay(Collision collder)
     {
         if (!gameObject.activeInHierarchy) return;
-        var extents = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
+        var extentsy = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
+        var extentsx = new Vector3(m_ColliderChecker.g_Collider.bounds.extents.x, 0.0f, 0.0f);
 
-        Debug.DrawRay(m_Actor.transform.position - (extents * 0.9f), Vector3.down * 0.3f);
-        if (Physics.Raycast(m_Actor.transform.position - (extents * 0.9f), Vector3.down, 0.3f))
+        Debug.DrawRay(m_Actor.transform.position - (extentsy * 0.9f), Vector3.down * 0.5f);
+        Debug.DrawRay(m_Actor.transform.position - (extentsy * 0.9f + extentsx), Vector3.down * 0.5f); 
+        Debug.DrawRay(m_Actor.transform.position - (extentsy * 0.9f - extentsx), Vector3.down * 0.5f);
+
+        if (Physics.Raycast(m_Actor.transform.position - (extentsy * 0.9f), Vector3.down, 0.5f) || 
+            Physics.Raycast(m_Actor.transform.position - (extentsy * 0.9f + extentsx), Vector3.down, 0.5f) ||
+            Physics.Raycast(m_Actor.transform.position - (extentsy * 0.9f - extentsx), Vector3.down, 0.5f))
         {
             gameObject.SetActive(false);
         }
@@ -135,7 +141,7 @@ public class CJump : CControllerBase
     // trigger을 킬지 말지 정하는 함수 입니다.
     private void TriggerCheck()
     {
-        if ((!m_isJump) && m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.1f)
+        if ((!m_isJump) && m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.0f)
         {
             if (!m_Actor.CompareController("DownJump"))
                 m_ColliderChecker.g_Collider.isTrigger = false;

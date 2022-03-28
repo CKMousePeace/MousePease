@@ -35,6 +35,7 @@ public class CPlayerMovement : CControllerBase
             if (m_currentSpeed == 0.0f)
             {
                 m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / (m_fRunningSpeed + m_fSpeed)));
+                FMODUnity.RuntimeManager.PlayOneShot("event:/SFX/Character player/Player Footsteps");
                 return;
             }
         }

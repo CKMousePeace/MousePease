@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CSmash: CControllerBase
 {
-    [SerializeField] private float m_Speed = 0;
+    //[SerializeField] private float m_Speed = 0;
 
     public override void init(CDynamicObject actor)
     {

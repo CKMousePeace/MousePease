@@ -3,21 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public class CSoundBankFor_ : MonoBehaviour
+public class CSoundBankForPlayer : MonoBehaviour
 {
 
-    public static CSoundBankFor_ instance;
+    public static CSoundBankForPlayer instance;
 
     [SerializeField]
     [EventRef]
-    public string g_SomeThingSound = null;
+    public string g_PlayerFootStep = null;
 
-    public void YesIamTestBoi()
+
+    private void Awake()
     {
-        if (g_SomeThingSound != null)
-        {
+        instance = this;
+    }
 
-            RuntimeManager.PlayOneShot(g_SomeThingSound);
+
+    public void PlayerStep()
+    {
+        if (g_PlayerFootStep != null)
+        {
+            RuntimeManager.PlayOneShot(g_PlayerFootStep);
         }
     }
 

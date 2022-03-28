@@ -1,5 +1,28 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+<<<<<<< HEAD
+=======
+--- !u!114 &-8682409317912779332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Dialogue_CN.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/MousePease/Build/Desktop/Dialogue_CN.bank
+  Name: Dialogue_CN
+  StudioPath: bank:/Dialogue_CN
+  lastModified: 637841079879433561
+  FileSizes:
+  - Name: Desktop
+    Value: 52416
+  Exists: 1
+>>>>>>> Graphic/Environment
 --- !u!114 &-7167379516905108213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,7 +191,11 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
+<<<<<<< HEAD
   lastModified: 637840985137288807
+=======
+  lastModified: 637841079016209509
+>>>>>>> Graphic/Environment
   FileSizes:
   - Name: Desktop
     Value: 15192
@@ -236,7 +263,11 @@ MonoBehaviour:
   - {fileID: -2937438210590170229}
   StringsBanks:
   - {fileID: 1500898631182137132}
+<<<<<<< HEAD
   cacheTime: 637841020911349751
+=======
+  cacheTime: 637841079879495416
+>>>>>>> Graphic/Environment
   cacheVersion: 10
 --- !u!114 &1500898631182137132
 MonoBehaviour:
@@ -253,7 +284,11 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
+<<<<<<< HEAD
   lastModified: 637841020911329745
+=======
+  lastModified: 637841079879465381
+>>>>>>> Graphic/Environment
   FileSizes:
   - Name: Desktop
     Value: 2160
@@ -299,7 +334,11 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
+<<<<<<< HEAD
   lastModified: 637841020911349751
+=======
+  lastModified: 637841079879495416
+>>>>>>> Graphic/Environment
   FileSizes:
   - Name: Desktop
     Value: 167200
@@ -401,12 +440,39 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
+<<<<<<< HEAD
   lastModified: 637840985137298816
   FileSizes:
   - Name: Desktop
     Value: 30496
   - Name: HTML5
     Value: 30496
+=======
+  lastModified: 637841079016237799
+  FileSizes:
+  - Name: Desktop
+    Value: 30496
+  Exists: 1
+--- !u!114 &5001753464643198260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Dialogue_JP.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/MousePease/Build/Desktop/Dialogue_JP.bank
+  Name: Dialogue_JP
+  StudioPath: bank:/Dialogue_JP
+  lastModified: 637841079879460095
+  FileSizes:
+  - Name: Desktop
+    Value: 66560
+>>>>>>> Graphic/Environment
   Exists: 1
 --- !u!114 &5021777006511647522
 MonoBehaviour:
@@ -492,6 +558,29 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+<<<<<<< HEAD
+=======
+--- !u!114 &7342440529633068488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Dialogue_EN.bank
+  m_EditorClassIdentifier: 
+  Path: FMOD/MousePease/Build/Desktop/Dialogue_EN.bank
+  Name: Dialogue_EN
+  StudioPath: bank:/Dialogue_EN
+  lastModified: 637841079879443691
+  FileSizes:
+  - Name: Desktop
+    Value: 61120
+  Exists: 1
+>>>>>>> Graphic/Environment
 --- !u!114 &7532843842068019988
 MonoBehaviour:
   m_ObjectHideFlags: 0

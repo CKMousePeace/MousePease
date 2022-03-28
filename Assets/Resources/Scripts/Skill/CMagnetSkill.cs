@@ -201,11 +201,18 @@ public class CMagnetSkill : CSkillBase
 
                 //m_ForceDirection == Vector3.zero 일때 만 읽히게 하기 위해서
                 //척력 발생시 중력값 적용
-                if (Dist >= 0.1f && m_ForceDirection == Vector3.zero)
+                if (Dist >= 0.1f)
                 {
-                    var Dir = (m_Actor.transform.position - magnet.transform.position).normalized;
-                    m_Actor.g_Rigid.AddForce(Dir * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
-                    m_Actor.g_Rigid.useGravity = true;
+                    if (m_ForceDirection == Vector3.zero)
+                    {
+                        var Dir = (m_Actor.transform.position - magnet.transform.position).normalized;
+                        m_Actor.g_Rigid.AddForce(Dir * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
+                        m_Actor.g_Rigid.useGravity = true;
+                    }
+                    else
+                    {
+                        m_ForceDirection = Vector3.zero;
+                    }
                 }
                 else
                 {

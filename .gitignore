@@ -71,6 +71,9 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+/[Aa]ssets/Resources/Scenes/TestScene.unity
+/[Aa]ssets/Resources/Scenes/TestScene.unity.meta
+
 
 # FMOD ignore 추가
 # Never ignore DLLs in the FMOD subfolder.

@@ -61,9 +61,11 @@ public class CPlayerMovement : CControllerBase
             if (!Physics.Raycast(m_Actor.transform.position + (DirX * extents), transform.forward, 0.1f, m_LayerMask))
             {                
                 m_Actor.transform.position += m_beforeDir * m_currentSpeed * Time.deltaTime;
-                m_Actor.g_Animator.SetFloat("Walking" , Mathf.Abs(m_currentSpeed / (m_fRunningSpeed + m_fSpeed)));                
+                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / (m_fRunningSpeed + m_fSpeed)));              
             }
-        }        
+
+
+        }
     }
 
     // y축 angle을 변경하는 함수 입니다.

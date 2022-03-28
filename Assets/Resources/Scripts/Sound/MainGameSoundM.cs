@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 
-public class CSoundBankForPlayer : MonoBehaviour
+public class MainGameSoundM : MonoBehaviour
 {
 
-    public static CSoundBankForPlayer instance;
+    public static MainGameSoundM instance;
 
     [SerializeField]
     [EventRef]
-    public string g_PlayerFootStep = null;
+    private string g_PlayerFootStep = null;
 
-
-    private void Awake()
-    {
-        instance = this;
-    }
+        private void Awake()
+        {
+            instance = this;
+        }
 
 
     public void PlayerStep()
@@ -26,7 +25,5 @@ public class CSoundBankForPlayer : MonoBehaviour
             RuntimeManager.PlayOneShot(g_PlayerFootStep);
         }
     }
-
-    //위와 같은 방법으로 사운드 뽑아오기
 
 }

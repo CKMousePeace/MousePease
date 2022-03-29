@@ -34,23 +34,13 @@ public class CPlatform : MonoBehaviour
     [Header("재생성 시간")]
     [SerializeField] private float m_RespawnTime = 1.0f;
 
-    //[Header("점프 관성 포함")]
-    //private bool m_JumpInertia = false;
-
-    private float m_JumpInertiaValue;                                            //jumpInertia이 true일 때 점프력에 가감해줄 값
-
     private int m_Cur = 1;                                                       //Current route number                         현재 가야할 경로 번호
     private bool m_Back = false;                                                 //Make sure you have arrived at your current destination and are returning 현재 목적지에 도착하고 돌아가고 있는지 확인
-    //private bool m_movingOn = false;                                             //check moving                             현재 움직이고 있는지. m_awakeStart가 false 때 필요
-
-    private bool m_playerCheck = false;                                          //Checking player is on the floor     플레이어 캐릭터가 탑승했는지
-    private GameObject m_player;                                                 //correct the player component        플레이어 캐릭터를 찾고 컴포넌트들을 수집
-    private CJump m_playerScript;
-    public GameObject Player;
 
     Vector3[] m_Pos;                                                             //m_relativeMovePoint값을 토대로 변환한 실제 월드좌표를 가지고 있는 배열
 
     Vector3 m_firstPos = Vector3.zero;                                           //for OnDrawGizmos 게임 시작 상태를 파악하고 초기 좌표를 저장
+
 
     void Awake()
     {
@@ -58,12 +48,6 @@ public class CPlatform : MonoBehaviour
         {
             Destroy(this);
             return;
-        }
-
-        m_player = GameObject.Find("Jump");                                      //find play character.
-        if (m_player)
-        {
-            m_playerScript = m_player.GetComponent<CJump>();
         }
 
         m_Pos = new Vector3[m_RelativeMovePoint.Length + 1];                                    //The reason we do +1 is because we have to store up to the first coordinates. +1? 최초 좌표 저장
@@ -74,7 +58,6 @@ public class CPlatform : MonoBehaviour
         }
         if (m_AwakeStart)                                                                       //If m_awakeStart is true, it will start moving immediately.     m_awakeStart가 true라면 바로 움직이게 한다.
         {
-            //m_movingOn = true;
             StartCoroutine(Move());
         }
     }
@@ -122,21 +105,9 @@ public class CPlatform : MonoBehaviour
             }
             else                                                  //The platform is moving unless it arrives at a stopover. 경유지에 도착한게 아니라면 이동 중이다.
             {
-                //Vector3 prevPos = transform.position;  //이동 직전 좌표를 임시로 저장한다.
 
                 transform.position = Vector3.MoveTowards(transform.position, m_Pos[m_Cur], m_Speed * Time.deltaTime); //move towards the destination. 목적지를 향해 이동한다.
-                if (m_playerCheck)
-                {
-                    //if (m_playerScript.m_isJump == false)  //플레이어가 점프 도중이 아닌 제대로 타고 있다면
-                    ////{
-                    //Player.transform.position = (gameObject.transform.position - prevPos);    //이동 후 좌표에서 이동 직전 좌표를 뺀만큼 플레이어 캐릭터를 이동시킨다.
-                    ////Player.transform.position = (new Vector3(0, -2.0f * Time.deltaTime, 0));
-
-
-                    //if (m_JumpInertia == true)
-                    //        m_JumpInertiaValue = ((m_Pos[m_Cur] - transform.position).normalized * m_Speed).y;  //deltatime을 곱하지 않은 그대로의 속도에서 y값만 취한다.
-                    ////}
-                }
+ 
                 yield return delay;
             }
         }
@@ -167,9 +138,6 @@ public class CPlatform : MonoBehaviour
     {
         if (Col.collider.CompareTag("Player"))
         {
-            m_playerCheck = true;                           //Player is on the platform 플레이어가 탑승
-            //Player.transform.SetParent(transform,false);
-           // Player.transform.parent = transform;            //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
 
             if (m_PlatformDes == true)                      //if the platform destination is enabled... then start coroutine. m_PlatformDes 가 활성화 되어있으면 삭제 코루틴 실행
             {
@@ -177,21 +145,6 @@ public class CPlatform : MonoBehaviour
             }
         }
     }
-
-    private void OnCollisionExit(Collision Col)
-    {
-        if (Col.collider.CompareTag("Player"))
-        {
-            m_playerCheck = false;
-            //Player.transform.SetParent(null, false);
-            //Player.transform.parent = null;         //Fixed the character to move when stepping on the footrest using Parent Parent 이용하여 발판 밟았을 시 캐릭터 이동하게 수정
-
-            //if (m_JumpInertia)                    //점프 관성이 켜져있다면 위에서 구해둔 값을 가감한다. 지금은 사용하지 않는다.
-        }
-    }
-
-
-
 
     private void DestroyWait()                //A function that is called when it needs to disappear after reaching the final destination from above. 위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
     {
@@ -212,15 +165,11 @@ public class CPlatform : MonoBehaviour
     }
 
 
-
-
     private void Respawn()                     //Rebuild initialization. Initialize all values and re-enable them.   재생성 초기화. 모든 값을 초기화, 다시 활성화 시킨다.
     {
         m_Cur = 1;
         transform.position = m_firstPos;
         m_Back = false;
-        //m_movingOn = false;
-        m_playerCheck = false;
         this.enabled = true;
         this.gameObject.SetActive(true);
         StartCoroutine(Move());

@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class CWayPoint : CControllerBase
 {
+
+
     public float g_speed = 5f;
     private Transform m_Target;
     private int m_WayIndex = 0;
     [SerializeField] private GameObject m_Walk;
-
 
     public override void init(CDynamicObject actor)
     {
@@ -58,6 +59,14 @@ public class CWayPoint : CControllerBase
         {
             Destroy(gameObject);
             return;
+        }
+
+        if (m_WayIndex == 2)        
+            //In the case of the 3nd index, adjust and speed up with Anime Run.  3번째 인덱스일경우 애니메 Run 으로 조정 및 속도 증가
+        {
+            m_Actor.g_Animator.SetTrigger("Run");
+            g_speed = 4;
+
         }
 
         m_WayIndex++;

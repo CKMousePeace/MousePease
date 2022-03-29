@@ -28,7 +28,7 @@ public class CDeadZone : CControllerBase
 
     IEnumerator AttackDelay()
     {
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(1.0f);
         Destroy(GameObject.FindGameObjectWithTag("Player"));
 
     }

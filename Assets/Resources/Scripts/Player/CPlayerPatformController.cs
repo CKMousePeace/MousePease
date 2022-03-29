@@ -17,6 +17,8 @@ public class CPlayerPatformController : CControllerBase
     {
         m_ColliderChecker.m_ColliderStay += ColliderStay;
     }
+
+
     public override void init(CDynamicObject actor)
     {
         base.init(actor);
@@ -42,7 +44,7 @@ public class CPlayerPatformController : CControllerBase
             m_IsGrounded = true;
 
         }
-        else m_IsGrounded = false; 
+        else m_IsGrounded = false;
     }
 
 

@@ -66,11 +66,6 @@ public class CMagnetSkill : CSkillBase
     {
         if (m_magnetType == CMagnet.MagnetType.Normal)
         {
-            // normal일때 대쉬 knockback이 없을 경우 중력값 활성화
-            if (!m_Actor.CompareController("Dash") || !m_Actor.CompareBuff("KnockBack"))
-            {
-                m_Actor.g_Rigid.useGravity = true;
-            }
             return;
         }
 

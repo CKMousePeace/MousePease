@@ -178,6 +178,11 @@ public class CMagnetSkill : CSkillBase
             m_Actor.transform.position += Dir * (m_ChoiceMagnet.g_Force - Dist) * Time.deltaTime;
             m_Actor.g_Rigid.useGravity = false;
             m_Actor.g_Rigid.velocity = Vector3.zero;
+
+            if (m_Actor.CompareController("Dash"))
+            {
+                 m_Actor.DestroyController("Dash");
+            }
             if (Dist > m_ChoiceMagnet.g_Force * 0.5f )
             {
                 m_ChoiceMagnet = null;
@@ -202,7 +207,7 @@ public class CMagnetSkill : CSkillBase
                     {
                         var Dir = (m_Actor.transform.position - magnet.transform.position).normalized;
                         m_Actor.g_Rigid.AddForce(Dir * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;
+                        m_Actor.g_Rigid.useGravity = true;                        
                     }
                     else
                     {
@@ -219,10 +224,14 @@ public class CMagnetSkill : CSkillBase
                     }
                     else if (m_ForceDirection != Vector3.zero)
                     {
-                        m_Actor.g_Rigid.AddForce(m_ForceDirection * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;
+                        m_Actor.g_Rigid.AddForce(m_ForceDirection * ((magnet.g_Force * 5.0f) - Dist), ForceMode.Force);
+                        m_Actor.g_Rigid.useGravity = true;                       
                     }
+
                 }
+
+                if (m_Actor.CompareController("Dash"))
+                    m_Actor.DestroyController("Dash");
             }
         }
     }

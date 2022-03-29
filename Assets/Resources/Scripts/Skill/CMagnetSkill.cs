@@ -201,7 +201,7 @@ public class CMagnetSkill : CSkillBase
 
                 //m_ForceDirection == Vector3.zero 일때 만 읽히게 하기 위해서
                 //척력 발생시 중력값 적용
-                if (Dist >= 0.1f)
+                if (Dist >= 0.5f)
                 {
                     if (m_ForceDirection == Vector3.zero)
                     {

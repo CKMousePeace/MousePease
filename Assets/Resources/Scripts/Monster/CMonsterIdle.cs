@@ -13,16 +13,15 @@ public class CMonsterIdle : CControllerBase
 
     protected void OnEnable()
     {
-        Debug.Log("몬스터 상태 : idle Start");
+        m_Actor.g_Animator.SetTrigger("Idle");
     }
     protected void OnDisable()
     {
-        Debug.Log("몬스터 상태 : idle End");
     }
 
     private void Update()
     {
-        m_Actor.g_Animator.SetBool("Mon_Idel", true);
+        
         // 읽힘
     }
 }

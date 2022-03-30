@@ -17,8 +17,8 @@ public class CDeadZone : CControllerBase
     {
         if (col.CompareTag("Player"))
         {
-            CWayPoint cWayPoint = GameObject.Find("WayPointFollower").GetComponent<CWayPoint>();
-            cWayPoint.g_speed = 0;
+            //CWayPoint cWayPoint = GameObject.Find("WayPointFollower").GetComponent<CWayPoint>();
+            //cWayPoint.g_speed = 0;
             m_Actor.g_Animator.SetTrigger("AttackReady01");
 
             StartCoroutine(AttackDelay());

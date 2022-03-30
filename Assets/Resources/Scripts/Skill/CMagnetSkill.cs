@@ -66,11 +66,6 @@ public class CMagnetSkill : CSkillBase
     {
         if (m_magnetType == CMagnet.MagnetType.Normal)
         {
-            // normal일때 대쉬 knockback이 없을 경우 중력값 활성화
-            if (!m_Actor.CompareController("Dash") || !m_Actor.CompareBuff("KnockBack"))
-            {
-                m_Actor.g_Rigid.useGravity = true;
-            }
             return;
         }
 
@@ -183,6 +178,11 @@ public class CMagnetSkill : CSkillBase
             m_Actor.transform.position += Dir * (m_ChoiceMagnet.g_Force - Dist) * Time.deltaTime;
             m_Actor.g_Rigid.useGravity = false;
             m_Actor.g_Rigid.velocity = Vector3.zero;
+
+            if (m_Actor.CompareController("Dash"))
+            {
+                 m_Actor.DestroyController("Dash");
+            }
             if (Dist > m_ChoiceMagnet.g_Force * 0.5f )
             {
                 m_ChoiceMagnet = null;
@@ -201,13 +201,13 @@ public class CMagnetSkill : CSkillBase
 
                 //m_ForceDirection == Vector3.zero 일때 만 읽히게 하기 위해서
                 //척력 발생시 중력값 적용
-                if (Dist >= 0.1f)
+                if (Dist >= 0.5f)
                 {
                     if (m_ForceDirection == Vector3.zero)
                     {
                         var Dir = (m_Actor.transform.position - magnet.transform.position).normalized;
                         m_Actor.g_Rigid.AddForce(Dir * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;
+                        m_Actor.g_Rigid.useGravity = true;                        
                     }
                     else
                     {
@@ -224,10 +224,14 @@ public class CMagnetSkill : CSkillBase
                     }
                     else if (m_ForceDirection != Vector3.zero)
                     {
-                        m_Actor.g_Rigid.AddForce(m_ForceDirection * ((magnet.g_Force * 2.0f) - Dist), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;
+                        m_Actor.g_Rigid.AddForce(m_ForceDirection * ((magnet.g_Force * 5.0f) - Dist), ForceMode.Force);
+                        m_Actor.g_Rigid.useGravity = true;                       
                     }
+
                 }
+
+                if (m_Actor.CompareController("Dash"))
+                    m_Actor.DestroyController("Dash");
             }
         }
     }

@@ -71,7 +71,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-
+/[Aa]ssets/Resources/scenes/TestScene.unity
+/[Aa]ssets/Resources/scenes/TestScene.unity.meta
 
 
 

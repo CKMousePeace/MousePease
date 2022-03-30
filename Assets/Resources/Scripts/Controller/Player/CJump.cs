@@ -8,8 +8,13 @@ public class CJump : CControllerBase
     [SerializeField] private CColliderChecker m_ColliderChecker;
     [SerializeField] private float m_JumpTime;
 
-    public bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
-    public bool m_isJump = false;       //체크            플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+
+    public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+
+
     private float m_CurrentJumpTime;
     private float m_beforeJumpTime;
     
@@ -25,7 +30,11 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        
+        if (m_Actor.CompareController("Dash"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         m_Actor.g_Animator.SetTrigger("Jump");
         m_Actor.g_Animator.SetBool("isGround" , false);
         StartCoroutine(JumpStart());
@@ -36,6 +45,7 @@ public class CJump : CControllerBase
     {
         if (m_Actor == null) return;
 
+        m_ColliderChecker.g_Collider.isTrigger = false;
         m_Actor.g_Animator.SetBool("isGround", true);        
         m_isJump = false;
         m_isDoubleJump = false;
@@ -44,7 +54,12 @@ public class CJump : CControllerBase
     }
 
     private void Update()
-    {
+    {        
+        if (m_Actor.CompareController("Dash"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         Jump();
         TriggerCheck();
     }

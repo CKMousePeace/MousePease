@@ -57,7 +57,7 @@ public class CPlayerPatformController : CControllerBase
         {
             if (m_IsGrounded == true
                 && Movement.GetComponent<CPlayerMovement>().m_currentSpeed == 0
-                && Jump.GetComponent<CJump>().m_isJump == false)
+                && Jump.GetComponent<CJump>().g_isJump == false)
             {
 
                 m_Actor.transform.position = m_Platform.transform.position - m_Distance;

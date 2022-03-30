@@ -7,17 +7,15 @@ public class CJump : CControllerBase
     [SerializeField] private float m_fForce;
     [SerializeField] private CColliderChecker m_ColliderChecker;
     [SerializeField] private float m_JumpTime;
+    [SerializeField] private float m_StartForce;
 
     private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
 
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
-    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경    
 
 
-    private float m_CurrentJumpTime;
-    private float m_beforeJumpTime;
-    
     public override void init(CDynamicObject actor)
     {
         // 시작하자 마자 오브젝트를 꺼줍니다.
@@ -30,11 +28,12 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash"))
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack"))
         {
             gameObject.SetActive(false);
             return;
         }
+        m_Actor.g_Rigid.AddForce(Vector3.up * m_StartForce, ForceMode.Impulse);
         m_Actor.g_Animator.SetTrigger("Jump");
         m_Actor.g_Animator.SetBool("isGround" , false);
         StartCoroutine(JumpStart());
@@ -51,6 +50,7 @@ public class CJump : CControllerBase
         m_isDoubleJump = false;
         m_ColliderChecker.m_ColliderStay -= ColliderStay;
         m_ColliderChecker.m_TriggerEnter -= TriggerEnter;
+        m_isJump = false;
     }
 
     private void Update()
@@ -64,19 +64,21 @@ public class CJump : CControllerBase
         TriggerCheck();
     }
 
+    private void LateUpdate()
+    {
+        
+    }
+
 
     private IEnumerator JumpStart()
     {
         yield return new WaitUntil(() => {
 
-            if (m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).IsName("JumpStart") && m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.9f)
+            if (m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).IsName("JumpStart") && m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f)
             {
                 m_isJump = true;
                 m_ColliderChecker.g_Collider.isTrigger = true;
-                m_CurrentJumpTime = 0.0f;
-                m_beforeJumpTime = 0.0f;
-
-                m_Actor.g_Rigid.AddForce(Vector3.up * 3.0f, ForceMode.Impulse);
+                
                 m_ColliderChecker.m_ColliderStay += ColliderStay;
                 m_ColliderChecker.m_TriggerEnter += TriggerEnter;
                 return true;
@@ -121,24 +123,10 @@ public class CJump : CControllerBase
 
     //점프 적용하는 함수 입니다.
     private void Jump()
-    {
-        if (Input.GetKey(m_Key) && m_CurrentJumpTime <= 1.0f && m_isJump)
-        {
-            m_CurrentJumpTime += Time.deltaTime / m_JumpTime;
-            var deltaTime = m_CurrentJumpTime - m_beforeJumpTime;
-            if (m_CurrentJumpTime >= 1.0f)
-                deltaTime -= (m_CurrentJumpTime - 1.0f);
-
-
-            m_Actor.g_Rigid.AddForce(Vector3.up * (m_fForce * deltaTime) * 3.0f, ForceMode.Impulse);
-            m_beforeJumpTime = m_CurrentJumpTime;
-        }
-        else
-        {           
-            m_isJump = false;
-            DoubleJump();
-        }        
+    {        
+            DoubleJump();        
     }
+
 
     // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
@@ -156,7 +144,7 @@ public class CJump : CControllerBase
     // trigger을 킬지 말지 정하는 함수 입니다.
     private void TriggerCheck()
     {
-        if ((!m_isJump) && m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.0f)
+        if (m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.1f)
         {
             if (!m_Actor.CompareController("DownJump"))
                 m_ColliderChecker.g_Collider.isTrigger = false;
@@ -164,3 +152,30 @@ public class CJump : CControllerBase
     }
 
 }
+
+
+
+
+/*
+ * 
+ * 
+    private float m_CurrentJumpTime;
+    private float m_beforeJumpTime;
+    
+ * //if (Input.GetKey(m_Key) && m_CurrentJumpTime <= 1.0f && m_isJump)
+        //{
+        //    m_CurrentJumpTime += Time.deltaTime / m_JumpTime;
+        //    var deltaTime = m_CurrentJumpTime - m_beforeJumpTime;
+        //    if (m_CurrentJumpTime >= 1.0f)
+        //        deltaTime -= (m_CurrentJumpTime - 1.0f);
+        //
+        //
+        //    m_Actor.g_Rigid.AddForce(Vector3.up * (m_fForce * deltaTime) * 3.0f, ForceMode.Impulse);
+        //    m_beforeJumpTime = m_CurrentJumpTime;
+        //}
+        //else
+        //{           
+            //m_isJump = false;
+            DoubleJump();
+        //}        
+ */

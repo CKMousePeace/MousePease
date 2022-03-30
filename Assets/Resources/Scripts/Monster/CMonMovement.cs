@@ -41,7 +41,7 @@ public class CMonMovement : CControllerBase
             g_nav.SetDestination(g_PlayerTarget.transform.position);         
         }
 
-        else if ()
+        //else if ()
 
         else
         {

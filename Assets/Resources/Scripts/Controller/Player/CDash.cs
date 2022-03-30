@@ -67,20 +67,20 @@ public class CDash : CControllerBase
         float DashTime = Time.deltaTime / m_DashTime;        
         m_CurrentTime += DashTime;
         var MoveData = m_Dir * m_DashForce * DashTime;
-                
-
-        // 캡슐 케스트 를 이용해 충돌 체크
-        var capsuleCollider = (CapsuleCollider)m_ColliderChecker.g_Collider;
-
-        var p1 = m_Actor.transform.position + capsuleCollider.center + (m_Actor.transform.up * capsuleCollider.height * 0.5f);
-        var p2 = m_Actor.transform.position + capsuleCollider.center - (m_Actor.transform.up * capsuleCollider.height * 0.5f);
-
-
-        // 캡슐 케스트 사용
         
-        if (Physics.CapsuleCast(p1, p2, capsuleCollider.radius, m_Actor.transform.forward, 0.3f))
+        var Extents = m_ColliderChecker.g_Collider.bounds.extents;
+
+        var ExtentY = new Vector3(0.0f, Extents.y, 0.0f);
+        
+        
+
+
+        RaycastHit hit;
+        if (Physics.Linecast(m_Actor.transform.position + ExtentY * 0.5f , m_Actor.transform.position + MoveData + ExtentY * 0.5f, out hit) ||
+            Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit)
+            )
         {
-            
+             Debug.Log("충돌" + hit.transform.name);
             m_Actor.transform.position -= m_Actor.transform.forward * 0.1f;
             gameObject.SetActive(false);
             return;
@@ -95,25 +95,5 @@ public class CDash : CControllerBase
 
         m_Actor.transform.position += MoveData;        
     }
-
-
-    //기즈모를 이용한 충돌체크
-    //private void OnDrawGizmosSelected()
-    //{
-    //
-    //    var capsuleCollider = (CapsuleCollider)m_ColliderChecker.g_Collider;
-    //    if (capsuleCollider == null || m_Actor == null)
-    //    {
-    //        return;
-    //    }
-    //
-    //    var p1 = m_Actor.transform.position + capsuleCollider.center + (m_Actor.transform.up * capsuleCollider.height * 0.5f);
-    //    var p2 = m_Actor.transform.position + capsuleCollider.center - (m_Actor.transform.up * capsuleCollider.height * 0.5f);
-    //
-    //
-    //    Gizmos.DrawSphere(p1, capsuleCollider.radius);
-    //    Gizmos.DrawSphere(p2, capsuleCollider.radius);
-    //
-    //}
 
 }

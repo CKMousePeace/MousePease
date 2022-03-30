@@ -30,7 +30,11 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        
+        if (m_Actor.CompareController("Dash"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         m_Actor.g_Animator.SetTrigger("Jump");
         m_Actor.g_Animator.SetBool("isGround" , false);
         StartCoroutine(JumpStart());
@@ -49,7 +53,12 @@ public class CJump : CControllerBase
     }
 
     private void Update()
-    {
+    {        
+        if (m_Actor.CompareController("Dash"))
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         Jump();
         TriggerCheck();
     }

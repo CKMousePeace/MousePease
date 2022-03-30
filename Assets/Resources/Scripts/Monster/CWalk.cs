@@ -25,6 +25,7 @@ public class CWalk : CControllerBase
     protected void OnDisable()
     {
         if (m_Actor == null) return;
+        m_Actor.g_Animator.SetTrigger("Idle");
 
     }
 

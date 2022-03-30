@@ -45,6 +45,7 @@ public class CJump : CControllerBase
     {
         if (m_Actor == null) return;
 
+        m_ColliderChecker.g_Collider.isTrigger = false;
         m_Actor.g_Animator.SetBool("isGround", true);        
         m_isJump = false;
         m_isDoubleJump = false;

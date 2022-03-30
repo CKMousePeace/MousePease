@@ -6,17 +6,18 @@ using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 
 
 public class CMonMovement : CControllerBase
 {
-    private int g_currentNode = 0;
-
     [SerializeField] private NavMeshAgent g_nav;
     [SerializeField] private GameObject g_PlayerTarget;
     [SerializeField] private List<Transform> g_WayPoint = new List<Transform>();
-    [SerializeField] private GameObject Walk;
-
+    [SerializeField] private float m_fSpeed = 4;
+    [SerializeField] private float m_fRunningSpeed = 2;
+    private bool g_isMove = true;
+    private int g_currentNode = 0;
 
     private void Start()
     {
         g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
+        g_nav.autoBraking = false;
         g_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
 
         NextIndex();
@@ -30,14 +31,25 @@ public class CMonMovement : CControllerBase
 
     private void Update()
     {
+        //Debug.Log("isMove : " + g_isMove);
         if (g_PlayerTarget.activeSelf == true)
         {
+            Debug.Log("실행중");
             //BossMovement();
             BossWayPointer();
         }
         else
+        {
+            Debug.Log("중지중");
+            g_isMove = false;
+            g_nav.speed = 0;
+            g_currentNode = 0;
+            m_fSpeed = 0;
+            m_fRunningSpeed = 0;
+            m_Actor.g_Animator.SetBool("isMove", false);
             return;
-
+            
+        }
     }
 
     private void BossMovement()
@@ -45,13 +57,21 @@ public class CMonMovement : CControllerBase
 
         if(g_nav.destination != g_PlayerTarget.transform.position)
         {
-            Walk.gameObject.SetActive(true);
-            g_nav.SetDestination(g_PlayerTarget.transform.position);         
+            g_isMove = true;
+
+            g_nav.SetDestination(g_PlayerTarget.transform.position);
+
+            
+            if (g_isMove == true)
+            {
+
+                m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
+                NextIndex();
+            }
         }
 
         else
         {
-            Walk.gameObject.SetActive(false);
             g_nav.SetDestination(transform.position);
         }
 
@@ -60,26 +80,25 @@ public class CMonMovement : CControllerBase
     private void BossWayPointer()
     {
         
-        if (!g_nav.pathPending)
-        { //&& g_nav.remainingDistance < 1.0f
-            Walk.gameObject.SetActive(true);
-            NextIndex();
+        if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
+        { 
+            g_isMove = true;
+
+            if (g_isMove == true)
+            {
+                m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
+                NextIndex();
+            }
         }
-        //Execute if distance to destination is less than 1 or arrives 목적지까지의 거리가 1 이하 혹은 도착했으면 실행 
+        //Execute if distance to destination is less than 2 or arrives 목적지까지의 거리가 2 이하 혹은 도착했으면 실행 
 
         if (g_currentNode == g_WayPoint.Count)
         {
-            Debug.Log("현재 노드 : " + g_currentNode);
-            Debug.Log("웨이포인트 : " + g_WayPoint);
-            Debug.Log("웨이포인트 카운트 : " + g_WayPoint.Count);
             g_currentNode = 0;
         }
 
         //Arrive at the last note? -> Initialize.  마지막 노트에 도착? -> 초기화.
     }
-
-
-
 
     private void NextIndex()
     {

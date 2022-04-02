@@ -79,8 +79,8 @@ public class CMonMovement : CControllerBase
 
     private void BossWayPointer()
     {
-        
-        if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
+        // && g_nav.remainingDistance < 2.0f
+        if (!g_nav.pathPending)
         { 
             g_isMove = true;
 

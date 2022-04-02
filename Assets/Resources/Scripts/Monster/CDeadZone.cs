@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 선언
-                            //
+
 public class CDeadZone : CControllerBase
 {
     [SerializeField] private NavMeshAgent g_nav;
@@ -18,7 +18,6 @@ public class CDeadZone : CControllerBase
     {
         g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
     }
-
 
 
     private void OnTriggerEnter(Collider col)
@@ -38,7 +37,6 @@ public class CDeadZone : CControllerBase
     {
         yield return new WaitForSeconds(1.0f);
         Destroy(GameObject.FindGameObjectWithTag("Player"));
-
     }
 
 }

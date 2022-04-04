@@ -11,6 +11,9 @@ public class CMonMovement : CControllerBase
     [SerializeField] private List<Transform> g_WayPoint = new List<Transform>();
     [SerializeField] private float m_fSpeed = 4;
     [SerializeField] private float m_fRunningSpeed = 2;
+
+    [Tooltip("false = 일반 트래킹 / true = 웨이포인트")]
+    [SerializeField] private bool m_DebugTrackingMod = true;
     private bool g_isMove = true;
     private int g_currentNode = 0;
 
@@ -29,27 +32,49 @@ public class CMonMovement : CControllerBase
     }
 
 
-    private void Update()
+    private void FixedUpdate()
     {
-        //Debug.Log("isMove : " + g_isMove);
-        if (g_PlayerTarget.activeSelf == true)
+
+        if (m_DebugTrackingMod == false)
         {
-            Debug.Log("실행중");
-            //BossMovement();
-            BossWayPointer();
+
+            if (g_PlayerTarget.activeSelf == true)
+            {
+                BossMovement();
+            }
+            else
+            {
+                g_isMove = false;
+                g_nav.speed = 0;
+                g_currentNode = 0;
+                m_fSpeed = 0;
+                m_fRunningSpeed = 0;
+                m_Actor.g_Animator.SetBool("isMove", false);
+                return;
+
+            }
         }
-        else
+        else if (m_DebugTrackingMod == true)
         {
-            Debug.Log("중지중");
-            g_isMove = false;
-            g_nav.speed = 0;
-            g_currentNode = 0;
-            m_fSpeed = 0;
-            m_fRunningSpeed = 0;
-            m_Actor.g_Animator.SetBool("isMove", false);
-            return;
-            
+            //Debug.Log("isMove : " + g_isMove);
+            if (g_PlayerTarget.activeSelf == true)
+            {
+                BossWayPointer();
+
+            }
+            else
+            {
+                g_isMove = false;
+                g_nav.speed = 0;
+                g_currentNode = 0;
+                m_fSpeed = 0;
+                m_fRunningSpeed = 0;
+                m_Actor.g_Animator.SetBool("isMove", false);
+                return;
+
+            }
         }
+
     }
 
     private void BossMovement()
@@ -57,6 +82,7 @@ public class CMonMovement : CControllerBase
 
         if(g_nav.destination != g_PlayerTarget.transform.position)
         {
+            g_nav.autoBraking = true;
             g_isMove = true;
 
             g_nav.SetDestination(g_PlayerTarget.transform.position);
@@ -64,9 +90,7 @@ public class CMonMovement : CControllerBase
             
             if (g_isMove == true)
             {
-
                 m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
-                NextIndex();
             }
         }
 
@@ -80,15 +104,10 @@ public class CMonMovement : CControllerBase
     private void BossWayPointer()
     {
         // && g_nav.remainingDistance < 2.0f
-        if (!g_nav.pathPending)
-        { 
-            g_isMove = true;
-
-            if (g_isMove == true)
-            {
-                m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
-                NextIndex();
-            }
+        if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
+        {
+            NextIndex();
+    
         }
         //Execute if distance to destination is less than 2 or arrives 목적지까지의 거리가 2 이하 혹은 도착했으면 실행 
 
@@ -102,9 +121,17 @@ public class CMonMovement : CControllerBase
 
     private void NextIndex()
     {
+        g_isMove = true;
+        if (g_isMove == true)
+        {
+            m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
+
+        }
+
         g_nav.destination = g_WayPoint[g_currentNode].position;
         g_currentNode = (g_currentNode + 1);
         //moving position 위치 이동
+
 
     }
 

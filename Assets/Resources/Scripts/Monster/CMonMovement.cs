@@ -105,6 +105,8 @@ public class CMonMovement : CControllerBase
 
         }
 
+        //else if ()
+
         else
         {
             g_nav.SetDestination(transform.position);

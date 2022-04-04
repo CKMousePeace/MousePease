@@ -1255,6 +1255,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 7574264811215670287, guid: f334a25574856af418554a51b924fd90, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f334a25574856af418554a51b924fd90, type: 3}
 --- !u!1 &846201540 stripped
@@ -2992,6 +2996,18 @@ PrefabInstance:
     - target: {fileID: 8771119826289666463, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_magnetType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827098713568, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_fForce
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827098713568, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_StartForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827405689128, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder

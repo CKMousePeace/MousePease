@@ -24,8 +24,8 @@ public class CDeadZone : CControllerBase
     {
         if (col.CompareTag("Player"))
         {
-            g_nav.speed = 0;
-            m_Actor.g_Animator.SetBool("isMove", false);
+            //g_nav.speed = 0;
+            g_nav.velocity = Vector3.zero;
             m_Actor.g_Animator.SetTrigger("AttackReady01");
 
             StartCoroutine(AttackDelay());

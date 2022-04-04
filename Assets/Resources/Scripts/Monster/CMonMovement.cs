@@ -9,10 +9,8 @@ public class CMonMovement : CControllerBase
     [SerializeField] private NavMeshAgent g_nav;
     [SerializeField] private GameObject g_PlayerTarget;
     [SerializeField] private List<Transform> g_WayPoint = new List<Transform>();
-    [SerializeField] private float m_fSpeed = 4;
-    [SerializeField] private float m_fRunningSpeed = 2;
-    private bool g_isMove = true;
     private int g_currentNode = 0;
+
 
 
 
@@ -33,6 +31,8 @@ public class CMonMovement : CControllerBase
         g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
         g_nav.autoBraking = false;
         g_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
+
+        if(m_DebugTrackingMod == true)
         NextIndex();
     }
 
@@ -56,12 +56,10 @@ public class CMonMovement : CControllerBase
                 }
                 else
                 {
-                    g_isMove = false;
-                    g_nav.speed = 0;
+                    g_nav.autoBraking = true;
+                    g_nav.velocity = Vector3.zero;
                     g_currentNode = 0;
-                    m_fSpeed = 0;
-                    m_fRunningSpeed = 0;
-                    m_Actor.g_Animator.SetBool("isMove", false);
+
                     return;
 
                 }
@@ -76,12 +74,10 @@ public class CMonMovement : CControllerBase
                 }
                 else
                 {
-                    g_isMove = false;
-                    g_nav.speed = 0;
+                    g_nav.autoBraking = true;
+                    g_nav.velocity = Vector3.zero;
                     g_currentNode = 0;
-                    m_fSpeed = 0;
-                    m_fRunningSpeed = 0;
-                    m_Actor.g_Animator.SetBool("isMove", false);
+
                     return;
 
                 }
@@ -100,15 +96,13 @@ public class CMonMovement : CControllerBase
         if(g_nav.destination != g_PlayerTarget.transform.position)
         {
             g_nav.autoBraking = true;
-            g_isMove = true;
 
             g_nav.SetDestination(g_PlayerTarget.transform.position);
 
-            
-            if (g_isMove == true)
-            {
-                m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
-            }
+            float velocity = g_nav.velocity.magnitude;
+
+            m_Actor.g_Animator.SetFloat("Speed", velocity );
+
         }
 
         else
@@ -123,12 +117,7 @@ public class CMonMovement : CControllerBase
         // && g_nav.remainingDistance < 2.0f
         if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
         {
-            g_isMove = true;
-            if (g_isMove == true)
-            {
-                m_Actor.g_Animator.SetFloat("Speed", Mathf.Abs(g_nav.speed / (m_fRunningSpeed + m_fSpeed)));
 
-            }
             NextIndex();
     
         }
@@ -146,6 +135,9 @@ public class CMonMovement : CControllerBase
     {
         g_nav.autoBraking = false;
 
+        float velocity = g_nav.velocity.magnitude;
+
+        m_Actor.g_Animator.SetFloat("Speed", velocity);
 
         g_nav.destination = g_WayPoint[g_currentNode].position;
         g_currentNode = (g_currentNode + 1);

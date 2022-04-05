@@ -7,11 +7,19 @@ public class CRock : CStaticObject
 {
 
     [SerializeField]  private Vector3 startPos, endPos;
-    //땅에 닫기까지 걸리는 시간
+   //땅에 닫기까지 걸리는 시간
+
     [SerializeField] protected float timer;
+    [SerializeField] protected float Size;
+
+    float testboii;
+
+
 
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
+
+
 
     protected override void Start()
     {
@@ -22,6 +30,7 @@ public class CRock : CStaticObject
 
     private void Update()
     {
+
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -39,23 +48,35 @@ public class CRock : CStaticObject
     }
 
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    var actor = other.gameObject.GetComponent<CDynamicObject>();
-    //    if (actor == null) return;
-    //    // 맞은 오브젝트에게 상태를 전달 해줍니다.
-    //    actor.GenerateBuff("KnockBack", m_Buffinfo);
-    //}
 
 
-    private void OnCollisionEnter(Collision col)
+
+    private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        var actor = col.gameObject.GetComponent<CDynamicObject>();
+        if (actor == null) return;
+        
+
+        if (col.CompareTag("Player"))
         {
 
-            Debug.Log("충돌");
-
+            StartCoroutine("RockAttackReady");
+            actor.GenerateBuff("KnockBack", m_Buffinfo);
         }
+
+    }
+    IEnumerator RockAttackReady()
+    {
+
+        transform.localScale = Vector3.one * (1 + testboii);
+        testboii += Time.deltaTime;
+        if(testboii > 1f)
+        {
+            gameObject.SetActive(false);
+        }
+
+
+        yield return new WaitForSeconds(timer);
 
     }
 

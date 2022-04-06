@@ -5,37 +5,24 @@ using System;
 
 public class CRock : CStaticObject
 {
-
-   //[SerializeField]  private Vector3 startPos, endPos;
-   //땅에 닫기까지 걸리는 시간
+    //점점 줄어들 원 오브젝트
+    [SerializeField]  private GameObject DamageZone;
 
     //줄어드는 시간
-    [SerializeField] protected float m_timer;
+    [SerializeField]  private float m_timer;
 
-
-    //[SerializeField] protected float Size;
 
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
 
-
+    //플레이어가 타이머가 끝날때 까지 해당 위치에 서있는지 체크
     private bool isCheck = false;
 
     protected override void Start()
     {
         base.Start();
         m_Buffinfo.g_Value_Vector3.Add(transform.position);
-
-
     }
-
-    private void Update()
-    {
-
-
-    }
-
-
 
 
     private void OnTriggerEnter(Collider col)
@@ -43,21 +30,24 @@ public class CRock : CStaticObject
         if (col.CompareTag("Player"))
         {
             //변경할 크기 값      size value to change
-            var scaleTo = new Vector3(0.0f, 0.0f, 0.1f);
-
+            var scaleTo = new Vector3(1.0f, 1.0f, 2.5f);
+            isCheck = true;
             //게임 오브젝트 , 변경할 크기 값, 소요시간  GameObject , size value to change, time
-            StartCoroutine(DangerZoneChecker(gameObject, scaleTo, m_timer));
-
-
+            StartCoroutine(DangerZoneChecker(DamageZone, scaleTo, m_timer));
         }
 
     }
 
+    private void OnTriggerExit(Collider col)
+    {
+        isCheck = false;
+    }
+
 
     IEnumerator DangerZoneChecker(GameObject objectToScale, Vector3 scaleTo, float seconds)
+        //원의 크기를 seconds 시간만큼 점점 줄이는 코루틴
     {
-        var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
-
+       
         float elapsedTime = 0;
         Vector3 startingScale = objectToScale.transform.localScale;
         while (elapsedTime < seconds)
@@ -67,18 +57,22 @@ public class CRock : CStaticObject
             yield return new WaitForEndOfFrame();
         }
         objectToScale.transform.position = scaleTo;
-        isCheck = true;
+
 
 
         if (isCheck == true)
         {
+            var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
+            gameObject.SetActive(false);
             actor.GenerateBuff("KnockBack", m_Buffinfo);
+
+        }
+        else
+        {
             gameObject.SetActive(false);
         }
-        
+      
     }
-
-
 
     //protected static Vector3 RockFalling(Vector3 start, Vector3 end, float height, float t)
     //{

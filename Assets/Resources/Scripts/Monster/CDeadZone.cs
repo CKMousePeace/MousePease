@@ -24,6 +24,7 @@ public class CDeadZone : CControllerBase
     {
         if (col.CompareTag("Player"))
         {
+            g_nav.autoBraking = true;
             //g_nav.speed = 0;
             g_nav.velocity = Vector3.zero;
             m_Actor.g_Animator.SetTrigger("AttackReady01");
@@ -36,7 +37,8 @@ public class CDeadZone : CControllerBase
     IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        Destroy(GameObject.FindGameObjectWithTag("Player"));
+        GameObject.FindGameObjectWithTag("Player").SetActive(false);
+        //Destroy(GameObject.FindGameObjectWithTag("Player"));
     }
 
 }

@@ -5,16 +5,16 @@ using UnityEngine;
 public class CJump : CControllerBase
 {
     [SerializeField] private float m_fForce;
-    [SerializeField] private CColliderChecker m_ColliderChecker;
-    [SerializeField] private float m_JumpTime;
-    [SerializeField] private float m_StartForce;
+    [SerializeField] private float m_fDoubleForce;
+
+    [SerializeField] private CColliderChecker m_ColliderChecker;    
 
     private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
 
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경    
-
+    private Vector3 m_StartVelocity;
 
     public override void init(CDynamicObject actor)
     {
@@ -33,13 +33,20 @@ public class CJump : CControllerBase
             gameObject.SetActive(false);
             return;
         }
-        m_Actor.g_Rigid.AddForce(Vector3.up * m_StartForce, ForceMode.Impulse);
+
+
+
+        
+        m_isJump = true;
+        m_ColliderChecker.g_Collider.isTrigger = true;
+        m_ColliderChecker.m_ColliderStay += ColliderStay;
+        m_ColliderChecker.m_TriggerEnter += TriggerEnter;
+        m_StartVelocity = m_Actor.g_Rigid.velocity;
         m_Actor.g_Animator.SetTrigger("Jump");
         m_Actor.g_Animator.SetBool("isGround" , false);
-        StartCoroutine(JumpStart());
+        m_Actor.g_Rigid.AddForce(Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Vector3.up, ForceMode.Impulse);
 
     }
-
     private void OnDisable()
     {
         if (m_Actor == null) return;
@@ -62,40 +69,18 @@ public class CJump : CControllerBase
         }
         Jump();
         TriggerCheck();
-    }
 
-    private void LateUpdate()
-    {
-        
-    }
-
-
-    private IEnumerator JumpStart()
-    {
-        yield return new WaitUntil(() => {
-
-            if (m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).IsName("JumpStart") && m_Actor.g_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.3f)
-            {
-                m_isJump = true;
-                m_ColliderChecker.g_Collider.isTrigger = true;
-                
-                m_ColliderChecker.m_ColliderStay += ColliderStay;
-                m_ColliderChecker.m_TriggerEnter += TriggerEnter;
-                return true;
-            }
-            return false;   
-        });
-
-        
 
 
     }
+
     
+
+
 
     //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
     private void ColliderStay(Collision collder)
-    {
-        if (!gameObject.activeInHierarchy) return;
+    {        
         var extentsy = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
         var extentsx = new Vector3(m_ColliderChecker.g_Collider.bounds.extents.x, 0.0f, 0.0f);
 
@@ -116,7 +101,7 @@ public class CJump : CControllerBase
     {
         if (!other.CompareTag("Floor") && !other.CompareTag("FirstFloor"))
         {
-            m_ColliderChecker.g_Collider.isTrigger = false;
+             m_ColliderChecker.g_Collider.isTrigger = false;
         }
     }
 
@@ -124,7 +109,7 @@ public class CJump : CControllerBase
     //점프 적용하는 함수 입니다.
     private void Jump()
     {        
-            DoubleJump();        
+        DoubleJump();        
     }
 
 
@@ -136,7 +121,7 @@ public class CJump : CControllerBase
             if (!m_isDoubleJump)
             {
                 m_isDoubleJump = true;
-                m_Actor.g_Rigid.AddForce(Vector3.up * (m_fForce) * 1.5f, ForceMode.Impulse);
+                m_Actor.g_Rigid.AddForce(Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce) * Vector3.up, ForceMode.Impulse);
             }
         }
     }
@@ -144,10 +129,10 @@ public class CJump : CControllerBase
     // trigger을 킬지 말지 정하는 함수 입니다.
     private void TriggerCheck()
     {
-        if (m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y <= -0.1f)
+        
+        if (m_ColliderChecker.g_Collider.isTrigger == true && m_Actor.g_Rigid.velocity.y < m_StartVelocity.y)
         {
-            if (!m_Actor.CompareController("DownJump"))
-                m_ColliderChecker.g_Collider.isTrigger = false;
+            m_ColliderChecker.g_Collider.isTrigger = false;
         }
     }
 
@@ -157,8 +142,7 @@ public class CJump : CControllerBase
 
 
 /*
- * 
- * 
+ 
     private float m_CurrentJumpTime;
     private float m_beforeJumpTime;
     

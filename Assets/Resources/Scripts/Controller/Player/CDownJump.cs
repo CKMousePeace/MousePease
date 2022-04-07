@@ -20,9 +20,11 @@ public class CDownJump : CControllerBase
         if (m_Actor == null) return;
         var extents = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
         m_ColliderChecker.m_TriggerExit += TriggerExit;
-        //다운 점프를 사용 할 수 있는 상황인지 판별하여 다운 점프를 실행합니다.
-        if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -transform.up, 0.3f, m_LayerMask))
+        //다운 점프를 사용 할 수 있는 상황인지 판별하여 다운 점프를 실행합니다
+        RaycastHit hit;
+        if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -transform.up, out hit, 0.3f, m_LayerMask))
         {
+            Debug.Log(hit.transform.name);
             m_ColliderChecker.g_Collider.isTrigger = true;
             return;
         }

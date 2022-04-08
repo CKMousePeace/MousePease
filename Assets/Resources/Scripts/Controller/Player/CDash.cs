@@ -54,7 +54,7 @@ public class CDash : CControllerBase
      
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         Dash();
     }
@@ -93,7 +93,7 @@ public class CDash : CControllerBase
             return;
         }
 
-        m_Actor.transform.position += MoveData;        
+        m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
 
 }

@@ -995,6 +995,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 8771119827060740753}
     m_Modifications:
     - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
+      propertyPath: m_fDoubleForce
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
+      propertyPath: m_MaxGroundAngle
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
       propertyPath: m_ColliderChecker
       value: 
       objectReference: {fileID: 8771119827405689142}

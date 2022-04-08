@@ -10,7 +10,7 @@ public abstract class CDynamicObject : CActor
     private Rigidbody m_Rigid;
     
     public Dictionary<string, CControllerBase> g_ControllerDic => m_ControllerDic;
-    public Rigidbody g_Rigid => m_Rigid;
+    public Rigidbody g_Rigid  =>m_Rigid;   
     public Animator g_Animator => m_Animator;
     
 

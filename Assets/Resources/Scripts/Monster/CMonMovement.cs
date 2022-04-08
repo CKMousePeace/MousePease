@@ -42,7 +42,7 @@ public class CMonMovement : CControllerBase
     }
 
 
-    private void FixedUpdate()
+    private void Update()
     {
 
         if (m_DebugMoveMod == true)
@@ -66,7 +66,6 @@ public class CMonMovement : CControllerBase
             }
             else if (m_DebugTrackingMod == true)
             {
-                //Debug.Log("isMove : " + g_isMove);
                 if (g_PlayerTarget.activeSelf == true)
                 {
                     BossWayPointer();
@@ -100,13 +99,11 @@ public class CMonMovement : CControllerBase
             g_nav.SetDestination(g_PlayerTarget.transform.position);
 
             float velocity = g_nav.velocity.magnitude;
+            Debug.Log("¼Óµµ : " + velocity);
 
-            m_Actor.g_Animator.SetFloat("Speed", velocity );
+            m_Actor.g_Animator.SetFloat("Speed" , velocity );
 
         }
-
-        //else if ()
-
         else
         {
             g_nav.SetDestination(transform.position);
@@ -116,7 +113,6 @@ public class CMonMovement : CControllerBase
 
     private void BossWayPointer()
     {
-        // && g_nav.remainingDistance < 2.0f
         if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
         {
 

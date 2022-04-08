@@ -6,17 +6,20 @@ public class CPlayerMovement : CControllerBase
 {
         
     [SerializeField] private float m_fSpeed;
-    [SerializeField , Range(0.0f ,1.0f)] private float m_turnSpeed;
+    [SerializeField , Range(0.3f ,1.0f)] private float m_turnSpeed;
     [SerializeField] private CColliderChecker m_checker;
-    [SerializeField] private KeyCode m_RunKey;
-    [SerializeField] private float m_fRunningSpeed;
+    [SerializeField] private KeyCode m_RunKey;    
     [SerializeField] private float m_DecreaseSpeed;
+    [SerializeField] private float m_InCreaseSpeed;
+    
 
-    private float m_PlayerYaw = 90.0f;
-    private bool m_isRun = false;
-    public float m_currentSpeed;
+
+    private float m_PlayerYaw = 90.0f;    
+    [HideInInspector] public float m_currentSpeed;
     private float m_DirX;
     private Vector3 m_beforeDir = Vector3.zero;
+
+    
 
     private void FixedUpdate()
     {        
@@ -27,6 +30,7 @@ public class CPlayerMovement : CControllerBase
     private void Update()
     {
         m_DirX = Input.GetAxisRaw("Horizontal");
+                    
     }
     // 달리는 함수입니다.
     public void Movement()
@@ -37,7 +41,7 @@ public class CPlayerMovement : CControllerBase
         {
             if (m_currentSpeed == 0.0f)
             {
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / (m_fRunningSpeed + m_fSpeed)));                
+                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));                
                 return;
             }
         }
@@ -48,7 +52,7 @@ public class CPlayerMovement : CControllerBase
         }
         
         
-         TurnRot(m_DirX);
+       TurnRot(m_DirX);
        if (m_Actor.CompareBuff("KnockBack")) return;
 
 
@@ -59,8 +63,8 @@ public class CPlayerMovement : CControllerBase
         if (!m_Actor.CompareController("Dash"))
         {
                        
-            m_Actor.g_Rigid.position += (m_beforeDir * m_currentSpeed * Time.deltaTime);            
-            m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / (m_fRunningSpeed + m_fSpeed)));              
+            m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + m_beforeDir * m_currentSpeed * Time.deltaTime);            
+            m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));              
             
         }
     }
@@ -68,43 +72,36 @@ public class CPlayerMovement : CControllerBase
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot(float DirX)
     {
-        if (DirX != 0.0f)
-            m_PlayerYaw = DirX > 0.0f ? 90.0f : -90.0f;
-        
-        var transEulerRot = m_Actor.transform.rotation.eulerAngles;
-        var ResulRot = Quaternion.Euler(transEulerRot.x, m_PlayerYaw, transEulerRot.z);
 
-        m_Actor.transform.rotation = Quaternion.Lerp(m_Actor.transform.rotation, ResulRot, m_turnSpeed);
+        if (DirX != 0.0f)
+            m_PlayerYaw = DirX > 0.0f ? 90.0f : 270.0f;
+        else
+        {
+            if (m_Actor.transform.rotation.eulerAngles.y < 180.0f)
+                m_PlayerYaw = 90.0f;
+            else if (m_Actor.transform.rotation.eulerAngles.y > 180.0f)
+                m_PlayerYaw = 270f;            
+        }
+        var transEulerRot = m_Actor.transform.rotation.eulerAngles;
+        var ResultRot = Quaternion.Euler(transEulerRot.x, m_PlayerYaw, transEulerRot.z);
+
+        m_Actor.transform.rotation = Quaternion.Lerp(m_Actor.transform.rotation, ResultRot, m_turnSpeed);
     }
 
+
+    
     //달리는 함수 입니다. 제거해야됨
     private void Running(float Dir)
     {
 
         var resultSpeed = 0.0f;
         if (Dir != 0.0f)
-        {
-            resultSpeed += m_fSpeed;
-
-        }
-        if (m_isRun)
-        {
-            resultSpeed += m_fRunningSpeed;
-        }
-
-
-        if (Input.GetKey(m_RunKey))
-        {
-            m_isRun = true;
-        }
-        else
-        {
-            m_isRun = false;
-        }
+            resultSpeed += m_fSpeed;       
+        
 
         if (m_currentSpeed < resultSpeed)
         {
-            m_currentSpeed += resultSpeed * Time.deltaTime;
+            m_currentSpeed += resultSpeed * Time.deltaTime * m_InCreaseSpeed;
         }
         if (m_currentSpeed >= resultSpeed)
         {

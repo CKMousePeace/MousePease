@@ -4,47 +4,59 @@ using UnityEngine;
 
 
 
-[ExecuteInEditMode]
+
 public class CCamera : MonoBehaviour
 {
-    [SerializeField] private CPlayer m_Target;
-    [SerializeField] private Vector3 m_Offset;
+    [SerializeField] private Transform m_Focus;    
+    [SerializeField , Min(0.0f)] private float m_Radius;    
+
+    private Vector3 m_FocusPoint;
+    private Vector3 m_StartPoint;
+    private float m_FocusCentering = 0.5f;
+    private Vector3 m_Offset;
 
 
-    [SerializeField] private float m_CameraLimitY;    
-    [Header("카메라는 이 사이에서만 움직입니다.")]
-    [Header("첫번 째 변수는 작은 값 두번 째 변수는 큰 값입니다.")]
-    [SerializeField] private Vector2 m_RestrictionX;
-
-    private float m_BeforeResultX;
-
-
-
-
-    [SerializeField, Range(0.0f, 1.0f)] private float m_fSpeed;
+    private void Awake()
+    {
+        m_Offset = transform.position;
+        m_FocusPoint = m_Focus.position;
+        m_StartPoint = m_Focus.position;
+    }
+    
 
     private void LateUpdate()
     {
-        CameraMovement();
+        UpdateFocusPoint();
+        
+        
+        transform.position = m_FocusPoint + m_Offset - m_StartPoint;
     }
 
-    //카메라 기획에 맞게 수정 해야됨
-    private void CameraMovement()
-    {
-        if (m_Target == null)
-        {
-            Debug.LogError("Player컴포넌트를 넣어 주세요");
-            return;
-        }
-        
-        var TargetPos = m_Target.transform.position + m_Offset;
-        
-        float ResultY = TargetPos.y;
-        if (TargetPos.x >= m_RestrictionX.x && TargetPos.x <= m_RestrictionX.y)
-            m_BeforeResultX = TargetPos.x;
 
-        Vector3 resultVec = new Vector3(m_BeforeResultX, ResultY , TargetPos.z);
-        transform.position = resultVec;
+    //카메라 기획에 맞게 수정 해야됨
+    private void UpdateFocusPoint()
+    {
+        var TargetPos = m_Focus.position;
+
+        if (m_Radius > 0.0f)
+        {
+            float distance = Vector3.Distance(TargetPos, m_FocusPoint);
+            float t = 0.1f;
+            if (distance > 0.01f && m_FocusCentering > 0.0f)
+            {
+                t = Mathf.Pow(1.0f - m_FocusCentering, Time.unscaledDeltaTime);               
+            }
+            if (distance > m_Radius)
+            {
+                t = Mathf.Min(t, m_Radius / distance);
+            }           
+
+            m_FocusPoint = Vector3.Lerp(TargetPos, m_FocusPoint, t);
+        }
+        else
+        {
+            m_FocusPoint = TargetPos;
+        }
     }
 
 }

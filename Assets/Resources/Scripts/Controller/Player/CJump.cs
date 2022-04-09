@@ -17,16 +17,19 @@ public class CJump : CControllerBase
     public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경    
     //다시 점프 할 수 있는 각도를 지정합니다.
     [SerializeField , Header("다시 점프 할 수 있는 각도를 나타 냅니다.")]
-    private float m_MaxGroundAngle;
+    private float m_MaxGroundAngle; 
     private float m_MaxGroundDot;
 
     private bool m_TriggerChecker;
+    private CPlayer m_player;
+
 
     public override void init(CDynamicObject actor)
     {
         // 시작하자 마자 오브젝트를 꺼줍니다.
         gameObject.SetActive(false);
         base.init(actor);
+        m_player = m_Actor as CPlayer;
     }
 
     private void OnValidate()
@@ -38,7 +41,7 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack"))
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_player.MagnetSkillCheck())
         {
             gameObject.SetActive(false);
             return;
@@ -76,7 +79,7 @@ public class CJump : CControllerBase
 
     private void Update()
     {
-        if (m_Actor.CompareController("Dash"))
+        if (m_Actor.CompareController("Dash") || m_player.MagnetSkillCheck())
         {
             gameObject.SetActive(false);
             return;
@@ -96,7 +99,8 @@ public class CJump : CControllerBase
         DoubleJump();
         if (m_isJump)
         {
-            m_Actor.g_Rigid.AddForce(Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Vector3.up, ForceMode.Impulse);
+            var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Vector3.up;
+            m_Actor.g_Rigid.velocity += velocity;
             m_isJump = false;
         }
 
@@ -108,14 +112,15 @@ public class CJump : CControllerBase
     {
         for (int i = 0; i < collder.contactCount; i++)
         {
-           var normal = collder.GetContact(i).normal;
+            var normal = collder.GetContact(i).normal;            
             if (normal.y > m_MaxGroundDot)
             {
                 gameObject.SetActive(false);
             }
             else if (normal.y < 0.0f)
             {
-                m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.z);
+                if (m_Actor.g_Rigid.velocity.y > 0f)
+                    m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.z);
             }
         }
     }

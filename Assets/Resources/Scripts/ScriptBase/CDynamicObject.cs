@@ -6,7 +6,7 @@ public abstract class CDynamicObject : CActor
 {
     [SerializeField] protected List<CControllerBase> m_ControllerBases;
     [SerializeField] private Animator m_Animator;
-    private Dictionary<string, CControllerBase> m_ControllerDic = new Dictionary<string, CControllerBase>();
+    protected Dictionary<string, CControllerBase> m_ControllerDic = new Dictionary<string, CControllerBase>();
     private Rigidbody m_Rigid;
     
     public Dictionary<string, CControllerBase> g_ControllerDic => m_ControllerDic;
@@ -35,6 +35,19 @@ public abstract class CDynamicObject : CActor
     {
         if (m_ControllerDic.ContainsKey(ControllerName))
             return m_ControllerDic[ControllerName].gameObject.activeInHierarchy;
+        return false;
+    }
+    public bool GenerateController(string ControllerName)
+    {
+        if (m_ControllerDic.ContainsKey("BuffController"))
+        {
+            if (m_ControllerDic.ContainsKey(ControllerName))
+            {
+                m_ControllerDic[ControllerName].gameObject.SetActive(true);
+                return true;
+            }
+            
+        }
         return false;
     }
 

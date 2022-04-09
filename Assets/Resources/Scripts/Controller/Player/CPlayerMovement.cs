@@ -23,9 +23,15 @@ public class CPlayerMovement : CControllerBase
 
     private void FixedUpdate()
     {        
-        Movement();
-        
+        Movement();        
     }
+    private void OnDisable()
+    {
+        m_currentSpeed = 0.0f;
+        m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+
+    }
+
 
     private void Update()
     {
@@ -63,7 +69,7 @@ public class CPlayerMovement : CControllerBase
         if (!m_Actor.CompareController("Dash"))
         {
                        
-            m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + m_beforeDir * m_currentSpeed * Time.deltaTime);            
+            m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + m_beforeDir * m_currentSpeed * Time.fixedDeltaTime);            
             m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));              
             
         }
@@ -101,7 +107,7 @@ public class CPlayerMovement : CControllerBase
 
         if (m_currentSpeed < resultSpeed)
         {
-            m_currentSpeed += resultSpeed * Time.deltaTime * m_InCreaseSpeed;
+            m_currentSpeed += resultSpeed * Time.fixedDeltaTime * m_InCreaseSpeed;
         }
         if (m_currentSpeed >= resultSpeed)
         {
@@ -110,7 +116,7 @@ public class CPlayerMovement : CControllerBase
             
             if (m_DecreaseSpeed == 0.0f) m_DecreaseSpeed = 1.0f;
             
-            m_currentSpeed -= Time.deltaTime * m_DecreaseSpeed;
+            m_currentSpeed -= Time.fixedDeltaTime * m_DecreaseSpeed;
             
             if (m_currentSpeed <= resultSpeed)
                 m_currentSpeed = resultSpeed;

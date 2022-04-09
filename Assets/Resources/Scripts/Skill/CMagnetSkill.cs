@@ -7,78 +7,90 @@ using UnityEngine;
 public class CMagnetSkill : CSkillBase
 {
     [SerializeField] private Image Magnetimage;
-    [SerializeField] private CMagnet.MagnetType m_magnetType = CMagnet.MagnetType.Normal;
-    private CMagnetManager m_magnetManager;
-    private Vector3 m_ForceDirection;
-    private float m_MagnetCosData;
-    CMagnet m_ChoiceMagnet = null;
+    [SerializeField] private CMagnet.MagnetType m_magnetType = CMagnet.MagnetType.NPole;
+    [SerializeField] private KeyCode m_NormalCode;        
+
+    //마크넷 매니저
+    private CMagnetManager m_magnetManager;    
+    //일반 상태일때
+    private bool m_isNormal;
+    //마그넷 체크하는 부분 다른 컨포넌트들에게 알려주기 위한 변수
+    private bool m_MagnetCheck;
+    //자석 오브젝트 확인하는 변수
+    private (List<CMagnet>, List<CMagnet>) m_Magnet;
+    //최종적으로 끌어당길 오브젝트 
+    private CMagnet m_MagnetChoice;
+    //최종적으로 끌어당길 오브젝트에 붙었을때 저장하는 변수
+    private CMagnet m_RmagnetChoice;
+    //8방향을 판단하기 위한 cos 값을 저장하는 변수
+    private float m_CosineData;
+    public bool g_MagnetCheck => m_MagnetCheck;
+
+    
+
     public override void init(CDynamicObject actor)
-    {
-        
+    {       
         base.init(actor);
         Magnetimage.color = Color.gray;
         var manager = GameObject.Find("MagnetManager");
         if (manager != null)
             m_magnetManager = manager.GetComponent<CMagnetManager>();
-
-        float m_MagnetHalfCin = 45.0f * 0.5f;
-        m_MagnetCosData = Mathf.Cos(m_MagnetHalfCin * Mathf.Deg2Rad);
-
+        m_CosineData = Mathf.Cos(22.5f * Mathf.Deg2Rad);
     }
 
     private void Update()
     {
-        Pole();
-        MagnetChange();        
+        MagnetChange();
+        if (m_isNormal) return;
+        m_Magnet = MagnetCountCheck();        
     }
 
+    private void FixedUpdate()
+    {
+        if (m_isNormal) return;
+        Attraction();
+        Repulsion();
+    }
 
     // 자석 상태를 변경하는 함수 입니다.
     private void MagnetChange()
     {
-
         if (Input.GetKeyDown(g_KeyCode))
         {
             //자석 효과 바뀔때 마다 초기화
             m_magnetType++;
-            m_ChoiceMagnet = null;
-            m_ForceDirection = Vector3.zero;
-            m_magnetType = (CMagnet.MagnetType)((int)m_magnetType % 2);
-                       
+            m_magnetType = (CMagnet.MagnetType)((int)m_magnetType % 2);            
+            ClearMagnetSkill();
+            initMagnet();
+            if (CMagnet.MagnetType.NPole == m_magnetType)
+                m_RmagnetChoice = null;
+        }
+        if (Input.GetKeyDown(m_NormalCode))
+        {
+            initMagnet();
+            m_isNormal = !m_isNormal;        
+            m_RmagnetChoice = null;
+        }
 
-            if (m_magnetType == CMagnet.MagnetType.Normal)
-            {
-                Magnetimage.color = Color.gray;
-                m_Actor.g_Rigid.useGravity = true;
-            }
-            
-            if (m_magnetType == CMagnet.MagnetType.NPole)             
+        if (m_isNormal)
+        {
+            Color TempColor = Color.white;
+            if (m_magnetType == CMagnet.MagnetType.NPole)
+                TempColor = Color.red * 0.5f;
+            if (m_magnetType == CMagnet.MagnetType.SPole)
+                TempColor = Color.blue * 0.5f;           
+
+            Magnetimage.color = new Color(TempColor.r, TempColor.g, TempColor.b, 1.0f);
+        }
+        else
+        {
+
+            if (m_magnetType == CMagnet.MagnetType.NPole)
                 Magnetimage.color = Color.red;
             if (m_magnetType == CMagnet.MagnetType.SPole)
                 Magnetimage.color = Color.blue;
         }
     }    
-
-
-    //자석 효과 적용
-    private void Pole()
-    {
-        if (m_magnetType == CMagnet.MagnetType.Normal)
-        {
-            return;
-        }
-
-        var MagnetList = MagnetCountCheck();
-        var AnotherMagnet = MagnetList.Item1;
-        var SameMagnet = MagnetList.Item2;
-
-
-
-        Attraction(AnotherMagnet);
-        Repulsion(SameMagnet);
-
-    }
-
     //범위에 있는 자석 수 카운트 하는 함수
     //첫 번째 리턴 값은 다른 자석을 리턴
     //두 번째 리턴 값은 같은 자석을 리턴
@@ -88,19 +100,15 @@ public class CMagnetSkill : CSkillBase
         List<CMagnet> MagnetAnotherList = new List<CMagnet>();
         List<CMagnet> MagnetSameList = new List<CMagnet>();
 
-
-
         foreach (var magnet in m_magnetManager.g_magnet)
-        {
-            if (magnet.g_Pole == CMagnet.MagnetType.Normal) continue;
+        {            
 
             var Dist = Vector3.Distance(m_Actor.transform.position, magnet.transform.position);
 
             //자석의 force가 거리보다 작다면 리턴을 해줍니다.
-            if (Dist > magnet.g_Force * 0.5f) continue;
+            if (Dist > magnet.g_Force) continue;
 
             //주변에 자석이 있는지 검사합니다.
-
             if (m_magnetType != magnet.g_Pole)
             {
                 if (Vector3.Distance(m_Actor.transform.position, magnet.transform.position) >= 0.1f)
@@ -109,133 +117,160 @@ public class CMagnetSkill : CSkillBase
             else
                 MagnetSameList.Add(magnet);
         }  
-        return (MagnetAnotherList, MagnetSameList);    
+        return (MagnetAnotherList, MagnetSameList);
     }
+    //인력 효과 적용
 
-
-    private Vector3 DirectionChoice()
+    //인력 효과 정하는 부분
+    private bool AttractionChioce()
     {
-        var DirX = Input.GetAxisRaw("Horizontal");
-        var DirY = Input.GetAxisRaw("Vertical");
+        var AttractionMagnet = m_Magnet.Item1;
 
-        
-
-        if (DirX == 0.0f && DirY == 0.0f)
+        if (m_MagnetChoice == null)
         {
-            return Vector3.zero;
-        }
-        return Vector3.Normalize(new Vector3(DirX, DirY, 0.0f));
-    }
-    //자석 찾아서 인력 효과 적용
-    private void Attraction(List<CMagnet> AnotherMagnet)
-    {
-
-        // 주변에 자석이 있을 경우
-        if (AnotherMagnet.Count > 0)
-        {
-            if (m_ChoiceMagnet == null)
+            // 글어당기는 오브젝트 정하는 부분
+            if (AttractionMagnet.Count == 1)
             {
-                m_ForceDirection = Vector3.zero;
-                m_ForceDirection = DirectionChoice();
+                m_MagnetChoice = AttractionMagnet[0];
             }
-
-            foreach (var magnet in AnotherMagnet)
+            else
             {
-                // 자석과 플레이어 방향 벡터
-                var Dir = (magnet.transform.position - m_Actor.transform.position).normalized;
-                // 하나만 있을 경우
-                if (AnotherMagnet.Count == 1)
+                var m_DirX = Input.GetAxisRaw("Horizontal");
+                var m_DirY = Input.GetAxisRaw("Vertical");
+
+                //8방향 정하는 부분
+                foreach (var magnet in AttractionMagnet)
                 {
-                    m_ChoiceMagnet = magnet;
-                }
-                // 2개 이상이 있을 경우
-                else if (m_ChoiceMagnet == null)
-                {
-                    if (m_ForceDirection == Vector3.zero)
-                        return;
-                    else
+                    var magnetpos = magnet.transform.position;
+                    var playerPos = m_Actor.transform.position;
+
+                    var Tempmagnet = new Vector2(magnetpos.x, magnetpos.y);
+                    var TempPlayer = new Vector2(playerPos.x, playerPos.y);
+
+                    var Magnetdirection = (Tempmagnet - TempPlayer).normalized;
+
+                    
+                    var PlayerDir = new Vector3(m_DirX, m_DirY).normalized;
+                    var CosData = Vector2.Dot(PlayerDir, Magnetdirection);
+                    if (CosData == 0) break;
+                    if (CosData > m_CosineData)
                     {
-                        // 내적을 이용해서 코사인 값 받아오기
-                        float Cosin = Vector3.Dot(m_ForceDirection, Dir);
-                        if (Cosin >= 0)
-                        {
-                            if (Cosin > m_MagnetCosData)
-                                m_ChoiceMagnet = magnet;
-                        }
+                        m_MagnetChoice = magnet;
+                        break;
                     }
+
                 }
             }
+
+            if (m_MagnetChoice == null) return false;
+        }
+        return true;
+    }
+
+    //인력 효과 적용
+    private void Attraction()
+    {
+        var AttractionMagnet = m_Magnet.Item1;
+
+        //자석 선택 및 주변에 있는 자석 몇개 있는지 체크
+        if (AttractionMagnet == null || AttractionMagnet.Count == 0 || !AttractionChioce()) 
+        {
+            if (m_RmagnetChoice == null)
+                ClearMagnetSkill();
+            return;
         }
 
+        // 당기는 힘 적용하는 부분
+        Vector3 Velocity = Vector3.zero;
+        var Distance = Vector2.Distance(m_Actor.transform.position, m_MagnetChoice.transform.position);
+        var Direction = (m_MagnetChoice.transform.position - m_Actor.transform.position).normalized;
 
-
-        // 자석이 선택이 되면 당기는 부분
-        if (m_ChoiceMagnet)
+        var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (m_MagnetChoice.g_Force / Distance));
+        Velocity += Direction * Magneticforce;
+        // 만약 거리가 짧아지면 힘적용 안함
+        if (Distance > 0.5f)
         {
-            var Dir = (m_ChoiceMagnet.transform.position - m_Actor.transform.position).normalized;
-            var Dist = Vector3.Distance(m_Actor.transform.position, m_ChoiceMagnet.transform.position);
-            m_Actor.transform.position += Dir * (m_ChoiceMagnet.g_Force - Dist) * Time.deltaTime;
-            m_Actor.g_Rigid.useGravity = false;
+            m_Actor.g_Rigid.velocity = Velocity;            
+        }
+        else
+        {
             m_Actor.g_Rigid.velocity = Vector3.zero;
-
-            if (m_Actor.CompareController("Dash"))
+            m_Actor.g_Rigid.useGravity = false;
+            m_MagnetCheck = true;
+            m_RmagnetChoice = m_MagnetChoice;
+            if (m_Actor.CompareController("Movement"))
             {
-                 m_Actor.DestroyController("Dash");
+                m_Actor.DestroyController("Movement");
             }
-            if (Dist > m_ChoiceMagnet.g_Force * 0.5f )
-            {
-                m_ChoiceMagnet = null;
-            }
+            m_Actor.transform.position = Vector3.Lerp(m_Actor.transform.position, m_MagnetChoice.transform.position, 0.3f);
         }
     }
 
-    // 자석 찾아서 척력 효과 적용
-    private void Repulsion(List<CMagnet> SameMagnet)
+    private void Repulsion()
     {
-        if (SameMagnet.Count > 0)
+        var RepulsionMagnet = m_Magnet.Item2;
+        if (RepulsionMagnet == null || RepulsionMagnet.Count == 0)
         {
-            foreach (var magnet in SameMagnet)
-            {
-                var Dist = Vector3.Distance(m_Actor.transform.position, magnet.transform.position);
+            if (m_MagnetChoice == null)
+                ClearMagnetSkill();
+            return;
+        }
 
-                //m_ForceDirection == Vector3.zero 일때 만 읽히게 하기 위해서
-                //척력 발생시 중력값 적용
-                if (Dist >= 1.0f)
-                {
-                    if (m_ForceDirection == Vector3.zero)
-                    {
-                        var Dir = (m_Actor.transform.position - magnet.transform.position).normalized;
-                        m_Actor.g_Rigid.AddForce(Dir * (magnet.g_Force * Time.deltaTime), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;                        
-                    }
-                    else
-                    {
-                        m_ForceDirection = Vector3.zero;
-                    }
-                }
-                else
-                {
-                    //방향설정을 위해 중력값 미적용
-                    if (m_ForceDirection == Vector3.zero)
-                    {
-                        m_ForceDirection = DirectionChoice();
-                        m_Actor.g_Rigid.useGravity = false;
-                    }
-                    else if (m_ForceDirection != Vector3.zero)
-                    {
-                        m_Actor.g_Rigid.AddForce(m_ForceDirection * (magnet.g_Force * Time.deltaTime), ForceMode.Force);
-                        m_Actor.g_Rigid.useGravity = true;                       
-                    }
+        if (m_RmagnetChoice == null)
+            MultiRepulsion(RepulsionMagnet);        
+        else
+            SingleRepulsion();
+    }   
+    //플레이어가 끌려와 자석에 붙었을때 8방향으로 나라가는 함수
+    void SingleRepulsion()
+    {
+        var m_DirX = Input.GetAxisRaw("Horizontal");
+        var m_DirY = Input.GetAxisRaw("Vertical");
+        if (m_Actor.CompareController("Movement"))
+        {
+            m_Actor.DestroyController("Movement");
+        }
 
-                }
 
-                if (m_Actor.CompareController("Dash"))
-                    m_Actor.DestroyController("Dash");
-            }
+        m_Actor.g_Rigid.useGravity = false;
+        m_MagnetCheck = true;
+
+        var PlayerDir = new Vector3(m_DirX, m_DirY).normalized;
+        var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (m_RmagnetChoice.g_Force));
+
+
+        if (m_DirX != 0 || m_DirY != 0)
+        {
+            initMagnet();
+            m_RmagnetChoice = null;
+            var Velocity = PlayerDir * Magneticforce;
+            m_Actor.g_Rigid.velocity += Velocity * 0.7f;
         }
     }
+    //평상시 같은 극이 되었을때 날라가는 함수
+    void MultiRepulsion(List<CMagnet> RepulsionMagnet)
+    {
+        var Velocity = Vector3.zero;
+        foreach (var magnet in RepulsionMagnet)
+        {
+            var Distance = Vector2.Distance(m_Actor.transform.position, magnet.transform.position);
+            var Direction = (m_Actor.transform.position - magnet.transform.position).normalized;
+            var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (magnet.g_Force / Distance * 0.5f));
+            Velocity += Direction * Magneticforce * Time.fixedDeltaTime;
+        }
+        m_Actor.g_Rigid.velocity += Velocity * 0.7f;
+    }
 
-
-
-
+    void initMagnet()
+    {
+        m_Actor.GenerateController("Movement");
+        m_Actor.g_Rigid.useGravity = true;
+        m_MagnetCheck = false;
+        m_MagnetChoice = null;
+    }
+    void ClearMagnetSkill()
+    {
+        m_MagnetCheck = false;
+    }
 }
+

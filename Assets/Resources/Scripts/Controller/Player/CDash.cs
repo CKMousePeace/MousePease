@@ -13,7 +13,8 @@ public class CDash : CControllerBase
 
     private Vector3 m_Dir;    
     private float m_CurrentTime;
-    
+    private CPlayer m_player;
+
 
     public override void init(CDynamicObject actor)
     {
@@ -22,14 +23,18 @@ public class CDash : CControllerBase
         m_CurrentDelayTime = 0.0f;
         gameObject.SetActive(false);
         base.init(actor);
-        
+        m_player = m_Actor as CPlayer;
+
+
     }
     private void OnDisable()
     {       
         //만약 m_Actor가 없을 경우 리턴을 해줍니다.
         if (m_Actor == null) return;
         if (m_Dash ) m_CurrentDelayTime = Time.time;
-        m_Actor.g_Rigid.useGravity = true;        
+
+        // 점프 체크하기
+        if (!m_player.MagnetSkillCheck()) m_Actor.g_Rigid.useGravity = true;        
     }
 
     private void OnEnable()
@@ -38,12 +43,9 @@ public class CDash : CControllerBase
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (m_DirX == 0 || m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
-        {
-            gameObject.SetActive(false);
-            m_Dash = false;
+        if (DashChecker(m_DirX))
             return;
-        }
+
         m_Dash = true;
         Debug.Log(Time.time - m_CurrentDelayTime);        
         m_Dir = new Vector3(m_DirX, 0.0f, 0.0f);
@@ -64,7 +66,7 @@ public class CDash : CControllerBase
     {       
 
         // 시간 체크
-        float DashTime = Time.deltaTime / m_DashTime;        
+        float DashTime = Time.fixedDeltaTime / m_DashTime;        
         m_CurrentTime += DashTime;
         var MoveData = m_Dir * m_DashForce * DashTime;
         
@@ -95,5 +97,22 @@ public class CDash : CControllerBase
 
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
+    private bool DashChecker(float Dirx)
+    {
+        if (Dirx == 0 || m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
+        {
+            gameObject.SetActive(false);
+            m_Dash = false;
+            return true;
+        }
 
+        if (m_player.MagnetSkillCheck())
+        {
+            gameObject.SetActive(false);
+            m_Dash = false;
+            return true;
+        }
+        return false;
+
+    }
 }

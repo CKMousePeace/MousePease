@@ -6,7 +6,10 @@ using System;
 public class CRock : CStaticObject
 {
     //점점 줄어들 원 오브젝트
-    [SerializeField]  private GameObject DamageZone;
+    [SerializeField]  private GameObject m_DamageZone;
+
+    //떨어뜨릴 오브젝트
+    [SerializeField] private GameObject m_Rock;
 
     //줄어드는 시간
     [SerializeField]  private float m_timer;
@@ -21,6 +24,7 @@ public class CRock : CStaticObject
     protected override void Start()
     {
         base.Start();
+        m_Rock.gameObject.SetActive(false);
         m_Buffinfo.g_Value_Vector3.Add(transform.position);
     }
 
@@ -33,7 +37,7 @@ public class CRock : CStaticObject
             var scaleTo = new Vector3(1.0f, 1.0f, 2.5f);
             isCheck = true;
             //게임 오브젝트 , 변경할 크기 값, 소요시간  GameObject , size value to change, time
-            StartCoroutine(DangerZoneChecker(DamageZone, scaleTo, m_timer));
+            StartCoroutine(DangerZoneChecker(m_DamageZone, m_Rock,  scaleTo, m_timer));
         }
 
     }
@@ -44,14 +48,16 @@ public class CRock : CStaticObject
     }
 
 
-    IEnumerator DangerZoneChecker(GameObject objectToScale, Vector3 scaleTo, float seconds)
+    IEnumerator DangerZoneChecker(GameObject objectToScale, GameObject Rock, Vector3 scaleTo, float seconds)
         //원의 크기를 seconds 시간만큼 점점 줄이는 코루틴
     {
-       
+        m_Rock.gameObject.SetActive(true);
         float elapsedTime = 0;
         Vector3 startingScale = objectToScale.transform.localScale;
+        Rock.transform.position = new Vector3(gameObject.gameObject.transform.position.x, seconds +1 , 0);
         while (elapsedTime < seconds)
         {
+            Rock.transform.Translate(Vector3.down * Time.deltaTime);
             objectToScale.transform.localScale = Vector3.Lerp(startingScale, scaleTo, (elapsedTime / seconds));
             elapsedTime += Time.deltaTime;
             yield return new WaitForEndOfFrame();
@@ -73,6 +79,9 @@ public class CRock : CStaticObject
         }
       
     }
+
+
+
 
     //protected static Vector3 RockFalling(Vector3 start, Vector3 end, float height, float t)
     //{

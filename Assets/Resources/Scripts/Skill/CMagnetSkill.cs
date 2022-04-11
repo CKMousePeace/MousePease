@@ -221,11 +221,14 @@ public class CMagnetSkill : CSkillBase
         else
             SingleRepulsion();
     }   
+
+
     //플레이어가 끌려와 자석에 붙었을때 8방향으로 나라가는 함수
     void SingleRepulsion()
     {
         var m_DirX = Input.GetAxisRaw("Horizontal");
-        var m_DirY = Input.GetAxisRaw("Vertical");
+        var m_DirZ = Input.GetAxisRaw("Vertical");
+
         if (m_Actor.CompareController("Movement"))
         {
             m_Actor.DestroyController("Movement");
@@ -235,18 +238,21 @@ public class CMagnetSkill : CSkillBase
         m_Actor.g_Rigid.useGravity = false;
         m_MagnetCheck = true;
 
-        var PlayerDir = new Vector3(m_DirX, m_DirY).normalized;
+        var PlayerDir = new Vector3(m_DirX ,0.0f , m_DirZ).normalized;
         var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (m_RmagnetChoice.g_Force));
 
 
-        if (m_DirX != 0 || m_DirY != 0)
+        if (m_DirX != 0 || m_DirZ != 0)
         {
             initMagnet();
             m_RmagnetChoice = null;
             var Velocity = PlayerDir * Magneticforce;
-            m_Actor.g_Rigid.velocity += Velocity * 0.7f;
+            m_Actor.g_Rigid.velocity += Velocity;
         }
     }
+
+
+
     //평상시 같은 극이 되었을때 날라가는 함수
     void MultiRepulsion(List<CMagnet> RepulsionMagnet)
     {
@@ -255,11 +261,13 @@ public class CMagnetSkill : CSkillBase
         {
             var Distance = Vector2.Distance(m_Actor.transform.position, magnet.transform.position);
             var Direction = (m_Actor.transform.position - magnet.transform.position).normalized;
-            var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (magnet.g_Force / Distance * 0.5f));
-            Velocity += Direction * Magneticforce * Time.fixedDeltaTime;
+            var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (magnet.g_Force / Distance) * Time.fixedDeltaTime);
+            Velocity += Direction * Magneticforce;
         }
-        m_Actor.g_Rigid.velocity += Velocity * 0.7f;
+        m_Actor.g_Rigid.velocity += Velocity * 0.5f;
     }
+
+
 
     void initMagnet()
     {

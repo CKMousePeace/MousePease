@@ -33,4 +33,9 @@ public class CMagnet : CStaticObject
 
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(gameObject.transform.position, g_Force);
+    }
+
 }

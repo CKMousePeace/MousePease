@@ -40,15 +40,16 @@ public class CDash : CControllerBase
     private void OnEnable()
     {
         float m_DirX = Input.GetAxisRaw("Horizontal");
+        float m_DirZ = Input.GetAxisRaw("Vertical");
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (DashChecker(m_DirX))
+        if (DashChecker(m_DirX , m_DirZ))
             return;
 
         m_Dash = true;
         Debug.Log(Time.time - m_CurrentDelayTime);        
-        m_Dir = new Vector3(m_DirX, 0.0f, 0.0f);
+        m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;
@@ -97,9 +98,15 @@ public class CDash : CControllerBase
 
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
-    private bool DashChecker(float Dirx)
+    private bool DashChecker(float Dirx , float DirZ)
     {
-        if (Dirx == 0 || m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
+        if ((Dirx == 0 && DirZ == 0))
+        {
+            gameObject.SetActive(false);
+            m_Dash = false;
+            return true;
+        }
+        if (m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
         {
             gameObject.SetActive(false);
             m_Dash = false;

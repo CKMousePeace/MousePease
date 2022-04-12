@@ -78108,7 +78108,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: DetermineTerrain()
+    functionName: SelectAndPlayFootstep
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 4d5ff4132b12f2a498027cd8eb1eb0c9, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: SelectAndPlayFootstep
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: 4d5ff4132b12f2a498027cd8eb1eb0c9, type: 3}
     floatParameter: 0

@@ -8,14 +8,16 @@ public class BossSoundManager : MonoBehaviour
 
     private enum CURRENT_TERRAIN
     {
-        Carpet,
+        Normal,
         Grass,
         WoodFloor
 
     };
 
+
     private FMOD.Studio.EventInstance m_FootSteps;
     [SerializeField] CURRENT_TERRAIN currentTranin;
+
 
 
     private void Update()
@@ -23,7 +25,7 @@ public class BossSoundManager : MonoBehaviour
         DetermineTerrain();
     }
 
-    public void DetermineTerrain()
+    private void DetermineTerrain()
     {
         RaycastHit[] hit;
 
@@ -31,9 +33,9 @@ public class BossSoundManager : MonoBehaviour
 
         foreach (RaycastHit rayhit in hit)
         {
-            if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Carpat"))
+            if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Normal"))
             {
-                currentTranin = CURRENT_TERRAIN.Carpet;
+                currentTranin = CURRENT_TERRAIN.Normal;
             }
             else if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Grass"))
             {
@@ -49,20 +51,11 @@ public class BossSoundManager : MonoBehaviour
     }
 
 
-    private void PlayFootstep(int terrain)
-    {
-        m_FootSteps = RuntimeManager.CreateInstance("event:/Character enemy/Boss Footsteps");
-        m_FootSteps.setParameterByName("Tarrain", terrain);
-        m_FootSteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_FootSteps.start();
-        m_FootSteps.release();
-    }
-
     public void SelectAndPlayFootstep()
     {
         switch (currentTranin)
         {
-            case CURRENT_TERRAIN.Carpet:
+            case CURRENT_TERRAIN.Normal:
                 PlayFootstep(0);
                 break;
 
@@ -76,4 +69,15 @@ public class BossSoundManager : MonoBehaviour
                 break;
         }
     }
+
+    private void PlayFootstep(int terrain)
+    {
+        m_FootSteps = RuntimeManager.CreateInstance("event:/Character enemy/Boss Footsteps");
+        m_FootSteps.setParameterByName("Tarrain", terrain);
+        m_FootSteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        m_FootSteps.start();
+        m_FootSteps.release();
+    }
+
+    //private void  
 }

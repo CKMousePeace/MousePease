@@ -79,6 +79,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-6929681929044197397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/Boss Idle
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/Boss Idle
+  Guid:
+    Data1: -248936133
+    Data2: 1316652767
+    Data3: 238216873
+    Data4: 1383659274
+  Banks:
+  - {fileID: 4365562326831806377}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 0
 --- !u!114 &-5807891282618326579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,8 +132,8 @@ MonoBehaviour:
   Parameters:
   - {fileID: -7515652519386471683}
   - {fileID: -2707144399748087674}
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
   Length: 0
 --- !u!114 &-5756577203354601765
 MonoBehaviour:
@@ -133,8 +160,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -4712090046095737408}
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
   Length: 999
 --- !u!114 &-5665282425302898678
 MonoBehaviour:
@@ -156,7 +183,7 @@ MonoBehaviour:
   ID:
     data1: 2238430967
     data2: 1277230935
-  Type: 2
+  Type: 1
   IsGlobal: 0
   Labels:
   - Carpet
@@ -211,6 +238,58 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-1847013667376456471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Boss Attack/Tarrain
+  m_EditorClassIdentifier: 
+  Name: Tarrain
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2238430967
+    data2: 1277230935
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &-1837593116381750374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/Boss Attack
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/Boss Attack
+  Guid:
+    Data1: 1732470349
+    Data2: 1241558964
+    Data3: -1962952793
+    Data4: -1557297917
+  Banks:
+  - {fileID: 4365562326831806377}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -1847013667376456471}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1657701459163332045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,10 +305,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 637853751952254767
+  lastModified: 637853908594966808
   FileSizes:
   - Name: Desktop
-    Value: 30592
+    Value: 30496
   - Name: HTML5
     Value: 30496
   Exists: 1
@@ -253,7 +332,7 @@ MonoBehaviour:
   ID:
     data1: 2238430967
     data2: 1277230935
-  Type: 2
+  Type: 1
   IsGlobal: 0
   Labels:
   - Carpet
@@ -275,10 +354,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637853751951862881
+  lastModified: 637853908594478111
   FileSizes:
   - Name: Desktop
-    Value: 15444
+    Value: 15192
   - Name: HTML5
     Value: 15080
   Exists: 1
@@ -312,12 +391,14 @@ MonoBehaviour:
   - {fileID: -5756577203354601765}
   - {fileID: 2825158161719353280}
   - {fileID: 4349557938430269170}
+  - {fileID: -6929681929044197397}
+  - {fileID: -1837593116381750374}
   EditorParameters: []
   MasterBanks:
   - {fileID: -891707819305921351}
   StringsBanks:
   - {fileID: 7876397078840274663}
-  cacheTime: 637853751952655049
+  cacheTime: 637853908595654964
   cacheVersion: 10
 --- !u!114 &493652426550994742
 MonoBehaviour:
@@ -450,8 +531,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: 1739371312799860232}
-  MinDistance: 1
-  MaxDistance: 20
+  MinDistance: 0
+  MaxDistance: 0
   Length: 0
 --- !u!114 &3917129924279448718
 MonoBehaviour:
@@ -523,10 +604,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637853751952655049
+  lastModified: 637853908595654964
   FileSizes:
   - Name: Desktop
-    Value: 172096
+    Value: 305152
   - Name: HTML5
     Value: 167200
   Exists: 1
@@ -572,12 +653,12 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637853751951882884
+  lastModified: 637853908594508029
   FileSizes:
   - Name: Desktop
-    Value: 2236
+    Value: 2308
   - Name: HTML5
-    Value: 2236
+    Value: 2308
   Exists: 1
 --- !u!114 &9124455441420314171
 MonoBehaviour:

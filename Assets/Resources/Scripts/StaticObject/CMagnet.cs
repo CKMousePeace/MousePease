@@ -5,8 +5,7 @@ using UnityEngine;
 public class CMagnet : CStaticObject
 {
     public enum MagnetType
-    {
-        Normal = 2,        
+    {        
         NPole = 0,
         SPole = 1,
     }
@@ -31,10 +30,14 @@ public class CMagnet : CStaticObject
             m_Renderer.material.color = Color.blue;
         else if (g_Pole == MagnetType.NPole)
             m_Renderer.material.color = Color.red;
-        else if (g_Pole == MagnetType.Normal)
-            m_Renderer.material.color = Color.yellow;
-
 
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, g_Force);
+    }
+
 
 }

@@ -2,65 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class CCamera : MonoBehaviour
 {
-    [SerializeField] private CPlayer m_Target;
-    [SerializeField] private Vector3 m_Offset;
+    [SerializeField] private Transform m_Focus;    
+    [SerializeField , Min(0.0f)] private float m_Radius;    
 
-    [SerializeField] private float m_StartPosX;
-    [SerializeField] private float m_EndPosX;
-    [SerializeField] private float m_CameraLimitY;
-    [SerializeField] private float m_CameraPosYSpeed;
+    private Vector3 m_FocusPoint;
+    private Vector3 m_StartPoint;
+    private float m_FocusCentering = 0.5f;
+    private Vector3 m_Offset;
+
+
+    private void Awake()
+    {
+        m_Offset = transform.position;
+        m_FocusPoint = m_Focus.position;
+        m_StartPoint = m_Focus.position;
+    }
     
 
-    [SerializeField, Range(0.0f, 1.0f)] private float m_fSpeed;
-
-
-
-    private void Start()
-    {
-        transform.position = m_Offset;
-    }
     private void LateUpdate()
     {
-        CameraMovement();
+        UpdateFocusPoint();
+        
+        
+        transform.position = m_FocusPoint + m_Offset - m_StartPoint;
     }
 
+
     //카메라 기획에 맞게 수정 해야됨
-    private void CameraMovement()
+    private void UpdateFocusPoint()
     {
-        if (m_Target == null)
-            Debug.LogError("Player컴포넌트를 넣어 주세요");
+        var TargetPos = m_Focus.position;
 
-        var TargetPos = m_Target.transform.position;        
-
-        //카메라 최대 X값과 최저 값을 뒤로는 이동하지 않게 만듦!
-        if (m_StartPosX < TargetPos.x && m_EndPosX > TargetPos.x)
+        if (m_Radius > 0.0f)
         {
-            var CurrentPosX = Mathf.Lerp(transform.position.x, TargetPos.x, m_fSpeed);
-            transform.position = new Vector3(CurrentPosX, transform.position.y, transform.position.z);
+            float distance = Vector3.Distance(TargetPos, m_FocusPoint);
+            float t = 0.1f;
+            if (distance > 0.01f && m_FocusCentering > 0.0f)
+            {
+                t = Mathf.Pow(1.0f - m_FocusCentering, Time.unscaledDeltaTime);               
+            }
+            if (distance > m_Radius)
+            {
+                t = Mathf.Min(t, m_Radius / distance);
+            }           
+
+            m_FocusPoint = Vector3.Lerp(TargetPos, m_FocusPoint, t);
         }
-
-
-        //카메라 y값 조정
-        var PlimitPosY = ((transform.position.y) + m_CameraLimitY * 0.5f) ; 
-        var MlimitPosY = ((transform.position.y) - m_CameraLimitY * 0.5f) ;
-
-        
-        // 가장 높은 위치 보다 플레이어가 높을 때
-        if (MlimitPosY > TargetPos.y)
+        else
         {
-            var PosY = TargetPos.y - MlimitPosY;
-            transform.position += new Vector3(0.0f, PosY, 0.0f) * Time.deltaTime * 4 * m_fSpeed;
+            m_FocusPoint = TargetPos;
         }
-        // 가장 아래 위치 보다 플레이어가 낮을 때
-        else if (PlimitPosY < TargetPos.y)
-        {
-            var PosY = TargetPos.y - PlimitPosY;
-            transform.position += new Vector3(0.0f, PosY, 0.0f) * Time.deltaTime * 4 * m_fSpeed;
-        }
-
-
     }
 
 }

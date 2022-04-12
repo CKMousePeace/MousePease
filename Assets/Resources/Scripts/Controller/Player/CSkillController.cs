@@ -29,4 +29,16 @@ public class CSkillController : CControllerBase
         }
         return false;
     }
+
+    public CSkillBase GetSkill(string SkillName)
+    {
+        if (m_DicSkills.ContainsKey(SkillName))
+        {
+            return m_DicSkills[SkillName];
+        }
+        return null;
+    }
+
+
+    
 }

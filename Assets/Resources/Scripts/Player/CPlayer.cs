@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class CPlayer : CDynamicObject
 {
-    private CColliderChecker m_ColliderChecker;
-    private float m_OffsetCameraY;
-    public float g_OffsetCameraY => m_OffsetCameraY;
-
     protected override void Start()
     {
         base.Start();
-        m_ColliderChecker = gameObject.GetComponent<CColliderChecker>();
-        m_ColliderChecker.m_ColliderEnter += ColliderEnter;
     }
 
     protected void Update()
@@ -27,11 +21,21 @@ public class CPlayer : CDynamicObject
                 if (controllerGameObj.activeInHierarchy) continue;
                 controllerGameObj.SetActive(true);
             }
-        }
+        }       
+       
     }
 
-    private void ColliderEnter(Collision collision)
+    public bool MagnetSkillCheck()
     {
-        m_OffsetCameraY = transform.position.y;
+        if (m_ControllerDic.ContainsKey("SkillController"))
+        {
+            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
+            if (skill == null) return false;
+            return skill.g_MagnetCheck;
+        }
+        return false;
     }
+
+    
 }

@@ -1361,13 +1361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9428464f06e0804e8081634c488ce41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Target: {fileID: 1372092015}
-  m_Offset: {x: 0, y: 3, z: -13}
-  m_StartPosX: -3
-  m_EndPosX: 17
-  m_CameraLimitY: 0
-  m_CameraPosYSpeed: 0
-  m_fSpeed: 0.1
+  m_Focus: {fileID: 0}
+  m_Radius: 0
 --- !u!114 &565279447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2102,7 +2097,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!195 &1029147022
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2686,17 +2681,6 @@ Transform:
   m_Father: {fileID: 1203385115}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 89.99993, z: 0}
---- !u!114 &1372092015 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8771119827405689143, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
-  m_PrefabInstance: {fileID: 3545175931829563265}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1022544233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e76cf606ce304244db8873c4a1cc6d87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1372262005
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,9 +6,11 @@ using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 
 
 public class CDeadZone : CControllerBase
 {
-    [SerializeField] private NavMeshAgent g_nav;
-    [SerializeField] private float g_AttackSpeed_1 = 1;     //공격1
-    //[SerializeField] private float g_AttackSpeed_2 = 1;     //공격2
+    [SerializeField] private NavMeshAgent m_nav;            //보스
+    [SerializeField] private float m_AttackSpeed_1 = 1;     //공격1
+    //[SerializeField] private float m_AttackSpeed_2 = 1;     //공격2
+    //[SerializeField] private float m_JumpLoop = 1; //점프 루프
+    //[SerializeField] private float m_RoarLoop = 1; //포효 루프
 
     public override void init(CDynamicObject actor)
     {
@@ -18,12 +20,7 @@ public class CDeadZone : CControllerBase
 
     private void Start()
     {
-        g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
-    }
-
-    private void Update()
-    {
-
+        m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
     }
 
     private void OnTriggerEnter(Collider col)
@@ -31,15 +28,14 @@ public class CDeadZone : CControllerBase
         if (col.CompareTag("Player"))
         {
 
-            g_nav.velocity = Vector3.zero;
-            m_Actor.g_Animator.SetFloat("AttackSpeed", g_AttackSpeed_1);
+            m_nav.velocity = Vector3.zero;
+            m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
             m_Actor.g_Animator.SetTrigger("AttackReady01");
 
             StartCoroutine(AttackDelay());
         }
 
     }
-
 
     IEnumerator AttackDelay()
     {

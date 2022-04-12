@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CDangerZone : CStaticObject
+//아 졸려
+
+public class CDangerZone : MonoBehaviour
 {
     //점점 줄어들 원 오브젝트
     [SerializeField]  private GameObject m_DamageZone;
@@ -17,19 +19,8 @@ public class CDangerZone : CStaticObject
     //줄어드는 시간
     [SerializeField]  private float m_timer;
 
-
+    //플레이어 위치에 서있는지 확인
     private bool m_Checker = false;
-
-    [Tooltip("Float[0] = Force, Float[1] = Damage")]
-    [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
-
-    protected override void Start()
-    {
-        base.Start();
-        m_Rock.gameObject.SetActive(false);
-        m_Buffinfo.g_Value_Vector3.Add(transform.position);
-    }
-
 
     private void OnTriggerEnter(Collider col)
     {
@@ -41,9 +32,7 @@ public class CDangerZone : CStaticObject
 
             //게임 오브젝트 , 변경할 크기 값, 소요시간  GameObject , size value to change, time
             StartCoroutine(DangerZoneChecker(m_DamageZone, m_Rock,  scaleTo, m_timer));
-            
         }
-
     }
 
     private void OnTriggerExit(Collider other)

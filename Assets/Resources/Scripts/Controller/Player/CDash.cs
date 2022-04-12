@@ -47,6 +47,8 @@ public class CDash : CControllerBase
         if (DashChecker(m_DirX , m_DirZ))
             return;
 
+
+        m_Actor.g_Animator.SetTrigger("Dash");
         m_Dash = true;
         Debug.Log(Time.time - m_CurrentDelayTime);        
         m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);

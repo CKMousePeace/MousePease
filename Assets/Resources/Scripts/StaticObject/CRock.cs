@@ -5,10 +5,12 @@ using UnityEngine;
 public class CRock : CStaticObject
 {
 
-    [SerializeField] private GameObject DangerZone;
-
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
+
+    [SerializeField] GameObject Root;
+    [SerializeField] private float DestroyWaitTime = 0;
+    [SerializeField] private float CrashWaitTime = 0;
 
     private bool isChecker = false;
 
@@ -16,6 +18,7 @@ public class CRock : CStaticObject
     {
         base.Start();
         m_Buffinfo.g_Value_Vector3.Add(transform.position);
+        StartCoroutine(SelfDestroy(DestroyWaitTime));
     }
 
 
@@ -29,16 +32,17 @@ public class CRock : CStaticObject
             {
                 var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
                 actor.GenerateBuff("KnockBack", m_Buffinfo);
-                DangerZone.SetActive(false);
 
+                StartCoroutine(SelfDestroy(CrashWaitTime));
             }
-            else
-            {
 
-                DangerZone.SetActive(false);
-                
-            }
         }
+    }
+
+    IEnumerator SelfDestroy(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Destroy(Root);
     }
 
 }

@@ -16,6 +16,11 @@ public class CCamera : MonoBehaviour
     private Vector3 m_Offset;
 
 
+    private float m_ShakeTime = 0.0f;
+    private float m_currentShakeTime = 0.0f;
+    private float m_Amount = 0.0f;
+    
+
     private void Awake()
     {
         m_Offset = transform.position;
@@ -27,9 +32,21 @@ public class CCamera : MonoBehaviour
     private void LateUpdate()
     {
         UpdateFocusPoint();
-        
-        
-        transform.position = m_FocusPoint + m_Offset - m_StartPoint;
+
+
+        var ShakeVector = Vector3.zero;
+        if (m_currentShakeTime < m_ShakeTime)
+            ShakeVector = Random.insideUnitSphere;
+
+
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            SetShakeInfo(0.2f, 0.2f);
+        }
+
+        m_currentShakeTime += Time.deltaTime;
+
+        transform.position = (ShakeVector * m_Amount) + m_FocusPoint + m_Offset - m_StartPoint;
     }
 
 
@@ -37,6 +54,8 @@ public class CCamera : MonoBehaviour
     private void UpdateFocusPoint()
     {
         var TargetPos = m_Focus.position;
+
+
 
         if (m_Radius > 0.0f)
         {
@@ -57,6 +76,15 @@ public class CCamera : MonoBehaviour
         {
             m_FocusPoint = TargetPos;
         }
+
+
+    }
+
+    public void SetShakeInfo(float ShakeTime, float Amount)
+    {
+        m_ShakeTime = ShakeTime;
+        m_currentShakeTime = 0.0f;
+        m_Amount = Amount;
     }
 
 }

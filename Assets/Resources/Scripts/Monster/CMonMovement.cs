@@ -9,13 +9,7 @@ public class CMonMovement : CControllerBase
     [SerializeField] private NavMeshAgent m_nav;
     [SerializeField] private GameObject m_PlayerTarget;
     [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
-    [SerializeField] private GameObject m_SoundM;       //사운드 체커
     private int m_currentNode = 0;
-
-    private CColliderChecker m_ColliderChecker;
-    
-
-
 
     //===============디버그===================//
 
@@ -31,7 +25,6 @@ public class CMonMovement : CControllerBase
 
     private void Start()
     {
-        m_ColliderChecker = gameObject.GetComponent<CColliderChecker>();
         m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
         m_nav.autoBraking = false;
         m_PlayerTarget = GameObject.FindGameObjectWithTag("Player");

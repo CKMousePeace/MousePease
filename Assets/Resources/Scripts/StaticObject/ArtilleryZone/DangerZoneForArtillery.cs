@@ -5,21 +5,8 @@ using System;
 
 //아 졸려
 
-public class CDangerZoneForArtillery : MonoBehaviour
+public class DangerZoneForArtillery : CArtilleryZone
 {
-    //점점 줄어들 원 오브젝트
-    [SerializeField]  private GameObject m_DamageZone;
-
-    //떨어질 구역을 표시할 오브젝트
-    [SerializeField] private GameObject m_Indicator;
-
-    //떨어뜨릴 오브젝트
-    [SerializeField] private GameObject m_Rock;
-
-    //줄어드는 시간
-    [SerializeField]  private float m_timer;
-
-
     private void Start()
     {
         //변경할 크기 값      size value to change
@@ -29,13 +16,12 @@ public class CDangerZoneForArtillery : MonoBehaviour
 
     }
 
-
     IEnumerator DangerZoneChecker(GameObject objectToScale, GameObject Rock, Vector3 scaleTo, float seconds)
         //원의 크기를 seconds 시간만큼 점점 줄이는 코루틴
     {
         float elapsedTime = 0;
         Vector3 startingScale = objectToScale.transform.localScale;
-        Rock.transform.position = new Vector3(gameObject.gameObject.transform.position.x, seconds , 0);
+        Rock.transform.position = new Vector3(gameObject.transform.position.x, m_Rockhigh, gameObject.transform.position.z);
         while (elapsedTime < seconds)
         {
             objectToScale.transform.localScale = Vector3.Lerp(startingScale, scaleTo, (elapsedTime / seconds));
@@ -47,8 +33,7 @@ public class CDangerZoneForArtillery : MonoBehaviour
         if(elapsedTime > seconds)
         {
             m_DamageZone.SetActive(false);
-            m_Rock.SetActive(true);
-                
+            m_Rock.SetActive(true);   
         }
         else
         {

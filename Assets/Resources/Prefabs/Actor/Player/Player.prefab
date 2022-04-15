@@ -466,7 +466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7758044648392284155, guid: dd723d4f88bb2ca4d9c55e7607f3979d, type: 3}
       propertyPath: m_Skills.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7758044648392284155, guid: dd723d4f88bb2ca4d9c55e7607f3979d, type: 3}
       propertyPath: m_Skills.Array.data[0]
@@ -587,6 +587,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
+      propertyPath: m_Key
+      value: 99
+      objectReference: {fileID: 0}
+    - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
       propertyPath: m_fSpeed
       value: 5
       objectReference: {fileID: 0}
@@ -601,6 +605,10 @@ PrefabInstance:
     - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
       propertyPath: m_turnSpeed
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
+      propertyPath: m_DigginginKey
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
       propertyPath: m_DecreaseSpeed
@@ -737,7 +745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
       propertyPath: m_DashTime
-      value: 0.3
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
       propertyPath: m_DelayTime

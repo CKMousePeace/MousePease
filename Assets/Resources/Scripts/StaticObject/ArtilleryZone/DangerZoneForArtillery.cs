@@ -7,6 +7,16 @@ using System;
 
 public class DangerZoneForArtillery : CArtilleryZone
 {
+
+    //점점 줄어들 원 오브젝트
+    [SerializeField] protected GameObject m_DamageZone;
+
+    //떨어질 구역을 표시할 오브젝트
+    [SerializeField] protected GameObject m_Indicator;
+
+    //떨어뜨릴 오브젝트
+    [SerializeField] protected GameObject m_Rock;
+
     private void Start()
     {
         //변경할 크기 값      size value to change

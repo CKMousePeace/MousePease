@@ -52,7 +52,6 @@ public class PlayerSoundManager : MonoBehaviour
 
     }
 
-
     // ========================== player FootStep ========================== //
 
     public void SelectAndPlayFootstep()
@@ -62,7 +61,6 @@ public class PlayerSoundManager : MonoBehaviour
             case CURRENT_TERRAIN.Normal:
                 PlayFootstep(0);
                 break;
-
 
             case CURRENT_TERRAIN.Grass:
                 PlayFootstep(1);
@@ -76,7 +74,7 @@ public class PlayerSoundManager : MonoBehaviour
 
     private void PlayFootstep(int terrain)
     {
-        m_player_FootSteps = RuntimeManager.CreateInstance("event:/Character Player/player Footsteps");
+        m_player_FootSteps = RuntimeManager.CreateInstance("event:/Character player/Player Footsteps");
         m_player_FootSteps.setParameterByName("Tarrain", terrain);
         m_player_FootSteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         m_player_FootSteps.start();
@@ -90,7 +88,7 @@ public class PlayerSoundManager : MonoBehaviour
     // ========================== player jump / Land ========================== //
     public void PlayJump()
     {
-        m_player_Jump = RuntimeManager.CreateInstance("event:/Character enemy/ 플레이어 점프");
+        m_player_Jump = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 점프");
         m_player_Jump.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         m_player_Jump.start();
         m_player_Jump.release();
@@ -118,7 +116,7 @@ public class PlayerSoundManager : MonoBehaviour
 
     public void PlayJumpLand(int terrain)
     {
-        m_player_JumpLand = RuntimeManager.CreateInstance("event:/Character enemy/ 플레이어 점프착지");
+        m_player_JumpLand = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 점프착지");
         m_player_JumpLand.setParameterByName("Tarrain", terrain);
         m_player_JumpLand.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         m_player_JumpLand.start();
@@ -135,7 +133,7 @@ public class PlayerSoundManager : MonoBehaviour
 
     public void PlayDead()              //플레이어 사망 사운드
     {
-        m_player_Dead = RuntimeManager.CreateInstance("event:/Character enemy/ 플레이어 사망");
+        m_player_Dead = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 사망");
         m_player_Dead.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         m_player_Dead.start();
         m_player_Dead.release();

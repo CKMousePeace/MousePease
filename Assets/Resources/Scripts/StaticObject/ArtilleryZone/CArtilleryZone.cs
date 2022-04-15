@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CArtilleryZone : MonoBehaviour
 {
-    [SerializeField] private GameObject Player;
-
     //플레이어 충돌 받아올 오브젝트
     [SerializeField] private GameObject m_PlayerCheckZone;
 
@@ -23,20 +21,10 @@ public class CArtilleryZone : MonoBehaviour
 
 
     //=======================================================================//
-    //
-    //점점 줄어들 원 오브젝트
-    [SerializeField] protected GameObject m_DamageZone;
-
-    //떨어질 구역을 표시할 오브젝트
-    [SerializeField] protected GameObject m_Indicator;
-
-    //떨어뜨릴 오브젝트
-    [SerializeField] protected GameObject m_Rock;
 
     [Header("트리거 -> n초 후 발동")]
     [SerializeField] protected float m_WaitToPlay = 0;
 
-    //시간 종료후 ArtilleryZone 비활성화
     [Header("함정 지속될 시간")]
     [SerializeField] protected float m_Running = 0;
 
@@ -49,24 +37,42 @@ public class CArtilleryZone : MonoBehaviour
 
 
     //스폰 주기 설정 ( DangerZone )
-    private bool isCheck = false;
+    private bool m_isCheck = false;
     private float m_CurrRuntime = 0;
     private float m_Currtime = 0;
 
 
+    //============실험===============//
+
+    [Header("플레이어 안에 없을시 0: 비활성화 1: 삭제")]
+    [SerializeField] private int m_isDebug = 0;
+
+    //===============================//
+
     private void Update()
     {
  
-        if (isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == true)
+        if (m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == true)
         {
             RunningTime();
         }
-        else if(isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == false)
+        else if(m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == false)
         {
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
-        }
+            switch (m_isDebug)
+            {
+                case 0:
+                    gameObject.SetActive(false);
+                    break;
 
+                case 1:
+                    Destroy(gameObject);
+                    break;
+
+                default:
+                    Debug.Log("0 or 1 이라고!!");
+                    break;
+            }          
+        }
     }
 
     private void OnTriggerEnter(Collider col)
@@ -80,20 +86,16 @@ public class CArtilleryZone : MonoBehaviour
     IEnumerator WaitPlayerZone()
     {
         yield return new WaitForSeconds(m_WaitToPlay);
-
-        //배열 전체 실행(함정이 몇개 있을 지 모르므로,)
         for (int i = 0; i < m_Blocker.Length; i++)
         {
             m_Blocker[i].SetActive(true);
-            isCheck = true;
+            m_isCheck = true;
         }
-
     }
 
 
     private void RunningTime()
     {
-
             m_CurrRuntime += Time.deltaTime;
 
             //함정이 지속될 시간 (m_Running)
@@ -118,7 +120,8 @@ public class CArtilleryZone : MonoBehaviour
         //스폰주기. m_SpawnTime 시간마다 스폰
         if (m_Currtime > m_SpawnTime)
         {
-            Vector3 spotPos = Player.gameObject.transform.position;     //플레이어 위치 받아옴
+            var player = GameObject.FindGameObjectWithTag("Player");    //플레이어 Find
+            Vector3 spotPos = player.gameObject.transform.position;     //플레이어 위치 받아옴
             Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
             m_Currtime = 0;
         }

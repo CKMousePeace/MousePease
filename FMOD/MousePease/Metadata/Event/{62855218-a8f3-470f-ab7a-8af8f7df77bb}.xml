@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.01.00">
+<objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{62855218-a8f3-470f-ab7a-8af8f7df77bb}">
 		<property name="note">
 			<value>This is an example of a one-shot event.
@@ -122,8 +122,8 @@ Recordings by David at Track Time Audio.</value>
 			<value>3</value>
 		</property>
 		<relationship name="modulators">
-			<destination>{0ca7dc92-f450-4f5a-bddc-3c89968b31c0}</destination>
 			<destination>{c62fc0a3-f38d-437a-8d8f-a1320c12b865}</destination>
+			<destination>{0ca7dc92-f450-4f5a-bddc-3c89968b31c0}</destination>
 		</relationship>
 		<relationship name="sounds">
 			<destination>{8b57f256-0b85-45ab-b079-c6a75d4c861b}</destination>
@@ -155,20 +155,20 @@ Recordings by David at Track Time Audio.</value>
 	</object>
 	<object class="MixerBusPanner" id="{9a4ad4df-435d-4e24-a061-e5494f612dc6}" />
 	<object class="MixerBusFader" id="{2e16e60f-a084-42cf-b39b-f99fa9b3380b}" />
-	<object class="RandomizerModulator" id="{0ca7dc92-f450-4f5a-bddc-3c89968b31c0}">
-		<property name="nameOfPropertyBeingModulated">
-			<value>pitch</value>
-		</property>
-		<property name="amount">
-			<value>6.25</value>
-		</property>
-	</object>
 	<object class="RandomizerModulator" id="{c62fc0a3-f38d-437a-8d8f-a1320c12b865}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
 		<property name="amount">
 			<value>2</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{0ca7dc92-f450-4f5a-bddc-3c89968b31c0}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>6.25</value>
 		</property>
 	</object>
 	<object class="SingleSound" id="{8b57f256-0b85-45ab-b079-c6a75d4c861b}">

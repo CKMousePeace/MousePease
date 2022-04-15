@@ -39,10 +39,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 637854525594675795
+  lastModified: 637856323721048806
   FileSizes:
   - Name: Desktop
-    Value: 30496
+    Value: 30592
   - Name: HTML5
     Value: 30496
   Exists: 1
@@ -126,8 +126,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -1692065264346638147}
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 999
 --- !u!114 &-5682678992097619044
 MonoBehaviour:
@@ -203,9 +203,12 @@ MonoBehaviour:
   ID:
     data1: 2238430967
     data2: 1277230935
-  Type: 1
+  Type: 2
   IsGlobal: 0
-  Labels: []
+  Labels:
+  - Normal
+  - Grass
+  - Wood Floor
   Exists: 1
 --- !u!114 &-4614545490081813038
 MonoBehaviour:
@@ -222,12 +225,12 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637854525594658119
+  lastModified: 637856323720790090
   FileSizes:
   - Name: Desktop
-    Value: 2308
+    Value: 2320
   - Name: HTML5
-    Value: 2308
+    Value: 2320
   Exists: 1
 --- !u!114 &-2667334386059915187
 MonoBehaviour:
@@ -273,9 +276,12 @@ MonoBehaviour:
   ID:
     data1: 2238430967
     data2: 1277230935
-  Type: 1
+  Type: 2
   IsGlobal: 0
-  Labels: []
+  Labels:
+  - Normal
+  - Grass
+  - Wood Floor
   Exists: 1
 --- !u!114 &-2210940009037908165
 MonoBehaviour:
@@ -297,9 +303,12 @@ MonoBehaviour:
   ID:
     data1: 2238430967
     data2: 1277230935
-  Type: 1
+  Type: 2
   IsGlobal: 0
-  Labels: []
+  Labels:
+  - Normal
+  - Grass
+  - Wood Floor
   Exists: 1
 --- !u!114 &-1692065264346638147
 MonoBehaviour:
@@ -364,10 +373,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637854525594723930
+  lastModified: 637856323721598902
   FileSizes:
   - Name: Desktop
-    Value: 305152
+    Value: 305472
   - Name: HTML5
     Value: 167200
   Exists: 1
@@ -424,8 +433,8 @@ MonoBehaviour:
   IsOneShot: 0
   Parameters:
   - {fileID: -1051142399308441006}
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 0
 --- !u!114 &-324919399715423227
 MonoBehaviour:
@@ -442,10 +451,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637854525594647573
+  lastModified: 637856323720770091
   FileSizes:
   - Name: Desktop
-    Value: 15192
+    Value: 15444
   - Name: HTML5
     Value: 15080
   Exists: 1
@@ -486,7 +495,7 @@ MonoBehaviour:
   - {fileID: -324919399715423227}
   StringsBanks:
   - {fileID: -4614545490081813038}
-  cacheTime: 637854525594723930
+  cacheTime: 637856323721598902
   cacheVersion: 10
 --- !u!114 &1244379374460660697
 MonoBehaviour:
@@ -569,8 +578,8 @@ MonoBehaviour:
   Parameters:
   - {fileID: -2667334386059915187}
   - {fileID: -8193730528695933014}
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 0
 --- !u!114 &4002228935451114615
 MonoBehaviour:
@@ -651,8 +660,8 @@ MonoBehaviour:
   Is3D: 0
   IsOneShot: 1
   Parameters: []
-  MinDistance: 0
-  MaxDistance: 0
+  MinDistance: 1
+  MaxDistance: 20
   Length: 0
 --- !u!114 &8885340939812310092
 MonoBehaviour:

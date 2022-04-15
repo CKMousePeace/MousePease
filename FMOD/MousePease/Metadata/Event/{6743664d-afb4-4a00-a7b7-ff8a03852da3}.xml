@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.01.00">
+<objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{6743664d-afb4-4a00-a7b7-ff8a03852da3}">
 		<property name="note">
 			<value>This is an example of a one-shot event using a parameter for different surfaces.
@@ -92,8 +92,8 @@ Recordings by David at Track Time Audio.</value>
 	<object class="MarkerTrack" id="{08491c0b-911c-4271-8b88-afd74d360900}" />
 	<object class="GroupTrack" id="{46ca680b-6ccd-4127-b23f-7e28f46370cf}">
 		<relationship name="modules">
-			<destination>{ee487226-9aeb-4730-952f-2e29a57cf2ad}</destination>
 			<destination>{1e09659d-a7ac-44f9-ab79-bec717718cdc}</destination>
+			<destination>{ee487226-9aeb-4730-952f-2e29a57cf2ad}</destination>
 			<destination>{977c44df-d385-4b68-aa37-7e8a825bb5ef}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
@@ -107,8 +107,8 @@ Recordings by David at Track Time Audio.</value>
 	</object>
 	<object class="ParameterProxy" id="{3f247735-7a88-4855-9b93-1034a7484618}">
 		<relationship name="modules">
-			<destination>{ee487226-9aeb-4730-952f-2e29a57cf2ad}</destination>
 			<destination>{1e09659d-a7ac-44f9-ab79-bec717718cdc}</destination>
+			<destination>{ee487226-9aeb-4730-952f-2e29a57cf2ad}</destination>
 			<destination>{977c44df-d385-4b68-aa37-7e8a825bb5ef}</destination>
 		</relationship>
 		<relationship name="preset">
@@ -132,6 +132,14 @@ Recordings by David at Track Time Audio.</value>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{9f77b12d-dea7-45c8-8a71-37455edbce86}" />
+	<object class="SingleSound" id="{1e09659d-a7ac-44f9-ab79-bec717718cdc}">
+		<property name="volume">
+			<value>-6.5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{d793d90e-d886-494f-a8cb-129fd27aa51f}</destination>
+		</relationship>
+	</object>
 	<object class="SingleSound" id="{ee487226-9aeb-4730-952f-2e29a57cf2ad}">
 		<property name="start">
 			<value>2</value>
@@ -141,14 +149,6 @@ Recordings by David at Track Time Audio.</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{e97440af-e117-4196-acd2-c8c98a0fe981}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{1e09659d-a7ac-44f9-ab79-bec717718cdc}">
-		<property name="volume">
-			<value>-6.5</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{d793d90e-d886-494f-a8cb-129fd27aa51f}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{977c44df-d385-4b68-aa37-7e8a825bb5ef}">

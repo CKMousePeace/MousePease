@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
-
 public class CCamera : MonoBehaviour
 {
     [SerializeField] private Transform m_Focus;    
@@ -76,8 +73,6 @@ public class CCamera : MonoBehaviour
         {
             m_FocusPoint = TargetPos;
         }
-
-
     }
 
     public void SetShakeInfo(float ShakeTime, float Amount)

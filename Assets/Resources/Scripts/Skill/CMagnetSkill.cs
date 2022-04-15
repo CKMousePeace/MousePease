@@ -13,7 +13,7 @@ public class CMagnetSkill : CSkillBase
 
     //마크넷 매니저
     private CMagnetManager m_magnetManager;    
-    //일반 상태일때
+    //일반 상태일때l
     private bool m_isNormal;
     //마그넷 체크하는 부분 다른 컨포넌트들에게 알려주기 위한 변수
     private bool m_MagnetCheck;
@@ -26,8 +26,9 @@ public class CMagnetSkill : CSkillBase
     //8방향을 판단하기 위한 cos 값을 저장하는 변수
     private float m_CosineData;
     public bool g_MagnetCheck => m_MagnetCheck;
+    public CMagnet.MagnetType g_MagnetType => m_magnetType;
 
-    
+
 
     public override void init(CDynamicObject actor)
     {       

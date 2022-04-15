@@ -8,4 +8,14 @@ public class CTelekinesis : CSkillBase
     {
         base.init(actor);
     }
+
+    private void OnEnable()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        
+    }
 }

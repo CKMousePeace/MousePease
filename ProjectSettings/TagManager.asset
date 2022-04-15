@@ -8,6 +8,7 @@ TagManager:
   - FirstFloor
   - Magnet
   - Platform
+  - Cheese
   layers:
   - Default
   - TransparentFX

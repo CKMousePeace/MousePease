@@ -5,9 +5,7 @@ using UnityEngine;
 public class CMagnetManager : MonoBehaviour
 {
     [SerializeField] private List<CMagnet> m_magnet = new List<CMagnet>();
-    [SerializeField] private List<CTelekinesisObject> m_TelekinesisObj = new List<CTelekinesisObject>();
     public List<CMagnet> g_magnet => m_magnet;
-    public List<CTelekinesisObject> g_Telekinesis => m_TelekinesisObj;
 
 
     private void Start()
@@ -18,11 +16,5 @@ public class CMagnetManager : MonoBehaviour
         {
             m_magnet.Add(obj.GetComponent<CMagnet>());
         }
-
-        //var TelekinesisObj = GameObject.FindGameObjectsWithTag("Telekinesis");
-        //foreach (var obj in TelekinesisObj)
-        //{
-        //    m_TelekinesisObj.Add(obj.GetComponent<CTelekinesisObject>());
-        //}
     }
 }

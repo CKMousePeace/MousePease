@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CCheese : MonoBehaviour
+public class CCheeseTest : MonoBehaviour
 {
     private bool isChecker = false;
 

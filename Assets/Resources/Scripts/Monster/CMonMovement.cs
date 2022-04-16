@@ -6,10 +6,13 @@ using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 
 
 public class CMonMovement : CControllerBase
 {
-    [SerializeField] private NavMeshAgent m_nav;
-    [SerializeField] private GameObject m_PlayerTarget;
-    [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
-    private int m_currentNode = 0;
+    [SerializeField] private NavMeshAgent g_nav;
+    [SerializeField] private GameObject g_PlayerTarget;
+    [SerializeField] private List<Transform> g_WayPoint = new List<Transform>();
+    private int g_currentNode = 0;
+
+
+
 
     //===============디버그===================//
 
@@ -25,9 +28,9 @@ public class CMonMovement : CControllerBase
 
     private void Start()
     {
-        m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
-        m_nav.autoBraking = false;
-        m_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
+        g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
+        g_nav.autoBraking = false;
+        g_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
 
         if(m_DebugTrackingMod == true)
         NextIndex();
@@ -38,22 +41,24 @@ public class CMonMovement : CControllerBase
         base.init(actor);
     }
 
-    private void Update()
+
+    private void FixedUpdate()
     {
+
         if (m_DebugMoveMod == true)
         {
             if (m_DebugTrackingMod == false)
             {
 
-                if (m_PlayerTarget.activeSelf == true)
+                if (g_PlayerTarget.activeSelf == true)
                 {
                     BossMovement();
                 }
                 else
                 {
-                    m_nav.autoBraking = true;
-                    m_nav.velocity = Vector3.zero;
-                    m_currentNode = 0;
+                    g_nav.autoBraking = true;
+                    g_nav.velocity = Vector3.zero;
+                    g_currentNode = 0;
 
                     return;
 
@@ -61,16 +66,17 @@ public class CMonMovement : CControllerBase
             }
             else if (m_DebugTrackingMod == true)
             {
-                if (m_PlayerTarget.activeSelf == true)
+                //Debug.Log("isMove : " + g_isMove);
+                if (g_PlayerTarget.activeSelf == true)
                 {
                     BossWayPointer();
 
                 }
                 else
                 {
-                    m_nav.autoBraking = true;
-                    m_nav.velocity = Vector3.zero;
-                    m_currentNode = 0;
+                    g_nav.autoBraking = true;
+                    g_nav.velocity = Vector3.zero;
+                    g_currentNode = 0;
 
                     return;
 
@@ -87,29 +93,31 @@ public class CMonMovement : CControllerBase
     private void BossMovement()
     {
 
-        if(m_nav.destination != m_PlayerTarget.transform.position)
+        if(g_nav.destination != g_PlayerTarget.transform.position)
         {
+            g_nav.autoBraking = true;
 
-            m_nav.autoBraking = true;
+            g_nav.SetDestination(g_PlayerTarget.transform.position);
 
-            m_nav.SetDestination(m_PlayerTarget.transform.position);
+            float velocity = g_nav.velocity.magnitude;
 
-            float velocity = m_nav.velocity.magnitude;
-            //Debug.Log("속도 : " + velocity);
-
-            m_Actor.g_Animator.SetFloat("Speed" , velocity );
+            m_Actor.g_Animator.SetFloat("Speed", velocity );
 
         }
+
+        //else if ()
+
         else
         {
-            m_nav.SetDestination(transform.position);
+            g_nav.SetDestination(transform.position);
         }
 
     }
 
     private void BossWayPointer()
     {
-        if (!m_nav.pathPending && m_nav.remainingDistance < 2.0f)
+        // && g_nav.remainingDistance < 2.0f
+        if (!g_nav.pathPending && g_nav.remainingDistance < 2.0f)
         {
 
             NextIndex();
@@ -117,9 +125,9 @@ public class CMonMovement : CControllerBase
         }
         //Execute if distance to destination is less than 2 or arrives 목적지까지의 거리가 2 이하 혹은 도착했으면 실행 
 
-        if (m_currentNode == m_WayPoint.Count)
+        if (g_currentNode == g_WayPoint.Count)
         {
-            m_currentNode = 0;
+            g_currentNode = 0;
         }
 
         //Arrive at the last note? -> Initialize.  마지막 노트에 도착? -> 초기화.
@@ -127,38 +135,37 @@ public class CMonMovement : CControllerBase
 
     private void NextIndex()
     {
-        m_nav.autoBraking = false;
+        g_nav.autoBraking = false;
 
-        float velocity = m_nav.velocity.magnitude;
+        float velocity = g_nav.velocity.magnitude;
 
         m_Actor.g_Animator.SetFloat("Speed", velocity);
 
-        m_nav.destination = m_WayPoint[m_currentNode].position;
-        m_currentNode = (m_currentNode + 1);
+        g_nav.destination = g_WayPoint[g_currentNode].position;
+        g_currentNode = (g_currentNode + 1);
         //moving position 위치 이동
 
 
     }
 
-
     private void OnDrawGizmos()     //Draw to visually express the position 그려서 위치 시각적으로 표현
     {
-        for (int i = 0; i < m_WayPoint.Count; i++)
+        for (int i = 0; i < g_WayPoint.Count; i++)
         {
             Gizmos.color = new Color(1.0f, 1.0f, 1.0f, 0.3f);
-            Gizmos.DrawSphere(m_WayPoint[i].transform.position, 2);
-            Gizmos.DrawWireSphere(m_WayPoint[i].transform.position, 2f);
+            Gizmos.DrawSphere(g_WayPoint[i].transform.position, 2);
+            Gizmos.DrawWireSphere(g_WayPoint[i].transform.position, 2f);
 
-            if (i < m_WayPoint.Count - 1)
+            if (i < g_WayPoint.Count - 1)
             {
-                if (m_WayPoint[i] && m_WayPoint[i + 1])
+                if (g_WayPoint[i] && g_WayPoint[i + 1])
                 {
                     Gizmos.color = Color.blue;
-                    if (i < m_WayPoint.Count - 1)
-                        Gizmos.DrawLine(m_WayPoint[i].position, m_WayPoint[i + 1].position);
-                    if (i < m_WayPoint.Count - 2)
+                    if (i < g_WayPoint.Count - 1)
+                        Gizmos.DrawLine(g_WayPoint[i].position, g_WayPoint[i + 1].position);
+                    if (i < g_WayPoint.Count - 2)
                     {
-                        Gizmos.DrawLine(m_WayPoint[m_WayPoint.Count - 1].position, m_WayPoint[0].position);
+                        Gizmos.DrawLine(g_WayPoint[g_WayPoint.Count - 1].position, g_WayPoint[0].position);
                     }
                 }
             }

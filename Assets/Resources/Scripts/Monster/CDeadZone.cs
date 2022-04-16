@@ -6,11 +6,7 @@ using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 
 
 public class CDeadZone : CControllerBase
 {
-    [SerializeField] private NavMeshAgent m_nav;            //보스
-    [SerializeField] private float m_AttackSpeed_1 = 1;     //공격1
-    //[SerializeField] private float m_AttackSpeed_2 = 1;     //공격2
-    //[SerializeField] private float m_JumpLoop = 1; //점프 루프
-    //[SerializeField] private float m_RoarLoop = 1; //포효 루프
+    [SerializeField] private NavMeshAgent g_nav;
 
     public override void init(CDynamicObject actor)
     {
@@ -20,16 +16,16 @@ public class CDeadZone : CControllerBase
 
     private void Start()
     {
-        m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
+        g_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
     }
+
 
     private void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Player"))
         {
-
-            m_nav.velocity = Vector3.zero;
-            m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
+            //g_nav.speed = 0;
+            g_nav.velocity = Vector3.zero;
             m_Actor.g_Animator.SetTrigger("AttackReady01");
 
             StartCoroutine(AttackDelay());
@@ -40,8 +36,7 @@ public class CDeadZone : CControllerBase
     IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(1.0f);
-        GameObject.FindGameObjectWithTag("Player").SetActive(false);
-        //Destroy(GameObject.FindGameObjectWithTag("Player"));
+        Destroy(GameObject.FindGameObjectWithTag("Player"));
     }
 
 }

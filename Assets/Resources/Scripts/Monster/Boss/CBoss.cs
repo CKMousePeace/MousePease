@@ -5,6 +5,10 @@ using UnityEngine;
 public class CBoss : CDynamicObject
 {
     private CColliderChecker m_ColliderChecker;
+    public float g_Damage = 100;
+    //public static  g_MoveSpeed = 7;
+    public float g_RunSpeed = 10;
+
 
 
     protected override void Start()

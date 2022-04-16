@@ -12,8 +12,7 @@ public class CDash : CControllerBase
     private bool m_Dash;
 
     private Vector3 m_Dir;    
-    private float m_CurrentTime;
-    private CPlayer m_player;
+    private float m_CurrentTime;    
 
 
     public override void init(CDynamicObject actor)
@@ -23,9 +22,6 @@ public class CDash : CControllerBase
         m_CurrentDelayTime = 0.0f;
         gameObject.SetActive(false);
         base.init(actor);
-        m_player = m_Actor as CPlayer;
-
-
     }
     private void OnDisable()
     {       
@@ -33,8 +29,7 @@ public class CDash : CControllerBase
         if (m_Actor == null) return;
         if (m_Dash ) m_CurrentDelayTime = Time.time;
 
-        // 점프 체크하기
-        if (!m_player.MagnetSkillCheck()) m_Actor.g_Rigid.useGravity = true;        
+        m_Actor.g_Rigid.useGravity = true;        
     }
 
     private void OnEnable()
@@ -44,17 +39,16 @@ public class CDash : CControllerBase
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (DashChecker(m_DirX , m_DirZ))
+        if (DashChecker(m_DirX , m_DirZ))       
             return;
 
-        m_Dash = true;
-        Debug.Log(Time.time - m_CurrentDelayTime);        
+        m_Actor.g_Animator.SetTrigger("Dash");
+        m_Dash = true;        
         m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;
-        m_Actor.g_Rigid.velocity = Vector3.zero;
-     
+        m_Actor.g_Rigid.velocity = Vector3.zero;     
     }
 
     private void FixedUpdate()
@@ -111,14 +105,7 @@ public class CDash : CControllerBase
             gameObject.SetActive(false);
             m_Dash = false;
             return true;
-        }
-
-        if (m_player.MagnetSkillCheck())
-        {
-            gameObject.SetActive(false);
-            m_Dash = false;
-            return true;
-        }
+        }        
         return false;
 
     }

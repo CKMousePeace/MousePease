@@ -7,12 +7,13 @@ using UnityEngine;
 public class CMagnetSkill : CSkillBase
 {
     [SerializeField] private Image Magnetimage;
-    [SerializeField] private CMagnet.MagnetType m_magnetType = CMagnet.MagnetType.NPole;
-    [SerializeField] private KeyCode m_NormalCode;        
+    [SerializeField] private CMagnet.MagnetType m_magnetType = CMagnet.MagnetType.NPole;    
+    [SerializeField] private KeyCode m_NMagnetCode;
+
 
     //마크넷 매니저
     private CMagnetManager m_magnetManager;    
-    //일반 상태일때
+    //일반 상태일때l
     private bool m_isNormal;
     //마그넷 체크하는 부분 다른 컨포넌트들에게 알려주기 위한 변수
     private bool m_MagnetCheck;
@@ -25,8 +26,9 @@ public class CMagnetSkill : CSkillBase
     //8방향을 판단하기 위한 cos 값을 저장하는 변수
     private float m_CosineData;
     public bool g_MagnetCheck => m_MagnetCheck;
+    public CMagnet.MagnetType g_MagnetType => m_magnetType;
 
-    
+
 
     public override void init(CDynamicObject actor)
     {       
@@ -55,22 +57,51 @@ public class CMagnetSkill : CSkillBase
     // 자석 상태를 변경하는 함수 입니다.
     private void MagnetChange()
     {
+        bool TempKeyDown = false ;
         if (Input.GetKeyDown(g_KeyCode))
         {
             //자석 효과 바뀔때 마다 초기화
-            m_magnetType++;
-            m_magnetType = (CMagnet.MagnetType)((int)m_magnetType % 2);            
+            if (m_magnetType == CMagnet.MagnetType.SPole)
+            {
+                if (!m_isNormal)
+                    m_isNormal = true;
+                else
+                    m_isNormal = false;
+
+            }
+            else
+                m_isNormal = false;
+            m_magnetType = CMagnet.MagnetType.SPole;
+            TempKeyDown = true;
+
+        }
+        else if (Input.GetKeyDown(m_NMagnetCode))
+        {
+            //자석 효과 바뀔때 마다 초기화
+
+            if (m_magnetType == CMagnet.MagnetType.NPole )
+            {
+                if (!m_isNormal)
+                    m_isNormal = true;
+                else
+                    m_isNormal = false;
+            }
+            else
+                m_isNormal = false;
+
+            m_magnetType = CMagnet.MagnetType.NPole;
+            TempKeyDown = true;
+        }
+        if (TempKeyDown)
+        {
             ClearMagnetSkill();
             initMagnet();
-            if (CMagnet.MagnetType.NPole == m_magnetType)
-                m_RmagnetChoice = null;
+
+            if (m_RmagnetChoice != null)
+                if (m_RmagnetChoice.g_Pole != m_magnetType)
+                    m_RmagnetChoice = null;
         }
-        if (Input.GetKeyDown(m_NormalCode))
-        {
-            initMagnet();
-            m_isNormal = !m_isNormal;        
-            m_RmagnetChoice = null;
-        }
+
 
         if (m_isNormal)
         {
@@ -247,7 +278,7 @@ public class CMagnetSkill : CSkillBase
             initMagnet();
             m_RmagnetChoice = null;
             var Velocity = PlayerDir * Magneticforce;
-            m_Actor.g_Rigid.velocity += Velocity;
+            m_Actor.g_Rigid.velocity += Velocity * 0.5f;
         }
     }
 
@@ -264,7 +295,7 @@ public class CMagnetSkill : CSkillBase
             var Magneticforce = Mathf.Sqrt(-2.0f * Physics.gravity.y * (magnet.g_Force / Distance) * Time.fixedDeltaTime);
             Velocity += Direction * Magneticforce;
         }
-        m_Actor.g_Rigid.velocity += Velocity * 0.5f;
+        m_Actor.g_Rigid.velocity += Velocity * 0.3f;
     }
 
 

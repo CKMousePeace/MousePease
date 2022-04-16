@@ -224,7 +224,7 @@ MonoBehaviour:
     m_Value_Int: 
     m_Value_Float:
     - 3
-    - 30
+    - 100
     m_Value_Vector3: []
   Root: {fileID: 2782439828952009133}
   DestroyWaitTime: 2
@@ -275,11 +275,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973710e13f883f144b0a30d77a9ffe99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PlayerCheckZone: {fileID: 0}
+  m_Blocker: []
+  m_DangerZoneCol: {fileID: 0}
+  m_ColCheckPlace: {fileID: 0}
+  m_SpawnTime: 0
+  m_WaitToPlay: 0
+  m_Running: 0
+  m_timer: 3
+  m_Rockhigh: 5
+  m_isDebug: 0
   m_DamageZone: {fileID: 2782439829615833834}
   m_Indicator: {fileID: 2782439827951488654}
   m_Rock: {fileID: 2782439828939345561}
-  m_timer: 3
-  m_Rockhigh: 5
 --- !u!1 &2782439829615833834
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,6 +43,7 @@ public class DangerZoneForArtillery : CArtilleryZone
         if(elapsedTime > seconds)
         {
             m_DamageZone.SetActive(false);
+            //m_Indicator.SetActive(false);
             m_Rock.SetActive(true);   
         }
         else

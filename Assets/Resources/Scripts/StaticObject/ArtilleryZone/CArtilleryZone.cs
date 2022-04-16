@@ -10,8 +10,12 @@ public class CArtilleryZone : MonoBehaviour
     //플레이어의 탈출을 막을 오브젝트
     [SerializeField] private GameObject[] m_Blocker;
 
-    //플레이어에게 데미지를 줄 오브젝트(프리팹)
+    //플레이어에게 데미지를 줄 돌 오브젝트(프리팹)
     [SerializeField] private GameObject m_DangerZoneCol;
+
+    //플레이어의 경로를 방해할 치즈 오브젝트(프리팹)
+    [SerializeField] private GameObject m_CheeseZone;
+
 
     //플레이어 함정 위에 있는지 확인
     [SerializeField] private GameObject m_ColCheckPlace;
@@ -44,8 +48,11 @@ public class CArtilleryZone : MonoBehaviour
 
     //============실험===============//
 
-    [Header("플레이어 안에 없을시 0: 비활성화 1: 삭제")]
-    [SerializeField] private int m_isDebug = 0;
+    [Header("플레이어 안에 없을시 false: 비활성화 true: 삭제")]
+    [SerializeField] private bool m_isDebug = false;
+
+    [Header(" false: 돌 공격 true: 치즈공격 ")]
+    [SerializeField] private bool m_isDebugTrap = false;
 
     //===============================//
 
@@ -60,16 +67,12 @@ public class CArtilleryZone : MonoBehaviour
         {
             switch (m_isDebug)
             {
-                case 0:
+                case false:
                     gameObject.SetActive(false);
                     break;
 
-                case 1:
+                case true:
                     Destroy(gameObject);
-                    break;
-
-                default:
-                    Debug.Log("0 or 1 이라고!!");
                     break;
             }          
         }
@@ -122,8 +125,20 @@ public class CArtilleryZone : MonoBehaviour
         {
             var player = GameObject.FindGameObjectWithTag("Player");    //플레이어 Find
             Vector3 spotPos = player.gameObject.transform.position;     //플레이어 위치 받아옴
-            Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+
+            switch (m_isDebugTrap)
+            {
+
+                case false:
+                    Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    break;
+
+                case true:
+                    Instantiate(m_CheeseZone, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    break;
+
+            }         
             m_Currtime = 0;
         }
-    }
+    }//m_DangerZoneCol
 }

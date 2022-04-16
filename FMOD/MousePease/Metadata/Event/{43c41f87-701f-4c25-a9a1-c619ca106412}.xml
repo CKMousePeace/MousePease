@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.01.00">
+<objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{43c41f87-701f-4c25-a9a1-c619ca106412}">
 		<property name="note">
 			<value>In this example we have an event that recreates the static effect of RF radios.
@@ -291,17 +291,33 @@ https://soundcloud.com/nasa</value>
 			<destination>{c09ccfa7-4bb6-45be-86fb-5dd0ef8db779}</destination>
 		</relationship>
 		<relationship name="automationPoints">
+			<destination>{c6abd634-cff9-421f-ad1b-cdcbb0482f8f}</destination>
 			<destination>{95cada1c-d263-43ea-992b-1aa431d52faa}</destination>
+			<destination>{16fa31d8-2e53-4f2e-af11-bfa67d21f851}</destination>
 			<destination>{0e535cab-77db-4ded-b322-fac64590c903}</destination>
 			<destination>{3178433b-ba9b-4ab2-9ac7-6fb913e52357}</destination>
-			<destination>{c6abd634-cff9-421f-ad1b-cdcbb0482f8f}</destination>
-			<destination>{16fa31d8-2e53-4f2e-af11-bfa67d21f851}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{61c7f89e-aa0e-4e74-9937-6dc7017f21e7}" />
+	<object class="AutomationPoint" id="{c6abd634-cff9-421f-ad1b-cdcbb0482f8f}">
+		<property name="position">
+			<value>0.61876900000000001</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
 	<object class="AutomationPoint" id="{95cada1c-d263-43ea-992b-1aa431d52faa}">
 		<property name="position">
 			<value>0</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{16fa31d8-2e53-4f2e-af11-bfa67d21f851}">
+		<property name="position">
+			<value>0.114893</value>
 		</property>
 		<property name="value">
 			<value>0</value>
@@ -321,22 +337,6 @@ https://soundcloud.com/nasa</value>
 		</property>
 		<property name="value">
 			<value>-20</value>
-		</property>
-	</object>
-	<object class="AutomationPoint" id="{c6abd634-cff9-421f-ad1b-cdcbb0482f8f}">
-		<property name="position">
-			<value>0.61876900000000001</value>
-		</property>
-		<property name="value">
-			<value>0</value>
-		</property>
-	</object>
-	<object class="AutomationPoint" id="{16fa31d8-2e53-4f2e-af11-bfa67d21f851}">
-		<property name="position">
-			<value>0.114893</value>
-		</property>
-		<property name="value">
-			<value>0</value>
 		</property>
 	</object>
 </objects>

@@ -8,7 +8,7 @@ TagManager:
   - FirstFloor
   - Magnet
   - Platform
-  - Cheese
+  - Trigger
   layers:
   - Default
   - TransparentFX
@@ -20,9 +20,9 @@ TagManager:
   - Obstacle
   - 
   - 
-  - 
-  - 
-  - 
+  - Normal
+  - Grass
+  - WoodFloor
   - 
   - 
   - 

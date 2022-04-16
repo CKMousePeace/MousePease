@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.00.00">
+<objects serializationModel="Studio.02.01.00">
 	<object class="ParameterPreset" id="{1de831a1-f6c2-0b4f-0035-82d4368571cd}">
 		<property name="name">
-			<value>Surface</value>
+			<value>Tarrain</value>
 		</property>
 		<relationship name="folder">
 			<destination>{0c8bfb2a-0176-4c5c-93b8-21686ed85878}</destination>
@@ -19,7 +19,7 @@
 			<value>3</value>
 		</property>
 		<property name="enumerationLabels">
-			<value>Carpet</value>
+			<value>Normal</value>
 			<value>Grass</value>
 			<value>Wood Floor</value>
 		</property>

@@ -56,7 +56,7 @@ public class CPlayerPatformController : CControllerBase
             // The player is on the floor and dosent move.   플레이어가 바닥에 있으며 움직이지 않는다. 
         {
             if (m_IsGrounded == true
-                && Movement.GetComponent<CPlayerMovement>().g_currentSpeed == 0
+                && Movement.GetComponent<CPlayerMovement>().m_currentSpeed == 0
                 && Jump.GetComponent<CJump>().g_isJump == false)
             {
 

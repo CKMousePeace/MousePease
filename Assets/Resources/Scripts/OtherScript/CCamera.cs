@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
+
 public class CCamera : MonoBehaviour
 {
     [SerializeField] private Transform m_Focus;    
@@ -30,6 +33,7 @@ public class CCamera : MonoBehaviour
     {
         UpdateFocusPoint();
 
+
         var ShakeVector = Vector3.zero;
         if (m_currentShakeTime < m_ShakeTime)
             ShakeVector = Random.insideUnitSphere;
@@ -57,9 +61,9 @@ public class CCamera : MonoBehaviour
         {
             float distance = Vector3.Distance(TargetPos, m_FocusPoint);
             float t = 0.1f;
-            if (distance >  0.0f)
+            if (distance > 0.01f && m_FocusCentering > 0.0f)
             {
-                t = Mathf.Pow(m_FocusCentering, Time.unscaledDeltaTime);               
+                t = Mathf.Pow(1.0f - m_FocusCentering, Time.unscaledDeltaTime);               
             }
             if (distance > m_Radius)
             {
@@ -72,6 +76,8 @@ public class CCamera : MonoBehaviour
         {
             m_FocusPoint = TargetPos;
         }
+
+
     }
 
     public void SetShakeInfo(float ShakeTime, float Amount)

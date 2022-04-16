@@ -52,10 +52,15 @@ public class CRock : CStaticObject
     {
         if (col.gameObject.CompareTag("Player"))
         {
+
             Debug.Log("Ãæµ¹");
+
         }
 
     }
+
+
+
     protected static Vector3 RockFalling(Vector3 start, Vector3 end, float height, float t)
     {
         Func<float, float> f = x => -4 * height * x * x + 4 * height * x;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CJump : CControllerBase
@@ -14,8 +12,9 @@ public class CJump : CControllerBase
 
     private bool m_JumpCheck = false;
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
-    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경    
-    //다시 점프 할 수 있는 각도를 지정합니다.
+    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
+                                            //다시 점프 할 수 있는 각도를 지정합니다.
+
     [SerializeField , Header("다시 점프 할 수 있는 각도를 나타 냅니다.")]
     private float m_MaxGroundAngle; 
     private float m_MaxGroundDot;
@@ -41,7 +40,8 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_player.MagnetSkillCheck())
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") ||
+            m_player.InCheeseCheck())
         {
             gameObject.SetActive(false);
             return;
@@ -162,8 +162,11 @@ public class CJump : CControllerBase
             {
                 force = Mathf.Max(0, force - m_Actor.g_Rigid.velocity.y);
             }
-          
-            m_Actor.g_Rigid.AddForce(force * Vector3.up, ForceMode.Impulse);
+            float m_DirX = Input.GetAxisRaw("Horizontal");
+            float m_DirZ = Input.GetAxisRaw("Vertical");
+
+            var Dir = new Vector3(m_DirX, 1.0f, m_DirZ).normalized;
+            m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
         }
     }
 
@@ -178,4 +181,3 @@ public class CJump : CControllerBase
         }
     }
 }
-

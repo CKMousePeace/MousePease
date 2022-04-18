@@ -113,9 +113,9 @@ MonoBehaviour:
     m_Value_Int: 
     m_Value_Float: []
     m_Value_Vector3: []
-  Root: {fileID: 0}
-  DestroyWaitTime: 0
-  CrashWaitTime: 0
+  m_Root: {fileID: 2782439828952009133, guid: f880e3d9771723f4b9abdd3281536c93, type: 3}
+  m_DestroyWaitTime: 3
+  m_CrashWaitTime: 0.3
 --- !u!54 &3424639076252663223
 Rigidbody:
   m_ObjectHideFlags: 0

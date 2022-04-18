@@ -132,7 +132,7 @@ public class CArtilleryZone : MonoBehaviour
             {
 
                 case false:
-                    Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 2.25f, spotPos.z), Quaternion.identity);
                     break;
 
                 case true:
@@ -142,5 +142,5 @@ public class CArtilleryZone : MonoBehaviour
             }         
             m_Currtime = 0;
         }
-    }//m_DangerZoneCol
+    }
 }

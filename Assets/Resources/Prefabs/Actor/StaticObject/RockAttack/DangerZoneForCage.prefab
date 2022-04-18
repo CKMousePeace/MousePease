@@ -149,7 +149,7 @@ MonoBehaviour:
   m_WaitToPlay: 0
   m_Running: 0
   m_timer: 3
-  m_Rockhigh: 5
+  m_Rockhigh: 15
   m_isDebug: 0
   m_isDebugTrap: 0
   m_DamageZone: {fileID: 2782439829615833834}

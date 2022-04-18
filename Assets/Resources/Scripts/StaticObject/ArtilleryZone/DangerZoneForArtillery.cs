@@ -29,7 +29,6 @@ public class DangerZoneForArtillery : CArtilleryZone
     {
         float elapsedTime = 0;
         Vector3 startingScale = objectToScale.transform.localScale;
-        //Rock.transform.position = new Vector3(gameObject.transform.position.x, m_Rockhigh, gameObject.transform.position.z);
         while (elapsedTime < seconds)
         {
             objectToScale.transform.localScale = Vector3.Lerp(startingScale, scaleTo, (elapsedTime / seconds));
@@ -43,9 +42,9 @@ public class DangerZoneForArtillery : CArtilleryZone
             m_DamageZone.SetActive(false);
             m_Indicator.SetActive(false);
 
-            //오브젝트 풀에서 Cheese 받아옴
+            //오브젝트 풀에서 Rock 받아옴
             CObjectPool.g_instance.ObjectPop("Rock", new Vector3(gameObject.transform.position.x, m_Rockhigh, gameObject.transform.position.z),
-            Quaternion.Euler(-90, 0, 0), new Vector3(5, 5, 5));
+            Quaternion.Euler(-90, 0, 0), new Vector3(1, 1, 1));
         }
         else
         {

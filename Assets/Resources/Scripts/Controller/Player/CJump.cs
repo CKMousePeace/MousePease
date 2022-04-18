@@ -40,8 +40,7 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") ||
-            m_player.InCheeseCheck())
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack"))
         {
             gameObject.SetActive(false);
             return;
@@ -152,6 +151,7 @@ public class CJump : CControllerBase
     // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
     {
+        
         if (m_isJump == false && m_isDoubleJump && m_JumpCheck)
         {
             m_JumpCheck = false;
@@ -166,7 +166,9 @@ public class CJump : CControllerBase
             float m_DirZ = Input.GetAxisRaw("Vertical");
 
             var Dir = new Vector3(m_DirX, 1.0f, m_DirZ).normalized;
+            m_Actor.g_Rigid.velocity = Vector3.zero;
             m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
+            m_Actor.g_Animator.SetTrigger("DoubleJump");
         }
     }
 

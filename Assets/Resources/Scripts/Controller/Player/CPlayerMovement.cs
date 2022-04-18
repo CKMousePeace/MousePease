@@ -13,7 +13,7 @@ public class CPlayerMovement : CControllerBase
     [SerializeField, Header("치즈안에 있을 경우")] private float m_InCheeseSpeed;
 
     private float m_currentSpeed;
-    
+    private float m_currentChaseTime;
     private float m_DirX , m_DirZ;
     private Vector3 m_Dir = Vector3.zero;
 
@@ -21,8 +21,14 @@ public class CPlayerMovement : CControllerBase
     [SerializeField] private bool m_InCheese = false;
     [SerializeField] private KeyCode m_DigginginKey;
     [SerializeField] private bool m_DigginginCheck;
+    
+
+    [SerializeField] private Vector2 m_ChaseTimeRange;
     public float g_currentSpeed => m_currentSpeed;
     public bool g_InCheese => m_InCheese;
+        
+    [SerializeField] private float m_ChaseTime;
+
 
     private void FixedUpdate()
     {        
@@ -34,6 +40,8 @@ public class CPlayerMovement : CControllerBase
         m_Checker.m_ColliderStay += ColliderStay;
         m_Checker.m_TriggerStay += TriggerStay;
         m_Checker.m_TriggerExit += TriggerExit;
+
+        m_ChaseTime = Random.Range(m_ChaseTimeRange.x , m_ChaseTimeRange.y);
     }
 
     private void OnDisable()
@@ -56,8 +64,10 @@ public class CPlayerMovement : CControllerBase
         {
             m_DigginginCheck = true;
         }
-        
-        
+        m_currentChaseTime += Time.deltaTime;
+
+
+
     }
 
     // 달리는 함수입니다.
@@ -91,17 +101,35 @@ public class CPlayerMovement : CControllerBase
             if (!m_InCheese)
             {
                 m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
+                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
+                {
+                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
+                    m_currentChaseTime = 0.0f;
+                    m_Actor.g_Animator.SetTrigger("Chase");
+                }
+                else
+                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
             }
             else if (m_DigginginCheck)
             {
                 m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
+                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
+                {
+                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
+                    m_currentChaseTime = 0.0f;
+                    m_Actor.g_Animator.SetTrigger("Chase");
+                }
+                else 
+                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
 
             }
             else
             {
+                
+                
                 m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+                
+                
             }
 
         }

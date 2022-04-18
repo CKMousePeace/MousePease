@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class CPlayer : CDynamicObject
 {
     protected override void Start()
@@ -21,8 +22,7 @@ public class CPlayer : CDynamicObject
                 if (controllerGameObj.activeInHierarchy) continue;
                 controllerGameObj.SetActive(true);
             }
-        }
-
+        }        
     }
 
     public bool MagnetSkillCheck()
@@ -52,6 +52,7 @@ public class CPlayer : CDynamicObject
 
     public bool InCheeseCheck()
     {
+        
         if (m_ControllerDic.ContainsKey("Movement"))
         {
             CPlayerMovement Controller = (CPlayerMovement)m_ControllerDic["Movement"];

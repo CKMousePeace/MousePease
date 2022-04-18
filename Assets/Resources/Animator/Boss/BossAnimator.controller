@@ -522,49 +522,49 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AttackReady02
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AttackSpeed
     m_Type: 1
     m_DefaultFloat: 1
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Roar
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Dead
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Jump
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Throw
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -595,7 +595,7 @@ AnimatorStateMachine:
     m_Position: {x: 530, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4251128010250499011}
-    m_Position: {x: 530, y: 140, z: 0}
+    m_Position: {x: 540, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8217081066771481402}
     m_Position: {x: 360, y: 220, z: 0}
@@ -604,7 +604,7 @@ AnimatorStateMachine:
     m_Position: {x: 280, y: 40, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5931216073170435312}
-    m_Position: {x: 270, y: 140, z: 0}
+    m_Position: {x: 280, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5763112040382295211}
     m_Position: {x: -230, y: 30, z: 0}
@@ -746,7 +746,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 26f8dbae99ba96a4daf19240230a4288, type: 2}
+  m_Motion: {fileID: 1827226128182048838, guid: 267f8f5a44b4f4c47b048eba07706e81, type: 3}
   m_Tag: 
   m_SpeedParameter: AttackSpeed
   m_MirrorParameter: 

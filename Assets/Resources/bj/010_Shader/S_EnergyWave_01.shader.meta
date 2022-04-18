@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 0dc3d3fbfe9876a42829d8ad237242a7
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _T_Beam_02: {fileID: 2800000, guid: 1f765424d5e2b2f44972a5fc6be692dd, type: 3}
+  - _mask_2: {fileID: 2800000, guid: 53ce8ee271233ce4eb8adce7de709138, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

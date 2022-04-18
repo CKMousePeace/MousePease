@@ -9,22 +9,11 @@ public class CSceneChanger : MonoBehaviour
 
     public Image BLackImage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void FadeOut()
     {
         StartCoroutine("FadeOutScene");
     }
+
 
     public void ChangeScene()
     {
@@ -43,4 +32,7 @@ public class CSceneChanger : MonoBehaviour
             BLackImage.color = new Color(0, 0, 0, FadeOutCount);
         }
     }
+
+
+
 }

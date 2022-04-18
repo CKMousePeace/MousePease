@@ -30,7 +30,7 @@ public class CDeadZone : CControllerBase
 
             m_nav.velocity = Vector3.zero;
             m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
-            m_Actor.g_Animator.SetTrigger("AttackReady01");
+            m_Actor.g_Animator.SetTrigger("Throw"); //AttackReady01
 
             StartCoroutine(AttackDelay());
         }

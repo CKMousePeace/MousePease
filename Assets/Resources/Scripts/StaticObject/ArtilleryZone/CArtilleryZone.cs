@@ -62,6 +62,7 @@ public class CArtilleryZone : MonoBehaviour
         if (m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == true)
         {
             RunningTime();
+            Destroy(m_ColCheckPlace.GetComponent<BoxCollider>());       //점프시 함정이 지워지는것 방지
         }
         else if(m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == false)
         {
@@ -99,20 +100,21 @@ public class CArtilleryZone : MonoBehaviour
 
     private void RunningTime()
     {
-            m_CurrRuntime += Time.deltaTime;
+        m_CurrRuntime += Time.deltaTime;
 
-            //함정이 지속될 시간 (m_Running)
+        //함정이 지속될 시간 (m_Running)
 
-            if (m_CurrRuntime < m_Running)
-            {
-                SpawningZone();
+        if (m_CurrRuntime < m_Running)
 
-            }
-            else if (m_CurrRuntime > m_Running)
-            {
-                //isCheck = false;
-                Destroy(gameObject);
-            }
+        {
+            SpawningZone();
+
+        }
+        else if (m_CurrRuntime > m_Running) 
+        {
+            //isCheck = false;
+            Destroy(gameObject);
+        }
     }
 
 
@@ -130,15 +132,15 @@ public class CArtilleryZone : MonoBehaviour
             {
 
                 case false:
-                    Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    Instantiate(m_DangerZoneCol, new Vector3(spotPos.x, 2.25f, spotPos.z), Quaternion.identity);
                     break;
 
                 case true:
-                    Instantiate(m_CheeseZone, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    Instantiate(m_CheeseZone, new Vector3(spotPos.x, 2.25f, spotPos.z), Quaternion.identity);
                     break;
 
             }         
             m_Currtime = 0;
         }
-    }//m_DangerZoneCol
+    }
 }

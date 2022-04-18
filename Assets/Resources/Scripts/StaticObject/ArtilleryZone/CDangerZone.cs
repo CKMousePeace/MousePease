@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-//아 졸려
+//해당 스크립트는 오브젝트풀이 적용되어있지 않음을 알림. (구 버전 코드, 신버전 ->DangerZone ~~ ForArtillery
 
 public class CDangerZone : MonoBehaviour
 {

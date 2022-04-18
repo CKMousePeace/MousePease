@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class CPlayer : CDynamicObject
 {
+    [SerializeField] private SkinnedMeshRenderer m_MashRender;
+    private float m_CurrentTime = 0.0f;
     protected override void Start()
     {
         base.Start();
@@ -14,7 +15,7 @@ public class CPlayer : CDynamicObject
     {
         if (CompareBuff("KnockBack")) return;
 
-        foreach (var controller in m_ControllerBases)
+        foreach (var controller in m_ControllerBases)a
         {
             var controllerGameObj = controller.gameObject;
             if (Input.GetKeyDown(controller.g_Key))
@@ -22,7 +23,19 @@ public class CPlayer : CDynamicObject
                 if (controllerGameObj.activeInHierarchy) continue;
                 controllerGameObj.SetActive(true);
             }
-        }        
+        }
+
+        if (m_CurrentTime > 0.5f)
+        {
+
+            if (m_MashRender.material.color == Color.red)
+            {
+                m_MashRender.material.color = Color.white;
+                m_MashRender.material.SetColor("_EmissionColor", Color.white);
+            }
+        }
+
+        m_CurrentTime += Time.deltaTime;
     }
 
     public bool MagnetSkillCheck()
@@ -52,7 +65,6 @@ public class CPlayer : CDynamicObject
 
     public bool InCheeseCheck()
     {
-        
         if (m_ControllerDic.ContainsKey("Movement"))
         {
             CPlayerMovement Controller = (CPlayerMovement)m_ControllerDic["Movement"];
@@ -62,6 +74,20 @@ public class CPlayer : CDynamicObject
         return true;
     }
 
+
+    public void SetColor()
+    {
+        
+        m_MashRender.material.color = Color.red;
+        m_MashRender.material.SetColor("_EmissionColor", Color.red);
+        m_CurrentTime = 0.0f;
+    }
+    /*
+     * 
+     * 
+
+
+     */
 
 }
 

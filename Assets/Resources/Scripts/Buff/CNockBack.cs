@@ -10,19 +10,21 @@ public class CNockBack : CBuffBase
     private float m_Damage;
 
     [SerializeField] private CColliderChecker m_ColliderChecker;
-
-
     
     private void OnEnable()
     {
         g_DynamicObject.g_Animator.SetTrigger("Hit");
         g_DynamicObject.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderEnter += CollierEnter;
+        CPlayer play = (CPlayer)g_DynamicObject;
+        play.SetColor();
+
     }
     private void OnDisable()
     {
         g_DynamicObject.g_Animator.SetBool("isGround", true);
         m_ColliderChecker.m_ColliderEnter -= CollierEnter;
+        
     }
     //Buff √ ±‚»≠
     protected override void OnBuffInit(BuffInfo buff)
@@ -42,6 +44,8 @@ public class CNockBack : CBuffBase
             Debug.LogError(e.Message);
         }
     }
+
+    
 
     public override void init(CDynamicObject dynamicObject)
     {

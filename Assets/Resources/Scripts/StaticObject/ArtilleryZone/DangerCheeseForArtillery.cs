@@ -16,21 +16,17 @@ public class DangerCheeseForArtillery : CArtilleryZone
 
 
 
-
     private void Start()
     {
         //변경할 크기 값      size value to change
         var scaleTo = new Vector3(1.0f, 1.0f, 2.5f);
         //게임 오브젝트 , 변경할 크기 값, 소요시간  GameObject , size value to change, time
         StartCoroutine(DangerZoneChecker(m_DamageZone, scaleTo, m_timer));
-
     }
 
     IEnumerator DangerZoneChecker(GameObject objectToScale, Vector3 scaleTo, float seconds)
-        //원의 크기를 seconds 시간만큼 점점 줄이는 코루틴
+    //원의 크기를 seconds 시간만큼 점점 줄이는 코루틴
     {
-
-
         float elapsedTime = 0;
         Vector3 startingScale = objectToScale.transform.localScale;
 
@@ -41,6 +37,7 @@ public class DangerCheeseForArtillery : CArtilleryZone
             yield return new WaitForEndOfFrame();
         }
         objectToScale.transform.position = scaleTo;
+
 
         if(elapsedTime > seconds)
         {

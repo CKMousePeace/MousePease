@@ -100,20 +100,21 @@ public class CArtilleryZone : MonoBehaviour
 
     private void RunningTime()
     {
-            m_CurrRuntime += Time.deltaTime;
+        m_CurrRuntime += Time.deltaTime;
 
-            //함정이 지속될 시간 (m_Running)
+        //함정이 지속될 시간 (m_Running)
 
-            if (m_CurrRuntime < m_Running)
-            {
-                SpawningZone();
+        if (m_CurrRuntime < m_Running)
 
-            }
-            else if (m_CurrRuntime > m_Running)
-            {
-                //isCheck = false;
-                Destroy(gameObject);
-            }
+        {
+            SpawningZone();
+
+        }
+        else if (m_CurrRuntime > m_Running) 
+        {
+            //isCheck = false;
+            Destroy(gameObject);
+        }
     }
 
 

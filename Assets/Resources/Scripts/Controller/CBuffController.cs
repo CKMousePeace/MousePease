@@ -37,6 +37,7 @@ public class CBuffController : CControllerBase
 
             if (!m_DicBuffs[BuffName].gameObject.activeInHierarchy)
                 m_DicBuffs[BuffName].gameObject.SetActive(true);
+
             
             return true;
         }

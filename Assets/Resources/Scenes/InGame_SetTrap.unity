@@ -372,6 +372,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -4418614455616001024, guid: 83bc2d4c4a46e414fbcecb59a7730deb, type: 3}
+--- !u!137 &121758587 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 7324632155440367841, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+  m_PrefabInstance: {fileID: 1981430296}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &152570660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2026,6 +2031,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2268527879708442892, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_MashRender
+      value: 
+      objectReference: {fileID: 121758587}
     - target: {fileID: 8771119826820351097, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_Key
       value: 0
@@ -2082,6 +2091,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8771119827405689143, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_MashRender
+      value: 
+      objectReference: {fileID: 121758587}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
 --- !u!1 &2000896933
@@ -2116,6 +2129,8 @@ MonoBehaviour:
   m_ListObject:
   - m_Object: {fileID: 2637835107546241496, guid: 63fb905bb5c4a5c43b696769d43e2ba0, type: 3}
     m_Name: Cheese
+  - m_Object: {fileID: 5560325123213969826, guid: 0e4148d695ed8c3479e3e8b9a234a177, type: 3}
+    m_Name: Rock
 --- !u!4 &2000896935
 Transform:
   m_ObjectHideFlags: 0
@@ -4862,7 +4877,7 @@ MonoBehaviour:
   m_timer: 0
   m_Rockhigh: 0
   m_isDebug: 0
-  m_isDebugTrap: 1
+  m_isDebugTrap: 0
 --- !u!4 &6119360909193398603
 Transform:
   m_ObjectHideFlags: 0

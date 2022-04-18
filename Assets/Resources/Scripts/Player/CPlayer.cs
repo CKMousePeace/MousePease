@@ -15,7 +15,7 @@ public class CPlayer : CDynamicObject
     {
         if (CompareBuff("KnockBack")) return;
 
-        foreach (var controller in m_ControllerBases)a
+        foreach (var controller in m_ControllerBases)
         {
             var controllerGameObj = controller.gameObject;
             if (Input.GetKeyDown(controller.g_Key))

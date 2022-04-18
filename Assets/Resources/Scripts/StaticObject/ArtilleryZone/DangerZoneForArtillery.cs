@@ -17,6 +17,8 @@ public class DangerZoneForArtillery : CArtilleryZone
     //떨어뜨릴 오브젝트
     [SerializeField] protected GameObject m_Rock;
 
+
+
     private void Start()
     {
         //변경할 크기 값      size value to change

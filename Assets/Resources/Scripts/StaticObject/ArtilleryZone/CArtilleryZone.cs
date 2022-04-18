@@ -62,6 +62,7 @@ public class CArtilleryZone : MonoBehaviour
         if (m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == true)
         {
             RunningTime();
+            Destroy(m_ColCheckPlace.GetComponent<BoxCollider>());       //점프시 함정이 지워지는것 방지
         }
         else if(m_isCheck == true && m_ColCheckPlace.GetComponent<CPCheckForArtil>().g_isOnArtill == false)
         {
@@ -134,7 +135,7 @@ public class CArtilleryZone : MonoBehaviour
                     break;
 
                 case true:
-                    Instantiate(m_CheeseZone, new Vector3(spotPos.x, 0.5f, spotPos.z), Quaternion.identity);
+                    Instantiate(m_CheeseZone, new Vector3(spotPos.x, 2.25f, spotPos.z), Quaternion.identity);
                     break;
 
             }         

@@ -165,7 +165,7 @@ public class CJump : CControllerBase
             float m_DirX = Input.GetAxisRaw("Horizontal");
             float m_DirZ = Input.GetAxisRaw("Vertical");
 
-            var Dir = new Vector3(m_DirX, 1.0f, m_DirZ).normalized;
+            var Dir = new Vector3(m_DirX, 3.0f, m_DirZ).normalized;
             m_Actor.g_Rigid.velocity = Vector3.zero;
             m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
             m_Actor.g_Animator.SetTrigger("DoubleJump");

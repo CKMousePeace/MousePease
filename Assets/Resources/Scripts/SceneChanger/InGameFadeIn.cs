@@ -6,20 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class InGameFadeIn : MonoBehaviour
 {
-
+    //인게임에 적용 될 페이드 인
     [SerializeField] private Image m_FadeOut;
 
     void Start()
     {
         StartCoroutine("FadeInScene");
     }
-
-
-    void Update()
-    {
-        
-    }
-
 
     IEnumerator FadeInScene()
     {

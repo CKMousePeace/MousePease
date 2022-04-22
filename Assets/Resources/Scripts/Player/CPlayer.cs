@@ -6,9 +6,10 @@ public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
     private float m_CurrentTime = 0.0f;
+    private CCSVParsing m_Parsing;
     protected override void Start()
     {
-        base.Start();
+        base.Start();        
     }
 
     protected void Update()
@@ -50,19 +51,7 @@ public class CPlayer : CDynamicObject
         return false;
     }
 
-    //public bool MagnetMagnetType(CMagnet.MagnetType type)
-    //{
-    //    if (m_ControllerDic.ContainsKey("SkillController"))
-    //    {
-    //        CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-    //        CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-    //        if (skill == null) return false;
-    //        return skill.g_MagnetType == type;
-    //    }
-    //    return false;
-    //}
-
-
+    
     public bool InCheeseCheck()
     {
         if (m_ControllerDic.ContainsKey("Movement"))
@@ -82,14 +71,19 @@ public class CPlayer : CDynamicObject
         m_MashRender.material.SetColor("_EmissionColor", Color.red);
         m_CurrentTime = 0.0f;
     }
-    /*
-     * 
-     * 
-
-
-     */
-
 }
+
+//public bool MagnetMagnetType(CMagnet.MagnetType type)
+//{
+//    if (m_ControllerDic.ContainsKey("SkillController"))
+//    {
+//        CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+//        CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
+//        if (skill == null) return false;
+//        return skill.g_MagnetType == type;
+//    }
+//    return false;
+//}
 
 
 

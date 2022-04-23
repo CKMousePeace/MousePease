@@ -12,7 +12,8 @@ public class CDash : CControllerBase
     private bool m_Dash;
 
     private Vector3 m_Dir;    
-    private float m_CurrentTime;    
+    private float m_CurrentTime;
+    private CPlayer m_Player;
 
 
     public override void init(CDynamicObject actor)
@@ -22,6 +23,7 @@ public class CDash : CControllerBase
         m_CurrentDelayTime = 0.0f;
         gameObject.SetActive(false);
         base.init(actor);
+        m_Player = actor.GetComponent<CPlayer>();
     }
     private void OnDisable()
     {       
@@ -44,7 +46,10 @@ public class CDash : CControllerBase
 
         m_Actor.g_Animator.SetTrigger("Dash");
         m_Dash = true;        
-        m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
+        if (!m_Player.InCheeseCheck())
+            m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
+        else
+            m_Dir = new Vector3(m_DirX, m_DirZ, 0.0f);
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;
@@ -107,6 +112,5 @@ public class CDash : CControllerBase
             return true;
         }        
         return false;
-
     }
 }

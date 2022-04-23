@@ -51,7 +51,7 @@ public class CCSVParsing
 
 
     //(string)Text를 찾는함수
-    private string SearchText(string column, string row)
+    private string SearchElement(string column, string row)
     {
         int indexrow = -1;
         int indexcolumn = -1;
@@ -122,7 +122,7 @@ public class CCSVParsing
     public object GetParsingData(string column , string row) 
     {
         
-        string ParsingText = SearchText(column , row);
+        string ParsingText = SearchElement(column , row);
         if (ParsingText == null)
         {
             Debug.LogError("CSV에 데이터가 존재 하지 않습니다.");

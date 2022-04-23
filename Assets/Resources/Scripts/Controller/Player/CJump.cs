@@ -77,12 +77,7 @@ public class CJump : CControllerBase
     }
 
     private void Update()
-    {
-        if (m_Actor.CompareController("Dash") || m_player.MagnetSkillCheck())
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+    {        
         if (Input.GetKeyDown(m_Key))
         {
             if (!m_isDoubleJump)

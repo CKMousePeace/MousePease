@@ -5,7 +5,7 @@ Shader "Unlit/Cheese"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Intensity("Intensity" , Range(0.001, 10)) = 0.5
+        _AlphaColor("Alpha" , Range(0 , 1)) = 1.0
     }
     SubShader
     {
@@ -35,43 +35,24 @@ Shader "Unlit/Cheese"
 
             struct v2f
             {
-                float2 uv : TEXCOORD0;                
                 float4 vertex : SV_POSITION;
-                float4 worldPos : TEXCOORD1;       
-                float3 PlayerPos : TEXCOORD2;
-                
-                
-
+                float2 uv : TEXCOORD0;                                
             };
 
             sampler2D _MainTex;
-            float4 _MainTex_ST;
-            uniform float4 _PlayerPos;
-            float _Intensity;
-
+            float _AlphaColor;
             v2f vert (appdata v)
             {
-                v2f o;                                
-                o.worldPos = UnityObjectToClipPos( v.vertex);
+                v2f o;                                                
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);            
-
-                _PlayerPos = mul(UNITY_MATRIX_VP,_PlayerPos);
-                o.PlayerPos = _PlayerPos.xyz;
-                
-
+                o.uv = v.uv;
                 return o;
             }
 
-
-
             fixed4 frag (v2f i) : SV_Target
             {                
-                fixed4 col = tex2D(_MainTex, i.uv);    
-               
-                float3 PlayerPos = i.PlayerPos;                
-                col.a = saturate(distance (i.worldPos.xyz, PlayerPos.xyz) / _Intensity);               
-                
+                fixed4 col = tex2D(_MainTex, i.uv);  
+                col.a = _AlphaColor;
                 return col;
             }
             ENDCG

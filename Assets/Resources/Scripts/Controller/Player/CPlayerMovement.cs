@@ -97,40 +97,15 @@ public class CPlayerMovement : CControllerBase
 
         if (!m_Actor.CompareController("Dash"))
         {
-
-            if (!m_InCheese)
+            m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
+            if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
             {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
-                {
-                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
-                    m_currentChaseTime = 0.0f;
-                    m_Actor.g_Animator.SetTrigger("Chase");
-                }
-                else
-                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-            }
-            else if (m_DigginginCheck)
-            {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
-                {
-                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
-                    m_currentChaseTime = 0.0f;
-                    m_Actor.g_Animator.SetTrigger("Chase");
-                }
-                else 
-                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-
+                m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
+                m_currentChaseTime = 0.0f;
+                m_Actor.g_Animator.SetTrigger("Chase");
             }
             else
-            {
-                
-                
-                m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-                
-                
-            }
+                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
 
         }
     }
@@ -173,6 +148,8 @@ public class CPlayerMovement : CControllerBase
         }
     }
     
+
+    //치즈 안에 들어가는 함수 입니다.
     private void TriggerStay(Collider collider)
     {
         if (collider.transform.CompareTag("Cheese"))
@@ -193,7 +170,7 @@ public class CPlayerMovement : CControllerBase
 
     private void ColliderStay(Collision collisiton)
     {
-        if (collisiton.transform.CompareTag("Cheese") && m_DigginginCheck)
+        if (collisiton.transform.CompareTag("Cheese") && m_DigginginCheck )
         {           
             collisiton.collider.isTrigger = true;
         }

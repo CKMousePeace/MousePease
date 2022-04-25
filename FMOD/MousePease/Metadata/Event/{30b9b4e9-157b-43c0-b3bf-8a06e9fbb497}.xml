@@ -5,7 +5,7 @@
 			<value>Player JumpUp</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{33020bd4-6815-4ed7-b787-bc0035017be4}</destination>
@@ -116,7 +116,11 @@
 			<destination>{beb6d949-1958-4e43-b958-fde5a27f773a}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{5ecb4466-bafc-4516-874c-d74e83163d06}" />
+	<object class="MixerBusPanner" id="{5ecb4466-bafc-4516-874c-d74e83163d06}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{16b7abbb-a653-448e-82d0-7d3f935ce25a}" />
 	<object class="MixerBusEffectChain" id="{7679dea0-96f9-4d91-b9f2-4caa3ad7cff9}">
 		<relationship name="effects">

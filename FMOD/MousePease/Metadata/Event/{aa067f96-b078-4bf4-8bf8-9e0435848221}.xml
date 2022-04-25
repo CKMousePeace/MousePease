@@ -23,7 +23,7 @@ Recordings by David at Track Time Audio.</value>
 			<value>Boss Attack 2</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{babedfe9-3099-462a-b96e-1b82390d1497}</destination>
@@ -180,7 +180,11 @@ Recordings by David at Track Time Audio.</value>
 			<destination>{ee3de3a0-487d-402a-825c-6a8110b342b4}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{0cec0ed0-55d9-4ddc-afcd-e5b2c8e48102}" />
+	<object class="MixerBusPanner" id="{0cec0ed0-55d9-4ddc-afcd-e5b2c8e48102}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{184466af-f8c7-4f93-ad75-fd86265b7bc6}" />
 	<object class="MixerBusEffectChain" id="{a43f9539-154e-43bf-991c-d9e3f9a9b115}">
 		<relationship name="effects">

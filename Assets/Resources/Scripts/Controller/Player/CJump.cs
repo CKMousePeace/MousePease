@@ -75,7 +75,7 @@ public class CJump : CControllerBase
                 m_isDoubleJump = true;
             }
         }
-        
+
     }
 
     private void FixedUpdate()

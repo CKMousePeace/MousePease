@@ -12,9 +12,17 @@ public class CPlayerMovement : CControllerBase
     [SerializeField] private float m_InCreaseSpeed;
     [SerializeField, Header("치즈안에 있을 경우")] private float m_InCheeseSpeed;
 
+
+
+    [SerializeField, Header("녹은 치즈 감소 스피드")] private float m_InMeltedDecreaseSpeed;
+    [SerializeField] private float m_MeltedSpeedTime;
+
     private float m_currentSpeed;
     private float m_currentChaseTime;
     private float m_DirX , m_DirZ;
+    private float m_CurrentInMeltedDecreaseSpeed;
+
+
     private Vector3 m_Dir = Vector3.zero;
 
     [SerializeField] private CColliderChecker m_Checker;
@@ -124,19 +132,16 @@ public class CPlayerMovement : CControllerBase
     private void PlayerMovement()
     {
         m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-        if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
+        if (m_currentChaseTime >= m_ChaseTime)
         {
             m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
             m_currentChaseTime = 0.0f;
 
-            if (!m_Actor.CompareBuff("Jump") && !m_Actor.CompareBuff("Dash"))
+            if (!m_Actor.CompareController("Jump") && !m_Actor.CompareController("Dash"))
             {
                 m_Actor.g_Animator.SetTrigger("Chase");
                 m_Actor.g_Animator.SetLayerWeight(1, m_currentSpeed / m_fSpeed);
             }
-
-
-
         }
         else
             m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
@@ -157,14 +162,11 @@ public class CPlayerMovement : CControllerBase
 
             if (m_InCheese)
             {
-                if (m_Dir.y == 1.0f)
+                if (m_Dir.y != 0.0f)
                 {
                     ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, 90.0f, ResultRot.eulerAngles.z);
                 }
-                else if (m_Dir.y == -1.0f)
-                {
-                    ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, -90.0f, ResultRot.eulerAngles.z);
-                }
+               
             }                      
 
             m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, m_turnSpeed);
@@ -183,6 +185,8 @@ public class CPlayerMovement : CControllerBase
 
         if (m_InCheese)
             resultSpeed *= m_InCheeseSpeed;
+
+        resultSpeed -= m_CurrentInMeltedDecreaseSpeed;
 
         if (m_currentSpeed < resultSpeed)
         {
@@ -209,14 +213,7 @@ public class CPlayerMovement : CControllerBase
     
 
     //치즈 안에 들어가는 함수 입니다.
-    private void TriggerStay(Collider collider)
-    {
-        if (collider.transform.CompareTag("Cheese"))
-        {
-            m_InCheese = true;
-            collider.isTrigger = true;
-        }
-    }
+
 
     private IEnumerator ExitCheese()
     {
@@ -236,6 +233,29 @@ public class CPlayerMovement : CControllerBase
     }
 
 
+
+    private void TriggerStay(Collider collider)
+    {
+        if (collider.transform.CompareTag("Cheese"))
+        {
+            m_InCheese = true;
+            collider.isTrigger = true;
+        }
+        //녹은 치즈
+        else if (collider.transform.CompareTag("MeltedCheese"))
+        {
+            if (m_currentSpeed - m_InMeltedDecreaseSpeed <= 0.0f)
+            {
+                m_CurrentInMeltedDecreaseSpeed = 0.0f;
+            }
+            else
+            {
+                m_CurrentInMeltedDecreaseSpeed = m_InMeltedDecreaseSpeed;
+            }            
+        }
+    }
+
+
     private void TriggerExit(Collider collider)
     {
         if (collider.transform.CompareTag("Cheese"))
@@ -244,6 +264,11 @@ public class CPlayerMovement : CControllerBase
             collider.isTrigger = false;
             m_Actor.g_Rigid.velocity = Vector3.zero;
             StartCoroutine(ExitCheese());
+        }
+        //녹은 치즈
+        else if (collider.transform.CompareTag("MeltedCheese"))
+        {
+            StartCoroutine(ExitMelted());
         }
     }
 
@@ -255,4 +280,21 @@ public class CPlayerMovement : CControllerBase
             StopCoroutine("ExitCheese");
         }
     }
+
+
+    private IEnumerator ExitMelted()
+    {
+        float time = 0.0f;
+        yield return new WaitUntil(() =>
+        {
+            time += Time.deltaTime;
+            if (time <= m_MeltedSpeedTime)
+            {
+                return false;
+            }
+            m_CurrentInMeltedDecreaseSpeed = 0.0f;
+            return true;
+        });
+    }
+
 }

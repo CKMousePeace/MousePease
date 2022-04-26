@@ -29,7 +29,6 @@ public class CPlayerMovement : CControllerBase
         
     [SerializeField] private float m_ChaseTime;
 
-
     private void FixedUpdate()
     {        
         Movement();        
@@ -64,16 +63,28 @@ public class CPlayerMovement : CControllerBase
         {
             m_DigginginCheck = true;
         }
-        m_currentChaseTime += Time.deltaTime;
-
+        else
+        {
+            m_DigginginCheck = false;
+        }
+        if (!m_Actor.CompareBuff("Jump") && !m_Actor.CompareBuff("Dash"))
+        {
+            if (m_currentSpeed != 0)
+                m_currentChaseTime += Time.deltaTime;
+        }
+        if (m_Actor.CompareBuff("Jump")  || m_Actor.CompareBuff("Dash"))
+        {
+            m_currentChaseTime = 0.0f;
+        }
+        SetGravity();
 
 
     }
 
     // 달리는 함수입니다.
-    public void Movement()
+    private void Movement()
     {
-        Running();
+        Walking();
 
         if (m_DirX == 0.0f && m_DirZ == 0.0f)
         {
@@ -84,56 +95,57 @@ public class CPlayerMovement : CControllerBase
             }
         }
         else
-        {//* Mathf.Abs(m_DirX)
-            var Dir = new Vector3(m_DirX, 0.0f , m_DirZ);
+        {
+            var Dir = Vector3.zero;
+            if (!m_InCheese)
+            {
+                Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
+             
+            }
+            else
+            {
+                Dir = new Vector3(m_DirX, m_DirZ, 0.0f);                
+            }
             m_Dir = Dir.normalized;
-        }
-        
+        }        
         
        TurnRot();
        if (m_Actor.CompareBuff("KnockBack")) return;
 
-        // 3d 게임이지만 게임상 2d로 움직이기 때문에 x값만 사용                     
-
+        
         if (!m_Actor.CompareController("Dash"))
         {
-
-            if (!m_InCheese)
-            {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
-                {
-                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
-                    m_currentChaseTime = 0.0f;
-                    m_Actor.g_Animator.SetTrigger("Chase");
-                }
-                else
-                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-            }
-            else if (m_DigginginCheck)
-            {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
-                {
-                    m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
-                    m_currentChaseTime = 0.0f;
-                    m_Actor.g_Animator.SetTrigger("Chase");
-                }
-                else 
-                    m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-
-            }
-            else
-            {
-                
-                
-                m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-                
-                
-            }
-
+            PlayerMovement();
         }
     }
+
+  
+    //실질적으로 플레이어 움직이는 함수
+    private void PlayerMovement()
+    {
+        m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
+        if (m_currentChaseTime >= m_ChaseTime && !m_Actor.CompareController("Jump"))
+        {
+            m_ChaseTime = Random.Range(m_ChaseTimeRange.x, m_ChaseTimeRange.y);
+            m_currentChaseTime = 0.0f;
+
+            if (!m_Actor.CompareBuff("Jump") && !m_Actor.CompareBuff("Dash"))
+            {
+                m_Actor.g_Animator.SetTrigger("Chase");
+                m_Actor.g_Animator.SetLayerWeight(1, m_currentSpeed / m_fSpeed);
+            }
+
+
+
+        }
+        else
+            m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
+    }
+
+
+
+
+
 
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
@@ -142,13 +154,27 @@ public class CPlayerMovement : CControllerBase
         {
             var transEulerRot = m_Actor.transform.rotation;
             var ResultRot = Quaternion.LookRotation(m_Dir);
-            m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot , ResultRot ,m_turnSpeed);
-        }       
-    } 
-   
+
+            if (m_InCheese)
+            {
+                if (m_Dir.y == 1.0f)
+                {
+                    ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, 90.0f, ResultRot.eulerAngles.z);
+                }
+                else if (m_Dir.y == -1.0f)
+                {
+                    ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, -90.0f, ResultRot.eulerAngles.z);
+                }
+            }                      
+
+            m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, m_turnSpeed);
+        }
+    }
+
+
     
     //달리는 함수 입니다. 제거해야됨
-    private void Running()
+    private void Walking()
     {
         var resultSpeed = 0.0f;
        
@@ -172,7 +198,17 @@ public class CPlayerMovement : CControllerBase
                 m_currentSpeed = resultSpeed;           
         }
     }
+
+    private void SetGravity()
+    {
+        if (!m_Actor.g_Rigid.useGravity && !m_InCheese)
+            m_Actor.g_Rigid.useGravity = true;
+        if (m_Actor.g_Rigid.useGravity && m_InCheese)
+            m_Actor.g_Rigid.useGravity = false;
+    }
     
+
+    //치즈 안에 들어가는 함수 입니다.
     private void TriggerStay(Collider collider)
     {
         if (collider.transform.CompareTag("Cheese"))
@@ -182,20 +218,41 @@ public class CPlayerMovement : CControllerBase
         }
     }
 
+    private IEnumerator ExitCheese()
+    {
+        var time = 0.0f;
+        var transEulerRot = m_Actor.transform.rotation;
+        var ResultRot = Quaternion.Euler(new Vector3(0.0f, transEulerRot.eulerAngles.y, transEulerRot.eulerAngles.z));
+
+        yield return new WaitUntil(() => {
+            time += Time.deltaTime * 3.0f;
+            if (time <= 1.0f)
+            {
+                m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, time);
+                return false;
+            }
+            return true;
+        });
+    }
+
+
     private void TriggerExit(Collider collider)
     {
         if (collider.transform.CompareTag("Cheese"))
         {
             m_InCheese = false;
             collider.isTrigger = false;
+            m_Actor.g_Rigid.velocity = Vector3.zero;
+            StartCoroutine(ExitCheese());
         }
     }
 
     private void ColliderStay(Collision collisiton)
     {
-        if (collisiton.transform.CompareTag("Cheese") && m_DigginginCheck)
+        if (collisiton.transform.CompareTag("Cheese") && m_DigginginCheck )
         {           
             collisiton.collider.isTrigger = true;
+            StopCoroutine("ExitCheese");
         }
     }
 }

@@ -23,7 +23,7 @@ Recordings by David at Track Time Audio.</value>
 			<value>Boss Footsteps</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{babedfe9-3099-462a-b96e-1b82390d1497}</destination>
@@ -226,7 +226,11 @@ Recordings by David at Track Time Audio.</value>
 			<destination>{7e76a83d-f8be-4878-a168-26830deece2b}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{64d789de-ff47-4e02-ab86-3485110cba31}" />
+	<object class="MixerBusPanner" id="{64d789de-ff47-4e02-ab86-3485110cba31}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{5697ddb6-d73b-4340-8910-d07c78712788}" />
 	<object class="RandomizerModulator" id="{f3bee383-b52e-4471-9003-39f72fe032c3}">
 		<property name="nameOfPropertyBeingModulated">

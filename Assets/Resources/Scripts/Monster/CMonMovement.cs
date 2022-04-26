@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class CMonMovement : CControllerBase
 {
+    [SerializeField] private GameObject m_Camrea;
+
     [SerializeField] private NavMeshAgent m_nav;
     [SerializeField] private GameObject m_PlayerTarget;
     [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
@@ -23,9 +25,10 @@ public class CMonMovement : CControllerBase
 
 
     private void Start()
-    {
+    {      
         m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
         m_nav.autoBraking = false;
+        m_nav.isStopped = false;
         m_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
         NextIndex();
     }
@@ -84,7 +87,7 @@ public class CMonMovement : CControllerBase
     {
         if(m_nav.destination != m_PlayerTarget.transform.position)
         {
-            m_nav.autoBraking = true;
+            
             m_nav.SetDestination(m_PlayerTarget.transform.position);
             BossAnimation();
         }
@@ -99,7 +102,6 @@ public class CMonMovement : CControllerBase
         //Execute if distance to destination is less than 5 or arrives 목적지까지의 거리가 3 이하 혹은 도착했으면 실행 
         if (!m_nav.pathPending && m_nav.remainingDistance < 3.0f)
         {
-            //BossAnimation();
             NextIndex();
         }
 
@@ -114,34 +116,34 @@ public class CMonMovement : CControllerBase
             return;
         }
         else
-        {
-            m_nav.autoBraking = false;
+        {       
             m_nav.destination = m_WayPoint[m_currentNode].position;
             m_currentNode = (m_currentNode + 1);
             //moving position 위치 이동
-            Debug.Log("현재 노드 : " + m_currentNode);
+            //Debug.Log("현재 노드 : " + m_currentNode);
         }
 
 
         switch (m_currentNode)
         {
-            case 0:
-                break;
-
-            case 1:
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                break;
-
             case 4:
-                m_Actor.g_Animator.SetTrigger("Jump");
+                //StartCoroutine("JumpDelay");
                 break;
         }
+    }
 
+    IEnumerator JumpDelay() //이거 설마 다 이렇게 구현해야해..? 아니지..?\
+        //아님 메쉬링크 사용하던가???? 생각좀 해봐야 할듯;
+        //4.26 메쉬링크로 업데이트완료. 해당 코드 사용 안할듯,,
+    {
+        yield return new WaitForSeconds(1.5f);      //점프
+        m_Actor.g_Animator.SetTrigger("Jump");
+                
+        yield return new WaitForSeconds(2.0f);      //착지 후 정지
+        m_nav.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(0.5f);      //다시 추적 진행
+        m_nav.velocity = Vector3.one;
 
     }
 

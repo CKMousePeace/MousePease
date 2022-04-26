@@ -92,4 +92,5 @@ public abstract class CDynamicObject : CActor
                 m_ControllerDic[ControllerName].gameObject.SetActive(false);
         }
     }
+    
 }

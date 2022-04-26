@@ -10,7 +10,6 @@ public class PlayerSoundManager : MonoBehaviour
         Normal,
         Grass,
         WoodFloor
-
     };
 
 
@@ -18,6 +17,8 @@ public class PlayerSoundManager : MonoBehaviour
     private FMOD.Studio.EventInstance m_player_Dead;
     private FMOD.Studio.EventInstance m_player_Jump;
     private FMOD.Studio.EventInstance m_player_JumpLand;
+    private FMOD.Studio.EventInstance m_player_CheeseRush;
+    private FMOD.Studio.EventInstance m_palyer_ADDREADY;
     [SerializeField] CURRENT_TERRAIN currentTranin;
 
 

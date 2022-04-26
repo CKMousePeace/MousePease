@@ -28,6 +28,7 @@ public class CMonMovement : CControllerBase
     {      
         m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
         m_nav.autoBraking = false;
+        m_nav.isStopped = false;
         m_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
         NextIndex();
     }
@@ -119,20 +120,21 @@ public class CMonMovement : CControllerBase
             m_nav.destination = m_WayPoint[m_currentNode].position;
             m_currentNode = (m_currentNode + 1);
             //moving position 위치 이동
-            Debug.Log("현재 노드 : " + m_currentNode);
+            //Debug.Log("현재 노드 : " + m_currentNode);
         }
 
 
         switch (m_currentNode)
         {
             case 4:
-                StartCoroutine("JumpDelay");
+                //StartCoroutine("JumpDelay");
                 break;
         }
     }
 
     IEnumerator JumpDelay() //이거 설마 다 이렇게 구현해야해..? 아니지..?\
         //아님 메쉬링크 사용하던가???? 생각좀 해봐야 할듯;
+        //4.26 메쉬링크로 업데이트완료. 해당 코드 사용 안할듯,,
     {
         yield return new WaitForSeconds(1.5f);      //점프
         m_Actor.g_Animator.SetTrigger("Jump");

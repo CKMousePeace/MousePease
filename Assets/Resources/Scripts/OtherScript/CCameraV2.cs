@@ -33,10 +33,6 @@ public class CCameraV2 : MonoBehaviour
     //플레이어 트래킹 체크
     private bool isCheck = true;
 
-    setTartget target = setTartget.Player;
-
-
-
 
 
     //==================================================================//

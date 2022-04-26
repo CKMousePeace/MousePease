@@ -75,16 +75,17 @@ public class CPlayerMovement : CControllerBase
         {
             m_DigginginCheck = false;
         }
-        if (!m_Actor.CompareBuff("Jump") && !m_Actor.CompareBuff("Dash"))
+        if (!m_Actor.CompareController("Jump") && !m_Actor.CompareController("Dash"))
         {
             if (m_currentSpeed != 0)
                 m_currentChaseTime += Time.deltaTime;
         }
-        if (m_Actor.CompareBuff("Jump")  || m_Actor.CompareBuff("Dash"))
+        if (m_Actor.CompareController("Jump")  || m_Actor.CompareController("Dash"))
         {
             m_currentChaseTime = 0.0f;
         }
-        SetGravity();
+        if (!m_Actor.CompareController("Dash"))
+            SetGravity();
 
 
     }
@@ -162,11 +163,15 @@ public class CPlayerMovement : CControllerBase
 
             if (m_InCheese)
             {
-                if (m_Dir.y != 0.0f)
+                if (m_Dir.y == 1.0f)
                 {
                     ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, 90.0f, ResultRot.eulerAngles.z);
                 }
-               
+                else if (m_Dir.y == -1.0f)
+                {
+                    ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, -90.0f, ResultRot.eulerAngles.z);
+                }
+
             }                      
 
             m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, m_turnSpeed);
@@ -246,7 +251,7 @@ public class CPlayerMovement : CControllerBase
         {
             if (m_currentSpeed - m_InMeltedDecreaseSpeed <= 0.0f)
             {
-                m_CurrentInMeltedDecreaseSpeed = 0.0f;
+                m_CurrentInMeltedDecreaseSpeed = m_currentSpeed;
             }
             else
             {
@@ -288,12 +293,19 @@ public class CPlayerMovement : CControllerBase
         yield return new WaitUntil(() =>
         {
             time += Time.deltaTime;
+
+            if (m_currentSpeed - m_InMeltedDecreaseSpeed <= 0.0f)
+            {
+                m_CurrentInMeltedDecreaseSpeed = m_currentSpeed;
+            }
+
             if (time <= m_MeltedSpeedTime)
             {
                 return false;
             }
             m_CurrentInMeltedDecreaseSpeed = 0.0f;
             return true;
+
         });
     }
 

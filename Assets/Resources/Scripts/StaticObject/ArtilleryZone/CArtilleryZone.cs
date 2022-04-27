@@ -32,11 +32,7 @@ public class CArtilleryZone : MonoBehaviour
     [Header("함정 지속될 시간")]
     [SerializeField] protected float m_Running = 0;
 
-    [Header("줄어드는 시간")]
-    [SerializeField] protected float m_timer = 0;
 
-    [Header("돌이 떨어질 높이")]
-    [SerializeField] protected float m_Rockhigh = 0;
     //=======================================================================//
 
 

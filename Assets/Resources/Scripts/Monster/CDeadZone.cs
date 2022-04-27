@@ -24,7 +24,6 @@ public class CDeadZone : CControllerBase
     {
         if (col.CompareTag("Player"))
         {
-
             m_nav.velocity = Vector3.zero;
             m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
             m_Actor.g_Animator.SetTrigger("Throw"); //AttackReady01 원래 공격이야!
@@ -36,6 +35,8 @@ public class CDeadZone : CControllerBase
     IEnumerator AttackDelay()
     {
         yield return new WaitForSeconds(1.0f);
+
+        //후에 이부분 비활성화가 아닌 플레이어 사망 모션 및 정지.
         GameObject.FindGameObjectWithTag("Player").SetActive(false);
     }
 }

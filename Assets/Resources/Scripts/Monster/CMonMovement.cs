@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class CMonMovement : CControllerBase
 {
     [SerializeField] private GameObject m_Camrea;
-
     [SerializeField] private NavMeshAgent m_nav;
-    [SerializeField] private GameObject m_PlayerTarget;
+    [SerializeField] private GameObject m_PlayerTarget;     //Target (Player)
     [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
+
+
     private int m_currentNode = 0;
 
     //===============디버그===================//
@@ -19,6 +20,10 @@ public class CMonMovement : CControllerBase
 
     [Header("체크할 시 보스 움직임")]
     [SerializeField] private bool m_DebugMoveMod = false;
+
+    [Header("체크할 시 깨물기 스킬 사용")]
+    [SerializeField] private bool m_DebugBiteMod = false;
+
 
 
     //===============디버그===================//
@@ -44,6 +49,10 @@ public class CMonMovement : CControllerBase
         m_Actor.g_Animator.SetFloat("Speed", velocity);
     }
 
+
+
+    [Header("깨물기 지속 시간")]
+    [SerializeField] private float MonBiteRunningTime = 2.0f; //Bite Collider duration
     private void Update()
     {
         if (m_DebugMoveMod == true)
@@ -79,8 +88,11 @@ public class CMonMovement : CControllerBase
                 }
             }
         }
-        else
-            return;
+
+        if(m_DebugBiteMod == true)
+        {
+            StartCoroutine(BiteMode(MonBiteRunningTime));
+        }
     }
 
     private void BossMovement()
@@ -104,8 +116,6 @@ public class CMonMovement : CControllerBase
         {
             NextIndex();
         }
-
-
     }
 
     private void NextIndex()
@@ -132,19 +142,23 @@ public class CMonMovement : CControllerBase
         }
     }
 
-    IEnumerator JumpDelay() //이거 설마 다 이렇게 구현해야해..? 아니지..?\
-        //아님 메쉬링크 사용하던가???? 생각좀 해봐야 할듯;
-        //4.26 메쉬링크로 업데이트완료. 해당 코드 사용 안할듯,,
+    [SerializeField] private GameObject m_BiteCollider;     //BiteCollider Add
+    IEnumerator BiteMode(float Time)
     {
-        yield return new WaitForSeconds(1.5f);      //점프
-        m_Actor.g_Animator.SetTrigger("Jump");
-                
-        yield return new WaitForSeconds(2.0f);      //착지 후 정지
-        m_nav.velocity = Vector3.zero;
+        while (true)
+        {
+            m_BiteCollider.SetActive(true);
+            m_nav.speed = 10.0f;
 
-        yield return new WaitForSeconds(0.5f);      //다시 추적 진행
-        m_nav.velocity = Vector3.one;
+            yield return new WaitForSeconds(Time);
 
+            m_nav.speed = 6.0f;
+            m_BiteCollider.SetActive(false);
+
+            m_DebugBiteMod = false;
+
+            yield break;
+        }
     }
 
     private void OnDrawGizmos()     //Draw to visually express the position 그려서 위치 시각적으로 표현

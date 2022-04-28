@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08235934, g: 0.11394335, b: 0.2561301, a: 1}
+  m_IndirectSpecularColor: {r: 0.082359545, g: 0.113943785, b: 0.25613052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -813,6 +813,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8d0e1d4592edb4698e8eb9be96eef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &552747089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 552747090}
+  - component: {fileID: 552747092}
+  - component: {fileID: 552747091}
+  m_Layer: 0
+  m_Name: BiteCheck Col
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &552747090
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552747089}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0.88, z: 2.65}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6436561967980393879}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!114 &552747091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552747089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c997a445e3931dd4f8c1ee8a8b2daaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Buffinfo:
+    m_Value_Int: 
+    m_Value_Float:
+    - 2
+    - 200
+    m_Value_Vector3: []
+  MonBite: {fileID: 1682244141}
+--- !u!65 &552747092
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552747089}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5, y: 4, z: 4}
+  m_Center: {x: -4.2, y: 1.69, z: 0}
 --- !u!1 &559831933
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,7 +981,7 @@ GameObject:
   - component: {fileID: 572417763}
   - component: {fileID: 572417762}
   m_Layer: 0
-  m_Name: Jump
+  m_Name: MonJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -936,7 +1000,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Key: 0
-  m_ControllerName: Jump
+  m_ControllerName: MonJump
 --- !u!4 &572417763
 Transform:
   m_ObjectHideFlags: 0
@@ -1924,7 +1988,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150138785}
   m_LocalRotation: {x: 0.13744457, y: 0, z: 0, w: 0.9905095}
-  m_LocalPosition: {x: 104.41, y: 7.13, z: -46.61}
+  m_LocalPosition: {x: -29.63, y: 7.13, z: -46.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2468,6 +2532,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Surfaces:
   - {fileID: 0}
+--- !u!1 &1682244141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1682244142}
+  - component: {fileID: 1682244143}
+  m_Layer: 0
+  m_Name: MonBite
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1682244142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682244141}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6436561967980393879}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1682244143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682244141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f2ac2570d3916c4f9061cfc0be24813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Key: 0
+  m_ControllerName: MonBite
+  m_AttackSpeed_1: 1
 --- !u!1 &1684762664
 GameObject:
   m_ObjectHideFlags: 0
@@ -3847,7 +3957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 102.939995
+      value: -31.100014
       objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6532,10 +6642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c41551afa0868b649bb0511a0791cd31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Key: 0
-  m_ControllerName: DeadZone
   m_nav: {fileID: 0}
-  m_AttackSpeed_1: 1
+  MonSmash: {fileID: 893924201935506371}
 --- !u!65 &893924200900080370
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6561,7 +6669,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6436561967980393879}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &893924200900080380
 GameObject:
@@ -6607,7 +6715,10 @@ MonoBehaviour:
   - {fileID: 286125642}
   - {fileID: 1784475069}
   m_DebugTrackingMod: 1
-  m_DebugMoveMod: 1
+  m_DebugMoveMod: 0
+  m_DebugBiteMod: 0
+  MonBiteRunningTime: 10
+  m_BiteCollider: {fileID: 552747089}
 --- !u!4 &893924201448461098
 Transform:
   m_ObjectHideFlags: 0
@@ -6652,7 +6763,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Key: 0
-  m_ControllerName: Smash
+  m_ControllerName: MonSmash
+  m_AttackSpeed_1: 1
 --- !u!4 &893924201935506370
 Transform:
   m_ObjectHideFlags: 0
@@ -6678,7 +6790,7 @@ GameObject:
   - component: {fileID: 893924201935506370}
   - component: {fileID: 893924201935506369}
   m_Layer: 0
-  m_Name: Smash
+  m_Name: MonSmash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6709,7 +6821,7 @@ GameObject:
   - component: {fileID: 893924202006004372}
   - component: {fileID: 893924202006004459}
   m_Layer: 0
-  m_Name: Roar
+  m_Name: MonRoar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6728,7 +6840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Key: 0
-  m_ControllerName: Roar
+  m_ControllerName: MonRoar
 --- !u!114 &893924202707094699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8486,7 +8598,9 @@ Transform:
   - {fileID: 893924202006004372}
   - {fileID: 572417763}
   - {fileID: 893924201935506370}
+  - {fileID: 1682244142}
   - {fileID: 893924200900080371}
+  - {fileID: 552747090}
   m_Father: {fileID: 6436561968127999042}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8624,8 +8738,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ControllerBases:
   - {fileID: 893924201448461097}
-  - {fileID: 893924200900080369}
+  - {fileID: 893924202006004459}
   - {fileID: 572417762}
+  - {fileID: 893924201935506369}
   m_Animator: {fileID: 893924202707094868}
   m_fHP: 99999
 --- !u!4 &6436561968266821048

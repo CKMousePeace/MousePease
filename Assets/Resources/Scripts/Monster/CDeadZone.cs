@@ -3,17 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CDeadZone : CControllerBase
+public class CDeadZone : MonoBehaviour
 {
     [SerializeField] private NavMeshAgent m_nav;            //보스
-    [SerializeField] private float m_AttackSpeed_1 = 1;     //공격1
-    //[SerializeField] private float m_AttackSpeed_2 = 1;     //공격2
+    [SerializeField] GameObject MonSmash;                    //몬스터 점프하는 부분
 
-    public override void init(CDynamicObject actor)
-    {
-        gameObject.SetActive(true);
-        base.init(actor);
-    }
 
     private void Start()
     {
@@ -25,9 +19,7 @@ public class CDeadZone : CControllerBase
         if (col.CompareTag("Player"))
         {
             m_nav.velocity = Vector3.zero;
-            m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
-            m_Actor.g_Animator.SetTrigger("Throw"); //AttackReady01 원래 공격이야!
-
+            MonSmash.SetActive(true);        //Boss Kill Motion Enable
             StartCoroutine(AttackDelay());
         }
     }

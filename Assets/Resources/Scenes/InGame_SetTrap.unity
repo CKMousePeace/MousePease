@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.082359545, g: 0.113943785, b: 0.25613052, a: 1}
+  m_IndirectSpecularColor: {r: 0.08235934, g: 0.11394335, b: 0.2561301, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4243,6 +4243,8 @@ GameObject:
   - component: {fileID: 859451053618653884}
   - component: {fileID: 893924202707094868}
   - component: {fileID: 893924202707094699}
+  - component: {fileID: 46921120140898312}
+  - component: {fileID: 46921120140898311}
   m_Layer: 0
   m_Name: boss_dummy
   m_TagString: Untagged
@@ -4250,6 +4252,81 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &46921120140898311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46921120140898310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 1, g: 0, b: 0.13624, a: 0.5}
+  m_Transforms:
+  - {fileID: 9113841228667944156}
+  - {fileID: 8519097345044510033}
+  - {fileID: 5356399909042763984}
+  - {fileID: 1772093018738359756}
+  - {fileID: 6223425800351989552}
+  - {fileID: 514236202532832961}
+  - {fileID: 6199301109058443543}
+  - {fileID: 5357878174069601799}
+  - {fileID: 3832548851361684640}
+  - {fileID: 7469142492020179588}
+  - {fileID: 2957719269320448745}
+  - {fileID: 2194083663683067234}
+  - {fileID: 6061419168081754290}
+  - {fileID: 3961118270254388652}
+  - {fileID: 111793372554429370}
+  - {fileID: 8036544615593025425}
+  - {fileID: 4754480432429226151}
+  - {fileID: 6699499847516458176}
+  - {fileID: 3873331995520950704}
+  - {fileID: 4246468551121434373}
+  - {fileID: 5436015985755930218}
+  - {fileID: 1035830860082497268}
+  - {fileID: 5829663796357845709}
+  - {fileID: 7017553566492730452}
+  - {fileID: 3188708370351815169}
+  - {fileID: 236078302601351625}
+  - {fileID: 499565009410077185}
+  - {fileID: 6543771035004800425}
+  - {fileID: 7668728080058127615}
+  - {fileID: 8721469436720076285}
+  - {fileID: 6496439810265666807}
+  - {fileID: 547883478871981611}
+--- !u!114 &46921120140898312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 46921120140898310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff0960ef4ea6e04eac66b4a7fd2189d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RigLayers:
+  - m_Rig: {fileID: 0}
+    m_Active: 1
+  m_Effectors:
+  - m_Transform: {fileID: 859451053618653884}
+    m_Style:
+      shape: {fileID: 4300000, guid: c6793350c150f456688e39a81f97364a, type: 2}
+      color: {r: 1, g: 0, b: 0, a: 0.5}
+      size: 0.1
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    m_Visible: 1
 --- !u!4 &111793372554429370
 Transform:
   m_ObjectHideFlags: 0
@@ -6255,6 +6332,10 @@ PrefabInstance:
     - target: {fileID: 8390673071236514486, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
       propertyPath: m_Name
       value: level
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390673071236514486, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8390673071236514486, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
       propertyPath: m_TagString

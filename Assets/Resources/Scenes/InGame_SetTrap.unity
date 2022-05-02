@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.08235934, g: 0.11394335, b: 0.2561301, a: 1}
+  m_IndirectSpecularColor: {r: 0.082359545, g: 0.113943785, b: 0.25613052, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6798,7 +6798,10 @@ MonoBehaviour:
   m_DebugTrackingMod: 1
   m_DebugMoveMod: 0
   m_DebugBiteMod: 0
-  MonBiteRunningTime: 10
+  m_DebugHoldDMod: 0
+  m_MonBiteRunningTime: 2
+  m_MonHoldDWaitTime: 2
+  m_MonHoldDAfterTime: 2
   m_BiteCollider: {fileID: 552747089}
 --- !u!4 &893924201448461098
 Transform:

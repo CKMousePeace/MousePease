@@ -24,7 +24,8 @@ public class CMonMovement : CControllerBase
     [Header("체크할 시 깨물기 스킬 사용")]
     [SerializeField] private bool m_DebugBiteMod = false;
 
-
+    [Header("체크할 시 덮치기 스킬 사용")]     //Hold Down
+    [SerializeField] private bool m_DebugHoldDMod = false;
 
     //===============디버그===================//
 
@@ -52,17 +53,22 @@ public class CMonMovement : CControllerBase
 
 
     [Header("깨물기 지속 시간")]
-    [SerializeField] private float MonBiteRunningTime = 2.0f; //Bite Collider duration
+    [SerializeField] private float m_MonBiteRunningTime = 2.0f; //Bite Collider duration
+
+    [Header("덮치기 대기 시간")]
+    [SerializeField] private float m_MonHoldDWaitTime = 2.0f; //Bite Collider duration
+
+    [Header("덮친 후 일어날 시간")]
+    [SerializeField] private float m_MonHoldDAfterTime = 2.0f; //Bite Collider duration
+
     private void Update()
     {
+        //움직임 체크
         if (m_DebugMoveMod == true)
         {
             if (m_DebugTrackingMod == false)
             {
-                if (m_PlayerTarget.activeSelf == true)
-                {
-                    BossMovement();
-                }
+                if (m_PlayerTarget.activeSelf == true)  BossMovement();
                 else
                 {
                     m_nav.autoBraking = true;
@@ -89,10 +95,11 @@ public class CMonMovement : CControllerBase
             }
         }
 
-        if(m_DebugBiteMod == true)
-        {
-            StartCoroutine(BiteMode(MonBiteRunningTime));
-        }
+        //깨물기 공격
+        if(m_DebugBiteMod == true)  StartCoroutine(BiteMode(m_MonBiteRunningTime));
+
+        //덮치기 공격
+        if (m_DebugHoldDMod == true) StartCoroutine(HoldDownMode(m_MonHoldDWaitTime, m_MonHoldDAfterTime));
     }
 
     private void BossMovement()
@@ -142,8 +149,10 @@ public class CMonMovement : CControllerBase
         }
     }
 
+
+
     [SerializeField] private GameObject m_BiteCollider;     //BiteCollider Add
-    IEnumerator BiteMode(float Time)
+    IEnumerator BiteMode(float Time)    //깨물기 공격
     {
         while (true)
         {
@@ -159,6 +168,19 @@ public class CMonMovement : CControllerBase
 
             yield break;
         }
+    }
+
+    IEnumerator HoldDownMode(float Ready , float Finish)    //덮치기 공격
+    {
+
+        m_Actor.g_Animator.SetTrigger("HoldN");
+        yield return new WaitForSeconds(Ready);
+
+        //잠만 뭐가 이상한데..
+
+
+        yield break;
+
     }
 
     private void OnDrawGizmos()     //Draw to visually express the position 그려서 위치 시각적으로 표현

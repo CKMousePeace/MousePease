@@ -22,7 +22,6 @@ public class CPlayerMovement : CControllerBase
     private float m_DirX , m_DirZ;
     private float m_CurrentInMeltedDecreaseSpeed;
 
-
     private Vector3 m_Dir = Vector3.zero;
 
     [SerializeField] private CColliderChecker m_Checker;
@@ -34,7 +33,8 @@ public class CPlayerMovement : CControllerBase
     [SerializeField] private Vector2 m_ChaseTimeRange;
     public float g_currentSpeed => m_currentSpeed;
     public bool g_InCheese => m_InCheese;
-        
+
+    public KeyCode g_DigginginKey => m_DigginginKey;
     [SerializeField] private float m_ChaseTime;
 
     private void FixedUpdate()
@@ -87,7 +87,6 @@ public class CPlayerMovement : CControllerBase
         if (!m_Actor.CompareController("Dash"))
             SetGravity();
 
-
     }
 
     // 달리는 함수입니다.
@@ -107,18 +106,15 @@ public class CPlayerMovement : CControllerBase
         {
             var Dir = Vector3.zero;
             if (!m_InCheese)
-            {
                 Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
-             
-            }
             else
-            {
                 Dir = new Vector3(m_DirX, m_DirZ, 0.0f);                
-            }
+            
             m_Dir = Dir.normalized;
         }        
         
        TurnRot();
+
        if (m_Actor.CompareBuff("KnockBack")) return;
 
         
@@ -148,11 +144,6 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
     }
 
-
-
-
-
-
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
     {
@@ -171,14 +162,10 @@ public class CPlayerMovement : CControllerBase
                 {
                     ResultRot.eulerAngles = new Vector3(ResultRot.eulerAngles.x, -90.0f, ResultRot.eulerAngles.z);
                 }
-
-            }                      
-
+            } 
             m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, m_turnSpeed);
         }
     }
-
-
     
     //달리는 함수 입니다. 제거해야됨
     private void Walking()
@@ -199,12 +186,13 @@ public class CPlayerMovement : CControllerBase
         }
         if (m_currentSpeed >= resultSpeed)
         {
-            if (m_DecreaseSpeed == 0.0f) m_DecreaseSpeed = 1.0f;            
+            if (m_DecreaseSpeed == 0.0f) 
+                m_DecreaseSpeed = 1.0f;
 
             m_currentSpeed -= Time.fixedDeltaTime * m_DecreaseSpeed;
             
             if (m_currentSpeed <= resultSpeed)
-                m_currentSpeed = resultSpeed;           
+                m_currentSpeed = resultSpeed;
         }
     }
 
@@ -219,26 +207,6 @@ public class CPlayerMovement : CControllerBase
 
     //치즈 안에 들어가는 함수 입니다.
 
-
-    private IEnumerator ExitCheese()
-    {
-        var time = 0.0f;
-        var transEulerRot = m_Actor.transform.rotation;
-        var ResultRot = Quaternion.Euler(new Vector3(0.0f, transEulerRot.eulerAngles.y, transEulerRot.eulerAngles.z));
-
-        yield return new WaitUntil(() => {
-            time += Time.deltaTime * 3.0f;
-            if (time <= 1.0f)
-            {
-                m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, time);
-                return false;
-            }
-            return true;
-        });
-    }
-
-
-
     private void TriggerStay(Collider collider)
     {
         if (collider.transform.CompareTag("Cheese"))
@@ -250,13 +218,11 @@ public class CPlayerMovement : CControllerBase
         else if (collider.transform.CompareTag("MeltedCheese"))
         {
             if (m_currentSpeed - m_InMeltedDecreaseSpeed <= 0.0f)
-            {
                 m_CurrentInMeltedDecreaseSpeed = m_currentSpeed;
-            }
+            
             else
-            {
                 m_CurrentInMeltedDecreaseSpeed = m_InMeltedDecreaseSpeed;
-            }            
+                        
         }
     }
 
@@ -285,8 +251,23 @@ public class CPlayerMovement : CControllerBase
             StopCoroutine("ExitCheese");
         }
     }
+    // 치즈 밖으로 나왔을때 앵글 변환
+    private IEnumerator ExitCheese()
+    {
+        var time = 0.0f;
+        var transEulerRot = m_Actor.transform.rotation;
+        var ResultRot = Quaternion.Euler(new Vector3(0.0f, transEulerRot.eulerAngles.y, transEulerRot.eulerAngles.z));
 
-
+        yield return new WaitUntil(() => {
+            time += Time.deltaTime * 3.0f;
+            if (time <= 1.0f)
+            {
+                m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, time);
+                return false;
+            }
+            return true;
+        });
+    }
     private IEnumerator ExitMelted()
     {
         float time = 0.0f;
@@ -308,5 +289,4 @@ public class CPlayerMovement : CControllerBase
 
         });
     }
-
 }

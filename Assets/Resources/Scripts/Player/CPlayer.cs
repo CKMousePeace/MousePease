@@ -14,6 +14,15 @@ public class CPlayer : CDynamicObject
 
     protected void Update()
     {
+
+        if (g_IsDead )
+        {
+            if (!m_DeadAnim)
+            {
+                StartCoroutine(DeadCheak());
+            }             
+            return;
+        }
         if (CompareBuff("KnockBack")) return;
 
         foreach (var controller in m_ControllerBases)
@@ -37,6 +46,7 @@ public class CPlayer : CDynamicObject
         }
 
         m_CurrentTime += Time.deltaTime;
+
     }
 
     public bool MagnetSkillCheck()
@@ -72,18 +82,6 @@ public class CPlayer : CDynamicObject
         m_CurrentTime = 0.0f;
     }
 }
-
-//public bool MagnetMagnetType(CMagnet.MagnetType type)
-//{
-//    if (m_ControllerDic.ContainsKey("SkillController"))
-//    {
-//        CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-//        CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-//        if (skill == null) return false;
-//        return skill.g_MagnetType == type;
-//    }
-//    return false;
-//}
 
 
 

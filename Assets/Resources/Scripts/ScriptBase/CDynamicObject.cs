@@ -7,12 +7,16 @@ public abstract class CDynamicObject : CActor
     [SerializeField] protected List<CControllerBase> m_ControllerBases;
     [SerializeField] private Animator m_Animator;
     protected Dictionary<string, CControllerBase> m_ControllerDic = new Dictionary<string, CControllerBase>();
+    protected bool m_DeadAnim = false;
     private Rigidbody m_Rigid;
+   
     
     public Dictionary<string, CControllerBase> g_ControllerDic => m_ControllerDic;
     public Rigidbody g_Rigid  =>m_Rigid;   
     public Animator g_Animator => m_Animator;
-    
+
+
+    public bool g_IsDead { get; set; } = false;
 
     [SerializeField] private float m_fHP;
     public float g_fHP { get => m_fHP; set { m_fHP = value; } }
@@ -92,5 +96,27 @@ public abstract class CDynamicObject : CActor
                 m_ControllerDic[ControllerName].gameObject.SetActive(false);
         }
     }
-    
+
+    //컨트롤러를 구하는 함수 입니다.
+    public CControllerBase GetController(string ControllerName)
+    {
+        if (m_ControllerDic.ContainsKey(ControllerName))
+        {
+            return m_ControllerDic[ControllerName];
+        }
+        return null;
+    }
+
+
+    protected IEnumerator DeadCheak()
+    {
+        m_DeadAnim = true;
+        m_Animator.SetTrigger("Dead");
+        yield return new WaitForSeconds(5);
+        g_IsDead = false;
+        gameObject.SetActive(false);
+        
+    }  
+  
+
 }

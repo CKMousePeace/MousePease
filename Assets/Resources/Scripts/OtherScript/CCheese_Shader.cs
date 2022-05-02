@@ -3,13 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class CCheese : MonoBehaviour
-{
+public class CCheese_Shader : MonoBehaviour
+{  
     
-
-
-
-    // Start is called before the first frame update    
     private MeshRenderer m_MashRender;
     
     [SerializeField] private Material m_Cheese_InPlayer;
@@ -19,7 +15,7 @@ public class CCheese : MonoBehaviour
     private float m_CheeseAlphaTime;
     private bool m_InCheese;
 
-
+    
 
 
     private void Start()
@@ -50,7 +46,7 @@ public class CCheese : MonoBehaviour
     {
 
         if (other.transform.CompareTag("Player"))
-        {
+        {            
             m_MashRender.sharedMaterial = m_Cheese_Player;
             m_MashRender.sharedMaterial.SetColor("_BaseColor" ,new Color(1.0f,1.0f,1.0f,0.5f));            
         }
@@ -74,8 +70,5 @@ public class CCheese : MonoBehaviour
             m_InCheese = false;
         }
     }
-
-
-
 
 }

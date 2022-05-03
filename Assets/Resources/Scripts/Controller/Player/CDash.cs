@@ -15,14 +15,12 @@ public class CDash : CControllerBase
     private float m_CurrentTime;
     private CPlayer m_Player;
 
-
     public override void init(CDynamicObject actor)
     {
-
+        base.init(actor);
         // 게임 시작시 오브젝트를 꺼줍니다.
         m_CurrentDelayTime = 0.0f;
-        gameObject.SetActive(false);
-        base.init(actor);
+        gameObject.SetActive(false);        
         m_Player = actor.GetComponent<CPlayer>();
     }
     private void OnDisable()
@@ -36,18 +34,30 @@ public class CDash : CControllerBase
 
     private void OnEnable()
     {
-        float m_DirX = Input.GetAxisRaw("Horizontal");
         
+        float m_DirX = Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+        float m_DirY = Input.GetAxisRaw("Vertical");
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (DashChecker(m_DirX))       
+        if (m_Player == null)
+        {
             return;
+        }
+        if (DashChecker(m_DirX , m_DirY))       
+            return;
+
+        if (!m_Player.CompareInCheese())
+        {
+            m_DirY = 0.0f;
+        }
 
         m_Actor.g_Animator.SetTrigger("Dash");
         m_Dash = true;        
-
-        m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, 0.0f, 0.0f);
+       
+        
+        
+        m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, m_DirY, 0.0f).normalized;
 
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
@@ -67,24 +77,21 @@ public class CDash : CControllerBase
         // 시간 체크
         float DashTime = Time.fixedDeltaTime / m_DashTime;        
         m_CurrentTime += DashTime;
-        var MoveData = m_Dir * m_DashForce * DashTime;
-        
+        var MoveData = m_Dir * m_DashForce * DashTime;        
         var Extents = m_ColliderChecker.g_Collider.bounds.extents;
-
         var ExtentY = new Vector3(0.0f, Extents.y, 0.0f);
-        
-        
-
 
         RaycastHit hit;
         if (Physics.Linecast(m_Actor.transform.position + ExtentY * 0.5f , m_Actor.transform.position + MoveData + ExtentY * 0.5f, out hit) ||
-            Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit)
-            )
+            Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit))
         {
-             Debug.Log("충돌" + hit.transform.name);
-            m_Actor.transform.position -= m_Actor.transform.forward * 0.1f;
-            gameObject.SetActive(false);
-            return;
+            if (!hit.collider.CompareTag("Cheese"))
+            {
+                Debug.Log("충돌" + hit.transform.name);
+                m_Actor.g_Rigid.position -= m_Actor.transform.forward * 0.1f;
+                gameObject.SetActive(false);
+                return;
+            }
         }
 
 
@@ -96,13 +103,25 @@ public class CDash : CControllerBase
 
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
-    private bool DashChecker(float Dirx)
+    private bool DashChecker(float Dirx , float DirY)
     {
-        if (Dirx == 0)
+        if (m_Player.CompareInCheese())
         {
-            gameObject.SetActive(false);
-            m_Dash = false;
-            return true;
+            if (Dirx == 0.0f && DirY == 0.0f)
+            {
+                gameObject.SetActive(false);
+                m_Dash = false;
+                return true;
+            }
+        }
+        else
+        {
+            if (Dirx == 0)
+            {
+                gameObject.SetActive(false);
+                m_Dash = false;
+                return true;
+            }
         }
         if (m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
         {

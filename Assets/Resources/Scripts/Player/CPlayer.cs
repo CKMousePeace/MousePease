@@ -5,8 +5,7 @@ using UnityEngine;
 public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
-    private float m_CurrentTime = 0.0f;
-    [SerializeField] CBuffBase.BuffInfo info;
+    private float m_CurrentTime = 0.0f;    
     protected override void Start()
     {
         base.Start();        
@@ -44,27 +43,32 @@ public class CPlayer : CDynamicObject
                 m_MashRender.material.SetColor("_EmissionColor", Color.white);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            GenerateBuff("Slow", info);
-        }
         m_CurrentTime += Time.deltaTime;
-
     }
 
-    public bool MagnetSkillCheck()
+
+    public void SetInCheese(bool State)
     {
-        if (m_ControllerDic.ContainsKey("SkillController"))
+        var Movemet = GetController("Movement") as CPlayerMovement;
+        if (Movemet == null)
         {
-            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-            if (skill == null) return false;
-            return skill.g_MagnetCheck;
+            Debug.LogError("Movement controller를 못 찾았습니다.");
+            return;
         }
-        return false;
+        g_Rigid.velocity = new Vector3(0.0f , 0.0f , 0.0f);        
+        Movemet.g_IsInCheese = State;
     }
-    
+
+    public bool CompareInCheese()
+    {
+        var Movemet = GetController("Movement") as CPlayerMovement;
+        if (Movemet == null)
+        {
+            Debug.LogError("Movement controller를 못 찾았습니다.");
+            return false;
+        }
+        return Movemet.g_IsInCheese;
+    }
 
     public void SetColor()
     {
@@ -77,4 +81,17 @@ public class CPlayer : CDynamicObject
 
 
 
-
+/*
+ * 
+ *  public bool MagnetSkillCheck()
+    {
+        if (m_ControllerDic.ContainsKey("SkillController"))
+        {
+            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
+            if (skill == null) return false;
+            return skill.g_MagnetCheck;
+        }
+        return false;
+    }
+ */

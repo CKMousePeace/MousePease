@@ -6,6 +6,7 @@ public class CCheese : CStaticObject
 {
     // Start is called before the first frame update    
     [SerializeField] CBuffBase.BuffInfo m_BuffInfo;
+    CPlayer m_Player;
 
     protected override void Start()
     {
@@ -17,6 +18,15 @@ public class CCheese : CStaticObject
         var Target = other.gameObject.GetComponent<CPlayer>();
         if (Target == null)
             return;
+        if (m_Player == null && other.CompareTag("Player"))
+        {
+            m_Player = other.gameObject.GetComponent<CPlayer>();
+        }
+        if (m_Player != null)
+        {
+            m_Player.SetInCheese(true);            
+        }
+        
         Target.GenerateBuff("Fast" , m_BuffInfo);
     }
 
@@ -25,6 +35,14 @@ public class CCheese : CStaticObject
         var Target = other.gameObject.GetComponent<CPlayer>();
         if (Target == null)
             return;
+        if (m_Player == null && other.CompareTag("Player"))
+        {
+            m_Player = other.gameObject.GetComponent<CPlayer>();
+        }
+        if (m_Player != null)
+        {
+            m_Player.SetInCheese(false);
+        }
 
         Target.DestroyBuff("Fast");
     }

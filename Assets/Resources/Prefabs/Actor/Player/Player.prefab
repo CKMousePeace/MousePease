@@ -610,6 +610,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8771119827405689142}
     - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
+      propertyPath: m_TurnSpeed
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3527280460880275188, guid: 13118aada9741d648bf6973026051c3c, type: 3}
       propertyPath: m_fMaxSpeed
       value: 5
       objectReference: {fileID: 0}

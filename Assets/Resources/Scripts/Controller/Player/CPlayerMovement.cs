@@ -7,32 +7,17 @@ public class CPlayerMovement : CControllerBase
         
     [SerializeField] private float m_fMaxSpeed;
     [SerializeField , Range(0.1f ,1.0f)] private float m_TurnSpeed;
-    [SerializeField] private float m_MeltedSpeedTime;
-
-
-    [SerializeField] private float m_IncreaseMaxSpeedTime;
-    [SerializeField] private float m_DeacreaseMinSpeedTime;
 
     private float m_currentSpeed;    
     private float m_DirX;
     private float m_Yaw = 90.0f;      
 
-
-    [SerializeField] private CColliderChecker m_Checker;    
-    [SerializeField] private KeyCode m_DigginginKey;        
+    [SerializeField] private CColliderChecker m_Checker;              
     [SerializeField] private Vector2 m_ChaseTimeRange;
+    [SerializeField] private float m_BuffSpeed;
     
 
-    public float g_currentSpeed => m_currentSpeed;
-    public KeyCode g_DigginginKey => m_DigginginKey;
-    
-
-    
-
-    private void OnEnable()
-    {       
-
-    }
+    public float g_currentSpeed => m_currentSpeed;   
 
     private void OnDisable()
     {
@@ -43,6 +28,7 @@ public class CPlayerMovement : CControllerBase
     private void Update()
     {
         PlayerMoveKey();
+        BuffCheck(); 
         m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
     }
     private void FixedUpdate()
@@ -62,6 +48,7 @@ public class CPlayerMovement : CControllerBase
     // 달리는 함수입니다.
     private void Movement()
     {
+        
         PlayerMove();
         TurnRot();
     }
@@ -77,7 +64,7 @@ public class CPlayerMovement : CControllerBase
             return;
         }
         m_currentSpeed = m_fMaxSpeed;
-        var Displacement = Dir * m_currentSpeed * Time.fixedDeltaTime;               
+        var Displacement = Dir * (m_currentSpeed + m_BuffSpeed) * Time.fixedDeltaTime;               
         m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + Displacement);
     }
 
@@ -88,17 +75,13 @@ public class CPlayerMovement : CControllerBase
         float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_TurnSpeed);
         m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.z);
 
-        if (m_DirX == 0.0f){
-            
+        if (m_DirX == 0.0f)
+        {            
             return;
         }
         m_Yaw = m_DirX * 90.0f;
     }
-    private void SpeedFunc()
-    {
-         
-    }
-
+   
     private bool PlayerMoveState()
     {
         if (m_Actor.CompareBuff("KnockBack"))
@@ -115,16 +98,23 @@ public class CPlayerMovement : CControllerBase
     /// <summary>
     ///치즈 관련 부분 
     /// </summary>
-    private void InCheeseInit()
-    {        
-        StopCoroutine("ExitCheese");
-    }
-    private void ExitCheese()
+
+    private void BuffCheck()
     {
-        
-        m_Actor.g_Rigid.velocity = Vector3.zero;
-        StartCoroutine(ExitCheeseCoroutine());
+        m_BuffSpeed = 0.0f;
+
+        if (m_Actor.CompareBuff("Slow"))
+        {
+            var SlowBuff = m_Actor.GetBuff("Slow") as CSlow;
+            m_BuffSpeed += -(m_fMaxSpeed * (SlowBuff.g_SlowSpeed) * 0.01f);
+        }
+        if (m_Actor.CompareBuff("Fast"))
+        {
+            var SlowBuff = m_Actor.GetBuff("Fast") as CFast;
+            m_BuffSpeed += (m_fMaxSpeed * (SlowBuff.g_FastSpeed) * 0.01f);
+        }
     }
+
 
     // 치즈 후처리
     private IEnumerator ExitCheeseCoroutine()

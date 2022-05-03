@@ -8,9 +8,9 @@ public class CRock : CStaticObject
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
 
-    [SerializeField] GameObject Root;
-    [SerializeField] private float DestroyWaitTime = 0;
-    [SerializeField] private float CrashWaitTime = 0;
+    [SerializeField] GameObject m_Root;
+    [SerializeField] private float m_DestroyWaitTime = 0;
+    [SerializeField] private float m_CrashWaitTime = 0;
 
     private bool isChecker = false;
 
@@ -18,7 +18,7 @@ public class CRock : CStaticObject
     {
         base.Start();
         m_Buffinfo.g_Value_Vector3.Add(transform.position);
-        StartCoroutine(SelfDestroy(DestroyWaitTime));
+        StartCoroutine(SelfDestroy(m_DestroyWaitTime));
     }
 
 
@@ -33,7 +33,7 @@ public class CRock : CStaticObject
                 var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
                 actor.GenerateBuff("KnockBack", m_Buffinfo);
 
-                StartCoroutine(SelfDestroy(CrashWaitTime));
+                StartCoroutine(SelfDestroy(m_CrashWaitTime));
             }
 
         }
@@ -42,7 +42,8 @@ public class CRock : CStaticObject
     IEnumerator SelfDestroy(float time)
     {
         yield return new WaitForSeconds(time);
-        Destroy(Root);
+        //DestroyImmediate(m_Root);
+        gameObject.SetActive(false);
     }
 
 }

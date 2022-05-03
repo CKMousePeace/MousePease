@@ -18,4 +18,6 @@ public class CPCheckForArtil : MonoBehaviour
         g_isOnArtill = false;
     }
 
+
+
 }

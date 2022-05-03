@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class CPlayer : CDynamicObject
 {
+    [SerializeField] private SkinnedMeshRenderer m_MashRender;
+    private float m_CurrentTime = 0.0f;
+    [SerializeField] CBuffBase.BuffInfo info;
     protected override void Start()
     {
-        base.Start();
+        base.Start();        
     }
 
     protected void Update()
     {
+
+        if (g_IsDead )
+        {
+            if (!m_DeadAnim)
+            {
+                StartCoroutine(DeadCheak());
+            }             
+            return;
+        }
         if (CompareBuff("KnockBack")) return;
 
         foreach (var controller in m_ControllerBases)
@@ -22,6 +34,22 @@ public class CPlayer : CDynamicObject
                 controllerGameObj.SetActive(true);
             }
         }
+
+        if (m_CurrentTime > 0.5f)
+        {
+
+            if (m_MashRender.material.color == Color.red)
+            {
+                m_MashRender.material.color = Color.white;
+                m_MashRender.material.SetColor("_EmissionColor", Color.white);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            GenerateBuff("Slow", info);
+        }
+        m_CurrentTime += Time.deltaTime;
 
     }
 
@@ -36,32 +64,15 @@ public class CPlayer : CDynamicObject
         }
         return false;
     }
+    
 
-    //public bool MagnetMagnetType(CMagnet.MagnetType type)
-    //{
-    //    if (m_ControllerDic.ContainsKey("SkillController"))
-    //    {
-    //        CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-    //        CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-    //        if (skill == null) return false;
-    //        return skill.g_MagnetType == type;
-    //    }
-    //    return false;
-    //}
-
-
-    public bool InCheeseCheck()
+    public void SetColor()
     {
-        if (m_ControllerDic.ContainsKey("Movement"))
-        {
-            CPlayerMovement Controller = (CPlayerMovement)m_ControllerDic["Movement"];
-            if (Controller == null) return false;
-            return Controller.g_InCheese;
-        }
-        return true;
+        
+        m_MashRender.material.color = Color.red;
+        m_MashRender.material.SetColor("_EmissionColor", Color.red);
+        m_CurrentTime = 0.0f;
     }
-
-
 }
 
 

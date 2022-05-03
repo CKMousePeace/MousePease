@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8193730528695933014
+--- !u!114 &-8462207186775783714
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,21 +9,51 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Radio Station/Freq
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Music/TestBGM
   m_EditorClassIdentifier: 
-  Name: Freq
-  StudioPath: 
-  Min: 0
-  Max: 3
-  Default: 0
-  ID:
-    data1: 3651039008
-    data2: 3735099248
-  Type: 0
-  IsGlobal: 0
-  Labels: []
-  Exists: 1
+  Path: event:/Music/TestBGM
+  Guid:
+    Data1: -687294100
+    Data2: 1170305409
+    Data3: 848510888
+    Data4: 1640387021
+  Banks:
+  - {fileID: -6720896712354196308}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 64496
+--- !u!114 &-8289136065059599578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/BossJump
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/BossJump
+  Guid:
+    Data1: 859467646
+    Data2: 1301036166
+    Data3: 1609224380
+    Data4: 1989625545
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1191
 --- !u!114 &-6720896712354196308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39,10 +69,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 637857533909725049
+  lastModified: 637867807375605112
   FileSizes:
   - Name: Desktop
-    Value: 30592
+    Value: 810496
   - Name: HTML5
     Value: 30496
   Exists: 1
@@ -156,6 +186,60 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
+--- !u!114 &-5605325960093234667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/BossRoar
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/BossRoar
+  Guid:
+    Data1: 896937785
+    Data2: 1197567926
+    Data3: 1938524841
+    Data4: 1484780206
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 4832
+--- !u!114 &-5541632500603502177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character player/Player JumpDown
+  m_EditorClassIdentifier: 
+  Path: event:/Character player/Player JumpDown
+  Guid:
+    Data1: 1754158141
+    Data2: 1278633040
+    Data3: 806029481
+    Data4: 366934701
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 473
 --- !u!114 &-4751867866860873997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,36 +309,12 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637857533909709223
+  lastModified: 637867807484617284
   FileSizes:
   - Name: Desktop
-    Value: 2320
+    Value: 2378
   - Name: HTML5
-    Value: 2320
-  Exists: 1
---- !u!114 &-2667334386059915187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Radio Station/Spatializer
-  m_EditorClassIdentifier: 
-  Name: Spatializer
-  StudioPath: 
-  Min: 0
-  Max: 2
-  Default: 0
-  ID:
-    data1: 3957412765
-    data2: 1502812825
-  Type: 0
-  IsGlobal: 0
-  Labels: []
+    Value: 2378
   Exists: 1
 --- !u!114 &-2655417072435214040
 MonoBehaviour:
@@ -334,6 +394,33 @@ MonoBehaviour:
   IsGlobal: 0
   Labels: []
   Exists: 1
+--- !u!114 &-1095558156055436063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character player/Player JumpUp
+  m_EditorClassIdentifier: 
+  Path: event:/Character player/Player JumpUp
+  Guid:
+    Data1: 817476841
+    Data2: 1136661883
+    Data3: 109756339
+    Data4: -1749746711
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 567
 --- !u!114 &-1051142399308441006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -373,10 +460,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637857533909745865
+  lastModified: 637867807484648565
   FileSizes:
   - Name: Desktop
-    Value: 305472
+    Value: 373344
   - Name: HTML5
     Value: 167200
   Exists: 1
@@ -451,7 +538,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637857533909672644
+  lastModified: 637867807484612243
   FileSizes:
   - Name: Desktop
     Value: 15444
@@ -481,7 +568,6 @@ MonoBehaviour:
   - {fileID: 8885340939812310092}
   - {fileID: 1244379374460660697}
   - {fileID: -5682678992097619044}
-  - {fileID: 3771451520385555708}
   - {fileID: 4002228935451114615}
   - {fileID: 4203766382530981357}
   - {fileID: 6643512353428776668}
@@ -490,12 +576,17 @@ MonoBehaviour:
   - {fileID: -906398167043467982}
   - {fileID: -5722559673395803640}
   - {fileID: -793408740688936290}
+  - {fileID: -8462207186775783714}
+  - {fileID: -5605325960093234667}
+  - {fileID: -5541632500603502177}
+  - {fileID: -1095558156055436063}
+  - {fileID: -8289136065059599578}
   EditorParameters: []
   MasterBanks:
   - {fileID: -324919399715423227}
   StringsBanks:
   - {fileID: -4614545490081813038}
-  cacheTime: 637857533909745865
+  cacheTime: 637867807484648565
   cacheVersion: 10
 --- !u!114 &1244379374460660697
 MonoBehaviour:
@@ -549,35 +640,6 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: -4751280220229484610}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 0
---- !u!114 &3771451520385555708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Radio Station
-  m_EditorClassIdentifier: 
-  Path: event:/Music/Radio Station
-  Guid:
-    Data1: -1284853857
-    Data2: 1279602452
-    Data3: 1660743820
-    Data4: -1969025494
-  Banks:
-  - {fileID: -6720896712354196308}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -2667334386059915187}
-  - {fileID: -8193730528695933014}
   MinDistance: 1
   MaxDistance: 20
   Length: 0

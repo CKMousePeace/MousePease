@@ -19,6 +19,8 @@ public class BossSoundManager : MonoBehaviour
     private FMOD.Studio.EventInstance m_Boss_AttckReady;
     private FMOD.Studio.EventInstance m_Boss_AttckRelease;
     private FMOD.Studio.EventInstance m_Boss_Dead;
+    private FMOD.Studio.EventInstance m_Boss_Roar;
+    private FMOD.Studio.EventInstance m_Boss_Jump;
     [SerializeField] CURRENT_TERRAIN currentTranin;
 
 
@@ -158,11 +160,19 @@ public class BossSoundManager : MonoBehaviour
 
     public void PlayRoar()
     {
-        m_Boss_Dead = RuntimeManager.CreateInstance("event:/Character enemy/ 보스 포효");
-        m_Boss_Dead.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_Boss_Dead.start();
-        m_Boss_Dead.release();
+        m_Boss_Roar = RuntimeManager.CreateInstance("event:/Character enemy/BossRoar");
+        m_Boss_Roar.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        m_Boss_Roar.start();
+        m_Boss_Roar.release();
     }
+    public void PlayJump()
+    {
+        m_Boss_Jump = RuntimeManager.CreateInstance("event:/Character enemy/BossJump");
+        m_Boss_Jump.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        m_Boss_Jump.start();
+        m_Boss_Jump.release();
+    }
+
 
     // ================================================================== //
 

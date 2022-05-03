@@ -5,169 +5,146 @@ using UnityEngine;
 public class CPlayerMovement : CControllerBase
 {
         
-    [SerializeField] private float m_fSpeed;
+    [SerializeField] private float m_fMaxSpeed;
     [SerializeField , Range(0.1f ,1.0f)] private float m_turnSpeed;
-    [SerializeField] private CColliderChecker m_checker;    
-    [SerializeField] private float m_DecreaseSpeed;
-    [SerializeField] private float m_InCreaseSpeed;
-    [SerializeField, Header("치즈안에 있을 경우")] private float m_InCheeseSpeed;
+    //[SerializeField] private float m_DecreaseSpeed = 0.0f;
+    //[SerializeField] private float m_InCreaseSpeed = 0.0f;
+    [SerializeField] private float m_MeltedSpeedTime;
 
-    private float m_currentSpeed;
+    private float m_currentSpeed;    
+    private float m_DirX;
+    private float m_Yaw = 90.0f;
+       
+
+
+    [SerializeField] private CColliderChecker m_Checker;    
+    [SerializeField] private KeyCode m_DigginginKey;        
+    [SerializeField] private Vector2 m_ChaseTimeRange;
     
-    private float m_DirX , m_DirZ;
-    private Vector3 m_Dir = Vector3.zero;
 
-    [SerializeField] private CColliderChecker m_Checker;
-    [SerializeField] private bool m_InCheese = false;
-    [SerializeField] private KeyCode m_DigginginKey;
-    [SerializeField] private bool m_DigginginCheck;
     public float g_currentSpeed => m_currentSpeed;
-    public bool g_InCheese => m_InCheese;
+    public KeyCode g_DigginginKey => m_DigginginKey;
+    
 
-    private void FixedUpdate()
-    {        
-        Movement();        
-    }
+    
 
     private void OnEnable()
-    {
-        m_Checker.m_ColliderStay += ColliderStay;
-        m_Checker.m_TriggerStay += TriggerStay;
-        m_Checker.m_TriggerExit += TriggerExit;
+    {            
     }
 
     private void OnDisable()
     {
-        m_currentSpeed = 0.0f;
+        m_currentSpeed = 0.0f;             
         m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-
-        m_Checker.m_ColliderStay -= ColliderStay;
-        m_Checker.m_TriggerStay -= TriggerStay;
-        m_Checker.m_TriggerExit -= TriggerExit;
     }
 
     private void Update()
     {
-        m_DigginginCheck = false;
-        m_DirX = Input.GetAxisRaw("Horizontal");
-        m_DirZ = Input.GetAxisRaw("Vertical");
-
-        if (Input.GetKey(m_DigginginKey))
-        {
-            m_DigginginCheck = true;
-        }
-        
+        PlayerMoveKey();
+        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
+    }
+    private void FixedUpdate()
+    {
+        if (PlayerMoveState()) return;
+        Movement();
         
     }
 
-    // 달리는 함수입니다.
-    public void Movement()
+    private void PlayerMoveKey()
     {
-        Running();
+        m_DirX = Input.GetAxisRaw("Horizontal");        
+    }
 
-        if (m_DirX == 0.0f && m_DirZ == 0.0f)
-        {
-            if (m_currentSpeed == 0.0f)
-            {
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));                
-                return;
-            }
-        }
-        else
-        {//* Mathf.Abs(m_DirX)
-            var Dir = new Vector3(m_DirX, 0.0f , m_DirZ);
-            m_Dir = Dir.normalized;
-        }
+
+
+    // 달리는 함수입니다.
+    private void Movement()
+    {
+        PlayerMove();
+        TurnRot();
+    }
+    
+    //실질적으로 플레이어 움직이는 함수
+    private void PlayerMove()
+    {
+        var AbsDir = Mathf.Abs(m_DirX);
+        var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, 0.0f, 0.0f);
+
         
-        
-       TurnRot();
-       if (m_Actor.CompareBuff("KnockBack")) return;
 
-        // 3d 게임이지만 게임상 2d로 움직이기 때문에 x값만 사용                     
-
-        if (!m_Actor.CompareController("Dash"))
+        if (m_DirX == 0.0f)
         {
-
-            if (!m_InCheese)
-            {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-            }
-            else if (m_DigginginCheck)
-            {
-                m_Actor.g_Rigid.position = m_Actor.transform.position + m_Dir * m_currentSpeed * Time.fixedDeltaTime;
-                m_Actor.g_Animator.SetFloat("Walking", Mathf.Abs(m_currentSpeed / m_fSpeed));
-
-            }
-            else
-            {
-                m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-            }
-
+            m_currentSpeed = 0.0f;
+            return;
         }
+        m_currentSpeed = m_fMaxSpeed;
+        var Displacement = Dir * m_fMaxSpeed * Time.fixedDeltaTime;               
+        m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + Displacement);
+
     }
 
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
     {
-        if (m_DirX != 0.0f || m_DirZ != 0.0f)
-        {
-            var transEulerRot = m_Actor.transform.rotation;
-            var ResultRot = Quaternion.LookRotation(m_Dir);
-            m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot , ResultRot ,m_turnSpeed);
-        }       
-    } 
-   
-    
-    //달리는 함수 입니다. 제거해야됨
-    private void Running()
-    {
-        var resultSpeed = 0.0f;
-       
-        if (m_DirZ != 0.0f || m_DirX != 0.0f)
-            resultSpeed += m_fSpeed;
+        var PlayerEulerAngles = m_Actor.transform.eulerAngles;
+        float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_turnSpeed);
+        m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.y);
 
-        if (m_InCheese)
-            resultSpeed *= m_InCheeseSpeed;
-
-        if (m_currentSpeed < resultSpeed)
-        {
-            m_currentSpeed += resultSpeed * Time.fixedDeltaTime * m_InCreaseSpeed;
-        }
-        if (m_currentSpeed >= resultSpeed)
-        {
-            if (m_DecreaseSpeed == 0.0f) m_DecreaseSpeed = 1.0f;            
-
-            m_currentSpeed -= Time.fixedDeltaTime * m_DecreaseSpeed;
+        if (m_DirX == 0.0f){
             
-            if (m_currentSpeed <= resultSpeed)
-                m_currentSpeed = resultSpeed;           
+            return;
         }
+        m_Yaw = m_DirX * 90.0f;
     }
+
     
-    private void TriggerStay(Collider collider)
+
+    private bool PlayerMoveState()
     {
-        if (collider.transform.CompareTag("Cheese"))
+        if (m_Actor.CompareBuff("KnockBack"))
         {
-            m_InCheese = true;
-            collider.isTrigger = true;
+            return true;
         }
+        if (m_Actor.CompareController("Dash"))
+        {
+            return true;
+        }
+        return false;
     }
 
-    private void TriggerExit(Collider collider)
+
+    /// <summary>
+    ///치즈 관련 부분 
+    /// </summary>
+
+
+    private void InCheeseInit()
     {
-        if (collider.transform.CompareTag("Cheese"))
-        {
-            m_InCheese = false;
-            collider.isTrigger = false;
-        }
+        
+        StopCoroutine("ExitCheese");
+    }
+    private void ExitCheese()
+    {
+        
+        m_Actor.g_Rigid.velocity = Vector3.zero;
+        StartCoroutine(ExitCheeseCoroutine());
     }
 
-    private void ColliderStay(Collision collisiton)
+    // 치즈 후처리
+    private IEnumerator ExitCheeseCoroutine()
     {
-        if (collisiton.transform.CompareTag("Cheese") && m_DigginginCheck)
-        {           
-            collisiton.collider.isTrigger = true;
-        }
-    }
+        var time = 0.0f;
+        var transEulerRot = m_Actor.transform.rotation;
+        var ResultRot = Quaternion.Euler(new Vector3(0.0f, transEulerRot.eulerAngles.y, transEulerRot.eulerAngles.z));
+
+        yield return new WaitUntil(() => {
+            time += Time.deltaTime * 3.0f;
+            if (time <= 1.0f)
+            {
+                m_Actor.transform.rotation = Quaternion.Lerp(transEulerRot, ResultRot, time);
+                return false;
+            }
+            return true;
+        });
+    }   
 }

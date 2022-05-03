@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Resources/Scenes/TempInGame.unity
-    guid: cf55e7f3667c85c4c9a76dbd8e6b1e9f
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Resources/Scenes/IntroScene.unity
+    guid: 61d2dde8f0e7e4441a107a73c512702c
+  - enabled: 1
+    path: Assets/Resources/Scenes/InGame_SetTrap.unity
+    guid: 0a5a407bc7443e743acb0768c2a28a06
   m_configObjects: {}

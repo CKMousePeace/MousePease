@@ -9,6 +9,7 @@ public class CPlayer : CDynamicObject
     protected override void Start()
     {
         base.Start();        
+        
     }
 
     protected void Update()

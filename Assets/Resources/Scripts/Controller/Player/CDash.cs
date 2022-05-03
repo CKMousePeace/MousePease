@@ -37,11 +37,11 @@ public class CDash : CControllerBase
     private void OnEnable()
     {
         float m_DirX = Input.GetAxisRaw("Horizontal");
-        float m_DirZ = Input.GetAxisRaw("Vertical");
+        
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (DashChecker(m_DirX , m_DirZ))       
+        if (DashChecker(m_DirX))       
             return;
 
         m_Actor.g_Animator.SetTrigger("Dash");
@@ -96,9 +96,9 @@ public class CDash : CControllerBase
 
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
-    private bool DashChecker(float Dirx , float DirZ)
+    private bool DashChecker(float Dirx)
     {
-        if ((Dirx == 0 && DirZ == 0))
+        if (Dirx == 0)
         {
             gameObject.SetActive(false);
             m_Dash = false;

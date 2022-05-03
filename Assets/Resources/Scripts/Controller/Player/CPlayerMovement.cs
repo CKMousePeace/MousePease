@@ -6,15 +6,16 @@ public class CPlayerMovement : CControllerBase
 {
         
     [SerializeField] private float m_fMaxSpeed;
-    [SerializeField , Range(0.1f ,1.0f)] private float m_turnSpeed;
-    //[SerializeField] private float m_DecreaseSpeed = 0.0f;
-    //[SerializeField] private float m_InCreaseSpeed = 0.0f;
+    [SerializeField , Range(0.1f ,1.0f)] private float m_TurnSpeed;
     [SerializeField] private float m_MeltedSpeedTime;
+
+
+    [SerializeField] private float m_IncreaseMaxSpeedTime;
+    [SerializeField] private float m_DeacreaseMinSpeedTime;
 
     private float m_currentSpeed;    
     private float m_DirX;
-    private float m_Yaw = 90.0f;
-       
+    private float m_Yaw = 90.0f;      
 
 
     [SerializeField] private CColliderChecker m_Checker;    
@@ -29,7 +30,8 @@ public class CPlayerMovement : CControllerBase
     
 
     private void OnEnable()
-    {            
+    {       
+
     }
 
     private void OnDisable()
@@ -69,26 +71,22 @@ public class CPlayerMovement : CControllerBase
     {
         var AbsDir = Mathf.Abs(m_DirX);
         var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, 0.0f, 0.0f);
-
-        
-
         if (m_DirX == 0.0f)
         {
             m_currentSpeed = 0.0f;
             return;
         }
         m_currentSpeed = m_fMaxSpeed;
-        var Displacement = Dir * m_fMaxSpeed * Time.fixedDeltaTime;               
+        var Displacement = Dir * m_currentSpeed * Time.fixedDeltaTime;               
         m_Actor.g_Rigid.MovePosition(m_Actor.g_Rigid.position + Displacement);
-
     }
 
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
     {
         var PlayerEulerAngles = m_Actor.transform.eulerAngles;
-        float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_turnSpeed);
-        m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.y);
+        float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_TurnSpeed);
+        m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.z);
 
         if (m_DirX == 0.0f){
             
@@ -96,8 +94,10 @@ public class CPlayerMovement : CControllerBase
         }
         m_Yaw = m_DirX * 90.0f;
     }
-
-    
+    private void SpeedFunc()
+    {
+         
+    }
 
     private bool PlayerMoveState()
     {
@@ -112,15 +112,11 @@ public class CPlayerMovement : CControllerBase
         return false;
     }
 
-
     /// <summary>
     ///치즈 관련 부분 
     /// </summary>
-
-
     private void InCheeseInit()
-    {
-        
+    {        
         StopCoroutine("ExitCheese");
     }
     private void ExitCheese()

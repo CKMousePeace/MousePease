@@ -58,7 +58,7 @@ public class CMonMovement : CControllerBase
     [Header("덮치기 대기 시간")]
     [SerializeField] private float m_MonHoldDWaitTime = 2.0f; //Bite Collider duration
 
-    [Header("덮친 후 일어날 시간")]
+    [Header("덮친 후 루프 할 시간")]
     [SerializeField] private float m_MonHoldDAfterTime = 2.0f; //Bite Collider duration
 
     private void Update()
@@ -170,16 +170,30 @@ public class CMonMovement : CControllerBase
         }
     }
 
-    IEnumerator HoldDownMode(float Ready , float Finish)    //덮치기 공격
+    [SerializeField] private GameObject m_HoldDownCollider;
+    IEnumerator HoldDownMode(float Ready , float Loop)    //덮치기 공격
     {
 
-        m_Actor.g_Animator.SetTrigger("HoldN");
-        yield return new WaitForSeconds(Ready);
+        while (true)
+        {
+            m_nav.isStopped = true;
+            m_Actor.g_Animator.SetTrigger("HoldReady");
 
-        //잠만 뭐가 이상한데..
+            yield return new WaitForSeconds(Ready);
 
+            m_Actor.g_Animator.SetTrigger("HoldLoop");  //여기 루프 넣어야함
+            m_HoldDownCollider.SetActive(true);
+            m_nav.isStopped = false;
+            yield return new WaitForSeconds(Loop);
 
-        yield break;
+            m_Actor.g_Animator.SetTrigger("HoldFinish");
+            yield return new WaitForSeconds(2.0f);
+            m_nav.velocity = Vector3.one;
+
+            m_DebugHoldDMod = false;
+            yield break;
+        }
+
 
     }
 

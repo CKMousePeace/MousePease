@@ -5,7 +5,7 @@
 			<value>BossJump</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{babedfe9-3099-462a-b96e-1b82390d1497}</destination>
@@ -97,9 +97,6 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{9746d72f-22ea-4509-b2e0-d2eb15361395}">
-		<property name="volume">
-			<value>-9</value>
-		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -119,7 +116,11 @@
 			<destination>{65ca39b9-c348-446e-ace9-8dddd0f12186}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{bb47c2ef-e26f-462b-9362-d112b6a267f5}" />
+	<object class="MixerBusPanner" id="{bb47c2ef-e26f-462b-9362-d112b6a267f5}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{81378eb5-879b-44e4-b28d-bcdb0dba3689}" />
 	<object class="MixerBusEffectChain" id="{bc3edf72-b2a1-43a5-ba85-a82ffda7cab0}">
 		<relationship name="effects">
@@ -128,6 +129,19 @@
 	</object>
 	<object class="MixerBusPanner" id="{d95d359e-c745-445c-b9b6-1459959e82ef}" />
 	<object class="MixerBusFader" id="{0c2d8759-9631-43ab-be6e-19d179eb03fc}" />
-	<object class="SpatialiserEffect" id="{65ca39b9-c348-446e-ace9-8dddd0f12186}" />
+	<object class="SpatialiserEffect" id="{65ca39b9-c348-446e-ace9-8dddd0f12186}">
+		<property name="maximumDistance">
+			<value>70</value>
+		</property>
+		<property name="overrideRange">
+			<value>true</value>
+		</property>
+		<property name="extentMode">
+			<value>1</value>
+		</property>
+		<property name="soundSize">
+			<value>30</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{623c9b06-7447-4171-8e42-d3bf56048c94}" />
 </objects>

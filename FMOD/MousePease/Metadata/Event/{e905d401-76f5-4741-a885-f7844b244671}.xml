@@ -23,7 +23,7 @@ Recordings by David at Track Time Audio.</value>
 			<value>Player Footsteps</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{33020bd4-6815-4ed7-b787-bc0035017be4}</destination>
@@ -139,6 +139,9 @@ Recordings by David at Track Time Audio.</value>
 		<property name="voiceStealing">
 			<value>3</value>
 		</property>
+		<property name="volume">
+			<value>-10</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{cf32ad36-a325-4c34-9991-3dd67db3a087}</destination>
 			<destination>{ebe92199-3690-4951-be30-3a03924190ea}</destination>
@@ -162,6 +165,9 @@ Recordings by David at Track Time Audio.</value>
 		<property name="voiceStealing">
 			<value>3</value>
 		</property>
+		<property name="volume">
+			<value>-10</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{cd05ae94-c431-4dba-b16a-4facc0f57802}</destination>
 			<destination>{bbee94c0-039e-4699-97a9-e8aefd5df9eb}</destination>
@@ -181,6 +187,9 @@ Recordings by David at Track Time Audio.</value>
 		</property>
 		<property name="voiceStealing">
 			<value>3</value>
+		</property>
+		<property name="volume">
+			<value>-10</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{38713503-0836-4716-9138-89592d1ddb5c}</destination>
@@ -214,7 +223,11 @@ Recordings by David at Track Time Audio.</value>
 			<destination>{b3c64595-530c-4a9b-b655-d0c099501ab2}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{9602f0fc-a67c-4d68-af63-419d9c248976}" />
+	<object class="MixerBusPanner" id="{9602f0fc-a67c-4d68-af63-419d9c248976}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{41264584-ba33-4117-91eb-3de70a4229c8}" />
 	<object class="RandomizerModulator" id="{cf32ad36-a325-4c34-9991-3dd67db3a087}">
 		<property name="nameOfPropertyBeingModulated">

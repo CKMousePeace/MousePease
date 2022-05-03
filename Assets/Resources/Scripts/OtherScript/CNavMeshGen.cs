@@ -8,7 +8,7 @@ public class CNavMeshGen : MonoBehaviour
 {
 
     [SerializeField]private NavMeshSurface[] m_Surfaces;
-
+    //NavMesh 새로 생성하는 스크립트 (현재는 사용 X)
 
     void Update()
     {

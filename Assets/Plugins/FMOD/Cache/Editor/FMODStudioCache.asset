@@ -69,7 +69,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 637867807375605112
+  lastModified: 637871838499830413
   FileSizes:
   - Name: Desktop
     Value: 810496
@@ -131,34 +131,6 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 0
---- !u!114 &-5722559673395803640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character player/Radio Dialogue
-  m_EditorClassIdentifier: 
-  Path: event:/Character player/Radio Dialogue
-  Guid:
-    Data1: 1136926599
-    Data2: 1277521951
-    Data3: 432447913
-    Data4: 308547786
-  Banks:
-  - {fileID: -958287381525922954}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 0
-  Parameters:
-  - {fileID: -1692065264346638147}
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 999
 --- !u!114 &-5682678992097619044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,33 +212,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 473
---- !u!114 &-4751867866860873997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character player/Door Close
-  m_EditorClassIdentifier: 
-  Path: event:/Character player/Door Close
-  Guid:
-    Data1: 1125158724
-    Data2: 1215768668
-    Data3: -380992089
-    Data4: 1039913086
-  Banks:
-  - {fileID: -958287381525922954}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 653
 --- !u!114 &-4751280220229484610
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,12 +254,12 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637867807484617284
+  lastModified: 637871838499780397
   FileSizes:
   - Name: Desktop
-    Value: 2378
+    Value: 2202
   - Name: HTML5
-    Value: 2378
+    Value: 2202
   Exists: 1
 --- !u!114 &-2655417072435214040
 MonoBehaviour:
@@ -369,30 +314,6 @@ MonoBehaviour:
   - Normal
   - Grass
   - Wood Floor
-  Exists: 1
---- !u!114 &-1692065264346638147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
-  m_Name: parameter:/Radio Dialogue/VO Sidechain
-  m_EditorClassIdentifier: 
-  Name: VO Sidechain
-  StudioPath: 
-  Min: 0
-  Max: 1
-  Default: 0
-  ID:
-    data1: 4135641038
-    data2: 716951279
-  Type: 0
-  IsGlobal: 0
-  Labels: []
   Exists: 1
 --- !u!114 &-1095558156055436063
 MonoBehaviour:
@@ -460,10 +381,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637867807484648565
+  lastModified: 637871838499850417
   FileSizes:
   - Name: Desktop
-    Value: 373344
+    Value: 289216
   - Name: HTML5
     Value: 167200
   Exists: 1
@@ -538,7 +459,7 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637867807484612243
+  lastModified: 637871838499770401
   FileSizes:
   - Name: Desktop
     Value: 15444
@@ -569,12 +490,9 @@ MonoBehaviour:
   - {fileID: 1244379374460660697}
   - {fileID: -5682678992097619044}
   - {fileID: 4002228935451114615}
-  - {fileID: 4203766382530981357}
   - {fileID: 6643512353428776668}
   - {fileID: 2560011415721260611}
-  - {fileID: -4751867866860873997}
   - {fileID: -906398167043467982}
-  - {fileID: -5722559673395803640}
   - {fileID: -793408740688936290}
   - {fileID: -8462207186775783714}
   - {fileID: -5605325960093234667}
@@ -586,7 +504,7 @@ MonoBehaviour:
   - {fileID: -324919399715423227}
   StringsBanks:
   - {fileID: -4614545490081813038}
-  cacheTime: 637867807484648565
+  cacheTime: 637871838499850417
   cacheVersion: 10
 --- !u!114 &1244379374460660697
 MonoBehaviour:
@@ -671,33 +589,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
---- !u!114 &4203766382530981357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Character player/Door Open
-  m_EditorClassIdentifier: 
-  Path: event:/Character player/Door Open
-  Guid:
-    Data1: 1652904472
-    Data2: 1192208627
-    Data3: -125142357
-    Data4: -1149771785
-  Banks:
-  - {fileID: -958287381525922954}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 1274
 --- !u!114 &6643512353428776668
 MonoBehaviour:
   m_ObjectHideFlags: 0

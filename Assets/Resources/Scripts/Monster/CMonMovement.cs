@@ -188,7 +188,6 @@ public class CMonMovement : CControllerBase
 
             m_Actor.g_Animator.SetTrigger("HoldFinish");
             yield return new WaitForSeconds(2.0f);
-            m_nav.velocity = Vector3.one;
 
             m_DebugHoldDMod = false;
             yield break;

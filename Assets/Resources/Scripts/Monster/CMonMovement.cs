@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-using UnityEngine.AI;       //For use the nav agent. nav mesh Agent 사용을 위한 선언 
+using UnityEngine.AI;
 
 public class CMonMovement : CControllerBase
 {
+    [SerializeField] private GameObject m_Camrea;
+
     [SerializeField] private NavMeshAgent m_nav;
     [SerializeField] private GameObject m_PlayerTarget;
     [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
@@ -24,12 +25,11 @@ public class CMonMovement : CControllerBase
 
 
     private void Start()
-    {
+    {      
         m_nav = GameObject.Find("Boss").GetComponent<NavMeshAgent>();
         m_nav.autoBraking = false;
+        m_nav.isStopped = false;
         m_PlayerTarget = GameObject.FindGameObjectWithTag("Player");
-
-        if(m_DebugTrackingMod == true)
         NextIndex();
     }
 
@@ -38,13 +38,18 @@ public class CMonMovement : CControllerBase
         base.init(actor);
     }
 
+    private void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
+    {
+        float velocity = m_nav.velocity.magnitude;
+        m_Actor.g_Animator.SetFloat("Speed", velocity);
+    }
+
     private void Update()
     {
         if (m_DebugMoveMod == true)
         {
             if (m_DebugTrackingMod == false)
             {
-
                 if (m_PlayerTarget.activeSelf == true)
                 {
                     BossMovement();
@@ -54,15 +59,14 @@ public class CMonMovement : CControllerBase
                     m_nav.autoBraking = true;
                     m_nav.velocity = Vector3.zero;
                     m_currentNode = 0;
-
                     return;
-
                 }
             }
             else if (m_DebugTrackingMod == true)
             {
                 if (m_PlayerTarget.activeSelf == true)
                 {
+                    BossAnimation();
                     BossWayPointer();
 
                 }
@@ -71,75 +75,77 @@ public class CMonMovement : CControllerBase
                     m_nav.autoBraking = true;
                     m_nav.velocity = Vector3.zero;
                     m_currentNode = 0;
-
                     return;
-
                 }
             }
         }
         else
             return;
-
-
-
     }
 
     private void BossMovement()
     {
-
         if(m_nav.destination != m_PlayerTarget.transform.position)
         {
-
-            m_nav.autoBraking = true;
-
+            
             m_nav.SetDestination(m_PlayerTarget.transform.position);
-
-            float velocity = m_nav.velocity.magnitude;
-            //Debug.Log("속도 : " + velocity);
-
-            m_Actor.g_Animator.SetFloat("Speed" , velocity );
-
+            BossAnimation();
         }
         else
         {
             m_nav.SetDestination(transform.position);
         }
-
     }
 
     private void BossWayPointer()
     {
-        if (!m_nav.pathPending && m_nav.remainingDistance < 2.0f)
+        //Execute if distance to destination is less than 5 or arrives 목적지까지의 거리가 3 이하 혹은 도착했으면 실행 
+        if (!m_nav.pathPending && m_nav.remainingDistance < 3.0f)
         {
-
             NextIndex();
-    
-        }
-        //Execute if distance to destination is less than 2 or arrives 목적지까지의 거리가 2 이하 혹은 도착했으면 실행 
-
-        if (m_currentNode == m_WayPoint.Count)
-        {
-            m_currentNode = 0;
         }
 
-        //Arrive at the last note? -> Initialize.  마지막 노트에 도착? -> 초기화.
+
     }
 
     private void NextIndex()
     {
-        m_nav.autoBraking = false;
+        if (m_currentNode == m_WayPoint.Count)
+        {
+            m_nav.speed = 0;
+            return;
+        }
+        else
+        {       
+            m_nav.destination = m_WayPoint[m_currentNode].position;
+            m_currentNode = (m_currentNode + 1);
+            //moving position 위치 이동
+            //Debug.Log("현재 노드 : " + m_currentNode);
+        }
 
-        float velocity = m_nav.velocity.magnitude;
 
-        m_Actor.g_Animator.SetFloat("Speed", velocity);
-
-        m_nav.destination = m_WayPoint[m_currentNode].position;
-        m_currentNode = (m_currentNode + 1);
-        //moving position 위치 이동
-
-
+        switch (m_currentNode)
+        {
+            case 4:
+                //StartCoroutine("JumpDelay");
+                break;
+        }
     }
 
+    IEnumerator JumpDelay() //이거 설마 다 이렇게 구현해야해..? 아니지..?\
+        //아님 메쉬링크 사용하던가???? 생각좀 해봐야 할듯;
+        //4.26 메쉬링크로 업데이트완료. 해당 코드 사용 안할듯,,
+    {
+        yield return new WaitForSeconds(1.5f);      //점프
+        m_Actor.g_Animator.SetTrigger("Jump");
+                
+        yield return new WaitForSeconds(2.0f);      //착지 후 정지
+        m_nav.velocity = Vector3.zero;
+
+        yield return new WaitForSeconds(0.5f);      //다시 추적 진행
+        m_nav.velocity = Vector3.one;
+
+    }
 
     private void OnDrawGizmos()     //Draw to visually express the position 그려서 위치 시각적으로 표현
     {

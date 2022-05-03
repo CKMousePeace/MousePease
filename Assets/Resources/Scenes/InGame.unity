@@ -2134,10 +2134,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8771119826820351097, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
-      propertyPath: m_Key
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2185,10 +2181,6 @@ PrefabInstance:
     - target: {fileID: 8771119827405689141, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8771119827405689141, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
@@ -2744,10 +2736,22 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 483137220814384648, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 21.064125
+      objectReference: {fileID: 0}
+    - target: {fileID: 483137220814384648, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -44.9
+      objectReference: {fileID: 0}
     - target: {fileID: 483137220814384649, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 483137220814384650, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e28bd36cfcf6fb34095fee0c7e54335c, type: 2}
     - target: {fileID: 483137220824348929, guid: 23cd11a3b861f9148ad961f62a7802af, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 4294967295

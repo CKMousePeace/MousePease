@@ -19,7 +19,7 @@ public class CObjectPool : MonoBehaviour
         public GameObject g_Object=> m_Object;
         public string g_Name => m_Name;
     }
-
+    
 
     [SerializeField] private List<ObjectInfo> m_ListObject;
     private Dictionary<string, GameObject> m_ObjectDic = new Dictionary<string, GameObject>();

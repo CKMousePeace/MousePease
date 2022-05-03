@@ -139,7 +139,7 @@ MonoBehaviour:
   m_PlayerTarget: {fileID: 0}
   m_WayPoint: []
   m_DebugTrackingMod: 0
-  m_DebugMoveMod: 0
+  m_DebugMoveMod: 1
 --- !u!1 &893924202424225081
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +201,7 @@ MonoBehaviour:
   m_ControllerName: DeadZone
   m_nav: {fileID: 0}
   m_AttackSpeed_1: 1
+  m_DynamicObject: {fileID: 6436561966337491870}
 --- !u!1 &6436561966198538878
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +307,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6436561966337491840}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 3.58
+  m_Radius: 2.44
   m_Speed: 6
   m_Acceleration: 0.8
   avoidancePriority: 50

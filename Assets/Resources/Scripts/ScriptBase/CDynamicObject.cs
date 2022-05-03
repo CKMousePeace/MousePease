@@ -16,7 +16,10 @@ public abstract class CDynamicObject : CActor
     public Animator g_Animator => m_Animator;
 
 
+
     public bool g_IsDead { get; set; } = false;
+ 
+
 
     [SerializeField] private float m_fHP;
     public float g_fHP { get => m_fHP; set { m_fHP = value; } }
@@ -26,7 +29,7 @@ public abstract class CDynamicObject : CActor
     {
         
         m_Rigid = GetComponent<Rigidbody>();
-        
+        g_IsDead = false;
         foreach (var controller in m_ControllerBases)
         {
             controller.init(this);
@@ -111,9 +114,14 @@ public abstract class CDynamicObject : CActor
     protected IEnumerator DeadCheak()
     {
         m_DeadAnim = true;
+        foreach (var item in m_ControllerBases)
+        {
+            if (item.gameObject.activeInHierarchy)
+                item.gameObject.SetActive(false);
+        }
+
         m_Animator.SetTrigger("Dead");
-        yield return new WaitForSeconds(5);
-        g_IsDead = false;
+        yield return new WaitForSeconds(5);        
         gameObject.SetActive(false);
         
     }  

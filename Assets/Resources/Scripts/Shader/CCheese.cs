@@ -4,17 +4,19 @@ using UnityEngine;
 
 public class CCheese : CStaticObject
 {
-    // Start is called before the first frame update
-    private CPlayer m_Player;
-    private CPlayerMovement m_PlayerMoveMent;
+    // Start is called before the first frame update    
 
     protected override void Start()
     {
-        base.Start();
+    }
 
-        m_PlayerMoveMent = m_Player.GetController("Movement") as CPlayerMovement;
-        if (m_PlayerMoveMent == null)
-            Debug.LogError("Movement가 들어가지 않았습니다");
+    private void OnTriggerEnter(Collider other)
+    {
+        //버프 추가
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        //버프 삭제 
     }
 
 }

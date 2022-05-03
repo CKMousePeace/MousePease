@@ -6,7 +6,7 @@ public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
     private float m_CurrentTime = 0.0f;
-    private CCSVParsing m_Parsing;
+    [SerializeField] CBuffBase.BuffInfo info;
     protected override void Start()
     {
         base.Start();        
@@ -45,6 +45,10 @@ public class CPlayer : CDynamicObject
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            GenerateBuff("Slow", info);
+        }
         m_CurrentTime += Time.deltaTime;
 
     }
@@ -60,19 +64,7 @@ public class CPlayer : CDynamicObject
         }
         return false;
     }
-
     
-    public bool InCheeseCheck()
-    {
-        if (m_ControllerDic.ContainsKey("Movement"))
-        {
-            CPlayerMovement Controller = (CPlayerMovement)m_ControllerDic["Movement"];
-            if (Controller == null) return false;
-            return Controller.g_InCheese;
-        }
-        return true;
-    }
-
 
     public void SetColor()
     {

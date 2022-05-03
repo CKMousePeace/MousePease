@@ -46,10 +46,9 @@ public class CDash : CControllerBase
 
         m_Actor.g_Animator.SetTrigger("Dash");
         m_Dash = true;        
-        if (!m_Player.InCheeseCheck())
-            m_Dir = new Vector3(m_DirX, 0.0f, m_DirZ);
-        else
-            m_Dir = new Vector3(m_DirX, m_DirZ, 0.0f);
+
+        m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, 0.0f, 0.0f);
+
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;

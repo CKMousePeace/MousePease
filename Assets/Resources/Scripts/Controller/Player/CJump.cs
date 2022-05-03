@@ -38,7 +38,7 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_Player.InCheeseCheck())
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack"))
         {
             gameObject.SetActive(false);
             return;
@@ -125,10 +125,9 @@ public class CJump : CControllerBase
             //{
             //    force = Mathf.Max(0, force - m_Actor.g_Rigid.velocity.y);
             //}
-            float m_DirX = Input.GetAxisRaw("Horizontal");
-            float m_DirZ = Input.GetAxisRaw("Vertical");
+            float m_DirX = Input.GetAxisRaw("Horizontal");            
 
-            var Dir = new Vector3(m_DirX, 3.0f, m_DirZ).normalized;
+            var Dir = new Vector3(m_DirX, 3.0f, 0.0f).normalized;
             m_Actor.g_Rigid.velocity = Vector3.zero;
             m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
             m_Actor.g_Animator.SetTrigger("DoubleJump");

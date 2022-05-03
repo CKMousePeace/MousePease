@@ -11,11 +11,10 @@ public class CCheese_Shader : MonoBehaviour
     [SerializeField] private Material m_Cheese_InPlayer;
     [SerializeField] private Material m_Cheese_base;
     
+
     private Material m_Cheese_Player;
     private float m_CheeseAlphaTime;
-    private bool m_InCheese;
-
-    
+    private bool m_InCheese;    
 
 
     private void Start()

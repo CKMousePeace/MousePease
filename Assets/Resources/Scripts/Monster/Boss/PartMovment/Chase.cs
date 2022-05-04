@@ -4,7 +4,7 @@ public class Chase : AIBehaviour
 {
     //플레이어 추격
     public Transform Target;
-    public float AgentSpeedMultiplier = 2f;
+    public float AgentSpeedMultiplier = 1f;
 
     public override void Activate(CBossController controller)
     {

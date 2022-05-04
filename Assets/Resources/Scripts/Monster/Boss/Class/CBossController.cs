@@ -5,12 +5,11 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Patrol))]
 [RequireComponent(typeof(Investigate))]
 [RequireComponent(typeof(Chase))]
-[RequireComponent(typeof(Bite))]
 
 public class CBossController : MonoBehaviour
 {
     private AIBehaviour currentBehavior;
-    public AIBehaviour CurrentBehavior
+    public AIBehaviour CurrentBehavior      //현재 상태 
     {
         get => currentBehavior;
         private set
@@ -21,46 +20,35 @@ public class CBossController : MonoBehaviour
         }
     }
 
-    private Patrol PatrolBehavior;
-    private Investigate InvestigateBehavior;
-    private Chase ChaseBehavior;
-    private Bite BiteBehavior;
+    private Patrol PatrolBehavior;                  //패트롤(웨이포인트)
+    private Investigate InvestigateBehavior;        //타겟 있는지 주변 조사
+    private Chase ChaseBehavior;                    //센서 안에 들어오면 추격
 
-    public GameObject Boss;                 //애니메이터를 받아올 오브젝트
-
-
+    private Animator BossANi;
     private NavMeshAgent agent;
     public float RemainingDistance { get => agent.remainingDistance; }
     public float StoppingDistance { get => agent.stoppingDistance; }
     public void SetDestination(Vector3 destination) => agent.SetDestination(destination);
 
     private float defaultAgentSpeed;
-    public void MultiplySpeed(float factor) => agent.speed = defaultAgentSpeed * factor;
+    public void MultiplySpeed(float factor) => agent.speed = defaultAgentSpeed * factor;    //속도 배수
     public void SetDefaultSpeed() => agent.speed = defaultAgentSpeed;
 
     private BossEyes eyes;
     private BossEars ears;
-    public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);
+    public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);      //플레이어 추격시 청각 비활성화
 
-
-    //===============디버그===================//
-
-    [Header("체크할 시 깨물기 스킬 사용")]
-    public bool m_DebugBiteMod = false;
-
-
-    //===============디버그===================//
 
 
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        defaultAgentSpeed = agent.speed;
+        BossANi = GameObject.Find("boss_dummy").GetComponent<Animator>();
 
+        defaultAgentSpeed = agent.speed;
         PatrolBehavior = GetComponent<Patrol>();
         InvestigateBehavior = GetComponent<Investigate>();
         ChaseBehavior = GetComponent<Chase>();
-        BiteBehavior = GetComponent<Bite>();
 
         eyes = GetComponentInChildren<BossEyes>();
         eyes.OnDetect += Chase;
@@ -74,45 +62,35 @@ public class CBossController : MonoBehaviour
 
     private void Update()
     {
-
-        if(m_DebugBiteMod == true)
-        {
-            CurrentBehavior = BiteBehavior;
-        }
-        else
-            CurrentBehavior.UpdateStep(this);
+        BossAnimation();
+        CurrentBehavior.UpdateStep(this);
     }
 
     public void Patrol()
     {
+        Debug.Log("페트롤");
         CurrentBehavior = PatrolBehavior;
     }
 
     public void Investigate(Detectable detectable)
     {
+        Debug.Log("인베스티게이트");
         InvestigateBehavior.Destination = detectable.transform.position;
         CurrentBehavior = InvestigateBehavior;
     }
 
     public void Chase(Detectable detectable)
     {
-        BossAnimation();
+        Debug.Log("체이스");
         ChaseBehavior.Target = detectable.transform;
         CurrentBehavior = ChaseBehavior;
     }
 
 
-    public void Bite(Detectable detectable)
-    {
-
-        CurrentBehavior = BiteBehavior;
-        
-    }
-
-
-    private void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
+    public void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
     {
         float velocity = agent.velocity.magnitude;
-        Boss.GetComponent<Animator>().SetFloat("Speed", velocity);
+        BossANi.SetFloat("Speed", velocity);
+        Debug.Log(velocity);
     }
 }

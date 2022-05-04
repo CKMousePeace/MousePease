@@ -91,6 +91,5 @@ public class CBossController : MonoBehaviour
     {
         float velocity = agent.velocity.magnitude;
         BossANi.SetFloat("Speed", velocity);
-        Debug.Log(velocity);
     }
 }

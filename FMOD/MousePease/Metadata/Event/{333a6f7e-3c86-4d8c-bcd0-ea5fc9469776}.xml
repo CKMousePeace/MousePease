@@ -60,7 +60,7 @@
 	<object class="MarkerTrack" id="{231b7580-58eb-4027-b4ea-16ef520ecc04}" />
 	<object class="GroupTrack" id="{07699d36-6af6-4e66-82f4-a43414847982}">
 		<relationship name="modules">
-			<destination>{0905264f-294a-4365-8f7d-3f700b5e8bd0}</destination>
+			<destination>{1fdbfc67-1d48-4864-9c19-7da4ce95bc02}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{9746d72f-22ea-4509-b2e0-d2eb15361395}</destination>
@@ -68,7 +68,7 @@
 	</object>
 	<object class="Timeline" id="{fb535988-82d1-4f03-b2cd-f1f9350eabc9}">
 		<relationship name="modules">
-			<destination>{0905264f-294a-4365-8f7d-3f700b5e8bd0}</destination>
+			<destination>{1fdbfc67-1d48-4864-9c19-7da4ce95bc02}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{ad2f1b53-9884-488d-9c6d-4d49719aa4ef}">
@@ -88,12 +88,12 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{2a0cdfb8-a94f-4e9c-a5a5-fc4be7957c3d}" />
-	<object class="SingleSound" id="{0905264f-294a-4365-8f7d-3f700b5e8bd0}">
+	<object class="MultiSound" id="{1fdbfc67-1d48-4864-9c19-7da4ce95bc02}">
 		<property name="length">
-			<value>1.1917233560090703</value>
+			<value>0.125</value>
 		</property>
-		<relationship name="audioFile">
-			<destination>{dd775b44-a2ee-434e-b6c1-e67229563300}</destination>
+		<relationship name="sounds">
+			<destination>{6ee1d2aa-973d-485a-9ba0-3d2aa56dfcbe}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{9746d72f-22ea-4509-b2e0-d2eb15361395}">
@@ -122,6 +122,11 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{81378eb5-879b-44e4-b28d-bcdb0dba3689}" />
+	<object class="SingleSound" id="{6ee1d2aa-973d-485a-9ba0-3d2aa56dfcbe}">
+		<relationship name="audioFile">
+			<destination>{dd775b44-a2ee-434e-b6c1-e67229563300}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{bc3edf72-b2a1-43a5-ba85-a82ffda7cab0}">
 		<relationship name="effects">
 			<destination>{623c9b06-7447-4171-8e42-d3bf56048c94}</destination>

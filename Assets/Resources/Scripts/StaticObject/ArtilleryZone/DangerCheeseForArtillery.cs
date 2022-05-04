@@ -5,16 +5,16 @@ using System;
 
 //아 졸려
 
-public class DangerCheeseForArtillery : CArtilleryZone
+public class DangerCheeseForArtillery : MonoBehaviour
 {
 
     //점점 줄어들 원 오브젝트
-    [SerializeField] protected GameObject m_DamageZone;
+    [SerializeField] private GameObject m_DamageZone;
+    [Header("줄어드는 시간")]
+    [SerializeField] private float m_timer = 0;
 
-    //떨어질 구역을 표시할 오브젝트
-    [SerializeField] protected GameObject m_Indicator;
-
-
+    [Header("돌이 떨어질 높이")]
+    [SerializeField] private float m_Rockhigh = 0;
 
     private void Start()
     {
@@ -41,12 +41,12 @@ public class DangerCheeseForArtillery : CArtilleryZone
 
         if(elapsedTime > seconds)
         {
-            m_DamageZone.SetActive(false);
-            m_Indicator.SetActive(false);
 
             //오브젝트 풀에서 Cheese 받아옴
             CObjectPool.g_instance.ObjectPop("Cheese", new Vector3(gameObject.transform.position.x, m_Rockhigh, gameObject.transform.position.z),
             Quaternion.Euler(-90,0,0), new Vector3(5, 5, 5));
+
+            Destroy(gameObject); //치즈 소환 후 인디케이터 제거
         }
         else
         {

@@ -16,7 +16,7 @@ public class AgentLink : MonoBehaviour
     public OffMeshLinkMoveMethod m_Method = OffMeshLinkMoveMethod.Parabola;
     public AnimationCurve m_Curve = new AnimationCurve();
 
-    [Header("보스 애니메이터 있는 부분 넣어줘")]
+    [Header("Boss 애니메이터 파트")]
     [SerializeField] private GameObject m_BossMan;
     [SerializeField] private float m_BossDura;
 

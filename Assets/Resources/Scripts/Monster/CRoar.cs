@@ -12,16 +12,17 @@ public class CRoar : CControllerBase
 
     protected void OnEnable()
     {
-        Debug.Log("몬스터 상태 : idle Start");
+        if (m_Actor == null) return;
+        m_Actor.g_Animator.SetTrigger("Roar");
+
     }
     protected void OnDisable()
     {
-        Debug.Log("몬스터 상태 : idle End");
+        if (m_Actor == null) return;
     }
 
     private void Update()
     {
-        //m_Actor.g_Animator.SetBool("Mon_Roar", true);
-        // 읽힘
+
     }
 }

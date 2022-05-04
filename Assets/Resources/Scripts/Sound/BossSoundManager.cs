@@ -23,6 +23,7 @@ public class BossSoundManager : MonoBehaviour
     private FMOD.Studio.EventInstance m_Boss_Dead;
     private FMOD.Studio.EventInstance m_Boss_Roar;
     private FMOD.Studio.EventInstance m_Boss_Jump;
+    private FMOD.Studio.EventInstance m_BossJumpUp;
     [SerializeField] CURRENT_TERRAIN currentTranin;
 
 

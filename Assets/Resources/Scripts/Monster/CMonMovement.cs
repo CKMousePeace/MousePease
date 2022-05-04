@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class CMonMovement : CControllerBase
 {
     [SerializeField] private GameObject m_Camrea;
-
     [SerializeField] private NavMeshAgent m_nav;
-    [SerializeField] private GameObject m_PlayerTarget;
+    [SerializeField] private GameObject m_PlayerTarget;     //Target (Player)
     [SerializeField] private List<Transform> m_WayPoint = new List<Transform>();
+
+
     private int m_currentNode = 0;
 
     //===============디버그===================//
@@ -20,6 +21,11 @@ public class CMonMovement : CControllerBase
     [Header("체크할 시 보스 움직임")]
     [SerializeField] private bool m_DebugMoveMod = false;
 
+    [Header("체크할 시 깨물기 스킬 사용")]
+    [SerializeField] private bool m_DebugBiteMod = false;
+
+    [Header("체크할 시 덮치기 스킬 사용")]     //Hold Down
+    [SerializeField] private bool m_DebugHoldDMod = false;
 
     //===============디버그===================//
 
@@ -44,16 +50,25 @@ public class CMonMovement : CControllerBase
         m_Actor.g_Animator.SetFloat("Speed", velocity);
     }
 
+
+
+    [Header("깨물기 지속 시간")]
+    [SerializeField] private float m_MonBiteRunningTime = 2.0f; //Bite Collider duration
+
+    [Header("덮치기 대기 시간")]
+    [SerializeField] private float m_MonHoldDWaitTime = 2.0f; //Bite Collider duration
+
+    [Header("덮친 후 루프 할 시간")]
+    [SerializeField] private float m_MonHoldDAfterTime = 2.0f; //Bite Collider duration
+
     private void Update()
     {
+        //움직임 체크
         if (m_DebugMoveMod == true)
         {
             if (m_DebugTrackingMod == false)
             {
-                if (m_PlayerTarget.activeSelf == true)
-                {
-                    BossMovement();
-                }
+                if (m_PlayerTarget.activeSelf == true)  BossMovement();
                 else
                 {
                     m_nav.autoBraking = true;
@@ -79,8 +94,12 @@ public class CMonMovement : CControllerBase
                 }
             }
         }
-        else
-            return;
+
+        //깨물기 공격
+        if(m_DebugBiteMod == true)  StartCoroutine(BiteMode(m_MonBiteRunningTime));
+
+        //덮치기 공격
+        if (m_DebugHoldDMod == true) StartCoroutine(HoldDownMode(m_MonHoldDWaitTime, m_MonHoldDAfterTime));
     }
 
     private void BossMovement()
@@ -104,8 +123,6 @@ public class CMonMovement : CControllerBase
         {
             NextIndex();
         }
-
-
     }
 
     private void NextIndex()
@@ -132,18 +149,50 @@ public class CMonMovement : CControllerBase
         }
     }
 
-    IEnumerator JumpDelay() //이거 설마 다 이렇게 구현해야해..? 아니지..?\
-        //아님 메쉬링크 사용하던가???? 생각좀 해봐야 할듯;
-        //4.26 메쉬링크로 업데이트완료. 해당 코드 사용 안할듯,,
-    {
-        yield return new WaitForSeconds(1.5f);      //점프
-        m_Actor.g_Animator.SetTrigger("Jump");
-                
-        yield return new WaitForSeconds(2.0f);      //착지 후 정지
-        m_nav.velocity = Vector3.zero;
 
-        yield return new WaitForSeconds(0.5f);      //다시 추적 진행
-        m_nav.velocity = Vector3.one;
+
+    [SerializeField] private GameObject m_BiteCollider;     //BiteCollider Add
+    IEnumerator BiteMode(float Time)    //깨물기 공격
+    {
+        while (true)
+        {
+            m_BiteCollider.SetActive(true);
+            m_nav.speed = 10.0f;
+
+            yield return new WaitForSeconds(Time);
+
+            m_nav.speed = 6.0f;
+            m_BiteCollider.SetActive(false);
+
+            m_DebugBiteMod = false;
+
+            yield break;
+        }
+    }
+
+    [SerializeField] private GameObject m_HoldDownCollider;
+    IEnumerator HoldDownMode(float Ready , float Loop)    //덮치기 공격
+    {
+
+        while (true)
+        {
+            m_nav.isStopped = true;
+            m_Actor.g_Animator.SetTrigger("HoldReady");
+
+            yield return new WaitForSeconds(Ready);
+
+            m_Actor.g_Animator.SetTrigger("HoldLoop");  //여기 루프 넣어야함
+            m_HoldDownCollider.SetActive(true);
+            m_nav.isStopped = false;
+            yield return new WaitForSeconds(Loop);
+
+            m_Actor.g_Animator.SetTrigger("HoldFinish");
+            yield return new WaitForSeconds(2.0f);
+
+            m_DebugHoldDMod = false;
+            yield break;
+        }
+
 
     }
 

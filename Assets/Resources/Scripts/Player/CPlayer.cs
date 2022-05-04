@@ -5,15 +5,24 @@ using UnityEngine;
 public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
-    private float m_CurrentTime = 0.0f;
-    private CCSVParsing m_Parsing;
+    private float m_CurrentTime = 0.0f;    
     protected override void Start()
     {
         base.Start();        
+        
     }
 
     protected void Update()
     {
+
+        if (g_IsDead )
+        {
+            if (!m_DeadAnim)
+            {
+                StartCoroutine(DeadCheak());
+            }             
+            return;
+        }
         if (CompareBuff("KnockBack")) return;
 
         foreach (var controller in m_ControllerBases)
@@ -35,34 +44,32 @@ public class CPlayer : CDynamicObject
                 m_MashRender.material.SetColor("_EmissionColor", Color.white);
             }
         }
-
         m_CurrentTime += Time.deltaTime;
     }
 
-    public bool MagnetSkillCheck()
+
+    public void SetInCheese(bool State)
     {
-        if (m_ControllerDic.ContainsKey("SkillController"))
+        var Movemet = GetController("Movement") as CPlayerMovement;
+        if (Movemet == null)
         {
-            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-            if (skill == null) return false;
-            return skill.g_MagnetCheck;
+            Debug.LogError("Movement controller를 못 찾았습니다.");
+            return;
         }
-        return false;
+        g_Rigid.velocity = new Vector3(0.0f , 0.0f , 0.0f);        
+        Movemet.g_IsInCheese = State;
     }
 
-    
-    public bool InCheeseCheck()
+    public bool CompareInCheese()
     {
-        if (m_ControllerDic.ContainsKey("Movement"))
+        var Movemet = GetController("Movement") as CPlayerMovement;
+        if (Movemet == null)
         {
-            CPlayerMovement Controller = (CPlayerMovement)m_ControllerDic["Movement"];
-            if (Controller == null) return false;
-            return Controller.g_InCheese;
+            Debug.LogError("Movement controller를 못 찾았습니다.");
+            return false;
         }
-        return true;
+        return Movemet.g_IsInCheese;
     }
-
 
     public void SetColor()
     {
@@ -73,18 +80,19 @@ public class CPlayer : CDynamicObject
     }
 }
 
-//public bool MagnetMagnetType(CMagnet.MagnetType type)
-//{
-//    if (m_ControllerDic.ContainsKey("SkillController"))
-//    {
-//        CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-//        CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-//        if (skill == null) return false;
-//        return skill.g_MagnetType == type;
-//    }
-//    return false;
-//}
 
 
-
-
+/*
+ * 
+ *  public bool MagnetSkillCheck()
+    {
+        if (m_ControllerDic.ContainsKey("SkillController"))
+        {
+            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
+            if (skill == null) return false;
+            return skill.g_MagnetCheck;
+        }
+        return false;
+    }
+ */

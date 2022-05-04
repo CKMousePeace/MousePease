@@ -13,7 +13,6 @@ public class CNockBack : CBuffBase
     
     private void OnEnable()
     {
-        g_DynamicObject.g_Animator.SetTrigger("Hit");
         g_DynamicObject.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderEnter += CollierEnter;
         CPlayer play = (CPlayer)g_DynamicObject;
@@ -43,16 +42,14 @@ public class CNockBack : CBuffBase
         {
             Debug.LogError(e.Message);
         }
-    }
 
-    
+        g_DynamicObject.g_Animator.SetTrigger("Hit");
+    }
 
     public override void init(CDynamicObject dynamicObject)
     {
-        base.init(dynamicObject);
-        
+        base.init(dynamicObject);        
     }
-
 
     //충돌이 일어 날 때 함수 입니다.
     private void CollierEnter(Collision collder)

@@ -88,7 +88,7 @@ public class CPlayerMovement : CControllerBase
     {
         var PlayerEulerAngles = m_Actor.transform.eulerAngles;
         float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_turnSpeed);
-        m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.y);
+        m_Actor.transform.eulerAngles = new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.z);
 
         if (m_DirX == 0.0f){
             

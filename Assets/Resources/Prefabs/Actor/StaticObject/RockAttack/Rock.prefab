@@ -111,7 +111,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Buffinfo:
     m_Value_Int: 
-    m_Value_Float: []
+    m_Value_Float:
+    - 3
+    - 30
     m_Value_Vector3: []
   m_Root: {fileID: 2782439828952009133, guid: f880e3d9771723f4b9abdd3281536c93, type: 3}
   m_DestroyWaitTime: 3

@@ -9,6 +9,7 @@ public class CHoldDownZone : CStaticObject
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
 
+    [SerializeField] private CDynamicObject m_DynamicObject;
     private bool isChecker = false;
 
     protected override void Start()
@@ -24,14 +25,28 @@ public class CHoldDownZone : CStaticObject
 
         if (col.CompareTag("Player") && isChecker == true)
         {
-            var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
-            actor.GenerateBuff("KnockBack", m_Buffinfo);
+            //¹è·Î ´r´r ÇÏ´Â ¾Ö´Ï¸Þ
+            
+            //var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
+            //actor.GenerateBuff("KnockBack", m_Buffinfo);
+            StartCoroutine(AttackDelay());
         }     
     }
 
     private void OnTriggerExit(Collider col)
     {
         isChecker = false;
+    }
+
+    IEnumerator AttackDelay()
+    {
+        yield return new WaitUntil(() => {
+            bool Check = (m_DynamicObject.g_Animator.GetCurrentAnimatorStateInfo(0).IsName("BossThrow") &&
+            m_DynamicObject.g_Animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 0.9f);
+            return Check;
+        });
+
+        gameObject.SetActive(false);
     }
 
 

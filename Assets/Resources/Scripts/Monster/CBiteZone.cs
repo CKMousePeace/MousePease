@@ -12,10 +12,19 @@ public class CBiteZone : CStaticObject
     [SerializeField] GameObject MonBite;       //몬스터 물기 애니메 부분
     private bool isChecker = false;
 
+    [SerializeField] private int SkillRunningTime = 0;
+
     protected override void Start()
     {
         base.Start();
         m_Buffinfo.g_Value_Vector3.Add(transform.position);
+
+        
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(StartBite(SkillRunningTime));
     }
 
 
@@ -34,6 +43,14 @@ public class CBiteZone : CStaticObject
     private void OnTriggerExit(Collider col)
     {
         isChecker = false;
+    }
+
+
+    IEnumerator StartBite( int Time )
+    {
+        yield return new WaitForSeconds(Time);
+        gameObject.SetActive(false);
+
     }
 
 

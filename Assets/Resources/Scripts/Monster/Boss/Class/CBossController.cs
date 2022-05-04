@@ -68,20 +68,17 @@ public class CBossController : MonoBehaviour
 
     public void Patrol()
     {
-        Debug.Log("페트롤");
         CurrentBehavior = PatrolBehavior;
     }
 
     public void Investigate(Detectable detectable)
     {
-        Debug.Log("인베스티게이트");
         InvestigateBehavior.Destination = detectable.transform.position;
         CurrentBehavior = InvestigateBehavior;
     }
 
     public void Chase(Detectable detectable)
     {
-        Debug.Log("체이스");
         ChaseBehavior.Target = detectable.transform;
         CurrentBehavior = ChaseBehavior;
     }

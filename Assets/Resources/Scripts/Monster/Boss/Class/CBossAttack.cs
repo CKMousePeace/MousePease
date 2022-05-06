@@ -7,8 +7,8 @@ public class CBossAttack : MonoBehaviour
     public Attackable Attackable;
     protected bool IsAttacking;
     public Animator BossAni;
+    public GameObject Boss;
     public NavMeshAgent BossNav;
-
 
     public UnityAction<Attackable> OffAttack;
     public UnityAction<Attackable> OnBiteAttack;
@@ -17,7 +17,7 @@ public class CBossAttack : MonoBehaviour
     
     private void Start()
     {
-        
+
     }
 
 
@@ -40,7 +40,6 @@ public class CBossAttack : MonoBehaviour
     }
 
 
-
     void Update()
     {
 
@@ -56,6 +55,8 @@ public class CBossAttack : MonoBehaviour
             {
                 HoldDownAttack(Attackable);
             }
+
+
         }
         else
         {

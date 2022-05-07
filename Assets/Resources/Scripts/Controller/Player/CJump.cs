@@ -38,7 +38,7 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_Player.CompareInCheese())
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareBuff("KnockBack") || m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
@@ -66,12 +66,14 @@ public class CJump : CControllerBase
 
     private void Update()
     {
+        
+
         if (m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
         }
-        if (Input.GetKeyDown(m_Key))
+        if (Input.GetKeyDown(m_Key) && !m_Actor.CompareBuff("KnockBack"))
         {
             if (!m_isDoubleJump)
             {

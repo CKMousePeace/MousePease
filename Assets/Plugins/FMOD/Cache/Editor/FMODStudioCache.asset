@@ -53,7 +53,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1191
+  Length: 125
 --- !u!114 &-6720896712354196308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,12 +254,12 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637871872147318758
+  lastModified: 637872879086180346
   FileSizes:
   - Name: Desktop
-    Value: 2202
+    Value: 2332
   - Name: HTML5
-    Value: 2202
+    Value: 2332
   Exists: 1
 --- !u!114 &-2655417072435214040
 MonoBehaviour:
@@ -381,10 +381,10 @@ MonoBehaviour:
   Path: FMOD/MousePease/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 637871872147338755
+  lastModified: 637872879086200347
   FileSizes:
   - Name: Desktop
-    Value: 289216
+    Value: 294080
   - Name: HTML5
     Value: 167200
   Exists: 1
@@ -499,13 +499,43 @@ MonoBehaviour:
   - {fileID: -5541632500603502177}
   - {fileID: -1095558156055436063}
   - {fileID: -8289136065059599578}
+  - {fileID: 3096078586580389902}
+  - {fileID: 4512435593685919155}
+  - {fileID: 991290166309744437}
   EditorParameters: []
   MasterBanks:
   - {fileID: -324919399715423227}
   StringsBanks:
   - {fileID: -4614545490081813038}
-  cacheTime: 637871872147338755
+  cacheTime: 637872879086200347
   cacheVersion: 10
+--- !u!114 &991290166309744437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character player/Player CheeseRush
+  m_EditorClassIdentifier: 
+  Path: event:/Character player/Player CheeseRush
+  Guid:
+    Data1: -1063607342
+    Data2: 1284209921
+    Data3: 999109528
+    Data4: -440683586
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 567
 --- !u!114 &1244379374460660697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +591,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 0
+--- !u!114 &3096078586580389902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/BossJumpUp
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/BossJumpUp
+  Guid:
+    Data1: 57968644
+    Data2: 1215625577
+    Data3: -1568414295
+    Data4: 1469894891
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 125
 --- !u!114 &4002228935451114615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -586,6 +643,61 @@ MonoBehaviour:
   IsOneShot: 1
   Parameters:
   - {fileID: -2655417072435214040}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4416477716862446179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Boss Attack 2/Tarrain
+  m_EditorClassIdentifier: 
+  Name: Tarrain
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2238430967
+    data2: 1277230935
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Normal
+  - Grass
+  - Wood Floor
+  Exists: 1
+--- !u!114 &4512435593685919155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Character enemy/Boss Attack 2
+  m_EditorClassIdentifier: 
+  Path: event:/Character enemy/Boss Attack 2
+  Guid:
+    Data1: -1442414698
+    Data2: 1274327160
+    Data3: 77527179
+    Data4: 562201653
+  Banks:
+  - {fileID: -958287381525922954}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 4416477716862446179}
   MinDistance: 1
   MaxDistance: 20
   Length: 0

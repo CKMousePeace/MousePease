@@ -13,10 +13,10 @@ public class CJump : CControllerBase
     private bool m_JumpCheck = false;
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
-                                            //다시 점프 할 수 있는 각도를 지정합니다.
+                                    
 
     [SerializeField , Header("다시 점프 할 수 있는 각도를 나타 냅니다.")]
-    private float m_MaxGroundAngle; 
+    private float m_MaxGroundAngle; //다시 점프 할 수 있는 각도를 지정합니다.
     private float m_MaxGroundDot;
     private CPlayer m_Player;
 
@@ -38,12 +38,11 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack"))
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
         }
-
 
         m_isJump = true;
         m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x,  0.0f , m_Actor.g_Rigid.velocity.y);
@@ -51,8 +50,7 @@ public class CJump : CControllerBase
         m_Actor.g_Animator.SetTrigger("Jump");
         m_Actor.g_Animator.SetBool("isGround", false);
 
-        m_ColliderChecker.m_ColliderEnter += ColliderEnter;
-
+        m_ColliderChecker.m_ColliderStay += ColliderStay;
     }
     private void OnDisable()
     {
@@ -63,11 +61,16 @@ public class CJump : CControllerBase
         m_Actor.g_Animator.SetBool("isGround", true);        
         m_isDoubleJump = false;        
 
-        m_ColliderChecker.m_ColliderEnter -= ColliderEnter;
+        m_ColliderChecker.m_ColliderEnter -= ColliderStay;
     }
 
     private void Update()
-    {        
+    {
+        if (m_Player.CompareInCheese())
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         if (Input.GetKeyDown(m_Key))
         {
             if (!m_isDoubleJump)
@@ -81,29 +84,33 @@ public class CJump : CControllerBase
     private void FixedUpdate()
     {
         DoubleJump();
-        if (m_isJump)
-        {
-            var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Vector3.up;
-            m_Actor.g_Rigid.velocity += velocity;
-            m_isJump = false;
-        }
+        Jump();
         
     }
 
-    //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
-    private void ColliderEnter(Collision collder)
+    private void Jump()
     {
-        for (int i = 0; i < collder.contactCount; i++)
+        if (m_isJump)
         {
-            var normal = collder.GetContact(i).normal;            
-            if (normal.y > m_MaxGroundDot)
+            var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Vector3.up;
+            m_Actor.g_Rigid.AddForce(velocity, ForceMode.Impulse);
+            m_isJump = false;
+        }
+    }
+
+    //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
+    private void ColliderStay(Collision collder)
+    {
+        if (m_Actor.g_Rigid.velocity.y <= 0.3f)
+        {
+            for (int i = 0; i < collder.contactCount; i++)
             {
-                gameObject.SetActive(false);
-            }
-            else if (normal.y < 0.0f)
-            {
-                if (m_Actor.g_Rigid.velocity.y > 0f)
-                    m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.z);
+                var normal = collder.GetContact(i).normal;
+                if (normal.y > m_MaxGroundDot)
+                {
+                    gameObject.SetActive(false);
+                    return;
+                }
             }
         }
     }
@@ -114,26 +121,21 @@ public class CJump : CControllerBase
     // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
     {
-        
-        if (m_isJump == false && m_isDoubleJump && m_JumpCheck)
+        if (!m_isJump && m_isDoubleJump && m_JumpCheck)
         {
-            m_JumpCheck = false;
-            m_isDoubleJump = false;
+            m_JumpCheck = false;            
 
             var force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce);
-            //if (m_Actor.g_Rigid.velocity.y > 0)
-            //{
-            //    force = Mathf.Max(0, force - m_Actor.g_Rigid.velocity.y);
-            //}
-            float m_DirX = Input.GetAxisRaw("Horizontal");            
+            float m_DirX = Input.GetAxisRaw("Horizontal");
 
             var Dir = new Vector3(m_DirX, 3.0f, 0.0f).normalized;
             m_Actor.g_Rigid.velocity = Vector3.zero;
             m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
             m_Actor.g_Animator.SetTrigger("DoubleJump");
         }
+
     }
 
-    // trigger을 킬지 말지 정하는 함수 입니다.
+    
     
 }

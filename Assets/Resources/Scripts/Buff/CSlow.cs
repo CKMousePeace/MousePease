@@ -6,16 +6,23 @@ public class CSlow : CBuffBase
 {
     private float m_SlowTime;
     private float m_SlowSpeed;
-    private float m_CurrnetTime;
+    [SerializeField] private float m_CurrnetTime;
 
-    public float g_SlowSpeed => m_SlowSpeed; 
-    
+    public float g_SlowSpeed => m_SlowSpeed;
+
     protected override void OnBuffInit(BuffInfo buff)
     {
-        m_SlowSpeed = buff.g_Value_Float[0];
-        m_SlowTime = buff.g_Value_Float[1];       
+        try
+        {
+            m_CurrnetTime = 0.0f;
+            m_SlowSpeed = buff.g_Value_Float[0];
+            m_SlowTime = buff.g_Value_Float[1];
+        }
+        catch 
+        {
+            Debug.LogError("인덱스가 맞지 않습니다.");
+        }
     }
-
     private void Update()
     {
         m_CurrnetTime += Time.deltaTime;

@@ -12,13 +12,14 @@ GameObject:
   - component: {fileID: 9174060736486666740}
   - component: {fileID: 9174060736486666743}
   - component: {fileID: 9174060736486666742}
-  - component: {fileID: 9174060736486666737}
+  - component: {fileID: 3332280064852495446}
+  - component: {fileID: 8634284099118295237}
   m_Layer: 0
   m_Name: melted Cheese
-  m_TagString: MeltedCheese
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &9174060736486666736
 Transform:
@@ -27,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9174060736486666739}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 11.67602, y: 11.557871, z: 5.9129367}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 76.41, y: -4.5, z: 15.9}
+  m_LocalScale: {x: 13.109189, y: 11.557871, z: 5.2564034}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,7 +53,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 0
+  m_DynamicOccludee: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 35469a3e6fa56394eac6053dcf37f427, type: 2}
+  - {fileID: 2100000, guid: 7498c7f4ce63ac94cb3bfb72f958f992, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -96,7 +97,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &9174060736486666737
+--- !u!114 &3332280064852495446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,5 +109,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a8d0e1d4592edb4698e8eb9be96eef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Cheese_InPlayer: {fileID: 2100000, guid: 55556d4d2f6cb574ea3db2f06a992513, type: 2}
-  m_Cheese_base: {fileID: 2100000, guid: 35469a3e6fa56394eac6053dcf37f427, type: 2}
+  m_Cheese_InPlayer: {fileID: 2100000, guid: fe3836df169bca743a3f1974f2800085, type: 2}
+  m_Cheese_base: {fileID: 2100000, guid: 7498c7f4ce63ac94cb3bfb72f958f992, type: 2}
+--- !u!114 &8634284099118295237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9174060736486666739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc0f4da377f43843adf35aef2ef5372, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BuffInfo:
+    m_Value_Int: 
+    m_Value_Float:
+    - 50
+    - 5
+    m_Value_Vector3: []

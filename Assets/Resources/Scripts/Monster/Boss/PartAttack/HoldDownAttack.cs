@@ -75,37 +75,35 @@ public class HoldDownAttack : CBossAttack
     }
 
 
-    private void Parabola()
-    {
-        if(m_IsStart == true)
-        {
-            Debug.Log("점프 실행");
-            float x0 = m_StartPosition.x;
-            float x1 = m_Target.position.x;
-            float distance = x1 - x0;
-            float nextX = Mathf.MoveTowards(transform.position.x, x1, m_Speed * Time.deltaTime);
-            float baseY = Mathf.Lerp(m_StartPosition.y, m_Target.position.y, (nextX - x0) / distance);
-            float arc = m_HeightArc * (nextX - x0) * (nextX - x1) / (-0.25f * distance * distance);
-            Vector3 nextPosition = new Vector3(nextX, baseY + arc, transform.position.z);
+    //private void Parabola()
+    //{
+    //    if(m_IsStart == true)
+    //    {
+    //        Debug.Log("점프 실행");
+    //        float x0 = m_StartPosition.x;
+    //        float x1 = m_Target.position.x;
+    //        float distance = x1 - x0;
+    //        float nextX = Mathf.MoveTowards(transform.position.x, x1, m_Speed * Time.deltaTime);
+    //        float baseY = Mathf.Lerp(m_StartPosition.y, m_Target.position.y, (nextX - x0) / distance);
+    //        float arc = m_HeightArc * (nextX - x0) * (nextX - x1) / (-0.25f * distance * distance);
+    //        Vector3 nextPosition = new Vector3(nextX, baseY + arc, transform.position.z);
 
-            transform.rotation = LookAt3D(nextPosition - transform.position);
-            transform.position = nextPosition;
+    //        transform.rotation = LookAt3D(nextPosition - transform.position);
+    //        transform.position = nextPosition;
 
 
-            if (nextPosition == m_Target.position)
-                Arrived();
-        }
-    }
-
-    void Arrived()
-    {
-        gameObject.SetActive(false);
-    }
-
-    Quaternion LookAt3D(Vector3 forward)
-    {
-        return Quaternion.Euler(0, 0, Mathf.Atan2(forward.y, forward.x) * Mathf.Rad2Deg);
-    }
+    //        if (nextPosition == m_Target.position)
+    //            Arrived();
+    //    }
+    //}
+    //void Arrived()
+    //{
+    //    gameObject.SetActive(false);
+    //}
+    //Quaternion LookAt3D(Vector3 forward)
+    //{
+    //    return Quaternion.Euler(0, 0, Mathf.Atan2(forward.y, forward.x) * Mathf.Rad2Deg);
+    //}
 
 
     public Vector3 GetVelocity(Vector3 player, Vector3 target, float initialAngle)

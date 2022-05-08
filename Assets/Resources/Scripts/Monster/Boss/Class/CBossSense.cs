@@ -3,8 +3,8 @@ using UnityEngine.Events;
 
 public class CBossSense : MonoBehaviour
 {
-    public Detectable Detectable;
-    public float Distance;
+    public Detectable Detectable;           //감지할 요소
+    public float Distance;                  //감지 거리
 
     protected bool IsSensing;
 

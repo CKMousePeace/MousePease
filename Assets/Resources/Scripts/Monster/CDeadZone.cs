@@ -16,7 +16,7 @@ public class CDeadZone : CControllerBase
 
     public override void init(CDynamicObject actor)
     {
-        gameObject.SetActive(true);
+        //gameObject.SetActive(true);
         base.init(actor);
     }
 

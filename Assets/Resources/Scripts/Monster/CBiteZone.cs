@@ -9,10 +9,10 @@ public class CBiteZone : CStaticObject
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
 
-    [SerializeField] GameObject MonBite;       //몬스터 물기 애니메 부분
+    [SerializeField] private GameObject n_MonBite;       //몬스터 물기 애니메 부분
     private bool isChecker = false;
 
-    [SerializeField] private int SkillRunningTime = 0;
+    [SerializeField] private int m_SkillRunningTime = 0;
 
     protected override void Start()
     {
@@ -24,7 +24,7 @@ public class CBiteZone : CStaticObject
 
     private void OnEnable()
     {
-        StartCoroutine(StartBite(SkillRunningTime));
+        StartCoroutine(StartBite(m_SkillRunningTime));
     }
 
 
@@ -34,7 +34,7 @@ public class CBiteZone : CStaticObject
 
         if (col.CompareTag("Player") && isChecker == true)
         {
-            MonBite.SetActive(true);        //Boss Bite Motion Enable
+            n_MonBite.SetActive(true);        //Boss Bite Motion Enable
             var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
             actor.GenerateBuff("KnockBack", m_Buffinfo);
         }     

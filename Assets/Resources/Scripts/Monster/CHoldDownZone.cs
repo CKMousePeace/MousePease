@@ -25,10 +25,6 @@ public class CHoldDownZone : CStaticObject
 
         if (col.CompareTag("Player") && isChecker == true)
         {
-            //¹è·Î ´r´r ÇÏ´Â ¾Ö´Ï¸Þ
-            
-            //var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
-            //actor.GenerateBuff("KnockBack", m_Buffinfo);
             StartCoroutine(AttackDelay());
         }     
     }

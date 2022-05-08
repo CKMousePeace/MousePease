@@ -70,22 +70,22 @@ public class CBossController : MonoBehaviour
 
         if(m_agent.enabled == false)
         {
-            throw new System.Exception("HoldDown 스킬 사용중!");
+            throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
     }
 
-    public void Patrol()
+    public void Patrol()        //웨이포인트
     {
         CurrentBehavior = m_PatrolBehavior;
     }
 
-    public void Investigate(Detectable detectable)
+    public void Investigate(Detectable detectable)      //주변 탐색
     {
         m_InvestigateBehavior.Destination = detectable.transform.position;
         CurrentBehavior = m_InvestigateBehavior;
     }
 
-    public void Chase(Detectable detectable)
+    public void Chase(Detectable detectable)        //센서에 플레이어 탐지. 추격
     {
         m_ChaseBehavior.g_Target = detectable.transform;
         CurrentBehavior = m_ChaseBehavior;

@@ -6,14 +6,12 @@ public class HoldDownAttack : CBossAttack
 {
     [Tooltip("HoldDown 콜라이더")]
     [SerializeField] private GameObject HoldDownCol;
+    public Transform m_Target;                          //날아갈 타겟
+    public float m_InitialAngle = 50f;                  // 처음 날라가는 각도
+    [SerializeField] private Rigidbody m_Rigidbody;     //보스 리지드바디
 
-
-    public Transform m_Target;
-    public float m_InitialAngle = 50f; // 처음 날라가는 각도
-    [SerializeField]private Rigidbody m_Rigidbody;
-
-    public float m_Speed = 10;
-    public float m_HeightArc = 1;
+    public float m_Speed = 10;                          //날아갈 속도
+    public float m_HeightArc = 1;                       //높이
     private Vector3 m_StartPosition;
     private bool m_IsStart;
 
@@ -26,7 +24,7 @@ public class HoldDownAttack : CBossAttack
 
     void Update()
     {
-        //Parabola();
+        //Parabola(); 사용X
 
         if(m_IsStart == true)
         {
@@ -39,7 +37,6 @@ public class HoldDownAttack : CBossAttack
     protected void OnEnable()
     {
         BossNav.enabled = false;
-        //BossNav.isStopped = true;
         BossAni.SetTrigger("HoldReady");
         StartCoroutine(HoldDownMode(2, m_Speed/m_Speed +1 ));
     }

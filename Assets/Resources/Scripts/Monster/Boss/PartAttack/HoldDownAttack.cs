@@ -4,14 +4,21 @@ using UnityEngine.AI;
 
 public class HoldDownAttack : CBossAttack
 {
-    [Tooltip("HoldDown 콜라이더")]
+    [Header("HoldDown 콜라이더")]
     [SerializeField] private GameObject HoldDownCol;
-    public Transform m_Target;                          //날아갈 타겟
+
+    [Header("떨어질 지점")]
+    [SerializeField] private Transform m_Target;                          //날아갈 타겟
+
+    [Header("날아갈 각도")]
     public float m_InitialAngle = 50f;                  // 처음 날라가는 각도
     [SerializeField] private Rigidbody m_Rigidbody;     //보스 리지드바디
 
-    public float m_Speed = 10;                          //날아갈 속도
-    public float m_HeightArc = 1;                       //높이
+    [Header("날아갈 속도")]
+    [SerializeField] private float m_Speed = 10;                          //날아갈 속도
+
+    [Header("날아갈 높이")]
+    [SerializeField] private float m_HeightArc = 1;                       //높이
     private Vector3 m_StartPosition;
     private bool m_IsStart;
 
@@ -25,14 +32,12 @@ public class HoldDownAttack : CBossAttack
     void Update()
     {
         //Parabola(); 사용X
-
         if(m_IsStart == true)
         {
             Vector3 velocity = GetVelocity(transform.position, m_Target.position, m_InitialAngle);
             m_Rigidbody.velocity = velocity;
         }
     }
-
 
     protected void OnEnable()
     {
@@ -48,9 +53,6 @@ public class HoldDownAttack : CBossAttack
         HoldDownCol.SetActive(false);
         return;
     }
-
-
-
 
     IEnumerator HoldDownMode(int WaitTime , float HDTime )
     {

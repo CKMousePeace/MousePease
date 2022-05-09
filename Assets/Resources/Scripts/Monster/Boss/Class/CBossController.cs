@@ -26,6 +26,7 @@ public class CBossController : MonoBehaviour
 
     private Animator m_BossANi;
     private NavMeshAgent m_agent;
+    private GameObject m_Boss;
 
     public float RemainingDistance { get =>m_agent.remainingDistance; }
     //HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
@@ -45,6 +46,7 @@ public class CBossController : MonoBehaviour
 
     private void Start()
     {
+        m_Boss = GameObject.Find("Boss");
         m_agent = GetComponent<NavMeshAgent>();
         m_BossANi = GameObject.Find("boss_dummy").GetComponent<Animator>();
 
@@ -68,11 +70,30 @@ public class CBossController : MonoBehaviour
         BossAnimation();
         CurrentBehavior.UpdateStep(this);
 
-        if(m_agent.enabled == false)
+        if (m_agent.enabled == false)
         {
             throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Cheese"))
+        {
+            m_Boss.GetComponent<Rigidbody>().isKinematic = false;
+            //치즈 혼내줄 부분 , 지금은 치즈가 플레이어 감지로 사용되어서 
+            //밀리지 않음
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Cheese"))
+        {
+            m_Boss.GetComponent<Rigidbody>().isKinematic = true;
+        }
+    }
+
 
     public void Patrol()        //웨이포인트
     {

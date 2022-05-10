@@ -13,12 +13,14 @@ public class CPlayerMovement : CControllerBase
     private float m_DirX, m_DirY;
     private float m_Yaw = 90.0f;
     private bool m_IsInCheese;
-    private float m_BuffSpeed;    
+    private float m_BuffSpeed;
+
+
+    private bool m_IsMoveCheck;
+    private float m_IsContectX;
 
     [SerializeField] private CColliderChecker m_Checker;
     [SerializeField] private Vector2 m_ChaseTimeRange;
-    
-
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
@@ -47,7 +49,7 @@ public class CPlayerMovement : CControllerBase
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
-        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);       
+        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);        
     }
 
     private void PlayerMoveKey()
@@ -76,10 +78,24 @@ public class CPlayerMovement : CControllerBase
         var AbsDir = Mathf.Abs(m_DirX);
         var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, m_DirY, 0.0f).normalized;
 
-        if (m_DirY == 0.0f && m_DirX == 0.0f)
+        var JumpController = m_Actor.GetController("Jump") as CJump;
+        
+        if ((m_DirY == 0.0f && m_DirX == 0.0f) || (!JumpController.g_MoveCheck))            
         {
             m_currentSpeed = 0.0f;
             return;
+        }
+
+        if (m_IsMoveCheck == true)
+        {
+            if (m_DirX < 0.0f && m_IsContectX > 0.0f)
+            {                
+                return;
+            }
+            if (m_DirX > 0.0f && m_IsContectX < 0.0f)
+            {                
+                return;
+            }
         }
 
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
@@ -150,13 +166,25 @@ public class CPlayerMovement : CControllerBase
 
     private void CollisionStay(Collision collision)
     {
-        for (int i = 0; i < collision.contactCount; i++)
+        if (m_Actor.CompareController("Jump"))
         {
-            if (collision.GetContact(i).normal.y < 0.1f)
+            for (int i = 0; i < collision.contactCount; i++)
             {
-                
+                if (Mathf.Abs(collision.GetContact(i).normal.y) < 0.4f)
+                {
+                    m_IsMoveCheck = true;
+                    m_IsContectX = collision.GetContact(i).normal.x;
+                    return;
+                }
             }
+            m_IsMoveCheck = false;
         }
+        else
+        {
+            m_IsMoveCheck = false;
+        }
+        
+        
     }
 
 

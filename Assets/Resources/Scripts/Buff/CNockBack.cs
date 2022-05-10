@@ -8,7 +8,9 @@ public class CNockBack : CBuffBase
     private Vector3 m_Dir;
     private float m_Force;
     private float m_Damage;
+    private float m_GroundCos;
 
+    [SerializeField] private float m_MaxGroundAngle;
     [SerializeField] private CColliderChecker m_ColliderChecker;
     
     private void OnEnable()
@@ -48,17 +50,17 @@ public class CNockBack : CBuffBase
 
     public override void init(CDynamicObject dynamicObject)
     {
-        base.init(dynamicObject);        
+        base.init(dynamicObject);
+        m_GroundCos = Mathf.Cos(Mathf.Deg2Rad * m_MaxGroundAngle);
     }
 
     //충돌이 일어 날 때 함수 입니다.
     private void CollierEnter(Collision collder)
-    {        
-        var extents = new Vector3(0.0f, m_ColliderChecker.g_Collider.bounds.extents.y, 0.0f);
-        if (g_DynamicObject.g_Rigid.velocity.y <= 0)
+    {   
+        for (int i = 0; i < collder.contactCount; i++)
         {
             // 레이케스트를 사용해서 아래에 물체가 있으면 버프가 종료 됩니다.
-            if (Physics.Raycast(m_ColliderChecker.transform.position - (extents * 0.9f), -Vector3.up, 0.1f))
+            if (collder.GetContact(i).normal.y > m_GroundCos)
             {
                 gameObject.SetActive(false);
             }

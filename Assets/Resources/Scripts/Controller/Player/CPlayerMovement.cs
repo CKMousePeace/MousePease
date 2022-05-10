@@ -7,12 +7,13 @@ public class CPlayerMovement : CControllerBase
 
     [SerializeField] private float m_fMaxSpeed;
     [SerializeField, Range(0.1f, 1.0f)] private float m_TurnSpeed;
+    
 
     private float m_currentSpeed;
     private float m_DirX, m_DirY;
     private float m_Yaw = 90.0f;
     private bool m_IsInCheese;
-    private float m_BuffSpeed;
+    private float m_BuffSpeed;    
 
     [SerializeField] private CColliderChecker m_Checker;
     [SerializeField] private Vector2 m_ChaseTimeRange;
@@ -22,10 +23,16 @@ public class CPlayerMovement : CControllerBase
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
 
+
+    private void OnEnable()
+    {
+        m_Checker.m_ColliderStay += CollisionStay;
+    }
     private void OnDisable()
     {
         m_currentSpeed = 0.0f;             
         m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+        m_Checker.m_ColliderStay -= CollisionStay;
     }
 
     private void Update()
@@ -40,7 +47,7 @@ public class CPlayerMovement : CControllerBase
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
-        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
+        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);       
     }
 
     private void PlayerMoveKey()
@@ -53,7 +60,7 @@ public class CPlayerMovement : CControllerBase
 
     // 달리는 함수입니다.
     private void Movement()
-    {
+    {        
         
         PlayerMove();
         TurnRot();
@@ -68,18 +75,18 @@ public class CPlayerMovement : CControllerBase
         }
         var AbsDir = Mathf.Abs(m_DirX);
         var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, m_DirY, 0.0f).normalized;
+
         if (m_DirY == 0.0f && m_DirX == 0.0f)
         {
             m_currentSpeed = 0.0f;
             return;
         }
+
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
         var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + Displacement);
     }
 
-    
-    
 
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
@@ -114,7 +121,6 @@ public class CPlayerMovement : CControllerBase
     private void GravityCheck()
     {
         if (m_Actor.CompareController("Dash")) return;
-
         if (g_IsInCheese)
         {
             m_Actor.g_Rigid.useGravity = false;
@@ -124,6 +130,7 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Rigid.useGravity = true;
         }
     }
+
     private void BuffCheck()
     {
         m_BuffSpeed = 0.0f;
@@ -139,5 +146,18 @@ public class CPlayerMovement : CControllerBase
             m_BuffSpeed += (m_fMaxSpeed * (SlowBuff.g_FastSpeed) * 0.01f);
         }
     }
+
+
+    private void CollisionStay(Collision collision)
+    {
+        for (int i = 0; i < collision.contactCount; i++)
+        {
+            if (collision.GetContact(i).normal.y < 0.1f)
+            {
+                
+            }
+        }
+    }
+
 
 }

@@ -148,7 +148,6 @@ public abstract class CDynamicObject : CActor
             Debug.LogError("BuffController가 없습니다.");
         }
     }
-
     protected IEnumerator DeadCheak()
     {
         m_DeadAnim = true;

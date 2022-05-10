@@ -20,6 +20,8 @@ public class CJump : CControllerBase
     private float m_MaxGroundDot;
     private CPlayer m_Player;
 
+    private bool TempJump;
+
 
     public override void init(CDynamicObject actor)
     {
@@ -44,6 +46,7 @@ public class CJump : CControllerBase
             return;
         }
 
+        TempJump = false;
         m_isJump = true;
         m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x,  0.0f , m_Actor.g_Rigid.velocity.y);
         m_JumpCheck = true;
@@ -59,7 +62,8 @@ public class CJump : CControllerBase
         m_isJump = false;
         m_JumpCheck = false;        
         m_Actor.g_Animator.SetBool("isGround", true);        
-        m_isDoubleJump = false;        
+        m_isDoubleJump = false;
+        TempJump = false;
 
         m_ColliderChecker.m_ColliderEnter -= ColliderStay;
     }
@@ -87,6 +91,16 @@ public class CJump : CControllerBase
     {
         DoubleJump();
         Jump();
+
+        if (m_Actor.g_Rigid.velocity.y <= -0.3f)
+        {
+            if (TempJump == false)
+            {
+                m_Actor.g_Animator.SetTrigger("JumpReturn");
+            }
+            TempJump = true;
+            
+        }
         
     }
 

@@ -76,19 +76,17 @@ public class CBossController : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionStay(Collision other)
     {
-        if (other.CompareTag("Cheese"))
+        if (other.gameObject.CompareTag("Cheese"))
         {
             m_Boss.GetComponent<Rigidbody>().isKinematic = false;
-            //치즈 혼내줄 부분 , 지금은 치즈가 플레이어 감지로 사용되어서 
-            //밀리지 않음
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionExit(Collision other)
     {
-        if (other.CompareTag("Cheese"))
+        if (other.gameObject.CompareTag("Cheese"))
         {
             m_Boss.GetComponent<Rigidbody>().isKinematic = true;
         }

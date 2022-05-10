@@ -8,42 +8,44 @@ public class HoldDownAttack : CBossAttack
     [SerializeField] private GameObject HoldDownCol;
 
     [Header("떨어질 지점")]
-    [SerializeField] private Transform m_Target;                          //날아갈 타겟
+    [SerializeField] private Transform m_Target;
 
     [Header("날아갈 각도")]
-    public float m_InitialAngle = 50f;                  // 처음 날라가는 각도
-    [SerializeField] private Rigidbody m_Rigidbody;     //보스 리지드바디
+    public float m_InitialAngle = 50f;
+    [SerializeField] private Rigidbody m_Rigidbody;      //보스 리지드바디
 
-    [Header("날아갈 속도")]
-    [SerializeField] private float m_Speed = 10;                          //날아갈 속도
+    //[Header("날아갈 속도")]
+    //[SerializeField] private float m_Speed = 10;
 
-    [Header("날아갈 높이")]
-    [SerializeField] private float m_HeightArc = 1;                       //높이
-    private Vector3 m_StartPosition;
+    //[Header("날아갈 높이")]
+    //[SerializeField] private float m_HeightArc = 1;
+    //private Vector3 m_StartPosition;
     private bool m_IsStart;
+    private bool m_isGround;
+
 
 
     void Start()
     {
-        m_StartPosition = transform.position;
+        //m_StartPosition = transform.position;
     }
-
-
     void Update()
     {
-        //Parabola(); 사용X
-        if(m_IsStart == true)
+
+        if (m_IsStart == true)
         {
             Vector3 velocity = GetVelocity(transform.position, m_Target.position, m_InitialAngle);
             m_Rigidbody.velocity = velocity;
         }
+        else return;
     }
 
     protected void OnEnable()
     {
         BossNav.enabled = false;
         BossAni.SetTrigger("HoldReady");
-        StartCoroutine(HoldDownMode(2, m_Speed/m_Speed +1 ));
+
+        StartCoroutine(HoldDownMode(2, 3.0f, 1.0f));
     }
 
     protected void OnDisable()
@@ -54,18 +56,29 @@ public class HoldDownAttack : CBossAttack
         return;
     }
 
-    IEnumerator HoldDownMode(int WaitTime , float HDTime )
+    IEnumerator HoldDownMode(int WaitTime , float LoopTime , float HDTime )
     {
         while (true)
         {
-            Debug.Log("2초 대기");
+            //2초 대기
             yield return new WaitForSeconds(WaitTime);
-            BossAni.SetTrigger("HoldLoop");
-
+            BossAni.SetTrigger("HoldDownStart");
+            BossAni.SetBool("isGround" , false);
+            m_isGround = false;
             m_IsStart = true;
-   
+
+            //애니메이션 시작
+
+
+            yield return new WaitForSeconds(LoopTime);
+            //루프 타임 (활공시간) 끝나면 원위치
+
+            BossAni.SetBool("isGround", true);
+            m_isGround = true;
+
             yield return new WaitForSeconds(HDTime);
 
+            if(m_isGround == true) BossAni.SetTrigger("HoldFinish");
             BossNav.enabled = true;
             gameObject.SetActive(false);
             yield break;
@@ -105,7 +118,7 @@ public class HoldDownAttack : CBossAttack
     //}
 
 
-    public Vector3 GetVelocity(Vector3 player, Vector3 target, float initialAngle)
+    public Vector3 GetVelocity(Vector3 BossTrans, Vector3 target, float initialAngle)
     {
         Boss.GetComponent<Rigidbody>().isKinematic = false;
         HoldDownCol.SetActive(true);
@@ -114,10 +127,10 @@ public class HoldDownAttack : CBossAttack
         float angle = initialAngle * Mathf.Deg2Rad;
 
         Vector3 planarTarget = new Vector3(target.x, 0, target.z);
-        Vector3 planarPosition = new Vector3(player.x, 0, player.z);
+        Vector3 planarPosition = new Vector3(BossTrans.x, 0, BossTrans.z);
 
         float distance = Vector3.Distance(planarTarget, planarPosition);
-        float yOffset = player.y - target.y;
+        float yOffset = BossTrans.y - target.y;
 
         float initialVelocity
             = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
@@ -126,7 +139,7 @@ public class HoldDownAttack : CBossAttack
             = new Vector3(0f, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
 
         float angleBetweenObjects
-            = Vector3.Angle(Vector3.forward, planarTarget - planarPosition) * (target.x > player.x ? 1 : -1);
+            = Vector3.Angle(Vector3.forward, planarTarget - planarPosition) * (target.x > BossTrans.x ? 1 : -1);
         Vector3 finalVelocity
             = Quaternion.AngleAxis(angleBetweenObjects, Vector3.up) * velocity;
 

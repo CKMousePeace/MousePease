@@ -17,7 +17,7 @@ public class CSmash: CControllerBase
     {
         if (m_Actor == null) return;
         m_Actor.g_Animator.SetFloat("AttackSpeed", m_AttackSpeed_1);
-        m_Actor.g_Animator.SetTrigger("Throw"); //AttackReady01 원래 공격이야!
+        m_Actor.g_Animator.SetTrigger("Throw");
 
         if (m_Actor.CompareController("MonMovement") || m_Actor.CompareController("MonBite"))
         {

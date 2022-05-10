@@ -21,7 +21,7 @@ public class Chase : AIBehaviour
 
     public override void Deactivate(CBossController controller)
     {
-        g_KillColiider.SetActive(false);
+        //g_KillColiider.SetActive(false);
         controller.IgnoreEars(false);
     }
 }

@@ -54,7 +54,8 @@ public class SpringManager : MonoBehaviour
                 var scale = curve.Evaluate(start + (end - start) * i / (g_springBones.Length - 1));
                 prop.SetValue(g_springBones[i], baseValue * scale);
             }
-    }
 #endif
+    }
+
 
 }

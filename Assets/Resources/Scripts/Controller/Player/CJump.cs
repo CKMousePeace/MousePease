@@ -12,6 +12,7 @@ public class CJump : CControllerBase
 
     private bool m_JumpCheck = false;
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool g_MoveCheck { get; set; }
     public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
                                     
 
@@ -20,6 +21,9 @@ public class CJump : CControllerBase
     private float m_MaxGroundDot;
     private CPlayer m_Player;
 
+    private bool TempJump;
+    private float m_EndJumpDistance = 6.5f;
+
 
     public override void init(CDynamicObject actor)
     {
@@ -27,6 +31,8 @@ public class CJump : CControllerBase
         gameObject.SetActive(false);
         base.init(actor);
         m_Player = actor.GetComponent<CPlayer>();
+        g_MoveCheck = true;
+
     }
 
     private void OnValidate()
@@ -38,12 +44,14 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareController("KnockBack") || m_Player.CompareInCheese())
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareBuff("KnockBack") || m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
         }
 
+        g_MoveCheck = true;
+        TempJump = false;
         m_isJump = true;
         m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x,  0.0f , m_Actor.g_Rigid.velocity.y);
         m_JumpCheck = true;
@@ -56,22 +64,30 @@ public class CJump : CControllerBase
     {
         if (m_Actor == null) return;
 
+        g_MoveCheck = true;
         m_isJump = false;
         m_JumpCheck = false;        
-        m_Actor.g_Animator.SetBool("isGround", true);        
-        m_isDoubleJump = false;        
-
+        m_Actor.g_Animator.SetBool("JumpReturn", true);        
+        m_isDoubleJump = false;
+        TempJump = false;
         m_ColliderChecker.m_ColliderEnter -= ColliderStay;
+
+        m_Actor.g_Rigid.velocity = Vector3.zero;
     }
 
     private void Update()
     {
+        if (m_Actor.CompareController("Dash"))
+        {
+            g_MoveCheck = true;
+        }
+
         if (m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
         }
-        if (Input.GetKeyDown(m_Key))
+        if (Input.GetKeyDown(m_Key) && !m_Actor.CompareBuff("KnockBack"))
         {
             if (!m_isDoubleJump)
             {
@@ -85,6 +101,17 @@ public class CJump : CControllerBase
     {
         DoubleJump();
         Jump();
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_Actor.transform.position, -Vector3.up, out hit, m_EndJumpDistance) && m_Actor.g_Rigid.velocity.y <= -0.3f)
+        {
+            if (TempJump == false)
+            {
+                m_Actor.g_Animator.SetTrigger("JumpReturn");
+                Debug.Log(hit.transform.name);
+            }
+            TempJump = true;           
+        }
         
     }
 
@@ -123,19 +150,27 @@ public class CJump : CControllerBase
     {
         if (!m_isJump && m_isDoubleJump && m_JumpCheck)
         {
+
+            TempJump = false;
             m_JumpCheck = false;            
 
             var force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce);
             float m_DirX = Input.GetAxisRaw("Horizontal");
+            var Dir = new Vector3(m_DirX, 2.0f, 0.0f).normalized;
 
-            var Dir = new Vector3(m_DirX, 3.0f, 0.0f).normalized;
             m_Actor.g_Rigid.velocity = Vector3.zero;
             m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
             m_Actor.g_Animator.SetTrigger("DoubleJump");
+            if (m_DirX == 0.0f)
+                return ;            
+            g_MoveCheck = false;
+
         }
 
     }
 
     
-    
+
+
+
 }

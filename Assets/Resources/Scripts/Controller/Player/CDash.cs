@@ -7,45 +7,38 @@ public class CDash : CControllerBase
     [SerializeField] private float m_DashForce;
     [SerializeField] private float m_DashTime;   
     [SerializeField] private CColliderChecker m_ColliderChecker;
-    [SerializeField] private float m_DelayTime;
+    [SerializeField] private float m_DashCool;
     private float m_CurrentDelayTime;
     private bool m_Dash;
+    
 
     private Vector3 m_Dir;    
     private float m_CurrentTime;
     private CPlayer m_Player;
 
+    public bool g_DashItem { get; set; }
+
     public override void init(CDynamicObject actor)
     {
         base.init(actor);
         // 게임 시작시 오브젝트를 꺼줍니다.
-        m_CurrentDelayTime = 0.0f;
+        m_CurrentDelayTime = Time.time - m_DashCool;
         gameObject.SetActive(false);        
         m_Player = actor.GetComponent<CPlayer>();
-    }
-    private void OnDisable()
-    {       
-        //만약 m_Actor가 없을 경우 리턴을 해줍니다.
-        if (m_Actor == null) return;
-        if (m_Dash ) m_CurrentDelayTime = Time.time;
-
-        m_Actor.g_Rigid.useGravity = true;        
+        
     }
 
     private void OnEnable()
     {
-        
-        float m_DirX = Mathf.Abs(Input.GetAxisRaw("Horizontal"));
-        float m_DirY = Input.GetAxisRaw("Vertical");
 
         //m_DirX == 0일 경우 움직이지 않은 상태이기 때문에 return을 해줍니다. 
         // 또는 넉백버프가 있을 경우 리턴 
-        if (m_Player == null)
-        {
-            return;
-        }
-        if (DashChecker(m_DirX , m_DirY))       
-            return;
+        
+
+        float m_DirX = Mathf.Abs(Input.GetAxisRaw("Horizontal"));
+        float m_DirY = Input.GetAxisRaw("Vertical");
+
+        if (m_Player == null || DashChecker(m_DirX, m_DirY)) return;
 
         if (!m_Player.CompareInCheese())
         {
@@ -53,17 +46,25 @@ public class CDash : CControllerBase
         }
 
         m_Actor.g_Animator.SetTrigger("Dash");
-        m_Dash = true;        
-       
-        
+        m_Dash = true;                      
         
         m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, m_DirY, 0.0f).normalized;
-
         m_Dir.Normalize();
         m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;
-        m_Actor.g_Rigid.velocity = Vector3.zero;     
+        m_Actor.g_Rigid.velocity = Vector3.zero;
+        g_DashItem = false;
     }
+
+
+    private void OnDisable()
+    {
+        //만약 m_Actor가 없을 경우 리턴을 해줍니다.
+        if (m_Actor == null) return;
+        if (m_Dash) m_CurrentDelayTime = Time.time;
+        m_Actor.g_Rigid.useGravity = true;
+    }
+
 
     private void FixedUpdate()
     {
@@ -103,6 +104,8 @@ public class CDash : CControllerBase
 
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + MoveData);        
     }
+
+
     private bool DashChecker(float Dirx , float DirY)
     {
         if (m_Player.CompareInCheese())
@@ -123,12 +126,32 @@ public class CDash : CControllerBase
                 return true;
             }
         }
-        if (m_Actor.CompareBuff("KnockBack") || (m_CurrentDelayTime != 0 && Time.time - m_CurrentDelayTime <= m_DelayTime))
+
+
+        if (g_DashItem == true)
+        {
+            g_DashItem = false;
+            return false;
+        }
+
+        if (Time.time - m_CurrentDelayTime <= m_DashCool)
         {
             gameObject.SetActive(false);
             m_Dash = false;
             return true;
-        }        
+        }
+        
+        
+
+        if (m_Actor.CompareBuff("KnockBack"))
+        {
+            if (m_CurrentDelayTime != 0)
+            {
+                gameObject.SetActive(false);
+                m_Dash = false;
+                return true;
+            }
+        }
         return false;
     }
 }

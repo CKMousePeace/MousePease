@@ -20,8 +20,9 @@ public class HoldDownAttack : CBossAttack
     //[Header("날아갈 높이")]
     //[SerializeField] private float m_HeightArc = 1;
     //private Vector3 m_StartPosition;
-    private bool m_IsStart;
-    private bool m_isGround;
+    private bool m_IsStart = false;
+    private bool m_isGround = false;
+    private bool RayCastBoii = false;
 
 
 
@@ -29,13 +30,24 @@ public class HoldDownAttack : CBossAttack
     {
         //m_StartPosition = transform.position;
     }
-    void Update()
+    void FixedUpdate()
     {
-
         if (m_IsStart == true)
         {
             Vector3 velocity = GetVelocity(transform.position, m_Target.position, m_InitialAngle);
             m_Rigidbody.velocity = velocity;
+
+        }
+        else return;
+    }
+    private void Update()
+    {
+        Debug.Log("이즈 그라운드상태!! :" + m_isGround);
+        Debug.DrawRay(transform.position, transform.up * -1, Color.blue, 0.3f);
+
+        if (RayCastBoii == true)
+        {
+            RayCastBoi();
         }
         else return;
     }
@@ -43,9 +55,8 @@ public class HoldDownAttack : CBossAttack
     protected void OnEnable()
     {
         BossNav.enabled = false;
-        BossAni.SetTrigger("HoldReady");
 
-        StartCoroutine(HoldDownMode(2, 3.0f, 1.0f));
+        StartCoroutine(HoldDownMode(2, 4.0f, 1.0f));
     }
 
     protected void OnDisable()
@@ -56,36 +67,48 @@ public class HoldDownAttack : CBossAttack
         return;
     }
 
+
+    private void RayCastBoi()
+    {
+        RaycastHit hit;
+        float MaxDistance = 6.0f;
+        int layerMask = 1 << LayerMask.NameToLayer("Floor");
+        if (Physics.Raycast(transform.position, transform.up * -1, out hit, MaxDistance, layerMask))
+        {
+            Debug.Log("레이케스트 힛!");
+            BossAni.SetBool("isGround", true);
+            m_isGround = true;
+
+        }
+
+    }
+
     IEnumerator HoldDownMode(int WaitTime , float LoopTime , float HDTime )
     {
         while (true)
         {
             //2초 대기
+            BossAni.SetTrigger("HoldReady");
             yield return new WaitForSeconds(WaitTime);
+
             BossAni.SetTrigger("HoldDownStart");
             BossAni.SetBool("isGround" , false);
             m_isGround = false;
             m_IsStart = true;
 
-            //애니메이션 시작
+            yield return new WaitForSeconds(1.0f);      //레이 아래로 쏘자마자 인식 되는거 막는거야!
+            RayCastBoii = true;
 
+            yield return new WaitUntil(() => m_isGround == true);
 
-            yield return new WaitForSeconds(LoopTime);
-            //루프 타임 (활공시간) 끝나면 원위치
-
-            BossAni.SetBool("isGround", true);
-            m_isGround = true;
-
-            yield return new WaitForSeconds(HDTime);
-
-            if(m_isGround == true) BossAni.SetTrigger("HoldFinish");
+            yield return new WaitForSeconds(HDTime);        //착지 후 대기시간. 
+            if (m_isGround == true) BossAni.SetTrigger("HoldFinish");
             BossNav.enabled = true;
             gameObject.SetActive(false);
             yield break;
 
         }
     }
-
 
     //private void Parabola()
     //{

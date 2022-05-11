@@ -11,7 +11,6 @@ public class CPlayer : CDynamicObject
         base.Start();        
         
     }
-
     protected void Update()
     {
 
@@ -46,8 +45,6 @@ public class CPlayer : CDynamicObject
         }
         m_CurrentTime += Time.deltaTime;
     }
-
-
     public void SetInCheese(bool State)
     {
         var Movemet = GetController("Movement") as CPlayerMovement;
@@ -59,7 +56,6 @@ public class CPlayer : CDynamicObject
         g_Rigid.velocity = new Vector3(0.0f , 0.0f , 0.0f);        
         Movemet.g_IsInCheese = State;
     }
-
     public bool CompareInCheese()
     {
         var Movemet = GetController("Movement") as CPlayerMovement;
@@ -70,7 +66,6 @@ public class CPlayer : CDynamicObject
         }
         return Movemet.g_IsInCheese;
     }
-
     public void SetColor()
     {
         

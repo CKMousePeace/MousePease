@@ -18,33 +18,13 @@ public class CWallJump : CControllerBase
     }
 
 
-    private void OnEnable()
+    private void Update()
     {
-        if (m_Actor == null) return;
-            m_ColliderChecker.m_ColliderStay += CollisionStay;
-        
+
+        if (m_Actor.g_Rigid.velocity.y <= -m_FallingSpeed)
+            m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, -m_FallingSpeed, m_Actor.g_Rigid.velocity.z);
     }
 
-    private void OnDisable()
-    {
-        m_ColliderChecker.m_ColliderStay -= CollisionStay;
-        
-    }
-    
-
-    private void CollisionStay(Collision collision)
-    {
-        
-        for (int i = 0; i < collision.contactCount; i++)
-        {
-            var normal = collision.GetContact(i).normal;
-            if (normal.y >= -0.1f && normal.y <= 0.1f)
-            {                
-                if (m_Actor.g_Rigid.velocity.y <= -m_FallingSpeed)
-                    m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, -m_FallingSpeed, m_Actor.g_Rigid.velocity.z);                
 
 
-            }
-        }       
-    }
 }

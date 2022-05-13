@@ -123,7 +123,7 @@ public class CJump : CControllerBase
 
     private void FixedUpdate()
     {
-        float WallJumpRayDistance = m_ColliderChecker.g_Collider.bounds.extents.x * 1.3f;
+        float WallJumpRayDistance = m_ColliderChecker.g_Collider.bounds.extents.x * 2.0f;
 
         RaycastHit hit;
 

@@ -68,26 +68,14 @@ public class CPlayer : CDynamicObject
     }
     public void SetColor()
     {
-        
         m_MashRender.material.color = Color.red;
         m_MashRender.material.SetColor("_EmissionColor", Color.red);
         m_CurrentTime = 0.0f;
+
     }
+
 }
 
 
 
-/*
- * 
- *  public bool MagnetSkillCheck()
-    {
-        if (m_ControllerDic.ContainsKey("SkillController"))
-        {
-            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
-            CMagnetSkill skill = SkillController.GetSkill("Magnet") as CMagnetSkill;
-            if (skill == null) return false;
-            return skill.g_MagnetCheck;
-        }
-        return false;
-    }
- */
+

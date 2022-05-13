@@ -50,7 +50,8 @@ public abstract class CDynamicObject : CActor
         {
             if (m_ControllerDic.ContainsKey(ControllerName))
             {
-                m_ControllerDic[ControllerName].gameObject.SetActive(true);
+                if (!m_ControllerDic[ControllerName].gameObject.activeInHierarchy)
+                    m_ControllerDic[ControllerName].gameObject.SetActive(true);
                 return true;
             }
             
@@ -159,8 +160,7 @@ public abstract class CDynamicObject : CActor
 
         m_Animator.SetTrigger("Dead");
         yield return new WaitForSeconds(5);        
-        gameObject.SetActive(false);
-        
+        gameObject.SetActive(false);        
     }  
   
 

@@ -111,6 +111,43 @@ public abstract class CDynamicObject : CActor
     }
 
 
+    public CBuffBase GetBuff(string name)
+    {
+        if (m_ControllerDic.ContainsKey("BuffController"))
+        {
+            var BuffController = m_ControllerDic["BuffController"] as CBuffController;
+            if (BuffController == null)
+                return null;
+
+            if (BuffController.ComparerBuff(name))
+            {
+                return BuffController.g_DicBuffs[name];
+            }
+        }
+        return null;
+    }
+    public void DestroyBuff(string name)
+    {
+        if (m_ControllerDic.ContainsKey("BuffController"))
+        {
+            var BuffController = m_ControllerDic["BuffController"] as CBuffController;
+            if (BuffController == null)
+            {
+                Debug.LogError("BuffController가 없습니다.");
+                return;
+            }
+
+            if (!BuffController.DestoryBuff(name))
+            {
+                Debug.LogError("Buff 삭제를 실패 했습니다.");
+            }            
+
+        }
+        else
+        {
+            Debug.LogError("BuffController가 없습니다.");
+        }
+    }
     protected IEnumerator DeadCheak()
     {
         m_DeadAnim = true;

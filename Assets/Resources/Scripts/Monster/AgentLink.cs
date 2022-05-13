@@ -16,8 +16,8 @@ public class AgentLink : MonoBehaviour
     public OffMeshLinkMoveMethod m_Method = OffMeshLinkMoveMethod.Parabola;
     public AnimationCurve m_Curve = new AnimationCurve();
 
-    [Header("보스 애니메이터 있는 부분 넣어줘")]
-    [SerializeField] private GameObject m_BossMan;
+    [Header("Boss 애니메이터 파트")]
+    [SerializeField] private Animator m_BossMan;
     [SerializeField] private float m_BossDura;
 
     IEnumerator Start()
@@ -69,7 +69,7 @@ public class AgentLink : MonoBehaviour
 
     IEnumerator Curve(NavMeshAgent agent, float duration)
     {
-        m_BossMan.GetComponent<Animator>().SetTrigger("Jump");
+        m_BossMan.SetTrigger("Jump");
         OffMeshLinkData data = agent.currentOffMeshLinkData;
         Vector3 startPos = agent.transform.position;
         Vector3 endPos = data.endPos + Vector3.up * agent.baseOffset;

@@ -12,6 +12,7 @@ TagManager:
   - Cheese
   - MeltedCheese
   - Wall
+  - Boss
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Floor
   - Obstacle
-  - 
+  - Cheese
   - 
   - Normal
   - Grass

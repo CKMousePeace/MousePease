@@ -42,7 +42,35 @@ public class CPlayerMovement : CControllerBase
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
-        m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);        
+        WallJumpCheck();
+
+        if (!m_Actor.CompareController("WallJump"))
+            m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
+    }
+
+
+    private void WallJumpCheck()
+    {
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.x) * 1.3f;
+        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
+
+
+        RaycastHit hit;
+        //WallJump 생성
+        if (Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance) ||
+            Physics.Raycast(m_Actor.transform.position - WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance))
+        {
+
+            if (hit.transform.CompareTag("Wall"))
+            {
+                m_Actor.GenerateController("WallJump");
+            }
+
+        }
+        else
+        {
+            m_Actor.DestroyController("WallJump");
+        }
     }
 
     private void PlayerMoveKey()
@@ -101,6 +129,8 @@ public class CPlayerMovement : CControllerBase
                 return;
             }            
         }
+
+
         
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
         var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;
@@ -111,6 +141,7 @@ public class CPlayerMovement : CControllerBase
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
     {
+        if (m_Actor.CompareSkill("DownHill")) return;
         var PlayerEulerAngles = m_Actor.transform.eulerAngles;
         float CurrentAngle = Mathf.LerpAngle(PlayerEulerAngles.y, m_Yaw, m_TurnSpeed);
         m_Actor.g_Rigid.MoveRotation(Quaternion.Euler(new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.z)));
@@ -166,6 +197,25 @@ public class CPlayerMovement : CControllerBase
             m_BuffSpeed += (m_fMaxSpeed * (SlowBuff.g_FastSpeed) * 0.01f);
         }
     }
-      
+
+
+    private void OnDrawGizmos()
+    {
+        if (m_Actor == null || m_Checker == null) return;
+
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.x) * 1.8f;
+        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
+
+               
+
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(m_Actor.transform.position + WallJumpOffsetY, m_Actor.transform.position + WallJumpOffsetY + m_Actor.transform.forward * WallJumpRayDistance);
+        Gizmos.DrawLine(m_Actor.transform.position - WallJumpOffsetY, m_Actor.transform.position - WallJumpOffsetY + m_Actor.transform.forward * WallJumpRayDistance);
+
+        //WallJump 생성
+
+    }
+
 
 }

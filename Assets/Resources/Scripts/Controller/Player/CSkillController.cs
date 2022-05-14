@@ -39,6 +39,22 @@ public class CSkillController : CControllerBase
         return null;
     }
 
+    public bool GenerateSkill(string SkillName)
+    {
+        if (m_DicSkills.ContainsKey(SkillName))
+        {
 
-    
+            if (!m_DicSkills[SkillName].gameObject.activeInHierarchy)
+            {
+                m_DicSkills[SkillName].gameObject.SetActive(true);
+                return true;
+            }
+            return false;
+            
+        }
+        return false;
+    }
+
+
+
 }

@@ -11,6 +11,7 @@ TagManager:
   - Trigger
   - Cheese
   - MeltedCheese
+  - Wall
   - Boss
   layers:
   - Default
@@ -21,7 +22,7 @@ TagManager:
   - UI
   - Floor
   - Obstacle
-  - 
+  - Cheese
   - 
   - Normal
   - Grass

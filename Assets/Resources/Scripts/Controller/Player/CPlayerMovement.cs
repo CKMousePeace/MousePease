@@ -20,8 +20,9 @@ public class CPlayerMovement : CControllerBase
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
+    public float g_fMaxSpeed => m_fMaxSpeed;
 
-        
+
     private void OnDisable()
     {
         m_currentSpeed = 0.0f;             
@@ -139,7 +140,7 @@ public class CPlayerMovement : CControllerBase
     /// </summary>
     private void GravityCheck()
     {
-        if (m_Actor.CompareController("Dash")) return;
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareSkill("DownHill")) return;
         if (g_IsInCheese)
         {
             m_Actor.g_Rigid.useGravity = false;

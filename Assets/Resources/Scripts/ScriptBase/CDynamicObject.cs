@@ -80,6 +80,18 @@ public abstract class CDynamicObject : CActor
         return false;
     }
 
+    // 스킬 생성하는 함수 입니다.
+    public bool GenerateSkill(string SkillName)
+    {
+        if (m_ControllerDic.ContainsKey("SkillController"))
+        {
+            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+            return SkillController.GenerateSkill(SkillName);
+        }
+        return false;
+    }
+
+
     // 오브젝트를 활성화 해주는 함수입니다.
     public bool GenerateBuff(string BuffName, CBuffBase.BuffInfo buffinfo)
     {

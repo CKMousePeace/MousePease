@@ -15,6 +15,10 @@ public class CJump : CControllerBase
     [SerializeField, Header("다시 점프 할 수 있는 각도를 나타 냅니다.")]
     private float m_MaxGroundAngle; //다시 점프 할 수 있는 각도를 지정합니다.
 
+    [SerializeField]
+    private float m_DownhillKeyDownTime;
+    private float m_CurrentDownHillKeyDownTime;
+
 
 
 
@@ -35,12 +39,14 @@ public class CJump : CControllerBase
     private float m_EndJumpDistance = 6.5f;
     private float m_DirX;
     private CPlayer m_Player;
+    private bool m_DownHillCheck = false;
 
 
     private bool m_IsWallJump;
     private bool m_IsWallJumpCheck;
 
     public bool g_IsWallJumpCheck => m_IsWallJumpCheck;
+
 
     public override void init(CDynamicObject actor)
     {
@@ -66,7 +72,9 @@ public class CJump : CControllerBase
             gameObject.SetActive(false);
             return;
         }
+        m_CurrentDownHillKeyDownTime = 0.0f;
         m_IsWallJumpCheck = false;
+        m_DownHillCheck = false;
         m_IsWallJump = false;
         g_MoveCheck = true;
         TempJump = false;
@@ -82,6 +90,7 @@ public class CJump : CControllerBase
         if (m_Actor == null) return;
 
         m_IsWallJumpCheck = false;
+        m_DownHillCheck = false;
         m_IsWallJump = false;
         g_MoveCheck = true;
         m_isJump = false;
@@ -100,12 +109,14 @@ public class CJump : CControllerBase
     {
         m_DirX = Input.GetAxisRaw("Horizontal");
 
-        if (m_Player.CompareInCheese())
+        if (m_Player.CompareInCheese() || m_Actor.CompareBuff("KnockBack"))
         {
             gameObject.SetActive(false);
             return;
         }
-        if (Input.GetKeyDown(m_Key) && !m_Actor.CompareBuff("KnockBack"))
+
+
+        if (Input.GetKeyDown(m_Key))
         {
 
             if (!m_isDoubleJump && !m_Actor.CompareController("WallJump"))
@@ -119,6 +130,27 @@ public class CJump : CControllerBase
                 m_IsWallJump = true;
 
             }
+        }
+
+        if (Input.GetKey(m_Key))
+        {
+            m_CurrentDownHillKeyDownTime += Time.deltaTime;
+            if (m_CurrentDownHillKeyDownTime > m_DownhillKeyDownTime)
+            {
+                if (!m_Player.CompareSkill("DownHill") && !m_DownHillCheck)
+                {
+                    m_Player.GenerateSkill("DownHill");
+                    m_DownHillCheck = true;
+
+                }
+                return;
+
+            }
+        }
+        else
+        {
+            m_DownHillCheck = false;
+            m_CurrentDownHillKeyDownTime = 0.0f;
         }
     }
 
@@ -162,6 +194,8 @@ public class CJump : CControllerBase
         Jump();
     }
 
+
+    // 일반 점프 사용
     private void Jump()
     {
         var WallJump = m_Actor.GetController("WallJump") as CWallJump;
@@ -237,6 +271,8 @@ public class CJump : CControllerBase
 
             var force = 0.0f;
             var Dir = Vector3.zero;
+
+
             Debug.Log("WallJump");
             if (!((m_Actor.transform.forward.x < 0.0f && m_DirX < 0.0f) || (m_Actor.transform.forward.x > 0.0f && m_DirX > 0.0f)))
             {
@@ -253,6 +289,4 @@ public class CJump : CControllerBase
             g_MoveCheck = true;
         }
     }
-
-
 }

@@ -289,4 +289,5 @@ public class CJump : CControllerBase
             g_MoveCheck = true;
         }
     }
+
 }

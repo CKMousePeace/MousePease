@@ -15,26 +15,19 @@ public class CPlayerMovement : CControllerBase
     private bool m_IsInCheese;
     private float m_BuffSpeed;
 
-
-    private bool m_IsMoveCheck;
-    private float m_IsContectX;
-
     [SerializeField] private CColliderChecker m_Checker;
     [SerializeField] private Vector2 m_ChaseTimeRange;
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
+    public float g_fMaxSpeed => m_fMaxSpeed;
 
 
-    private void OnEnable()
-    {
-        m_Checker.m_ColliderStay += CollisionStay;
-    }
     private void OnDisable()
     {
         m_currentSpeed = 0.0f;             
         m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-        m_Checker.m_ColliderStay -= CollisionStay;
+        
     }
 
     private void Update()
@@ -62,10 +55,12 @@ public class CPlayerMovement : CControllerBase
 
     // 달리는 함수입니다.
     private void Movement()
-    {        
-        
-        PlayerMove();
-        TurnRot();
+    {
+        if (!m_Actor.CompareController("WallJump"))
+        {
+            PlayerMove();
+            TurnRot();
+        }
     }
     
     //실질적으로 플레이어 움직이는 함수
@@ -75,6 +70,8 @@ public class CPlayerMovement : CControllerBase
         {
             m_DirY = 0.0f;
         }
+
+        
         var AbsDir = Mathf.Abs(m_DirX);
         var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, m_DirY, 0.0f).normalized;
 
@@ -82,22 +79,29 @@ public class CPlayerMovement : CControllerBase
         
         if ((m_DirY == 0.0f && m_DirX == 0.0f) || (!JumpController.g_MoveCheck))            
         {
-            m_currentSpeed = 0.0f;
+            m_currentSpeed = 0.0f;            
             return;
         }
 
-        if (m_IsMoveCheck == true)
+        if (m_Actor.CompareController("Jump") && JumpController.g_IsWallJumpCheck && !m_Actor.CompareController("WallJump"))
         {
-            if (m_DirX < 0.0f && m_IsContectX > 0.0f)
-            {                
-                return;
+            if (m_Actor.g_Rigid.velocity.x >= 0.2f || m_Actor.g_Rigid.velocity.x <= -0.2f)
+            {
+                if (m_Actor.g_Rigid.velocity.x < 0.0f && m_DirX > 0.0f || m_Actor.g_Rigid.velocity.x > 0.0f && m_DirX < 0.0f)
+                {
+                    float velocityx = Mathf.Lerp(m_Actor.g_Rigid.velocity.x, 0.0f, (m_fMaxSpeed * Time.fixedDeltaTime * 5.0f));
+                    m_Actor.g_Rigid.velocity = new Vector3(velocityx, m_Actor.g_Rigid.velocity.y, m_Actor.g_Rigid.velocity.z);                    
+                    return;
+                }
             }
-            if (m_DirX > 0.0f && m_IsContectX < 0.0f)
-            {                
+            else
+            {
+                float velocityx = Mathf.Lerp(m_Actor.g_Rigid.velocity.x, m_fMaxSpeed * m_DirX, (m_fMaxSpeed * Time.fixedDeltaTime * 5.0f));
+                m_Actor.g_Rigid.velocity = new Vector3(velocityx, m_Actor.g_Rigid.velocity.y, m_Actor.g_Rigid.velocity.z);                
                 return;
-            }
+            }            
         }
-
+        
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
         var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + Displacement);
@@ -136,7 +140,7 @@ public class CPlayerMovement : CControllerBase
     /// </summary>
     private void GravityCheck()
     {
-        if (m_Actor.CompareController("Dash")) return;
+        if (m_Actor.CompareController("Dash") || m_Actor.CompareSkill("DownHill")) return;
         if (g_IsInCheese)
         {
             m_Actor.g_Rigid.useGravity = false;
@@ -162,30 +166,6 @@ public class CPlayerMovement : CControllerBase
             m_BuffSpeed += (m_fMaxSpeed * (SlowBuff.g_FastSpeed) * 0.01f);
         }
     }
-
-
-    private void CollisionStay(Collision collision)
-    {
-        if (m_Actor.CompareController("Jump"))
-        {
-            for (int i = 0; i < collision.contactCount; i++)
-            {
-                if (Mathf.Abs(collision.GetContact(i).normal.y) < 0.4f)
-                {
-                    m_IsMoveCheck = true;
-                    m_IsContectX = collision.GetContact(i).normal.x;
-                    return;
-                }
-            }
-            m_IsMoveCheck = false;
-        }
-        else
-        {
-            m_IsMoveCheck = false;
-        }
-        
-        
-    }
-
+      
 
 }

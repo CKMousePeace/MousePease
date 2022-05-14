@@ -62,7 +62,7 @@ public class HoldDownAttack : CBossAttack
     protected void OnDisable()
     {
         m_IsStart = false;
-        Boss.GetComponent<Rigidbody>().isKinematic = true;
+        BossRigid.isKinematic = true;
         HoldDownCol.SetActive(false);
         return;
     }
@@ -143,7 +143,7 @@ public class HoldDownAttack : CBossAttack
 
     public Vector3 GetVelocity(Vector3 BossTrans, Vector3 target, float initialAngle)
     {
-        Boss.GetComponent<Rigidbody>().isKinematic = false;
+        BossRigid.isKinematic = false;
         HoldDownCol.SetActive(true);
 
         float gravity = Physics.gravity.magnitude;

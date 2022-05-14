@@ -1,9 +1,10 @@
 fileFormatVersion: 2
-guid: e0d3d02cf7aa1f0409e80847b3dc0399
+guid: a1260557564969049992084a7fbc6fdd
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - BoomCheese: {fileID: 2305148385104413050, guid: e647dc3de039abd42894c584d33f777a, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

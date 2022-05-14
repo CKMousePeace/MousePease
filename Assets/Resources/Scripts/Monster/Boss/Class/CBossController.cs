@@ -24,19 +24,20 @@ public class CBossController : MonoBehaviour
     private Investigate m_InvestigateBehavior;        //타겟 있는지 주변 조사
     private Chase m_ChaseBehavior;                    //센서 안에 들어오면 추격
 
-    private Animator m_BossANi;
-    private NavMeshAgent m_agent;
-    private GameObject m_Boss;
+    public Animator g_BossANi;
+    public NavMeshAgent g_agent;
+    public GameObject g_Boss;
+    public Rigidbody g_RigidBoss;
 
-    public float RemainingDistance { get =>m_agent.remainingDistance; }
+    public float RemainingDistance { get => g_agent.remainingDistance; }
     //HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
     //것 이니 놔둬도 괜찮음!!
-    public float StoppingDistance { get => m_agent.stoppingDistance; }
-    public void SetDestination(Vector3 destination) => m_agent.SetDestination(destination);
+    public float StoppingDistance { get => g_agent.stoppingDistance; }
+    public void SetDestination(Vector3 destination) => g_agent.SetDestination(destination);
 
     private float m_defaultAgentSpeed;
-    public void MultiplySpeed(float factor) => m_agent.speed = m_defaultAgentSpeed * factor;    //속도 배수
-    public void SetDefaultSpeed() => m_agent.speed = m_defaultAgentSpeed;
+    public void MultiplySpeed(float factor) => g_agent.speed = m_defaultAgentSpeed * factor;    //속도 배수
+    public void SetDefaultSpeed() => g_agent.speed = m_defaultAgentSpeed;
 
     private BossEyes eyes;
     private BossEars ears;
@@ -46,11 +47,7 @@ public class CBossController : MonoBehaviour
 
     private void Start()
     {
-        m_Boss = GameObject.Find("Boss");
-        m_agent = GetComponent<NavMeshAgent>();
-        m_BossANi = GameObject.Find("boss_dummy").GetComponent<Animator>();
-
-        m_defaultAgentSpeed = m_agent.speed;
+        m_defaultAgentSpeed = g_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();
         m_InvestigateBehavior = GetComponent<Investigate>();
         m_ChaseBehavior = GetComponent<Chase>();
@@ -70,25 +67,28 @@ public class CBossController : MonoBehaviour
         BossAnimation();
         CurrentBehavior.UpdateStep(this);
 
-        if (m_agent.enabled == false)
+        if (g_agent.enabled == false)
         {
             throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
     }
 
-    private void OnCollisionStay(Collision other)
+    [SerializeField] private GameObject Smash;
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Cheese"))
         {
-            m_Boss.GetComponent<Rigidbody>().isKinematic = false;
+            g_RigidBoss.isKinematic = false;
+            Smash.SetActive(true);
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
+        g_RigidBoss.isKinematic = true;
         if (other.gameObject.CompareTag("Cheese"))
         {
-            m_Boss.GetComponent<Rigidbody>().isKinematic = true;
+            
         }
     }
 
@@ -113,7 +113,7 @@ public class CBossController : MonoBehaviour
 
     public void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
     {
-        float velocity = m_agent.velocity.magnitude;
-        m_BossANi.SetFloat("Speed", velocity);
+        float velocity = g_agent.velocity.magnitude;
+        g_BossANi.SetFloat("Speed", velocity);
     }
 }

@@ -9,6 +9,7 @@ public class CBossAttack : MonoBehaviour
     public Animator BossAni;
     public GameObject Boss;
     public NavMeshAgent BossNav;
+    public Rigidbody BossRigid;
 
     public UnityAction<Attackable> OffAttack;
     public UnityAction<Attackable> OnBiteAttack;

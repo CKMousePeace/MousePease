@@ -7,8 +7,8 @@ public class Investigate : AIBehaviour
     public int InvestigateForSeconds = 3;
     public float AgentSpeedMultiplier = 1.5f;
 
-    private bool isInvestigating;
-    private float investigationStartTime;
+    private bool m_isInvestigating;
+    private float m_investigationStartTime;
 
     public override void Activate(CBossController controller)
     {
@@ -18,21 +18,21 @@ public class Investigate : AIBehaviour
 
     public override void UpdateStep(CBossController controller)
     {
-        if (controller.RemainingDistance <= controller.StoppingDistance && !isInvestigating)
+        if (controller.RemainingDistance <= controller.StoppingDistance && !m_isInvestigating)
         {
-            isInvestigating = true;
-            investigationStartTime = Time.time;
+            m_isInvestigating = true;
+            m_investigationStartTime = Time.time;
         }
 
-        if (isInvestigating && Time.time > investigationStartTime + InvestigateForSeconds)
+        if (m_isInvestigating && Time.time > m_investigationStartTime + InvestigateForSeconds)
         {
-            isInvestigating = false;
+            m_isInvestigating = false;
             controller.Patrol();
         }
     }
 
     public override void Deactivate(CBossController aIController)
     {
-        isInvestigating = false;
+        m_isInvestigating = false;
     }
 }

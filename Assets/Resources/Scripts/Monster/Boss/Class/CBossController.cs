@@ -8,31 +8,36 @@ using UnityEngine.AI;
 
 public class CBossController : MonoBehaviour
 {
-    private AIBehaviour currentBehavior;
+    private AIBehaviour m_currentBehavior;
     public AIBehaviour CurrentBehavior      //현재 상태 
     {
-        get => currentBehavior;
+        get => m_currentBehavior;
         private set
         {
-            currentBehavior?.Deactivate(this);
+            m_currentBehavior?.Deactivate(this);
             value.Activate(this);
-            currentBehavior = value;
+            m_currentBehavior = value;
         }
     }
 
-    private Patrol PatrolBehavior;                  //패트롤(웨이포인트)
-    private Investigate InvestigateBehavior;        //타겟 있는지 주변 조사
-    private Chase ChaseBehavior;                    //센서 안에 들어오면 추격
+    private Patrol m_PatrolBehavior;                  //패트롤(웨이포인트)
+    private Investigate m_InvestigateBehavior;        //타겟 있는지 주변 조사
+    private Chase m_ChaseBehavior;                    //센서 안에 들어오면 추격
 
-    private Animator BossANi;
-    private NavMeshAgent agent;
-    public float RemainingDistance { get => agent.remainingDistance; }
-    public float StoppingDistance { get => agent.stoppingDistance; }
-    public void SetDestination(Vector3 destination) => agent.SetDestination(destination);
+    public Animator g_BossANi;
+    public NavMeshAgent g_agent;
+    public GameObject g_Boss;
+    public Rigidbody g_RigidBoss;
 
-    private float defaultAgentSpeed;
-    public void MultiplySpeed(float factor) => agent.speed = defaultAgentSpeed * factor;    //속도 배수
-    public void SetDefaultSpeed() => agent.speed = defaultAgentSpeed;
+    public float RemainingDistance { get => g_agent.remainingDistance; }
+    //HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
+    //것 이니 놔둬도 괜찮음!!
+    public float StoppingDistance { get => g_agent.stoppingDistance; }
+    public void SetDestination(Vector3 destination) => g_agent.SetDestination(destination);
+
+    private float m_defaultAgentSpeed;
+    public void MultiplySpeed(float factor) => g_agent.speed = m_defaultAgentSpeed * factor;    //속도 배수
+    public void SetDefaultSpeed() => g_agent.speed = m_defaultAgentSpeed;
 
     private BossEyes eyes;
     private BossEars ears;
@@ -42,13 +47,10 @@ public class CBossController : MonoBehaviour
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        BossANi = GameObject.Find("boss_dummy").GetComponent<Animator>();
-
-        defaultAgentSpeed = agent.speed;
-        PatrolBehavior = GetComponent<Patrol>();
-        InvestigateBehavior = GetComponent<Investigate>();
-        ChaseBehavior = GetComponent<Chase>();
+        m_defaultAgentSpeed = g_agent.speed;
+        m_PatrolBehavior = GetComponent<Patrol>();
+        m_InvestigateBehavior = GetComponent<Investigate>();
+        m_ChaseBehavior = GetComponent<Chase>();
 
         eyes = GetComponentInChildren<BossEyes>();
         eyes.OnDetect += Chase;
@@ -64,29 +66,54 @@ public class CBossController : MonoBehaviour
     {
         BossAnimation();
         CurrentBehavior.UpdateStep(this);
+
+        if (g_agent.enabled == false)
+        {
+            throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
+        }
     }
 
-    public void Patrol()
+    [SerializeField] private GameObject Smash;
+    private void OnCollisionEnter(Collision other)
     {
-        CurrentBehavior = PatrolBehavior;
+        if (other.gameObject.CompareTag("Cheese"))
+        {
+            g_RigidBoss.isKinematic = false;
+            Smash.SetActive(true);
+        }
     }
 
-    public void Investigate(Detectable detectable)
+    private void OnCollisionExit(Collision other)
     {
-        InvestigateBehavior.Destination = detectable.transform.position;
-        CurrentBehavior = InvestigateBehavior;
+        g_RigidBoss.isKinematic = true;
+        if (other.gameObject.CompareTag("Cheese"))
+        {
+            
+        }
     }
 
-    public void Chase(Detectable detectable)
+
+    public void Patrol()        //웨이포인트
     {
-        ChaseBehavior.Target = detectable.transform;
-        CurrentBehavior = ChaseBehavior;
+        CurrentBehavior = m_PatrolBehavior;
+    }
+
+    public void Investigate(Detectable detectable)      //주변 탐색
+    {
+        m_InvestigateBehavior.Destination = detectable.transform.position;
+        CurrentBehavior = m_InvestigateBehavior;
+    }
+
+    public void Chase(Detectable detectable)        //센서에 플레이어 탐지. 추격
+    {
+        m_ChaseBehavior.g_Target = detectable.transform;
+        CurrentBehavior = m_ChaseBehavior;
     }
 
 
     public void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
     {
-        float velocity = agent.velocity.magnitude;
-        BossANi.SetFloat("Speed", velocity);
+        float velocity = g_agent.velocity.magnitude;
+        g_BossANi.SetFloat("Speed", velocity);
     }
 }

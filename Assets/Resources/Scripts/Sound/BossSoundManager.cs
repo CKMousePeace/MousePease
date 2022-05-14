@@ -5,8 +5,6 @@ using FMODUnity;
 
 public class BossSoundManager : MonoBehaviour
 {
-    [SerializeField] private GameObject m_Camrea;
-
     private enum CURRENT_TERRAIN
     {
         Normal,
@@ -90,13 +88,6 @@ public class BossSoundManager : MonoBehaviour
     }
 
     // ================================================================== //
-
-
-    //보스 카메라 쉐이크
-    public void CameraShake()
-    {
-        m_Camrea.GetComponent<CCameraV2>().SetShakeInfo(0.2f, 0.2f);
-    }
 
 
     // ========================== Boss Attack ========================== //

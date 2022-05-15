@@ -116,8 +116,10 @@ public class CBossController : MonoBehaviour
         g_BossANi.SetFloat("Speed", velocity);
     }
 
-    IEnumerator StartIntro()
+    IEnumerator StartIntro()        //???
     {
+        GameManager.GameStopEvent();
+        
         g_agent.speed = 0;
         g_BossANi.SetTrigger("IntroAnimation");
 
@@ -126,6 +128,10 @@ public class CBossController : MonoBehaviour
         g_agent.speed = 6;
 
         yield return new WaitForSeconds(5.0f);
+
+
+
+        //GameManager.GameStartEvent();
 
         g_agent.velocity = Vector3.zero;
         g_agent.speed = 0;

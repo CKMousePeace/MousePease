@@ -6,11 +6,7 @@ using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject PlayerBoi;
-    [SerializeField] private NavMeshAgent BossBoi;
-
-
-    // Update is called once per frame
+    [SerializeField] GameObject PlayerCon;
 
     private static bool m_isGameStart = false;
 
@@ -38,11 +34,7 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+
     }
 
-
-    private void Start()
-    {
-        
-    }
 }

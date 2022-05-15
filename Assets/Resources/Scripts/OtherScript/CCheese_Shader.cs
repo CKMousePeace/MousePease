@@ -24,9 +24,13 @@ public class CCheese_Shader : MonoBehaviour
     {
 
         RaycastHit hit;
-        if (Physics.Linecast(m_MainCamera.transform.position, m_Player.transform.position, out hit, m_LayerMask)) 
+        if (Physics.Linecast(m_MainCamera.transform.position, m_Player.transform.position, out hit, m_LayerMask))
         {
             m_Mat.SetVector("_PlayerPos", hit.point);
+        }
+        else
+        {
+            m_Mat.SetVector("_PlayerPos", new Vector3(0.0f , 0.0f , -1000.0f));
         }
     }
 

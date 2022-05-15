@@ -11,6 +11,22 @@ public class GameManager : MonoBehaviour
 
 
     // Update is called once per frame
+
+    private static bool m_isGameStart = false;
+
+    public static bool g_isGameStart => m_isGameStart;
+
+
+    public static void GameStartEvent()
+    {
+        m_isGameStart = true;
+    }
+
+    public static void GameStopEvent()
+    {
+        m_isGameStart = false;
+    }
+
     void Update()
     {
         if (Input.GetKey(KeyCode.R))

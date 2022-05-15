@@ -26,7 +26,7 @@ public class CPlayer : CDynamicObject
         }
 
 
-        if (CompareBuff("KnockBack") || GameManager.g_isGameStart) return;
+        if (CompareBuff("KnockBack")) return;
 
         foreach (var controller in m_ControllerBases)
         {

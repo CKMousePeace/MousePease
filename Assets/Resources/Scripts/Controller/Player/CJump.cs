@@ -21,6 +21,7 @@ public class CJump : CControllerBase
 
 
     private float m_CurrentDownHillKeyDownTime;
+    private float g_WallControllerChecker;
 
 
 
@@ -121,7 +122,8 @@ public class CJump : CControllerBase
         TempJump = false;
 
         m_ColliderChecker.m_ColliderStay -= ColliderStay;
-        m_Actor.g_Rigid.velocity = Vector3.zero;
+        if (!m_Actor.CompareBuff("KnockBack"))
+            m_Actor.g_Rigid.velocity = Vector3.zero;
 
         m_Actor.g_Animator.SetBool("isGround", true);
         m_Actor.g_Animator.SetBool("JumpReturn", true);
@@ -231,7 +233,7 @@ public class CJump : CControllerBase
 
     //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
     private void ColliderStay(Collision collder)
-    {
+    {        
         if (m_Actor.g_Rigid.velocity.y <= 0.3f && !m_Actor.CompareController("WallJump"))
         {
             for (int i = 0; i < collder.contactCount; i++)
@@ -304,7 +306,7 @@ public class CJump : CControllerBase
             {
                 
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
-                Dir = new Vector3(m_DirX, 3.0f, 0.0f).normalized;
+                Dir = new Vector3(m_DirX, 2.0f, 0.0f).normalized;
                 m_Actor.g_Animator.SetTrigger("WallJump");
                 Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
             }

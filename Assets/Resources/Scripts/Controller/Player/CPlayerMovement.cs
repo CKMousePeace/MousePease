@@ -14,9 +14,11 @@ public class CPlayerMovement : CControllerBase
     private float m_Yaw = 90.0f;
     private bool m_IsInCheese;
     private float m_BuffSpeed;
+    
 
     [SerializeField] private CColliderChecker m_Checker;
     [SerializeField] private Vector2 m_ChaseTimeRange;
+    
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
@@ -64,7 +66,7 @@ public class CPlayerMovement : CControllerBase
         {
 
             if (hit.transform.CompareTag("Wall"))
-            {
+            {                
                 m_Actor.GenerateController("WallJump");
             }
 
@@ -112,30 +114,9 @@ public class CPlayerMovement : CControllerBase
             m_currentSpeed = 0.0f;            
             return;
         }
-
-        if (m_Actor.CompareController("Jump") && JumpController.g_IsWallJumpCheck && !m_Actor.CompareController("WallJump"))
-        {
-            if (m_Actor.g_Rigid.velocity.x >= 0.2f || m_Actor.g_Rigid.velocity.x <= -0.2f)
-            {
-                if (m_Actor.g_Rigid.velocity.x < 0.0f && m_DirX > 0.0f || m_Actor.g_Rigid.velocity.x > 0.0f && m_DirX < 0.0f)
-                {
-                    float velocityx = Mathf.Lerp(m_Actor.g_Rigid.velocity.x, 0.0f, (m_fMaxSpeed * Time.fixedDeltaTime * 5.0f));
-                    m_Actor.g_Rigid.velocity = new Vector3(velocityx, m_Actor.g_Rigid.velocity.y, m_Actor.g_Rigid.velocity.z);                    
-                    return;
-                }
-            }
-            else
-            {
-                float velocityx = Mathf.Lerp(m_Actor.g_Rigid.velocity.x, m_fMaxSpeed * m_DirX, (m_fMaxSpeed * Time.fixedDeltaTime * 5.0f));
-                m_Actor.g_Rigid.velocity = new Vector3(velocityx, m_Actor.g_Rigid.velocity.y, m_Actor.g_Rigid.velocity.z);                
-                return;
-            }            
-        }
-
-
         
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
-        var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;
+        var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;                
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + Displacement);
     }
 

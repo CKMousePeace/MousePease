@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
 
-    private static bool m_isGameStart = false;
+    private static bool m_isGameStart = true;
 
     public static bool g_isGameStart => m_isGameStart;
 

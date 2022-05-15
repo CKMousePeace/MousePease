@@ -94,6 +94,7 @@ public class CDash : CControllerBase
         var ExtentY = new Vector3(0.0f, Extents.y, 0.0f);
 
         RaycastHit hit;
+
         if (Physics.Linecast(m_Actor.transform.position + ExtentY * 0.5f , m_Actor.transform.position + MoveData + ExtentY * 0.5f, out hit) ||
             Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit))
         {

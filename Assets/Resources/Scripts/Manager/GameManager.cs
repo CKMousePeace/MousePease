@@ -6,8 +6,6 @@ using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] GameObject PlayerCon;
-
     private static bool m_isGameStart = false;
 
     public static bool g_isGameStart => m_isGameStart;

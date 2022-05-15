@@ -7,16 +7,18 @@ public class CDownHill : CSkillBase
     [SerializeField]
     private CColliderChecker m_ColliderChecer;
 
-
+    
 
     [SerializeField]
-    private float m_StartVelocity;
+    private float m_FisrtSectionAcceleration;
     [SerializeField]
-    private float m_MiddleVelocity;
+    private float m_SecondSectionAcceleration;
 
     [SerializeField]
     private float m_LimitVeiocityY;
 
+    [SerializeField]
+    private float m_FlySpeed;
 
 
     private bool m_isDeceleration;
@@ -24,11 +26,14 @@ public class CDownHill : CSkillBase
 
     private Vector3 m_Velocity;
     private float m_CurrnetTime;
+    
     private float m_PlayerSpeed;
 
 
+    [SerializeField] private float m_FirstSection;
+
     public override void init(CDynamicObject actor)
-    {
+    {   
         base.init(actor);
         m_isDeceleration = false;        
         var PlayerMovemnet = m_Actor.GetController("Movement") as CPlayerMovement;
@@ -46,24 +51,29 @@ public class CDownHill : CSkillBase
         var Right = Vector2.right;
         var Left = Vector2.left;
 
+        m_Actor.g_Animator.SetTrigger("Gliding");
+        m_Actor.g_Animator.SetBool("EndGliding", false);
 
         m_CurrnetTime = 0.0f;
+        m_ColliderChecer.m_ColliderStay += CollisionStay;
         if (m_Actor.transform.forward.x < 0.0f)
-            m_Actor.g_Rigid.velocity = Left * m_PlayerSpeed * 2.0f;
+            m_Actor.g_Rigid.velocity = Left * m_PlayerSpeed * m_FlySpeed;
         else if (m_Actor.transform.forward.x > 0.0f)
-            m_Actor.g_Rigid.velocity = Right * m_PlayerSpeed * 2.0f;
+            m_Actor.g_Rigid.velocity = Right * m_PlayerSpeed * m_FlySpeed;
         else
         {
             gameObject.SetActive(false);
         }
+
+
     }
 
 
     private void OnDisable()
     {
-        m_Actor.g_Rigid.useGravity = false;
-
-        
+        m_ColliderChecer.m_ColliderStay -= CollisionStay;
+        m_Actor.g_Rigid.useGravity = true;  
+        m_Actor.g_Animator.SetBool("EndGliding" , true);
     }
 
     private void Update()
@@ -85,10 +95,12 @@ public class CDownHill : CSkillBase
         
         m_Velocity = m_Actor.g_Rigid.velocity;
         var extentsY = 0.0f;
+        //임시로 만듦 수정 필요
         if (m_GroundCheckData == 5.0f)
             extentsY = m_ColliderChecer.g_Collider.bounds.extents.y + Mathf.Abs(m_Velocity.y) * 0.5f;
         else
             extentsY = m_ColliderChecer.g_Collider.bounds.extents.y + 1.0f;
+
         m_CurrnetTime += Time.deltaTime;
 
         if (Physics.Raycast(m_Actor.transform.position, Vector3.down, extentsY))
@@ -109,16 +121,16 @@ public class CDownHill : CSkillBase
 
         if (!m_isDeceleration)
         {
-            if (m_CurrnetTime <= 1.0f)
-                m_Velocity.y -= m_StartVelocity * Time.deltaTime;
-
+            if (m_CurrnetTime <= m_FirstSection)
+            {
+                m_Velocity.y -= m_FisrtSectionAcceleration * Time.deltaTime;
+            }
             else
             {
-                m_Velocity.y -= m_MiddleVelocity * Time.deltaTime * (m_CurrnetTime - 1);
+                m_Velocity.y -= m_SecondSectionAcceleration * Time.deltaTime * (m_CurrnetTime - m_FirstSection);
                 if (m_Velocity.y <= -m_LimitVeiocityY)
                     m_Velocity.y = -m_LimitVeiocityY;
             }            
-            
         }
         else
         {
@@ -127,15 +139,18 @@ public class CDownHill : CSkillBase
             if (m_Velocity.y >= -1.0f)
                 m_Velocity.y = -1.0f;
 
-        }
-
-        Debug.Log(Mathf.Abs(m_Velocity.y));
+        }       
         m_Actor.g_Rigid.velocity = m_Velocity;        
 
     }
 
 
-    
-   
+    private void CollisionStay(Collision collision)
+    {
+        gameObject.SetActive(false);
+    }
+
+
+
 
 }

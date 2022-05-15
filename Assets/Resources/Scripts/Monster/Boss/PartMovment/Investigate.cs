@@ -13,7 +13,17 @@ public class Investigate : AIBehaviour
     public override void Activate(CBossController controller)
     {
         controller.MultiplySpeed(AgentSpeedMultiplier);
-        controller.SetDestination(Destination);
+
+        try
+        {
+            controller.SetDestination(Destination);
+        }
+
+        catch
+        {
+            Debug.Log("에러 아니야!");
+        }
+
     }
 
     public override void UpdateStep(CBossController controller)

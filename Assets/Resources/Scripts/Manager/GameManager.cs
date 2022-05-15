@@ -12,8 +12,14 @@ public class GameManager : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.R))
         {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        if (Input.GetKey(KeyCode.Escape))
+        {
             SceneManager.LoadScene(0);
         }
+
 
     }
 }

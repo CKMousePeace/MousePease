@@ -34,7 +34,6 @@ public class CCheese_Shader : MonoBehaviour
         }
     }
 
-
     private void OnTriggerExit(Collider other)
     {
         if (other.transform.CompareTag("Player"))

@@ -62,7 +62,7 @@ public class HoldDownAttack : CBossAttack
     protected void OnDisable()
     {
         m_IsStart = false;
-        Boss.GetComponent<Rigidbody>().isKinematic = true;
+        BossRigid.isKinematic = true;
         HoldDownCol.SetActive(false);
         return;
     }
@@ -71,7 +71,7 @@ public class HoldDownAttack : CBossAttack
     private void RayCastBoi()
     {
         RaycastHit hit;
-        float MaxDistance = 6.0f;
+        float MaxDistance = 8.0f;
         int layerMask = 1 << LayerMask.NameToLayer("Floor");
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, MaxDistance, layerMask))
         {
@@ -143,7 +143,7 @@ public class HoldDownAttack : CBossAttack
 
     public Vector3 GetVelocity(Vector3 BossTrans, Vector3 target, float initialAngle)
     {
-        Boss.GetComponent<Rigidbody>().isKinematic = false;
+        BossRigid.isKinematic = false;
         HoldDownCol.SetActive(true);
 
         float gravity = Physics.gravity.magnitude;

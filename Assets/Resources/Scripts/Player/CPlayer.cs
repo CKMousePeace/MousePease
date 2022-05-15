@@ -45,6 +45,7 @@ public class CPlayer : CDynamicObject
         }
         m_CurrentTime += Time.deltaTime;
     }
+    
     public void SetInCheese(bool State)
     {
         var Movemet = GetController("Movement") as CPlayerMovement;

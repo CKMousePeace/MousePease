@@ -9,7 +9,7 @@ public class CSlow : CBuffBase
     [SerializeField] private float m_CurrnetTime;
 
     public float g_SlowSpeed => m_SlowSpeed;
-
+    public float g_SlowTime => m_SlowTime - m_CurrnetTime;
     protected override void OnBuffInit(BuffInfo buff)
     {
         try

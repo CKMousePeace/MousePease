@@ -53,6 +53,7 @@ public class CBuffController : CControllerBase
 
     public bool GenerateBuff(string BuffName , CBuffBase.BuffInfo buffinfo)
     {
+        if (!GameManager.g_isGameStart) return false;
         if (m_DicBuffs.ContainsKey(BuffName))
         {
             m_DicBuffs[BuffName].GenerateBuff(buffinfo);

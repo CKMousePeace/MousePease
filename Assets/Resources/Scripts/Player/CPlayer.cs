@@ -14,7 +14,8 @@ public class CPlayer : CDynamicObject
         
     }
     protected void Update()
-    {        
+    {
+        if (!GameManager.g_isGameStart) return;
         if (g_IsDead)
         {
             if (!m_DeadAnim)

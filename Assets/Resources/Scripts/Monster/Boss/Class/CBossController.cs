@@ -118,7 +118,7 @@ public class CBossController : MonoBehaviour
 
     IEnumerator StartIntro()
     {
-        GameManager.GameStartEvent();
+        GameManager.GameStopEvent();
 
         g_agent.speed = 0;
         g_BossANi.SetTrigger("IntroAnimation");
@@ -129,7 +129,7 @@ public class CBossController : MonoBehaviour
 
         yield return new WaitForSeconds(5.0f);
 
-        GameManager.GameStopEvent();
+        GameManager.GameStartEvent();
 
         g_agent.velocity = Vector3.zero;
         g_agent.speed = 0;

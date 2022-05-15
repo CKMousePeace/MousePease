@@ -23,7 +23,11 @@ public class CBlock : CStaticObject
         {
             var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
             actor.GenerateBuff("KnockBack", m_Buffinfo);
+            gameObject.SetActive(false);
         }
+
+        if (col.gameObject.CompareTag("Boss"))
+            gameObject.SetActive(false);
 
     }
 

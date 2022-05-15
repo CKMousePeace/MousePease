@@ -132,9 +132,6 @@ public class CBossController : MonoBehaviour
 
         yield return new WaitForSeconds(13.0f);
 
-        g_BossANi.SetBool("IntroLoopChecker", true);
-        g_agent.speed = 6;
-
         yield break;
 
 

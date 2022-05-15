@@ -233,6 +233,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -638,6 +646,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 29
@@ -1722,6 +1738,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 28
@@ -2310,6 +2334,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2740,6 +2772,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 70
@@ -2828,6 +2868,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -3732,6 +3780,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 30
@@ -4532,6 +4588,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -7748,6 +7812,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 51
@@ -8057,6 +8129,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1682117403}
     m_Modifications:
+    - target: {fileID: 6255469658546823650, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
+    - target: {fileID: 6255469658546823652, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_LayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 6255469658546823653, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_RootOrder
       value: 5

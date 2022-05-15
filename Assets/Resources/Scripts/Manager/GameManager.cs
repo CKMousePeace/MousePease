@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject PlayerBoi;
+    [SerializeField] private NavMeshAgent BossBoi;
 
 
     // Update is called once per frame
@@ -19,7 +22,11 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(0);
         }
+    }
 
 
+    private void Start()
+    {
+        
     }
 }

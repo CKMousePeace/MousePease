@@ -26,8 +26,17 @@ public class Chase : AIBehaviour
 
     public override void UpdateStep(CBossController controller)
     {
+        try
+        {
+            controller.SetDestination(g_Target.position);
+        }
+        catch
+        {
+            Debug.Log("에러 아니라고!");
+        }
 
-        controller.SetDestination(g_Target.position);
+
+
     }
 
     public override void Deactivate(CBossController controller)

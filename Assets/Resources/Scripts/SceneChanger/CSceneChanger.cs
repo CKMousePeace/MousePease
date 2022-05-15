@@ -32,7 +32,29 @@ public class CSceneChanger : MonoBehaviour
             BLackImage.color = new Color(0, 0, 0, FadeOutCount);
         }
     }
+    
 
+
+
+    public void SceneChange_1()
+    {
+        SceneManager.LoadScene("Mapping_dig_01");
+    }
+
+    public void SceneChange_2()
+    {
+        SceneManager.LoadScene("Mapping_dig_02");
+    }
+
+    public void SceneChange_3()
+    {
+        SceneManager.LoadScene("Mapping_gliding_01");
+    }
+
+    public void SceneChange_4()
+    {
+        SceneManager.LoadScene("Mapping_gliding_02");
+    }
 
 
 }

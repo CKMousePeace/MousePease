@@ -71,7 +71,7 @@ public class HoldDownAttack : CBossAttack
     private void RayCastBoi()
     {
         RaycastHit hit;
-        float MaxDistance = 6.0f;
+        float MaxDistance = 8.0f;
         int layerMask = 1 << LayerMask.NameToLayer("Floor");
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, MaxDistance, layerMask))
         {

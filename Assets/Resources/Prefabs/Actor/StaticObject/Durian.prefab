@@ -101,7 +101,7 @@ MonoBehaviour:
     m_Value_Int: 
     m_Value_Float:
     - 2
-    - 0
+    - 10
     m_Value_Vector3: []
 --- !u!64 &8480942811963216981
 MeshCollider:

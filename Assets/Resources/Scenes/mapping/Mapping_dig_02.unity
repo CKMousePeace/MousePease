@@ -890,6 +890,10 @@ PrefabInstance:
       value: Level_Cheese_01 1 (10)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
       value: Cheese
       objectReference: {fileID: 0}
@@ -1071,6 +1075,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_Name
       value: Level_Cheese_01 1 (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
@@ -1278,6 +1286,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoomCheese (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395483, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_LayerMask.m_Bits
       value: 256
@@ -1459,6 +1471,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_Name
       value: Level_Cheese_01 1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_IsActive
@@ -2982,6 +2998,10 @@ PrefabInstance:
       value: Level_Cheese_01 1 (9)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
       value: Cheese
       objectReference: {fileID: 0}
@@ -4108,6 +4128,10 @@ PrefabInstance:
       value: Level_Cheese_01 1 (11)
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
       value: Cheese
       objectReference: {fileID: 0}
@@ -4922,6 +4946,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoomCheese (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395483, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_LayerMask.m_Bits
       value: 256
@@ -5678,6 +5706,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_Name
       value: Level_Cheese_01 1 (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
@@ -7114,6 +7146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoomCheese (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395483, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_LayerMask.m_Bits
       value: 256
@@ -7496,6 +7532,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_Name
       value: Level_Cheese_01 1 (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString
@@ -8585,6 +8625,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f334a25574856af418554a51b924fd90, type: 3}
+--- !u!1 &1338798527 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4689794670640668294, guid: f334a25574856af418554a51b924fd90, type: 3}
+  m_PrefabInstance: {fileID: 1338798526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1338798528 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 1450694771126005655, guid: f334a25574856af418554a51b924fd90, type: 3}
@@ -8831,6 +8876,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8783655520645938824, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
+      propertyPath: m_Boss
+      value: 
+      objectReference: {fileID: 1338798527}
+    - target: {fileID: 8783655520645938824, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
+      propertyPath: m_Player
+      value: 
+      objectReference: {fileID: 271738955}
     - target: {fileID: 8783655520645938826, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -9553,6 +9606,10 @@ PrefabInstance:
     - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_Name
       value: BoomCheese
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395482, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_BuffInfo.m_Value_Float.Array.size
@@ -10544,6 +10601,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BoomCheese (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395483, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_LayerMask.m_Bits
       value: 256
@@ -11211,6 +11272,10 @@ PrefabInstance:
     - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_Name
       value: BoomCheese (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108978565790395481, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3108978565790395483, guid: f421a484881034d47aeaa40e0da024f0, type: 3}
       propertyPath: m_LayerMask.m_Bits
@@ -12082,6 +12147,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_Name
       value: Level_Cheese_01 1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
       propertyPath: m_TagString

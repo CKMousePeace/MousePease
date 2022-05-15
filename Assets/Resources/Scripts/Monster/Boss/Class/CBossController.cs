@@ -50,6 +50,7 @@ public class CBossController : MonoBehaviour
     private void Start()
     {
         if(m_isCheckIntro == true)    StartCoroutine(StartIntro());
+        if(m_isCheckIntro == false) GameManager.GameStartEvent();
 
         m_defaultAgentSpeed = g_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();

@@ -301,6 +301,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &27196886 stripped
@@ -714,6 +718,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &126150600 stripped
@@ -1105,7 +1113,7 @@ Transform:
   m_LocalScale: {x: 1, y: 10.759, z: 6.4393277}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &273663021
 MonoBehaviour:
@@ -1917,6 +1925,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &565229366 stripped
@@ -2622,6 +2634,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &685370870 stripped
@@ -2909,6 +2925,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8783655520645938824, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
+      propertyPath: m_Boss
+      value: 
+      objectReference: {fileID: 1338798528}
+    - target: {fileID: 8783655520645938824, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
+      propertyPath: m_Player
+      value: 
+      objectReference: {fileID: 271738955}
     - target: {fileID: 8783655520645938826, guid: 8f704285b67d6504f8fffd7faacdcad7, type: 3}
       propertyPath: m_Name
       value: GameManager
@@ -3060,6 +3084,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &822526697 stripped
@@ -3159,6 +3187,10 @@ PrefabInstance:
     - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_Name
       value: Cheese (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
@@ -4072,6 +4104,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &1132805355 stripped
@@ -4748,6 +4784,11 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1450694771126005655, guid: f334a25574856af418554a51b924fd90, type: 3}
   m_PrefabInstance: {fileID: 1338798526}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1338798528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4689794670640668294, guid: f334a25574856af418554a51b924fd90, type: 3}
+  m_PrefabInstance: {fileID: 1338798526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1375246784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4884,6 +4925,10 @@ PrefabInstance:
     - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_Name
       value: Cheese (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
@@ -8140,6 +8185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cheese (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
 --- !u!4 &2084016927 stripped
@@ -8452,6 +8501,10 @@ PrefabInstance:
     - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
       propertyPath: m_Name
       value: Cheese (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6255469658546823654, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f98aeb5c3d2c53c4687d01e7dad086c0, type: 3}

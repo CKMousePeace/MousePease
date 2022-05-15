@@ -32,12 +32,14 @@ public class CPlayerMovement : CControllerBase
 
     private void Update()
     {
+        if (!GameManager.g_isGameStart) return;
         if (PlayerMoveState()) return;
         PlayerMoveKey();        
         
     }
     private void FixedUpdate()
     {
+        if (!GameManager.g_isGameStart) return;
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();

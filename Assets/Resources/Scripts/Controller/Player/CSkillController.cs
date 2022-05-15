@@ -41,6 +41,8 @@ public class CSkillController : CControllerBase
 
     public bool GenerateSkill(string SkillName)
     {
+        if (!GameManager.g_isGameStart) return false;
+
         if (m_DicSkills.ContainsKey(SkillName))
         {
 

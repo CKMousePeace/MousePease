@@ -14,8 +14,8 @@ public class CPlayer : CDynamicObject
         
     }
     protected void Update()
-    {    
-        if (g_IsDead || GameManager.g_isGameStart)
+    {        
+        if (g_IsDead)
         {
             if (!m_DeadAnim)
             {
@@ -23,7 +23,9 @@ public class CPlayer : CDynamicObject
             }             
             return;
         }
-        if (CompareBuff("KnockBack")) return;
+
+
+        if (CompareBuff("KnockBack") || GameManager.g_isGameStart) return;
 
         foreach (var controller in m_ControllerBases)
         {

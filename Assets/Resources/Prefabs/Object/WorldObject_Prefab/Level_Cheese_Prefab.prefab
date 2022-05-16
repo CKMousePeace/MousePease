@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7826497989678877228}
   - component: {fileID: 7826497989678877231}
   - component: {fileID: 7826497989678877230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Level_Cheese_Prefab
   m_TagString: Cheese
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 507964552181651666, guid: 06e46f606ce96ce4486b678cbf25335f, type: 3}
+  - {fileID: 2100000, guid: dbf602d455d3bb04093f3020761ac859, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
 --- !u!114 &7826497989678877230
 MonoBehaviour:
   m_ObjectHideFlags: 0

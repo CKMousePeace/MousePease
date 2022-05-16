@@ -25,11 +25,19 @@ public class CStartManager : MonoBehaviour
     {
         if (col.gameObject.CompareTag("Player"))
         {
-            BossBoi.speed = 6;
-            BossAnime.SetBool("IntroLoopChecker", true);
+
+            StartCoroutine(delayAnime());
             PlayRoar();
 
             Destroy(gameObject);
         }
+    }
+
+
+    IEnumerator delayAnime()
+    {
+        BossAnime.SetBool("IntroLoopChecker", true);
+        yield return new WaitForSeconds(1.0f);
+        BossBoi.speed = 6;
     }
 }

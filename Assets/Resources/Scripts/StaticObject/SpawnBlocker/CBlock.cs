@@ -6,6 +6,7 @@ public class CBlock : CStaticObject
 {
     [Tooltip("Float[0] = Force, Float[1] = Damage")]
     [SerializeField] private CBuffBase.BuffInfo m_Buffinfo;
+    [SerializeField] private CBuffBase.BuffInfo m_BuffinfoNoDamage;
 
     protected override void Start()
     {
@@ -19,10 +20,17 @@ public class CBlock : CStaticObject
             gameObject.SetActive(false);
 
 
+        
         if (col.gameObject.CompareTag("Player"))
         {
             var actor = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<CDynamicObject>();
-            actor.GenerateBuff("KnockBack", m_Buffinfo);
+            if (!CrushChecker(actor))
+            {
+                actor.GenerateBuff("KnockBack", m_Buffinfo);
+                actor.GenerateBuff("Invincibility", m_BuffinfoNoDamage);
+
+            }
+
             gameObject.SetActive(false);
         }
 

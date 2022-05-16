@@ -527,8 +527,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.93453074, y: 2.4338486, z: 11.5203705}
-  m_Center: {x: -0.9823201, y: 0.5969242, z: 0.65535927}
+  m_Size: {x: 4.057329, y: 2.5558782, z: 6.9747353}
+  m_Center: {x: 0.57908076, y: 0.5359094, z: -0.008176668}
 --- !u!114 &1450694770392715314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,7 +2021,7 @@ MonoBehaviour:
   g_agent: {fileID: 4689794670640668313}
   g_Boss: {fileID: 4689794670640668294}
   g_RigidBoss: {fileID: 4689794670640668296}
-  m_isCheckIntro: 0
+  g_isCheckIntro: 0
   Smash: {fileID: 1450694771428157696}
 --- !u!114 &4689794670640668297
 MonoBehaviour:

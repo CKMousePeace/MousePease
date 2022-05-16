@@ -41,7 +41,11 @@ public class CPlayerMovement : CControllerBase
     }
     private void FixedUpdate()
     {
-        if (!GameManager.g_isGameStart) return;
+        if (!GameManager.g_isGameStart)
+        {
+            m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+            return;
+        }
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();

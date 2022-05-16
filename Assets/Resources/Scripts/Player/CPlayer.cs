@@ -5,7 +5,6 @@ using UnityEngine;
 public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
-    private float m_CurrentTime = 0.0f;
 
     protected override void Start()
     {
@@ -37,16 +36,7 @@ public class CPlayer : CDynamicObject
             }
         }
 
-        if (m_CurrentTime > 0.5f)
-        {
 
-            if (m_MashRender.material.color == Color.red)
-            {
-                m_MashRender.material.color = Color.white;
-                m_MashRender.material.SetColor("_EmissionColor", Color.white);
-            }
-        }
-        m_CurrentTime += Time.deltaTime;
     }
     
     public void SetInCheese(bool State)
@@ -70,13 +60,7 @@ public class CPlayer : CDynamicObject
         }
         return Movemet.g_IsInCheese;
     }
-    public void SetColor()
-    {
-        m_MashRender.material.color = Color.red;
-        m_MashRender.material.SetColor("_EmissionColor", Color.red);
-        m_CurrentTime = 0.0f;
 
-    }
 
 }
 

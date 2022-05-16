@@ -8,4 +8,13 @@ public class CStaticObject : CActor
     {       
             
     }
+
+    protected bool CrushChecker(CDynamicObject obj)
+    {
+        if (obj.CompareBuff("Invincibility"))
+        {
+            return true;
+        }
+        return false;
+    }
 }

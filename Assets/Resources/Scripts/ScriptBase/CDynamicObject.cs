@@ -9,8 +9,9 @@ public abstract class CDynamicObject : CActor
     protected Dictionary<string, CControllerBase> m_ControllerDic = new Dictionary<string, CControllerBase>();
     protected bool m_DeadAnim = false;
     private Rigidbody m_Rigid;
-   
-    
+    public bool g_MoveCheck{ get; set; }
+
+
     public Dictionary<string, CControllerBase> g_ControllerDic => m_ControllerDic;
     public Rigidbody g_Rigid  =>m_Rigid;   
     public Animator g_Animator => m_Animator;

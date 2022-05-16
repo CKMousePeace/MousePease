@@ -5,7 +5,7 @@ using UnityEngine;
 public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
-    private float m_CurrentTime = 0.0f;    
+
     protected override void Start()
     {
         base.Start();        
@@ -13,8 +13,8 @@ public class CPlayer : CDynamicObject
     }
     protected void Update()
     {
-
-        if (g_IsDead )
+        if (!GameManager.g_isGameStart) return;
+        if (g_IsDead)
         {
             if (!m_DeadAnim)
             {
@@ -22,6 +22,8 @@ public class CPlayer : CDynamicObject
             }             
             return;
         }
+
+
         if (CompareBuff("KnockBack")) return;
 
         foreach (var controller in m_ControllerBases)
@@ -34,17 +36,9 @@ public class CPlayer : CDynamicObject
             }
         }
 
-        if (m_CurrentTime > 0.5f)
-        {
 
-            if (m_MashRender.material.color == Color.red)
-            {
-                m_MashRender.material.color = Color.white;
-                m_MashRender.material.SetColor("_EmissionColor", Color.white);
-            }
-        }
-        m_CurrentTime += Time.deltaTime;
     }
+    
     public void SetInCheese(bool State)
     {
         var Movemet = GetController("Movement") as CPlayerMovement;
@@ -66,13 +60,7 @@ public class CPlayer : CDynamicObject
         }
         return Movemet.g_IsInCheese;
     }
-    public void SetColor()
-    {
-        m_MashRender.material.color = Color.red;
-        m_MashRender.material.SetColor("_EmissionColor", Color.red);
-        m_CurrentTime = 0.0f;
 
-    }
 
 }
 

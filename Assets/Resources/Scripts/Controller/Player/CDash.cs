@@ -9,12 +9,24 @@ public class CDash : CControllerBase
     [SerializeField] private CColliderChecker m_ColliderChecker;
     [SerializeField] private float m_DashCool;
     private float m_CurrentDelayTime;
-    private bool m_Dash;
+    
     
 
     private Vector3 m_Dir;    
     private float m_CurrentTime;
     private CPlayer m_Player;
+
+    public float g_DashCool
+    {
+        get { 
+            var time = m_DashCool - (Time.time - m_CurrentDelayTime);
+            if (time > 0 && !g_DashItem)
+                return time;
+            else
+                return 0;
+
+        }
+    }
 
     public bool g_DashItem { get; set; }
 
@@ -44,16 +56,16 @@ public class CDash : CControllerBase
         {
             m_DirY = 0.0f;
         }
-
+        
         m_Actor.g_Animator.SetTrigger("Dash");
-        m_Dash = true;                      
+        
         
         m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, m_DirY, 0.0f).normalized;
         m_Dir.Normalize();
-        m_CurrentTime = 0.0f;
         m_Actor.g_Rigid.useGravity = false;
         m_Actor.g_Rigid.velocity = Vector3.zero;
         g_DashItem = false;
+        m_CurrentTime = 0.0f;
     }
 
 
@@ -61,7 +73,6 @@ public class CDash : CControllerBase
     {
         //만약 m_Actor가 없을 경우 리턴을 해줍니다.
         if (m_Actor == null) return;
-        if (m_Dash) m_CurrentDelayTime = Time.time;
         m_Actor.g_Rigid.useGravity = true;
     }
 
@@ -83,6 +94,7 @@ public class CDash : CControllerBase
         var ExtentY = new Vector3(0.0f, Extents.y, 0.0f);
 
         RaycastHit hit;
+
         if (Physics.Linecast(m_Actor.transform.position + ExtentY * 0.5f , m_Actor.transform.position + MoveData + ExtentY * 0.5f, out hit) ||
             Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit))
         {
@@ -108,12 +120,20 @@ public class CDash : CControllerBase
 
     private bool DashChecker(float Dirx , float DirY)
     {
+
+
+        if (g_DashItem == true)
+        {
+            g_DashItem = false;
+            m_CurrentDelayTime = Time.time;
+            return false;
+        }
+
         if (m_Player.CompareInCheese())
         {
             if (Dirx == 0.0f && DirY == 0.0f)
             {
                 gameObject.SetActive(false);
-                m_Dash = false;
                 return true;
             }
         }
@@ -122,22 +142,16 @@ public class CDash : CControllerBase
             if (Dirx == 0)
             {
                 gameObject.SetActive(false);
-                m_Dash = false;
                 return true;
             }
         }
 
 
-        if (g_DashItem == true)
-        {
-            g_DashItem = false;
-            return false;
-        }
+
 
         if (Time.time - m_CurrentDelayTime <= m_DashCool)
         {
             gameObject.SetActive(false);
-            m_Dash = false;
             return true;
         }
         
@@ -148,10 +162,10 @@ public class CDash : CControllerBase
             if (m_CurrentDelayTime != 0)
             {
                 gameObject.SetActive(false);
-                m_Dash = false;
                 return true;
             }
         }
+        m_CurrentDelayTime = Time.time;
         return false;
     }
 }

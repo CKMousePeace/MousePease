@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3148015291747937038}
   - component: {fileID: 3148015291747937033}
   - component: {fileID: 3148015291747937034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Level_Cheese_02_MeltPrefab
   m_TagString: MeltedCheese
   m_Icon: {fileID: 0}

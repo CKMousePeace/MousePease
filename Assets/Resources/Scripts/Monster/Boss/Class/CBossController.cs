@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -29,9 +30,10 @@ public class CBossController : MonoBehaviour
     public GameObject g_Boss;
     public Rigidbody g_RigidBoss;
 
-    public float RemainingDistance { get => g_agent.remainingDistance; }
-    //HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
-    //것 이니 놔둬도 괜찮음!!
+    public float RemainingDistance { get => g_agent.remainingDistance;  }
+    /*HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
+    것 이니 놔둬도 괜찮음!!*/
+
     public float StoppingDistance { get => g_agent.stoppingDistance; }
     public void SetDestination(Vector3 destination) => g_agent.SetDestination(destination);
 
@@ -43,10 +45,14 @@ public class CBossController : MonoBehaviour
     private BossEars ears;
     public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);      //플레이어 추격시 청각 비활성화
 
-
+    public bool g_isCheckIntro = false;
 
     private void Start()
     {
+        GameManager.GameStartEvent();
+
+        if (g_isCheckIntro == true) g_agent.speed = 0;
+
         m_defaultAgentSpeed = g_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();
         m_InvestigateBehavior = GetComponent<Investigate>();
@@ -71,6 +77,11 @@ public class CBossController : MonoBehaviour
         {
             throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
+
+    }
+    public void BossIntroStart()
+    {    
+        StartCoroutine(StartIntro());
     }
 
     [SerializeField] private GameObject Smash;
@@ -86,10 +97,6 @@ public class CBossController : MonoBehaviour
     private void OnCollisionExit(Collision other)
     {
         g_RigidBoss.isKinematic = true;
-        if (other.gameObject.CompareTag("Cheese"))
-        {
-            
-        }
     }
 
 
@@ -110,10 +117,35 @@ public class CBossController : MonoBehaviour
         CurrentBehavior = m_ChaseBehavior;
     }
 
-
     public void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
     {
         float velocity = g_agent.velocity.magnitude;
         g_BossANi.SetFloat("Speed", velocity);
     }
+
+    IEnumerator StartIntro()
+    {
+        GameManager.GameStopEvent();
+
+        g_agent.speed = 0;
+        g_BossANi.SetTrigger("IntroAnimation");
+
+        yield return new WaitForSeconds(12.0f);
+
+        g_agent.speed = 6;
+
+        yield return new WaitForSeconds(5.0f);
+
+        GameManager.GameStartEvent();
+
+        g_agent.velocity = Vector3.zero;
+        g_agent.speed = 0;
+
+        yield return new WaitForSeconds(13.0f);
+
+        yield break;
+
+
+    }
+
 }

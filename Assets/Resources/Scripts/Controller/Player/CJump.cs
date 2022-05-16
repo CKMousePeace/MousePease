@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CJump : CControllerBase
 {
@@ -17,19 +18,23 @@ public class CJump : CControllerBase
 
     [SerializeField]
     private float m_DownhillKeyDownTime;
+
+
     private float m_CurrentDownHillKeyDownTime;
+    private float g_WallControllerChecker;
 
 
 
 
     private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
-    private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경    
+    private bool m_isDoubleJumpCheck = false;
+    private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경        
 
     private bool m_JumpCheck = false;
     public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
     public bool g_MoveCheck { get; set; }
     public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
-
+    
 
 
     private float m_MaxGroundDot;
@@ -40,7 +45,7 @@ public class CJump : CControllerBase
     private float m_DirX;
     private CPlayer m_Player;
     private bool m_DownHillCheck = false;
-
+    
 
     private bool m_IsWallJump;
     private bool m_IsWallJumpCheck;
@@ -67,20 +72,37 @@ public class CJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
+
         if (m_Actor.CompareController("Dash") || m_Actor.CompareBuff("KnockBack") || m_Player.CompareInCheese())
         {
             gameObject.SetActive(false);
             return;
         }
+
+
         m_CurrentDownHillKeyDownTime = 0.0f;
         m_IsWallJumpCheck = false;
         m_DownHillCheck = false;
+        
         m_IsWallJump = false;
-        g_MoveCheck = true;
+        g_MoveCheck = true;        
         TempJump = false;
-        m_isJump = true;
+        m_JumpCheck = false;
+
+        
+        if (!m_Actor.CompareController("WallJump"))
+        {
+            m_isJump = true;
+        }
+        else
+        {
+            m_IsWallJump = true;
+            m_isJump = false;            
+        }
+
+        
         m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.y);
-        m_JumpCheck = true;
+
         m_Actor.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderStay += ColliderStay;
 
@@ -89,6 +111,7 @@ public class CJump : CControllerBase
     {
         if (m_Actor == null) return;
 
+        
         m_IsWallJumpCheck = false;
         m_DownHillCheck = false;
         m_IsWallJump = false;
@@ -99,10 +122,13 @@ public class CJump : CControllerBase
         TempJump = false;
 
         m_ColliderChecker.m_ColliderStay -= ColliderStay;
-        m_Actor.g_Rigid.velocity = Vector3.zero;
+        if (!m_Actor.CompareBuff("KnockBack"))
+            m_Actor.g_Rigid.velocity = Vector3.zero;
 
+        m_Actor.g_Animator.SetBool("isGround", true);
         m_Actor.g_Animator.SetBool("JumpReturn", true);
-        m_Actor.DestroyController("WallJump");
+        m_Actor.DestroyController("WallJump");        
+
     }
 
     private void Update()
@@ -110,7 +136,7 @@ public class CJump : CControllerBase
         m_DirX = Input.GetAxisRaw("Horizontal");
 
         if (m_Player.CompareInCheese() || m_Actor.CompareBuff("KnockBack"))
-        {
+        {            
             gameObject.SetActive(false);
             return;
         }
@@ -118,18 +144,19 @@ public class CJump : CControllerBase
 
         if (Input.GetKeyDown(m_Key))
         {
-
-            if (!m_isDoubleJump && !m_Actor.CompareController("WallJump"))
+            if (m_Actor.CompareController("WallJump") && m_DirX != 0.0f)
             {
-                m_isDoubleJump = true;
-
-            }
-            else if (m_Actor.CompareController("WallJump") && m_DirX != 0.0f)
-            {
-
                 m_IsWallJump = true;
-
             }
+            else if (!m_isJump && !m_JumpCheck && !m_Actor.CompareController("WallJump"))
+            {
+                m_isJump = true;                
+            }
+            else if (!m_isDoubleJump && !m_Actor.CompareController("WallJump") && !m_isDoubleJumpCheck)
+            {                
+                m_isDoubleJump = true;                
+            }
+            
         }
 
         if (Input.GetKey(m_Key))
@@ -141,7 +168,6 @@ public class CJump : CControllerBase
                 {
                     m_Player.GenerateSkill("DownHill");
                     m_DownHillCheck = true;
-
                 }
                 return;
 
@@ -156,29 +182,11 @@ public class CJump : CControllerBase
 
     private void FixedUpdate()
     {
-        float WallJumpRayDistance = m_ColliderChecker.g_Collider.bounds.extents.x * 2.0f;
 
-        RaycastHit hit;
-
-
-
-        //WallJump 생성
-        if (Physics.Raycast(m_Actor.transform.position, m_Actor.transform.forward, out hit, WallJumpRayDistance))
-        {
-
-            if (hit.transform.CompareTag("Wall"))
-            {
-                m_Actor.GenerateController("WallJump");
-                m_IsWallJumpCheck = false;
-            }
-
-        }
-        else
-        {
-
+        if (m_Actor.CompareController("WallJump"))
+            m_IsWallJumpCheck = false;
+        else 
             m_IsWallJumpCheck = true;
-            m_Actor.DestroyController("WallJump");
-        }
 
         if (Physics.Raycast(m_Actor.transform.position, -Vector3.up, m_EndJumpDistance) && m_Actor.g_Rigid.velocity.y <= -0.3f)
         {
@@ -207,25 +215,32 @@ public class CJump : CControllerBase
 
         var Dir = Vector3.up;
 
-        if (m_isJump)
+        if (m_isJump && !m_JumpCheck)
         {
-            var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Dir;
-            m_Actor.g_Rigid.AddForce(velocity, ForceMode.Impulse);
-            m_Actor.g_Animator.SetTrigger("Jump");
+            m_Actor.g_Rigid.velocity = Vector3.zero;
+            var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Dir;            
+            m_Actor.g_Rigid.velocity = velocity;
+            if (m_IsWallJumpCheck)
+            {
+                m_Actor.g_Animator.SetTrigger("Jump");
+            }            
+            m_isDoubleJumpCheck = false;
+            m_JumpCheck = true;
             m_isJump = false;
         }
     }
 
+
     //아래에 오브젝트와 충돌 할 경우 오브젝트를 종료 합니다.
     private void ColliderStay(Collision collder)
-    {
-        if (m_Actor.g_Rigid.velocity.y <= 0.3f)
+    {        
+        if (m_Actor.g_Rigid.velocity.y <= 0.3f && !m_Actor.CompareController("WallJump"))
         {
             for (int i = 0; i < collder.contactCount; i++)
             {
                 var normal = collder.GetContact(i).normal;
                 if (normal.y > m_MaxGroundDot)
-                {
+                {                    
                     gameObject.SetActive(false);
                     break;
                 }
@@ -235,21 +250,30 @@ public class CJump : CControllerBase
 
 
 
+
+
+
     //Floor를 제외한 다른 오브젝트와 충돌을 할 경우 trigger를 제거 해줍니다.
     // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
     {
-        if (!m_isJump && m_isDoubleJump && m_JumpCheck)
+        if (!m_isJump && m_isDoubleJump && m_JumpCheck && !m_isDoubleJumpCheck)
         {
-            TempJump = false;
-            m_JumpCheck = false;
+            TempJump = false;            
             var force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce);
             var Dir = new Vector3(m_DirX, 2.0f, 0.0f).normalized;
             m_Actor.g_Rigid.velocity = Vector3.zero;
-            m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
-            m_Actor.g_Animator.SetTrigger("DoubleJump");
-            if (m_DirX == 0.0f) return;
-            g_MoveCheck = false;
+            m_Actor.g_Rigid.velocity  = force * Dir;
+
+            if (m_IsWallJumpCheck)
+            {
+                m_Actor.g_Animator.SetTrigger("DoubleJump");
+            }
+            if (m_DirX != 0.0f)
+            {
+                g_MoveCheck = false;
+            }
+            m_isDoubleJumpCheck = true;
         }
         else
         {
@@ -261,32 +285,45 @@ public class CJump : CControllerBase
     }
 
 
+
+
+
     //벽 점프 사용
     private void WallJump()
     {
+        
+        if (m_DirX == 0.0f) return;
         if (!m_IsWallJumpCheck && m_IsWallJump)
         {
+            
             m_IsWallJumpCheck = true;
             m_IsWallJump = false;
 
             var force = 0.0f;
             var Dir = Vector3.zero;
-
-
-            Debug.Log("WallJump");
+            m_Actor.g_Rigid.velocity = Vector3.zero;
             if (!((m_Actor.transform.forward.x < 0.0f && m_DirX < 0.0f) || (m_Actor.transform.forward.x > 0.0f && m_DirX > 0.0f)))
             {
+                
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
-                Dir = new Vector3(m_DirX, 3.0f, 0.0f).normalized;
+                Dir = new Vector3(m_DirX, 2.0f, 0.0f).normalized;
+                m_Actor.g_Animator.SetTrigger("WallJump");
+                Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
             }
             else
             {
+            
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
                 Dir = new Vector3(-m_DirX, 10.0f, 0.0f).normalized;
+                Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
+                //Debug.LogAssertion(m_DirX.ToString() + " " + transform.forward.x.ToString());
             }
-            m_Actor.g_Rigid.velocity = Vector3.zero;
-            m_Actor.g_Rigid.AddForce(force * Dir, ForceMode.Impulse);
+            
+            m_Actor.g_Rigid.velocity = force * Dir;
+
             g_MoveCheck = true;
         }
+
     }
+
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CBoomBoomCheese : MonoBehaviour
@@ -10,16 +11,19 @@ public class CBoomBoomCheese : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boss"))
         {
-            BoomCheesePart();
+            StartCoroutine(BoomCheesePart_Co());
         }
     }
 
 
-    private void BoomCheesePart()
+    IEnumerator BoomCheesePart_Co()
     {
-        GameObject BCS=  Instantiate(m_BoomCheese, transform.position, transform.rotation);
 
-        foreach(Rigidbody rb in BCS.GetComponentsInChildren<Rigidbody>())
+        yield return new WaitForSeconds(2.0f);
+
+        GameObject BCS = Instantiate(m_BoomCheese, transform.position, transform.rotation);
+
+        foreach (Rigidbody rb in BCS.GetComponentsInChildren<Rigidbody>())
         {
             Vector3 force = (rb.transform.position - transform.position).normalized * m_BoomForce;
             rb.AddForce(force);

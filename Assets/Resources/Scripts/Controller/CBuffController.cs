@@ -73,14 +73,17 @@ public class CBuffController : CControllerBase
             {
                 var buffObj = Instantiate(buffPrefab, m_Bucket).GetComponent<CBuffBase>();
                 m_DicBuffs.Add(BuffName, buffObj);
+                m_DicBuffs[BuffName].init(m_Actor);
                 m_DicBuffs[BuffName].GenerateBuff(buffinfo);
             }
             else
             {
                 var buffObj = Instantiate(buffPrefab, transform).GetComponent<CBuffBase>();
                 m_DicBuffs.Add(BuffName, buffObj);
+                m_DicBuffs[BuffName].init(m_Actor);
                 m_DicBuffs[BuffName].GenerateBuff(buffinfo);
             }
+            
         }
         return false;
     }    

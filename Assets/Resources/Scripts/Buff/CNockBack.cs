@@ -9,6 +9,10 @@ public class CNockBack : CBuffBase
     private float m_Force;
     private float m_Damage;
     private float m_GroundCos;
+    private CPlayer m_Play;
+    private float m_KnockBackTime;
+
+    private float m_CurrenKnockBackTime;
 
     [SerializeField] private float m_MaxGroundAngle;
     [SerializeField] private CColliderChecker m_ColliderChecker;
@@ -16,10 +20,12 @@ public class CNockBack : CBuffBase
     private void OnEnable()
     {
         g_DynamicObject.g_Animator.SetBool("isGround", false);
-        m_ColliderChecker.m_ColliderEnter += CollierEnter;
+
+        if (m_Play == null)
+            m_Play = (CPlayer)g_DynamicObject;
+
+        m_ColliderChecker.m_ColliderEnter += CollierEnter;        
         
-        CPlayer play = (CPlayer)g_DynamicObject;
-        play.SetColor();
 
     }
     private void OnDisable()
@@ -37,6 +43,9 @@ public class CNockBack : CBuffBase
             m_Dir = (Vector3.up + (transform.position - buff.g_Value_Vector3[0])).normalized;
             m_Force = buff.g_Value_Float[0];
             m_Damage = buff.g_Value_Float[1];
+            m_KnockBackTime = buff.g_Value_Float[2];
+
+
             g_DynamicObject.g_Rigid.velocity = Vector3.zero;
             g_DynamicObject.g_Rigid.velocity += m_Dir * m_Force;
             g_DynamicObject.g_fHP -= m_Damage;
@@ -53,6 +62,15 @@ public class CNockBack : CBuffBase
     {
         base.init(dynamicObject);
         m_GroundCos = Mathf.Cos(Mathf.Deg2Rad * m_MaxGroundAngle);
+    }
+
+    public void Update()
+    {
+        m_CurrenKnockBackTime += Time.deltaTime;
+        if (m_CurrenKnockBackTime >= m_KnockBackTime)
+            gameObject.SetActive(false);
+
+
     }
 
     //충돌이 일어 날 때 함수 입니다.

@@ -6,7 +6,6 @@ public class CPlayer : CDynamicObject
 {
     [SerializeField] private SkinnedMeshRenderer m_MashRender;
     private float m_CurrentTime = 0.0f;
-    
 
     protected override void Start()
     {

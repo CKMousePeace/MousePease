@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private bool isplay = false;
-
 
     private static bool m_isGameStart = true;
 

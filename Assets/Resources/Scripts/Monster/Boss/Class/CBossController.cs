@@ -45,12 +45,13 @@ public class CBossController : MonoBehaviour
     private BossEars ears;
     public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);      //플레이어 추격시 청각 비활성화
 
-    [SerializeField] private bool m_isCheckIntro = false;
+    public bool g_isCheckIntro = false;
 
     private void Start()
     {
-        if(m_isCheckIntro == true)    StartCoroutine(StartIntro());
-        if(m_isCheckIntro == false) GameManager.GameStartEvent();
+        GameManager.GameStartEvent();
+
+        if (g_isCheckIntro == true) g_agent.speed = 0;
 
         m_defaultAgentSpeed = g_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();
@@ -76,6 +77,11 @@ public class CBossController : MonoBehaviour
         {
             throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
+
+    }
+    public void BossIntroStart()
+    {    
+        StartCoroutine(StartIntro());
     }
 
     [SerializeField] private GameObject Smash;

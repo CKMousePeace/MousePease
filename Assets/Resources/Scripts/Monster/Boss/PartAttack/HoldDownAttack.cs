@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class HoldDownAttack : CBossAttack
+public class HoldDownAttack : CBossController
 {
     [Header("HoldDown 콜라이더")]
     [SerializeField] private GameObject HoldDownCol;
@@ -12,30 +11,19 @@ public class HoldDownAttack : CBossAttack
 
     [Header("날아갈 각도")]
     public float m_InitialAngle = 50f;
-    [SerializeField] private Rigidbody m_Rigidbody;      //보스 리지드바디
 
-    //[Header("날아갈 속도")]
-    //[SerializeField] private float m_Speed = 10;
-
-    //[Header("날아갈 높이")]
-    //[SerializeField] private float m_HeightArc = 1;
-    //private Vector3 m_StartPosition;
     private bool m_IsStart = false;
     private bool m_isGround = false;
     private bool RayCastBoii = false;
 
 
-
-    void Start()
-    {
-        //m_StartPosition = transform.position;
-    }
     void FixedUpdate()
     {
         if (m_IsStart == true)
         {
             Vector3 velocity = GetVelocity(transform.position, m_Target.position, m_InitialAngle);
-            m_Rigidbody.velocity = velocity;
+            
+            g_RigidBoss.velocity = velocity;
 
         }
         else return;
@@ -54,7 +42,7 @@ public class HoldDownAttack : CBossAttack
 
     protected void OnEnable()
     {
-        BossNav.enabled = false;
+        g_agent.enabled = false;
 
         StartCoroutine(HoldDownMode(2, 4.0f, 1.0f));
     }
@@ -62,7 +50,7 @@ public class HoldDownAttack : CBossAttack
     protected void OnDisable()
     {
         m_IsStart = false;
-        BossRigid.isKinematic = true;
+        g_RigidBoss.isKinematic = true;
         HoldDownCol.SetActive(false);
         return;
     }
@@ -76,11 +64,10 @@ public class HoldDownAttack : CBossAttack
         if (Physics.Raycast(transform.position, transform.up * -1, out hit, MaxDistance, layerMask))
         {
             Debug.Log("레이케스트 힛!");
-            BossAni.SetBool("isGround", true);
+            m_Actor.g_Animator.SetBool("isGround", true);
             m_isGround = true;
 
         }
-
     }
 
     IEnumerator HoldDownMode(int WaitTime , float LoopTime , float HDTime )
@@ -88,11 +75,11 @@ public class HoldDownAttack : CBossAttack
         while (true)
         {
             //2초 대기
-            BossAni.SetTrigger("HoldReady");
+            m_Actor.g_Animator.SetTrigger("HoldReady");
             yield return new WaitForSeconds(WaitTime);
 
-            BossAni.SetTrigger("HoldDownStart");
-            BossAni.SetBool("isGround" , false);
+            m_Actor.g_Animator.SetTrigger("HoldDownStart");
+            m_Actor.g_Animator.SetBool("isGround" , false);
             m_isGround = false;
             m_IsStart = true;
 
@@ -102,48 +89,17 @@ public class HoldDownAttack : CBossAttack
             yield return new WaitUntil(() => m_isGround == true);
 
             yield return new WaitForSeconds(HDTime);        //착지 후 대기시간. 
-            if (m_isGround == true) BossAni.SetTrigger("HoldFinish");
-            BossNav.enabled = true;
+            if (m_isGround == true) m_Actor.g_Animator.SetTrigger("HoldFinish");
+            g_agent.enabled = true;
             gameObject.SetActive(false);
             yield break;
 
         }
     }
 
-    //private void Parabola()
-    //{
-    //    if(m_IsStart == true)
-    //    {
-    //        Debug.Log("점프 실행");
-    //        float x0 = m_StartPosition.x;
-    //        float x1 = m_Target.position.x;
-    //        float distance = x1 - x0;
-    //        float nextX = Mathf.MoveTowards(transform.position.x, x1, m_Speed * Time.deltaTime);
-    //        float baseY = Mathf.Lerp(m_StartPosition.y, m_Target.position.y, (nextX - x0) / distance);
-    //        float arc = m_HeightArc * (nextX - x0) * (nextX - x1) / (-0.25f * distance * distance);
-    //        Vector3 nextPosition = new Vector3(nextX, baseY + arc, transform.position.z);
-
-    //        transform.rotation = LookAt3D(nextPosition - transform.position);
-    //        transform.position = nextPosition;
-
-
-    //        if (nextPosition == m_Target.position)
-    //            Arrived();
-    //    }
-    //}
-    //void Arrived()
-    //{
-    //    gameObject.SetActive(false);
-    //}
-    //Quaternion LookAt3D(Vector3 forward)
-    //{
-    //    return Quaternion.Euler(0, 0, Mathf.Atan2(forward.y, forward.x) * Mathf.Rad2Deg);
-    //}
-
-
     public Vector3 GetVelocity(Vector3 BossTrans, Vector3 target, float initialAngle)
     {
-        BossRigid.isKinematic = false;
+        g_RigidBoss.isKinematic = false;
         HoldDownCol.SetActive(true);
 
         float gravity = Physics.gravity.magnitude;

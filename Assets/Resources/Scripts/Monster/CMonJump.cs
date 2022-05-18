@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CMonJump : CControllerBase
+public class CMonJump : CBossController
 {
-    [SerializeField] private NavMeshAgent m_nav;            //º¸½º
+    private bool m_IsStart = false;
+    private bool m_isGround = false;
+    private bool RayCastBoii = false;
+
 
     public override void init(CDynamicObject actor)
     {
@@ -13,19 +16,32 @@ public class CMonJump : CControllerBase
         base.init(actor);
     }
 
+
+    private void Update()
+    {
+        if(m_IsStart == true)
+        {
+            Debug.DrawRay(m_Actor.transform.position, m_Actor.transform.up * -1, Color.blue, 0.3f);
+
+            if (RayCastBoii == true)
+            {
+                BossJumpDetection();
+            }
+            else return;
+        }
+
+        if (m_isGround == true) gameObject.SetActive(false);
+    }
+
     protected void OnEnable()
     {
         if (m_Actor == null) return;
 
-        m_nav.velocity = Vector3.zero;
-        m_Actor.g_Animator.SetTrigger("Jump");
-        m_Actor.g_Animator.SetBool("isGround", false);
+        m_IsStart = true;
+        StartCoroutine(BossJump());
 
-        if (gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-            return;
-        }
+        g_agent.velocity = Vector3.zero;
+        m_Actor.g_Animator.SetTrigger("Jump");
 
     }
 
@@ -33,6 +49,31 @@ public class CMonJump : CControllerBase
     {
         if (m_Actor == null) return;
         m_Actor.g_Animator.SetBool("isGround", true);
+
+        m_IsStart = false;
     }
+
+
+
+    private void BossJumpDetection()
+    {
+        RaycastHit hit;
+        float MaxDistance = 8.0f;
+        int layerMask = 1 << LayerMask.NameToLayer("Floor");
+        if (Physics.Raycast(m_Actor.transform.position, m_Actor.transform.up * -1, out hit, MaxDistance, layerMask))
+        {
+            Debug.Log("Á¡ÇÁ ¶¥¿¡ ´ê¾Ò¾î!");
+            m_Actor.g_Animator.SetBool("isGround", true);
+            m_isGround = true;
+        }
+    }
+
+    IEnumerator BossJump()
+    {
+        yield return new WaitForSeconds(1.0f);
+        RayCastBoii = true;
+        m_Actor.g_Animator.SetBool("isGround", false);
+    }
+
 
 }

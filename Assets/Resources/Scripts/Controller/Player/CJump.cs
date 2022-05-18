@@ -49,6 +49,7 @@ public class CJump : CControllerBase
 
     private bool m_IsWallJump;
     private bool m_IsWallJumpCheck;
+    private bool m_CoroutineCheck;
 
     public bool g_IsWallJumpCheck => m_IsWallJumpCheck;
 
@@ -312,18 +313,39 @@ public class CJump : CControllerBase
             }
             else
             {
-            
+                
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
+                m_Actor.g_Animator.SetBool("IsWallJumpNormal", true);
                 Dir = new Vector3(-m_DirX, 10.0f, 0.0f).normalized;
                 Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
                 //Debug.LogAssertion(m_DirX.ToString() + " " + transform.forward.x.ToString());
             }
             
             m_Actor.g_Rigid.velocity = force * Dir;
-
+            StartCoroutine(DecreaseVelocityX());
             g_MoveCheck = true;
         }
 
+    }
+
+
+    private IEnumerator DecreaseVelocityX()
+    {
+        yield return new WaitUntil(() =>
+        {
+            if (!gameObject.activeInHierarchy)
+                return true;
+            var valocity = m_Actor.g_Rigid.velocity;
+            valocity.x = Mathf.Lerp(m_Actor.g_Rigid.velocity.x, 0.0f, Mathf.Abs(m_DirX) * Time.deltaTime);
+            m_Actor.g_Rigid.velocity = valocity;
+
+            Debug.Log(valocity);
+            if (m_Actor.g_Rigid.velocity.x >= -0.1f && m_Actor.g_Rigid.velocity.x <= 0.1f)
+            {
+                return true;
+            }
+            return false;
+        });
     }
 
 }

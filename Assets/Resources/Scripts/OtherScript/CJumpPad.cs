@@ -6,6 +6,8 @@ public class CJumpPad : CStaticObject
 {
 
     [SerializeField] private float m_Force;
+
+
     private void OnCollisionEnter(Collision collision)
     {        
         if (collision.transform.CompareTag("Player"))

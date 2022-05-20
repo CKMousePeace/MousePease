@@ -41,7 +41,7 @@ public class CJump : CControllerBase
 
     private bool TempJump;
 
-    private float m_EndJumpDistance = 6.5f;
+    private float m_EndJumpDistance = 0.5f;
     private float m_DirX;
     private CPlayer m_Player;
     private bool m_DownHillCheck = false;

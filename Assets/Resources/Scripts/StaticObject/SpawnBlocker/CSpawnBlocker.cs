@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CSpawnBlocker : MonoBehaviour
 {
-
-
     [SerializeField] private Transform[] m_BlockerPoints;
     [SerializeField] private bool m_CanSpawn = false;
     [SerializeField] private float m_SpawnTime = 0;
@@ -16,13 +12,6 @@ public class CSpawnBlocker : MonoBehaviour
     {
         SpawnBlock();
     }
-
-    private void Start()
-    {
-
-    }
-
-
     private void SpawnBlock()
     {
 

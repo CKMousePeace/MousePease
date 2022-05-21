@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{333a6f7e-3c86-4d8c-bcd0-ea5fc9469776}">
 		<property name="name">
-			<value>BossJump</value>
+			<value>SFX_Boss_Jump_Up</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -92,9 +92,6 @@
 		<property name="length">
 			<value>0.125</value>
 		</property>
-		<relationship name="sounds">
-			<destination>{6ee1d2aa-973d-485a-9ba0-3d2aa56dfcbe}</destination>
-		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{9746d72f-22ea-4509-b2e0-d2eb15361395}">
 		<property name="name">
@@ -122,11 +119,6 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{81378eb5-879b-44e4-b28d-bcdb0dba3689}" />
-	<object class="SingleSound" id="{6ee1d2aa-973d-485a-9ba0-3d2aa56dfcbe}">
-		<relationship name="audioFile">
-			<destination>{dd775b44-a2ee-434e-b6c1-e67229563300}</destination>
-		</relationship>
-	</object>
 	<object class="MixerBusEffectChain" id="{bc3edf72-b2a1-43a5-ba85-a82ffda7cab0}">
 		<relationship name="effects">
 			<destination>{623c9b06-7447-4171-8e42-d3bf56048c94}</destination>

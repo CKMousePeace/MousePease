@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{35762f39-6fb6-4761-a98a-8b73aef27f58}">
 		<property name="name">
-			<value>BossRoar</value>
+			<value>SFX_Boss_Roar</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

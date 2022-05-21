@@ -11,16 +11,10 @@ public class CBossEfect : MonoBehaviour
     [SerializeField] GameObject FR_;
         
     
-
     private void Update()
     {
         Footsteb_L.transform.SetParent(null);
         Footsteb_R.transform.SetParent(null);
-    }
-
-    private void Start()
-    {
-
     }
 
     public void FootStepEfect_L()

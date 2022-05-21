@@ -20,7 +20,7 @@ https://www.fmod.com/resources/documentation-studio?page=working-with-instrument
 Recordings by David at Track Time Audio.</value>
 		</property>
 		<property name="name">
-			<value>Player Footsteps</value>
+			<value>SFX_PC_Run</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

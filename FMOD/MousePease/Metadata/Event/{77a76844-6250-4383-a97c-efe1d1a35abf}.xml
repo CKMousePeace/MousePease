@@ -20,7 +20,7 @@ https://www.fmod.com/resources/documentation-studio?page=working-with-instrument
 Recordings by David at Track Time Audio.</value>
 		</property>
 		<property name="name">
-			<value>Boss Footsteps</value>
+			<value>SFX_Boss_Walk</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>

@@ -1,15 +1,22 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CRoar : CControllerBase
-{
+public class CRoar : CBossController
+{    public override void init(CDynamicObject actor)
+    {
+        gameObject.SetActive(false);
+        base.init(actor);
+    }
+
     protected void OnEnable()
     {
         if (m_Actor == null) return;
-        m_Actor.g_Animator.SetTrigger("Roar");
 
-        if (m_Actor.CompareController("MonMovement"))
+        g_agent.velocity = Vector3.zero;
+        m_Actor.g_Animator.SetTrigger("Roar");
+        gameObject.SetActive(false);
+
+        if (m_Actor.CompareController("MonBite"))
         {
             gameObject.SetActive(false);
             return;
@@ -20,10 +27,5 @@ public class CRoar : CControllerBase
     protected void OnDisable()
     {
         if (m_Actor == null) return;
-    }
-
-    private void Update()
-    {
-
     }
 }

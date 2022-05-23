@@ -6,7 +6,7 @@ public class Patrol : AIBehaviour
     public Transform[] PatrolPoints;
     private int m_currentPPIndex;
 
-    [SerializeField] private GameObject Skill;
+    //[SerializeField] private GameObject Skill;
 
     public override void Activate(CBossController controller)
     {
@@ -23,23 +23,23 @@ public class Patrol : AIBehaviour
             controller.SetDestination(PatrolPoints[m_currentPPIndex].position);
         }
 
-        if(m_currentPPIndex == 9 && Skill != null)
-        {
+        //if(m_currentPPIndex == 9 && Skill != null)
+        //{
 
-            Debug.Log("커렌트 노드 : " + m_currentPPIndex);
+        //    Debug.Log("커렌트 노드 : " + m_currentPPIndex);
 
-            try
-            {
-                Skill.SetActive(true);
-                m_currentPPIndex = m_currentPPIndex + 1;
-            }
+        //    try
+        //    {
+        //        Skill.SetActive(true);
+        //        m_currentPPIndex = m_currentPPIndex + 1;
+        //    }
 
-            catch
-            {
-                Debug.Log("응애");
-            }
+        //    catch
+        //    {
+        //        Debug.Log("응애");
+        //    }
 
 
-        }
+        //}
     }
 }

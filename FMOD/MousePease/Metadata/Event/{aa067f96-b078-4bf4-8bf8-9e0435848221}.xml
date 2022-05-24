@@ -20,7 +20,7 @@ https://www.fmod.com/resources/documentation-studio?page=working-with-instrument
 Recordings by David at Track Time Audio.</value>
 		</property>
 		<property name="name">
-			<value>Boss Attack 2</value>
+			<value>SFX_Boss_Rush</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -91,11 +91,6 @@ Recordings by David at Track Time Audio.</value>
 	<object class="EventAutomatableProperties" id="{1baa99fe-6d5a-4c59-9a66-95da1bcebca5}" />
 	<object class="MarkerTrack" id="{266bb2f9-767d-4317-8262-ad6da508d867}" />
 	<object class="GroupTrack" id="{e6be8ccf-fefa-4a50-bd13-25c635b61b20}">
-		<relationship name="modules">
-			<destination>{c01272dc-e451-4f52-946a-360d8b00e3e3}</destination>
-			<destination>{4fe812bc-07a1-4e50-be9f-302dc9f362c2}</destination>
-			<destination>{07be6f9d-a354-4bda-8287-dfc097cbfac5}</destination>
-		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{7cd07712-ed23-4c9f-9903-970c97710c49}</destination>
 		</relationship>
@@ -106,11 +101,6 @@ Recordings by David at Track Time Audio.</value>
 		</property>
 	</object>
 	<object class="ParameterProxy" id="{d6a73773-1a7a-40fc-9bd0-51f31499a10c}">
-		<relationship name="modules">
-			<destination>{c01272dc-e451-4f52-946a-360d8b00e3e3}</destination>
-			<destination>{4fe812bc-07a1-4e50-be9f-302dc9f362c2}</destination>
-			<destination>{07be6f9d-a354-4bda-8287-dfc097cbfac5}</destination>
-		</relationship>
 		<relationship name="preset">
 			<destination>{5decf701-7e48-4848-b796-416ec40eb26c}</destination>
 		</relationship>
@@ -132,36 +122,6 @@ Recordings by David at Track Time Audio.</value>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{7ed65019-38c4-4bc4-a6e9-2f2d312c8617}" />
-	<object class="SingleSound" id="{c01272dc-e451-4f52-946a-360d8b00e3e3}">
-		<property name="volume">
-			<value>-6.5</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{d793d90e-d886-494f-a8cb-129fd27aa51f}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{4fe812bc-07a1-4e50-be9f-302dc9f362c2}">
-		<property name="start">
-			<value>2</value>
-		</property>
-		<property name="volume">
-			<value>-15</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{e97440af-e117-4196-acd2-c8c98a0fe981}</destination>
-		</relationship>
-	</object>
-	<object class="SingleSound" id="{07be6f9d-a354-4bda-8287-dfc097cbfac5}">
-		<property name="start">
-			<value>1</value>
-		</property>
-		<property name="volume">
-			<value>-7</value>
-		</property>
-		<relationship name="audioFile">
-			<destination>{544bddaf-52f8-458b-b0d5-83a1fedc042b}</destination>
-		</relationship>
-	</object>
 	<object class="EventMixerGroup" id="{7cd07712-ed23-4c9f-9903-970c97710c49}">
 		<property name="name">
 			<value>Footsteps</value>
@@ -198,7 +158,7 @@ Recordings by David at Track Time Audio.</value>
 	<object class="MixerBusFader" id="{50b59a60-5927-4665-8bdb-5968109833ce}" />
 	<object class="ProxyEffect" id="{7398f27b-a2b2-4e63-8355-7188ad520b33}">
 		<property name="inputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="preset">
 			<destination>{3eae0edd-4f73-005f-09e3-f727ff075640}</destination>

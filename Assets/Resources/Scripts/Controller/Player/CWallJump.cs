@@ -5,7 +5,6 @@ using UnityEngine;
 public class CWallJump : CControllerBase
 {
     [SerializeField] private float m_FallingSpeed;
-    
 
     public override void init(CDynamicObject actor)
     {
@@ -20,11 +19,16 @@ public class CWallJump : CControllerBase
         m_Actor.g_Animator.SetTrigger("WallIdle");        
         m_Actor.g_Animator.SetBool("isWallIdle", true);
         m_Actor.g_Rigid.velocity = Vector3.zero;
+        
+        
+
+
     }
 
     private void OnDisable()
     {        
         m_Actor.g_Animator.SetBool("isWallIdle", false);
+        m_Actor.g_Animator.SetBool("IsWallJumpNormal", false);                
     }
 
 
@@ -33,6 +37,9 @@ public class CWallJump : CControllerBase
         if (m_Actor.g_Rigid.velocity.y < -m_FallingSpeed)
             m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, -m_FallingSpeed, m_Actor.g_Rigid.velocity.z);
     }
+
+
+
 
 
 

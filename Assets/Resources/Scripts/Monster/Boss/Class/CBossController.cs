@@ -47,18 +47,16 @@ public class CBossController : CControllerBase
     public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);      //플레이어 추격시 청각 비활성화
 
 
-    [Header("인트로씬 활성화 여부")]
-    public bool g_isCheckIntro = false;         //인트로씬 활성화 여부
+    //[Header("인트로씬 활성화 여부")]
+    //public bool g_isCheckIntro = false;         //인트로씬 활성화 여부
 
 
 
     private void Start()
     {       
-        //m_agent = m_Actor.GetComponent<NavMeshAgent>();
-        //m_RigidBoss = m_Actor.GetComponent<Rigidbody>();
         GameManager.GameStartEvent();
 
-        if (g_isCheckIntro == true) m_agent.speed = 0;
+        //if (g_isCheckIntro == true) m_agent.speed = 0;
 
         m_defaultAgentSpeed = m_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();
@@ -152,8 +150,6 @@ public class CBossController : CControllerBase
         yield return new WaitForSeconds(13.0f);
 
         yield break;
-
-
     }
 
 }

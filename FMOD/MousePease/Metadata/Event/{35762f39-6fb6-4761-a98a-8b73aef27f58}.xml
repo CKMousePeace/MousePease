@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{35762f39-6fb6-4761-a98a-8b73aef27f58}">
 		<property name="name">
-			<value>BossRoar</value>
+			<value>SFX_Boss_Roar</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -60,7 +60,7 @@
 	<object class="MarkerTrack" id="{f402a41d-dab4-441e-a1e0-e6f2e268b1f7}" />
 	<object class="GroupTrack" id="{15b50cca-78c8-4a9c-9231-96b1f545a95a}">
 		<relationship name="modules">
-			<destination>{f655ba5a-c7e0-4a0a-9b3e-a7adc336f8d9}</destination>
+			<destination>{ec7cbc0d-eaff-4179-aea3-b3b1cb6d9dfe}</destination>
 		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{c524954c-2e2d-4347-bb04-dca04ecc7fef}</destination>
@@ -68,7 +68,7 @@
 	</object>
 	<object class="Timeline" id="{f4e9865d-f6d7-40b3-92e7-0257fcc7cda6}">
 		<relationship name="modules">
-			<destination>{f655ba5a-c7e0-4a0a-9b3e-a7adc336f8d9}</destination>
+			<destination>{ec7cbc0d-eaff-4179-aea3-b3b1cb6d9dfe}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{b05d0eaf-798d-41a2-94b9-a0ee6f9c8dc1}">
@@ -88,18 +88,15 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{846a0511-7f24-43d5-9975-6aea54341f02}" />
-	<object class="SingleSound" id="{f655ba5a-c7e0-4a0a-9b3e-a7adc336f8d9}">
+	<object class="SingleSound" id="{ec7cbc0d-eaff-4179-aea3-b3b1cb6d9dfe}">
 		<property name="length">
-			<value>4.83265306122449</value>
+			<value>3.1586394557823128</value>
 		</property>
 		<relationship name="audioFile">
-			<destination>{6a923f1a-e89b-4269-9c03-31c1cfa6b303}</destination>
+			<destination>{ff366e67-e210-4e78-8b86-07ebbfa80b54}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{c524954c-2e2d-4347-bb04-dca04ecc7fef}">
-		<property name="volume">
-			<value>-10</value>
-		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>

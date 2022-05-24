@@ -5,7 +5,7 @@
 			<value>SFX_Boss_Pounce_Voice</value>
 		</property>
 		<property name="outputFormat">
-			<value>2</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{babedfe9-3099-462a-b96e-1b82390d1497}</destination>
@@ -59,11 +59,18 @@
 	<object class="EventAutomatableProperties" id="{37e78443-08c0-43e7-9704-0116711cad81}" />
 	<object class="MarkerTrack" id="{8b37c1cf-6f0e-434e-bae6-c6122bdd0fa6}" />
 	<object class="GroupTrack" id="{7a28a250-3fad-46bb-9f1e-024eecbb43ec}">
+		<relationship name="modules">
+			<destination>{da864cb9-af93-42c3-b55f-8f80e6107d37}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{5397f0e5-38a7-478b-a3fa-902fd1933bd2}</destination>
 		</relationship>
 	</object>
-	<object class="Timeline" id="{6807e9e2-4e6f-40bb-bcdc-ca553ebe38fc}" />
+	<object class="Timeline" id="{6807e9e2-4e6f-40bb-bcdc-ca553ebe38fc}">
+		<relationship name="modules">
+			<destination>{da864cb9-af93-42c3-b55f-8f80e6107d37}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerMaster" id="{99b7da93-611f-4c00-881f-8eb5e2314c9e}">
 		<relationship name="effectChain">
 			<destination>{7b3266a0-f195-4aba-83fc-900a96095c5c}</destination>
@@ -81,6 +88,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5a2aefbf-4f38-4fdf-be42-0ebf8aa6c206}" />
+	<object class="SingleSound" id="{da864cb9-af93-42c3-b55f-8f80e6107d37}">
+		<property name="length">
+			<value>2.9638095238095237</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{96cb10d9-e877-4a93-952d-172a4c70cc5f}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{5397f0e5-38a7-478b-a3fa-902fd1933bd2}">
 		<property name="name">
 			<value>Audio 1</value>
@@ -101,7 +116,11 @@
 			<destination>{72670cff-2e18-44b1-9cd5-24bdd4ad1a5a}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{686dbd67-0271-4b26-88f8-f0c29009839b}" />
+	<object class="MixerBusPanner" id="{686dbd67-0271-4b26-88f8-f0c29009839b}">
+		<property name="overridingOutputFormat">
+			<value>1</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{2d21eea3-15af-4bc2-bf71-9c1ebb5103ca}" />
 	<object class="MixerBusEffectChain" id="{64b9d711-2f6e-4d6a-a997-62111f7c9ccc}">
 		<relationship name="effects">

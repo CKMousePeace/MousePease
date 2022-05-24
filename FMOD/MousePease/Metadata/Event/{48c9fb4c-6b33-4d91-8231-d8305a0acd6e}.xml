@@ -91,6 +91,9 @@ Recordings by David at Track Time Audio.</value>
 	<object class="EventAutomatableProperties" id="{bfdaefe1-5693-411f-b5d6-02e0bcba854f}" />
 	<object class="MarkerTrack" id="{e10694e0-6bb1-4837-8de1-10a902d36e7f}" />
 	<object class="GroupTrack" id="{d4aa4f26-bfe5-4da6-9256-489f9e5eaf2c}">
+		<relationship name="modules">
+			<destination>{1a55129e-95d6-44f4-9958-187b2413bcb0}</destination>
+		</relationship>
 		<relationship name="mixerGroup">
 			<destination>{91c93258-4b26-4c5b-846b-1bb038a794a5}</destination>
 		</relationship>
@@ -101,6 +104,9 @@ Recordings by David at Track Time Audio.</value>
 		</property>
 	</object>
 	<object class="ParameterProxy" id="{9e257012-086e-492b-9d68-6db77482facb}">
+		<relationship name="modules">
+			<destination>{1a55129e-95d6-44f4-9958-187b2413bcb0}</destination>
+		</relationship>
 		<relationship name="preset">
 			<destination>{5decf701-7e48-4848-b796-416ec40eb26c}</destination>
 		</relationship>
@@ -122,6 +128,14 @@ Recordings by David at Track Time Audio.</value>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5c1e8d71-9b80-4463-9c13-64153146e0c5}" />
+	<object class="SingleSound" id="{1a55129e-95d6-44f4-9958-187b2413bcb0}">
+		<property name="volume">
+			<value>-6.5</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{d793d90e-d886-494f-a8cb-129fd27aa51f}</destination>
+		</relationship>
+	</object>
 	<object class="EventMixerGroup" id="{91c93258-4b26-4c5b-846b-1bb038a794a5}">
 		<property name="name">
 			<value>Footsteps</value>
@@ -158,7 +172,7 @@ Recordings by David at Track Time Audio.</value>
 	<object class="MixerBusFader" id="{10069615-8e84-4060-b76a-815158ae990a}" />
 	<object class="ProxyEffect" id="{eb8bc82a-9de0-432c-acbf-a774c4098f59}">
 		<property name="inputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="preset">
 			<destination>{3eae0edd-4f73-005f-09e3-f727ff075640}</destination>

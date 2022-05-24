@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BiteAttack : CBossAttack
+public class BiteAttack : CBossController
 {
 
     protected void OnEnable()
@@ -21,11 +21,11 @@ public class BiteAttack : CBossAttack
         while (true)
         {
 
-            BossNav.speed = 10.0f;
+            g_agent.speed = 10.0f;
 
             yield return new WaitForSeconds(Time);
 
-            BossNav.speed = 6.0f;
+            g_agent.speed = 6.0f;
             gameObject.SetActive(false);
             yield break;
         }

@@ -11,11 +11,9 @@ public class CMonJump : CBossController
     }
 
 
-
     protected void OnEnable()
     {
         if (m_Actor == null) return;
-
 
         g_agent.velocity = Vector3.zero;
         m_Actor.g_Animator.SetTrigger("Jump");
@@ -27,7 +25,6 @@ public class CMonJump : CBossController
     protected void OnDisable()
     {
         if (m_Actor == null) return;
-
     }
 
 

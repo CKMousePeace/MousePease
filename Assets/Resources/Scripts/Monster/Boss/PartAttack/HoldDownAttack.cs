@@ -88,9 +88,15 @@ public class HoldDownAttack : CBossController
 
             yield return new WaitUntil(() => m_isGround == true);
 
-            yield return new WaitForSeconds(HDTime);        //착지 후 대기시간. 
-            if (m_isGround == true) m_Actor.g_Animator.SetTrigger("HoldFinish");
-            g_agent.enabled = true;
+            yield return new WaitForSeconds(HDTime);        //착지 후 대기시간.
+
+            if (m_isGround == true)
+            {
+                g_agent.enabled = true;
+                g_agent.velocity = Vector3.zero;
+                m_Actor.g_Animator.SetTrigger("HoldFinish");
+
+            }
             gameObject.SetActive(false);
             yield break;
 

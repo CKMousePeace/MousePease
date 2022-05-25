@@ -14,15 +14,19 @@ public class CPlayerMovement : CControllerBase
     private float m_Yaw = 90.0f;
     private bool m_IsInCheese;
     private float m_BuffSpeed;
+    private float m_currentVelocity = 2;
     
 
     [SerializeField] private CColliderChecker m_Checker;
-    [SerializeField] private Vector2 m_ChaseTimeRange;
+    
     
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
+    public bool g_isChase { get; set; }
     public float g_fMaxSpeed => m_fMaxSpeed;
+
+    public float g_ChaseAnimTime = 0.0f;
 
 
     private void OnDisable()
@@ -36,7 +40,12 @@ public class CPlayerMovement : CControllerBase
     {
         if (!GameManager.g_isGameStart) return;
         if (PlayerMoveState()) return;
-        PlayerMoveKey();        
+        PlayerMoveKey();
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            g_isChase = !g_isChase;
+        }
         
     }
     private void FixedUpdate()
@@ -52,8 +61,35 @@ public class CPlayerMovement : CControllerBase
         Movement();
         WallJumpCheck();
 
+        
         if (!m_Actor.CompareController("WallJump"))
-            m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
+        {
+            if (m_DirX == 0.0f)
+            {
+                g_ChaseAnimTime = 0.0f;
+                m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+            }
+            else if (!g_isChase)
+            {
+                g_ChaseAnimTime = Mathf.SmoothDamp(g_ChaseAnimTime, 0.5f, ref m_currentVelocity, 0.1f);
+                m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+            }
+            else
+            {
+                if (g_ChaseAnimTime == 0.0f)
+                {
+                    m_Actor.g_Animator.SetFloat("Walking", 1.0f);
+                }
+                else
+                {
+                    g_ChaseAnimTime = Mathf.SmoothDamp(g_ChaseAnimTime, 1.0f, ref m_currentVelocity, 0.1f);
+                    m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+                }
+            }
+            Debug.Log(g_ChaseAnimTime);
+                
+        }
+
     }
 
 

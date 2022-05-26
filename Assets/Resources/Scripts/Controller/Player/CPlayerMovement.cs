@@ -86,8 +86,7 @@ public class CPlayerMovement : CControllerBase
                     m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
                 }
             }
-            Debug.Log(g_ChaseAnimTime);
-                
+         
         }
 
     }

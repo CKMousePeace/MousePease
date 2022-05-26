@@ -2,15 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CDeadZone : CControllerBase
+public class CDeadZone : CBossController
 {
-    [SerializeField] private NavMeshAgent m_nav;
-
     [SerializeField] private CDynamicObject m_DynamicObject;
 
     public override void init(CDynamicObject actor)
     {
-        //gameObject.SetActive(true);
         base.init(actor);
     }
 
@@ -19,7 +16,7 @@ public class CDeadZone : CControllerBase
     {
         if (col.CompareTag("Player"))
         {
-            m_nav.velocity = Vector3.zero;
+            g_agent.velocity = Vector3.zero;
             m_Actor.g_Animator.SetTrigger("AttackReady01");                      
             StartCoroutine(AttackDelay());
 

@@ -174,15 +174,4 @@ public class BossSoundManager : MonoBehaviour
 
 
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.CompareTag("Player")) { 
-            Debug.Log("Å©¾Æ¾Ó");
-            PlayRoar();
-
-            Destroy(gameObject);
-        }
-    }
-
-
 }

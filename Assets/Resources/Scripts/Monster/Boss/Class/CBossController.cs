@@ -2,12 +2,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(NavMeshAgent))]
-[RequireComponent(typeof(Patrol))]
-[RequireComponent(typeof(Investigate))]
-[RequireComponent(typeof(Chase))]
 
-public class CBossController : MonoBehaviour
+public class CBossController : CControllerBase
 {
     private AIBehaviour m_currentBehavior;
     public AIBehaviour CurrentBehavior      //현재 상태 
@@ -25,33 +21,46 @@ public class CBossController : MonoBehaviour
     private Investigate m_InvestigateBehavior;        //타겟 있는지 주변 조사
     private Chase m_ChaseBehavior;                    //센서 안에 들어오면 추격
 
-    public Animator g_BossANi;
-    public NavMeshAgent g_agent;
-    public GameObject g_Boss;
-    public Rigidbody g_RigidBoss;
+    //==네비메싀==//
+    [SerializeField]
+    private NavMeshAgent m_agent;
+    public NavMeshAgent g_agent => m_agent;
 
-    public float RemainingDistance { get => g_agent.remainingDistance;  }
+    //==리쥐드바뒤==//
+    [SerializeField]
+    private Rigidbody m_RigidBoss;
+    public Rigidbody g_RigidBoss => m_RigidBoss;
+
+    public float RemainingDistance { get => m_agent.remainingDistance;  }
     /*HoldDown 스킬 사용하면 오류 주르르륵 나올텐데 NavMesh 꺼서 해당 오류가 나오는 
     것 이니 놔둬도 괜찮음!!*/
 
-    public float StoppingDistance { get => g_agent.stoppingDistance; }
-    public void SetDestination(Vector3 destination) => g_agent.SetDestination(destination);
+    public float StoppingDistance { get => m_agent.stoppingDistance; }
+    public void SetDestination(Vector3 destination) => m_agent.SetDestination(destination);
 
     private float m_defaultAgentSpeed;
-    public void MultiplySpeed(float factor) => g_agent.speed = m_defaultAgentSpeed * factor;    //속도 배수
-    public void SetDefaultSpeed() => g_agent.speed = m_defaultAgentSpeed;
+    public void MultiplySpeed(float factor) => m_agent.speed = m_defaultAgentSpeed * factor;    //속도 배수
+    public void SetDefaultSpeed() => m_agent.speed = m_defaultAgentSpeed;
 
     private BossEyes eyes;
     private BossEars ears;
     public void IgnoreEars(bool ignore) => ears.gameObject.SetActive(!ignore);      //플레이어 추격시 청각 비활성화
 
-    [SerializeField] private bool m_isCheckIntro = false;
+
+    [Header("인트로씬 활성화 여부")]
+    public bool g_isCheckIntro = false;         //인트로씬 활성화 여부
+
+
 
     private void Start()
-    {
-        if(m_isCheckIntro == true)    StartCoroutine(StartIntro());
+    {       
+        //m_agent = m_Actor.GetComponent<NavMeshAgent>();
+        //m_RigidBoss = m_Actor.GetComponent<Rigidbody>();
+        GameManager.GameStartEvent();
 
-        m_defaultAgentSpeed = g_agent.speed;
+        if (g_isCheckIntro == true) m_agent.speed = 0;
+
+        m_defaultAgentSpeed = m_agent.speed;
         m_PatrolBehavior = GetComponent<Patrol>();
         m_InvestigateBehavior = GetComponent<Investigate>();
         m_ChaseBehavior = GetComponent<Chase>();
@@ -71,25 +80,31 @@ public class CBossController : MonoBehaviour
         BossAnimation();
         CurrentBehavior.UpdateStep(this);
 
-        if (g_agent.enabled == false)
+        if (m_agent.enabled == false)
         {
             throw new System.Exception("HoldDown 스킬 사용중! 오류아냐!");
         }
+
+    }
+    public void BossIntroStart()
+    {    
+        StartCoroutine(StartIntro());
     }
 
-    [SerializeField] private GameObject Smash;
-    private void OnCollisionEnter(Collision other)
+
+    
+    private void OnCollisionEnter(Collision col)
     {
-        if (other.gameObject.CompareTag("Cheese"))
+        if (col.gameObject.CompareTag("Cheese"))
         {
-            g_RigidBoss.isKinematic = false;
-            Smash.SetActive(true);
+            m_RigidBoss.isKinematic = false;
+            m_Actor.g_Animator.SetTrigger("Throw");
         }
     }
 
     private void OnCollisionExit(Collision other)
     {
-        g_RigidBoss.isKinematic = true;
+        m_RigidBoss.isKinematic = true;
     }
 
 
@@ -112,28 +127,29 @@ public class CBossController : MonoBehaviour
 
     public void BossAnimation()        //보스 Nav에서 속도 받아오는 값을 애니메이터에 넣어줌
     {
-        float velocity = g_agent.velocity.magnitude;
-        g_BossANi.SetFloat("Speed", velocity);
+        float velocity = m_agent.velocity.magnitude;
+        m_Actor.g_Animator.SetFloat("Speed", velocity);
     }
 
     IEnumerator StartIntro()
     {
-        g_agent.speed = 0;
-        g_BossANi.SetTrigger("IntroAnimation");
+        GameManager.GameStopEvent();
+
+        m_agent.speed = 0;
+        m_Actor.g_Animator.SetTrigger("IntroAnimation");
 
         yield return new WaitForSeconds(12.0f);
 
-        g_agent.speed = 6;
+        m_agent.speed = 6;
 
         yield return new WaitForSeconds(5.0f);
 
-        g_agent.velocity = Vector3.zero;
-        g_agent.speed = 0;
+        GameManager.GameStartEvent();
+
+        m_agent.velocity = Vector3.zero;
+        m_agent.speed = 0;
 
         yield return new WaitForSeconds(13.0f);
-
-        g_BossANi.SetBool("IntroLoopChecker", true);
-        g_agent.speed = 6;
 
         yield break;
 

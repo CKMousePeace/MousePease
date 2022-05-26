@@ -128,5 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Buffinfo:
     m_Value_Int: 
-    m_Value_Float: []
+    m_Value_Float:
+    - 2
+    - 0
     m_Value_Vector3: []

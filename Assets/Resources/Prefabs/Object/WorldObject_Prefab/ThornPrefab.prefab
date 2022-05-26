@@ -108,9 +108,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af18f48ea54a2784da3fe36828b16851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Buffinfo:
+  m_KnockBackBuffinfo:
     m_Value_Int: 
     m_Value_Float:
-    - 7
+    - 2
     - 100
+    - 1
+    m_Value_Vector3: []
+  m_invincibilityBuffinfo:
+    m_Value_Int: 
+    m_Value_Float:
+    - 2
     m_Value_Vector3: []

@@ -1,17 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
 
-
-    // Update is called once per frame
-
     private static bool m_isGameStart = true;
 
     public static bool g_isGameStart => m_isGameStart;
+
+
 
 
     public static void GameStartEvent()
@@ -38,4 +38,14 @@ public class GameManager : MonoBehaviour
 
 
     }
+
+
+    public void ButtonMovemnt(bool isOn )
+    {
+        //플레이어 움직임
+        GameStartEvent();
+
+    }
+
+
 }

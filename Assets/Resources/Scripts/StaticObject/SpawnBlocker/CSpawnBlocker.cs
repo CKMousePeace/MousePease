@@ -7,8 +7,6 @@ public class CSpawnBlocker : MonoBehaviour
 
 
     [SerializeField] private Transform[] m_BlockerPoints;
-
-    [SerializeField] private GameObject Blocker;
     [SerializeField] private bool m_CanSpawn = false;
     [SerializeField] private float m_SpawnTime = 0;
     private float m_Currtime = 0;
@@ -42,7 +40,6 @@ public class CSpawnBlocker : MonoBehaviour
                     CObjectPool.g_instance.ObjectPush();
                 }             
                 
-
                 m_Currtime = 0;
             }
 

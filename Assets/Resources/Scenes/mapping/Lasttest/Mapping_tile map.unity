@@ -17851,7 +17851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150138785}
   m_LocalRotation: {x: 0.050528895, y: -0, z: -0, w: 0.9987226}
-  m_LocalPosition: {x: -1.3699913, y: 23.099998, z: -175.79999}
+  m_LocalPosition: {x: 0.4, y: 10.4, z: -51}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -32714,9 +32714,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 40.21566
       objectReference: {fileID: 0}
+    - target: {fileID: 7535499007192460163, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_DashCool
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535499007192460163, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_DashForce
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7535499008025940911, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_fMaxSpeed
-      value: 9
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7535499008523126524, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalScale.x
@@ -32736,11 +32744,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7535499008523126524, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8
+      value: 0.98
       objectReference: {fileID: 0}
     - target: {fileID: 7535499008523126524, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -1.53
       objectReference: {fileID: 0}
     - target: {fileID: 7535499008523126527, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_Height
@@ -32756,7 +32764,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7535499008822225462, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_fDoubleForce
-      value: 3
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535499008822225462, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_MaxGroundAngle
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7942632857151300137, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

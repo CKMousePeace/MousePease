@@ -18,6 +18,7 @@ public class Chase : AIBehaviour
         catch
         {
             Debug.Log("플레이어 Kill!");
+            return;
         }
 
         controller.MultiplySpeed(g_AgentSpeedMultiplier);
@@ -34,9 +35,6 @@ public class Chase : AIBehaviour
         {
             Debug.Log("에러 아니라고!");
         }
-
-
-
     }
 
     public override void Deactivate(CBossController controller)

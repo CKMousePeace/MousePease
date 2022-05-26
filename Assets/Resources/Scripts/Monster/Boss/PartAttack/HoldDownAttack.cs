@@ -75,22 +75,28 @@ public class HoldDownAttack : CBossController
         while (true)
         {
             //2초 대기
-            m_Actor.g_Animator.SetTrigger("HoldReady");
+            m_Actor.g_Animator.SetTrigger("HoldReady");     //idle 상태로 2초 대기
             yield return new WaitForSeconds(WaitTime);
 
             m_Actor.g_Animator.SetTrigger("HoldDownStart");
             m_Actor.g_Animator.SetBool("isGround" , false);
             m_isGround = false;
-            m_IsStart = true;
+            m_IsStart = true;           //발포!
 
             yield return new WaitForSeconds(1.0f);      //레이 아래로 쏘자마자 인식 되는거 막는거야!
             RayCastBoii = true;
 
             yield return new WaitUntil(() => m_isGround == true);
 
-            yield return new WaitForSeconds(HDTime);        //착지 후 대기시간. 
-            if (m_isGround == true) m_Actor.g_Animator.SetTrigger("HoldFinish");
-            g_agent.enabled = true;
+            yield return new WaitForSeconds(HDTime);        //착지 후 대기시간.
+
+            if (m_isGround == true)
+            {
+                g_agent.enabled = true;
+                g_agent.velocity = Vector3.zero;
+                m_Actor.g_Animator.SetTrigger("HoldFinish");
+
+            }
             gameObject.SetActive(false);
             yield break;
 

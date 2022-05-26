@@ -13,12 +13,13 @@ public class PlayerSoundManager : MonoBehaviour
     };
 
 
-    private FMOD.Studio.EventInstance m_player_FootSteps;
-    private FMOD.Studio.EventInstance m_player_Dead;
-    private FMOD.Studio.EventInstance m_player_Jump;
-    private FMOD.Studio.EventInstance m_player_JumpLand;
-    private FMOD.Studio.EventInstance m_player_CheeseRush;
-    private FMOD.Studio.EventInstance m_palyer_ADDREADY;
+    private FMOD.Studio.EventInstance SFX_PC_Run;           //기본 발자국
+    private FMOD.Studio.EventInstance SFX_PC_Dash;          //데쉬
+    private FMOD.Studio.EventInstance SFX_PC_Slow;          //Slow 상태
+    private FMOD.Studio.EventInstance SFX_PC_Die;           //으악 죽음
+    private FMOD.Studio.EventInstance SFX_PC_Fly;           //활공
+    private FMOD.Studio.EventInstance SFX_PC_Jump_Up;       //점프
+    private FMOD.Studio.EventInstance SFX_PC_Jump_Down;     //착지
     [SerializeField] CURRENT_TERRAIN currentTranin;
 
 
@@ -73,13 +74,37 @@ public class PlayerSoundManager : MonoBehaviour
         }
     }
 
-    private void PlayFootstep(int terrain)
+    private void PlayFootstep(int terrain)      //플레이어 기본 발자국 소리
     {
-        m_player_FootSteps = RuntimeManager.CreateInstance("event:/Character player/Player Footsteps");
-        m_player_FootSteps.setParameterByName("Tarrain", terrain);
-        m_player_FootSteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_player_FootSteps.start();
-        m_player_FootSteps.release();
+        SFX_PC_Run = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Run");
+        SFX_PC_Run.setParameterByName("Tarrain", terrain);
+        SFX_PC_Run.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Run.start();
+        SFX_PC_Run.release();
+    }
+
+    private void PlayDash()                 //플레이어 데쉬 소리
+    {
+        SFX_PC_Dash = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Dash");
+        SFX_PC_Run.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Run.start();
+        SFX_PC_Run.release();
+    }
+
+    private void PlayFly()                 //플레이어 데쉬 소리
+    {
+        SFX_PC_Fly = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Fly");
+        SFX_PC_Fly.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Fly.start();
+        SFX_PC_Fly.release();
+    }
+
+    private void PlaySlow()
+    {
+        SFX_PC_Fly = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Slow");
+        SFX_PC_Fly.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Fly.start();
+        SFX_PC_Fly.release();
     }
 
     // ================================================================== //
@@ -89,10 +114,10 @@ public class PlayerSoundManager : MonoBehaviour
     // ========================== player jump / Land ========================== //
     public void PlayJump()
     {
-        m_player_Jump = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 점프");
-        m_player_Jump.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_player_Jump.start();
-        m_player_Jump.release();
+        SFX_PC_Slow = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Jump_Up");
+        SFX_PC_Slow.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Slow.start();
+        SFX_PC_Slow.release();
 
     }
 
@@ -117,11 +142,11 @@ public class PlayerSoundManager : MonoBehaviour
 
     public void PlayJumpLand(int terrain)
     {
-        m_player_JumpLand = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 점프착지");
-        m_player_JumpLand.setParameterByName("Tarrain", terrain);
-        m_player_JumpLand.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_player_JumpLand.start();
-        m_player_JumpLand.release();
+        SFX_PC_Jump_Down = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Jump_Down");
+        SFX_PC_Jump_Down.setParameterByName("Tarrain", terrain);
+        SFX_PC_Jump_Down.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Jump_Down.start();
+        SFX_PC_Jump_Down.release();
     }
 
     // ================================================================== //
@@ -134,10 +159,10 @@ public class PlayerSoundManager : MonoBehaviour
 
     public void PlayDead()              //플레이어 사망 사운드
     {
-        m_player_Dead = RuntimeManager.CreateInstance("event:/Character player/ 플레이어 사망");
-        m_player_Dead.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_player_Dead.start();
-        m_player_Dead.release();
+        SFX_PC_Die = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Die");
+        SFX_PC_Die.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_PC_Die.start();
+        SFX_PC_Die.release();
     }
 
     // ================================================================== //

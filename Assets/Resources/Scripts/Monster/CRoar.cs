@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+
 public class CRoar : CBossController
 {    public override void init(CDynamicObject actor)
     {
@@ -14,6 +15,7 @@ public class CRoar : CBossController
 
         g_agent.velocity = Vector3.zero;
         m_Actor.g_Animator.SetTrigger("Roar");
+
         gameObject.SetActive(false);
 
         if (m_Actor.CompareController("MonBite"))

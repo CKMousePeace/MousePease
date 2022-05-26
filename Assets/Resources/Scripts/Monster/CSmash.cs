@@ -1,5 +1,5 @@
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class CSmash: CBossController
 {
@@ -14,10 +14,9 @@ public class CSmash: CBossController
     {
         if (m_Actor == null) return;
 
-        g_agent.velocity = Vector3.zero;
-        m_Actor.g_Animator.SetTrigger("Throw");
+        StartCoroutine(DelaySmash(2));
 
-        gameObject.SetActive(false);
+
 
         if (m_Actor.CompareController("MonBite"))
         {
@@ -31,4 +30,23 @@ public class CSmash: CBossController
         if (m_Actor == null) return;
     }
 
+
+    private void FixedUpdate()
+    {
+        
+    }
+
+
+    IEnumerator DelaySmash(int Count)
+    {
+        g_agent.velocity = Vector3.zero;
+        g_agent.speed = 0;
+        m_Actor.g_Animator.SetTrigger("Throw");
+        yield return new WaitForSeconds(Count);
+
+        g_agent.speed = 6;
+
+        gameObject.SetActive(false);
+    }
+    
 }

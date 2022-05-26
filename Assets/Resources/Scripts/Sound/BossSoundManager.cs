@@ -14,14 +14,19 @@ public class BossSoundManager : MonoBehaviour
     };
 
 
-    private FMOD.Studio.EventInstance m_Boss_FootSteps;
+    private FMOD.Studio.EventInstance SFX_Boss_Walk;            //걷기(뛰기)
     private FMOD.Studio.EventInstance m_Boss_Attck;
     private FMOD.Studio.EventInstance m_Boss_AttckReady;
     private FMOD.Studio.EventInstance m_Boss_AttckRelease;
-    private FMOD.Studio.EventInstance m_Boss_Dead;
-    private FMOD.Studio.EventInstance m_Boss_Roar;
-    private FMOD.Studio.EventInstance m_Boss_Jump;
-    private FMOD.Studio.EventInstance m_BossJumpUp;
+
+    private FMOD.Studio.EventInstance SFX_Boss_Pounce;          //HD (덮치기)
+    private FMOD.Studio.EventInstance SFX_Boss_Pounce_Voice;    //HD (텊치기 보이스)
+
+    private FMOD.Studio.EventInstance SFX_Boss_Rush;            //러쉬 스킬
+    private FMOD.Studio.EventInstance SFX_Boss_Dead;            //으악 죽음
+    private FMOD.Studio.EventInstance SFX_Boss_Roar;            //포효
+    private FMOD.Studio.EventInstance SFX_Boss_Jump_Up;         //점프 업
+    private FMOD.Studio.EventInstance SFX_Boss_Jump_Down;       //점프 착지
     [SerializeField] CURRENT_TERRAIN currentTranin;
 
 
@@ -80,11 +85,11 @@ public class BossSoundManager : MonoBehaviour
 
     private void PlayFootstep(int terrain)
     {
-        m_Boss_FootSteps = RuntimeManager.CreateInstance("event:/Character enemy/Boss Footsteps");
-        m_Boss_FootSteps.setParameterByName("Tarrain", terrain);
-        m_Boss_FootSteps.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_Boss_FootSteps.start();
-        m_Boss_FootSteps.release();
+        SFX_Boss_Walk = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Walk");
+        SFX_Boss_Walk.setParameterByName("Tarrain", terrain);
+        SFX_Boss_Walk.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Boss_Walk.start();
+        SFX_Boss_Walk.release();
     }
 
     // ================================================================== //
@@ -112,7 +117,7 @@ public class BossSoundManager : MonoBehaviour
 
     private void PlayAttck(int terrain)     //보스 공격 사운드
     {
-        m_Boss_Attck = RuntimeManager.CreateInstance("event:/Character enemy/Boss Attack");
+        m_Boss_Attck = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Pounce");
         m_Boss_Attck.setParameterByName("Tarrain", terrain);
         m_Boss_Attck.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         m_Boss_Attck.start();
@@ -147,25 +152,54 @@ public class BossSoundManager : MonoBehaviour
 
     public void PlayDead()              //보스 사망 사운드
     {
-        m_Boss_Dead = RuntimeManager.CreateInstance("event:/Character enemy/ 보스 사망");
-        m_Boss_Dead.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_Boss_Dead.start();
-        m_Boss_Dead.release();
+        SFX_Boss_Dead = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Dead");
+        SFX_Boss_Dead.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Boss_Dead.start();
+        SFX_Boss_Dead.release();
     }
 
-    public void PlayRoar()
+    public void PlayRoar()               //보스 포효
     {
-        m_Boss_Roar = RuntimeManager.CreateInstance("event:/Character enemy/BossRoar");
-        m_Boss_Roar.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_Boss_Roar.start();
-        m_Boss_Roar.release();
+        SFX_Boss_Roar = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Roar");
+        SFX_Boss_Roar.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Boss_Roar.start();
+        SFX_Boss_Roar.release();
     }
-    public void PlayJump()
+    public void BossJumpUp()
     {
-        m_Boss_Jump = RuntimeManager.CreateInstance("event:/Character enemy/BossJump");
-        m_Boss_Jump.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        m_Boss_Jump.start();
-        m_Boss_Jump.release();
+        SFX_Boss_Jump_Up = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Jump_Up");
+        SFX_Boss_Jump_Up.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Boss_Jump_Up.start();
+        SFX_Boss_Jump_Up.release();
+    }
+
+
+    public void SelectAndPlayJumpDoen()
+    {
+        switch (currentTranin)
+        {
+            case CURRENT_TERRAIN.Normal:
+                BossJumpDown(0);
+                break;
+
+
+            case CURRENT_TERRAIN.Grass:
+                BossJumpDown(1);
+                break;
+
+            case CURRENT_TERRAIN.WoodFloor:
+                BossJumpDown(2);
+                break;
+        }
+    }
+
+    private void BossJumpDown(int terrain)
+    {
+        SFX_Boss_Jump_Down = RuntimeManager.CreateInstance("event:/Character enemy/SFX_Boss_Jump_Down");
+        SFX_Boss_Jump_Down.setParameterByName("Tarrain", terrain);
+        SFX_Boss_Jump_Down.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Boss_Jump_Down.start();
+        SFX_Boss_Jump_Down.release();
     }
 
 

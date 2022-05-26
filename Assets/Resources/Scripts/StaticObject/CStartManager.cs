@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using FMODUnity;
@@ -11,7 +10,6 @@ public class CStartManager : MonoBehaviour
     [SerializeField] private Animator BossAnime;
     [SerializeField] private NavMeshAgent BossBoi;
 
-
     public void PlayRoar()
     {
         m_Boss_Roar = RuntimeManager.CreateInstance("event:/Character enemy/BossRoar");
@@ -19,7 +17,6 @@ public class CStartManager : MonoBehaviour
         m_Boss_Roar.start();
         m_Boss_Roar.release();
     }
-
 
     private void OnTriggerEnter(Collider col)
     {
@@ -32,8 +29,6 @@ public class CStartManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-
     IEnumerator delayAnime()
     {
         BossAnime.SetBool("IntroLoopChecker", true);

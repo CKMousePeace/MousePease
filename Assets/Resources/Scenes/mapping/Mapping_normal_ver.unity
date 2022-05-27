@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.082359545, g: 0.113943785, b: 0.25613052, a: 1}
+  m_IndirectSpecularColor: {r: 0.08235934, g: 0.11394335, b: 0.2561301, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4313,33 +4313,29 @@ MonoBehaviour:
   m_Waypoints:
   - position: {x: 0, y: 0, z: 0}
     roll: 0
-  - position: {x: 23.28703, y: 3.870043, z: -12.664986}
+  - position: {x: 37.79416, y: 8.026659, z: -18.223122}
     roll: 0
-  - position: {x: 65.95801, y: 0.7398789, z: 1.9196186}
+  - position: {x: 84.14622, y: 7.579829, z: -20.744526}
     roll: 0
-  - position: {x: 95.58153, y: 12.470959, z: -10.167118}
+  - position: {x: 112.08302, y: 17.40044, z: -23.20148}
     roll: 0
-  - position: {x: 132.2463, y: 6.7560253, z: -3.9346619}
+  - position: {x: 151.04483, y: 5.0314293, z: -15.142822}
     roll: 0
-  - position: {x: 161.88293, y: 8.34012, z: -7.6101685}
+  - position: {x: 188.71442, y: 20.266432, z: -27.246258}
     roll: 0
-  - position: {x: 197.76053, y: 11.51116, z: -21.131744}
+  - position: {x: 238.45425, y: 12.12682, z: -29.866798}
     roll: 0
-  - position: {x: 226.11446, y: 11.852359, z: -13.019962}
+  - position: {x: 276.92606, y: 14.621849, z: -21.471497}
     roll: 0
-  - position: {x: 263.18277, y: 7.4083967, z: -16.045628}
+  - position: {x: 316.15662, y: 21.79535, z: -46.56195}
     roll: 0
-  - position: {x: 293.84085, y: 7.2194767, z: -31.5498}
+  - position: {x: 335.2192, y: 29.827478, z: -7.9356995}
     roll: 0
-  - position: {x: 327.6189, y: 23.068127, z: 2.8559399}
+  - position: {x: 351.42303, y: -5.6319714, z: -13.449024}
     roll: 0
-  - position: {x: 395.85895, y: -103.05042, z: -3.1417599}
+  - position: {x: 378.10776, y: -5.2277107, z: -18.014153}
     roll: 0
-  - position: {x: 400.1423, y: 0, z: 0}
-    roll: 0
-  - position: {x: 394.79373, y: 15.698624, z: -13.486168}
-    roll: 0
-  - position: {x: 462.58954, y: 5.552438, z: 0}
+  - position: {x: 468.24588, y: -13.81069, z: -3.1417599}
     roll: 0
 --- !u!4 &268211264
 Transform:
@@ -16170,7 +16166,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150138785}
-  m_LocalRotation: {x: -0.012440935, y: -0.048503008, z: -0.0006041808, w: 0.9987454}
+  m_LocalRotation: {x: -0.012440935, y: -0.04850298, z: -0.00060418044, w: 0.9987454}
   m_LocalPosition: {x: 0, y: 2.26, z: -23.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -22356,7 +22352,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1591645779}
-  m_LocalRotation: {x: -0.012440935, y: -0.048503008, z: -0.0006041808, w: 0.9987454}
+  m_LocalRotation: {x: -0.012440935, y: -0.04850298, z: -0.00060418044, w: 0.9987454}
   m_LocalPosition: {x: 0, y: 2.26, z: -23.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

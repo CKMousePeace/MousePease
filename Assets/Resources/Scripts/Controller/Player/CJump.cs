@@ -90,6 +90,7 @@ public class CJump : CControllerBase
         TempJump = false;
         m_JumpCheck = false;
 
+        CObjectPool.g_instance.ObjectPop("PlayerJumpEffect" , m_Actor.transform.position , Quaternion.identity , Vector3.one);
         
         if (!m_Actor.CompareController("WallJump"))
         {

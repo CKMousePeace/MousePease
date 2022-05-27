@@ -11543,6 +11543,42 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[1].m_Name
+      value: PlayerDashEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[2].m_Name
+      value: PlayerGlideEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[3].m_Name
+      value: PlayerJumpEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[4].m_Name
+      value: PlayerRunEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[1].m_Object
+      value: 
+      objectReference: {fileID: 4063266139433552070, guid: d41a2dde7d63d7546ae4ce3782bd96bf, type: 3}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[2].m_Object
+      value: 
+      objectReference: {fileID: 9011521913505044496, guid: 71f0d8ade8d644d498c558eee3aa476f, type: 3}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[3].m_Object
+      value: 
+      objectReference: {fileID: 6629765752687232082, guid: 33c18a5973f39164380d52658a69b509, type: 3}
+    - target: {fileID: 3255487298495113008, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
+      propertyPath: m_ListObject.Array.data[4].m_Object
+      value: 
+      objectReference: {fileID: 4890842114354479359, guid: f3ee150ef6601e64390c8881e39aae7b, type: 3}
     - target: {fileID: 3255487298495113009, guid: 957982b8a7cacbe4da87a5535ebfa936, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -31907,6 +31943,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8771119826820351097, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_EffectTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder
       value: 8

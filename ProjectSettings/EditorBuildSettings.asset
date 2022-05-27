@@ -21,6 +21,6 @@ EditorBuildSettings:
     path: Assets/Resources/Scenes/mapping/Mapping_gliding_02.unity
     guid: 1f77ca43353eb9c4cbbc786998fb4c20
   - enabled: 1
-    path: Assets/Resources/Scenes/mapping/Lasttest/Mapping_tile map.unity
+    path: Assets/Resources/Scenes/mapping/Lasttest/Mapping_normal_ver.unity
     guid: ad84445ecdc3a95418924377099f991d
   m_configObjects: {}

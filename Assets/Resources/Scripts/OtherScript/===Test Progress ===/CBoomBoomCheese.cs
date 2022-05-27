@@ -7,6 +7,7 @@ public class CBoomBoomCheese : MonoBehaviour
     [SerializeField] private float m_BoomForce;
 
     //¿Ã∞≈ æ»æ∏ ∞∆¡§§§§§
+    //¥ŸΩ√ ∞∆¡§ §∑§∑ æµµÌ
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -22,6 +23,7 @@ public class CBoomBoomCheese : MonoBehaviour
 
             Destroy(gameObject);
         }
+        else return;
     }
 
 }

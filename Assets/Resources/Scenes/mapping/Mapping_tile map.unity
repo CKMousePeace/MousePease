@@ -2129,8 +2129,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0084107, y: 2.9697444, z: 7.261116}
-  m_Center: {x: 6.914177, y: -0.21730995, z: 0.06030655}
+  m_Size: {x: 3.0084107, y: 2.9281828, z: 7.261116}
+  m_Center: {x: 6.914177, y: -0.19652921, z: 0.06030655}
 --- !u!1001 &108473682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4811,8 +4811,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.939251, y: 3.0176816, z: 3.013338}
-  m_Center: {x: 8.379597, y: -0.24127841, z: -2.0635824}
+  m_Size: {x: 11.959017, y: 3.0176816, z: 3.013338}
+  m_Center: {x: 11.38948, y: -0.24127841, z: -2.0635824}
 --- !u!4 &282337842 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7439102420042105036, guid: 2f5fd8b720583464da5aa422f6bdb520, type: 3}
@@ -10677,8 +10677,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.0084107, y: 2.9697444, z: 7.261116}
-  m_Center: {x: 6.914177, y: -0.21730995, z: 0.06030655}
+  m_Size: {x: 3.0084107, y: 2.9342594, z: 7.261116}
+  m_Center: {x: 6.914177, y: -0.19956744, z: 0.06030655}
 --- !u!4 &638661646 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7967794644040578754, guid: 6bfa894c3ebf0464b8562eac61431571, type: 3}
@@ -19313,8 +19313,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 8.967027, y: 2.9716463, z: 2.9547396}
-  m_Center: {x: 3.9835134, y: -0.2182607, z: -2.0928817}
+  m_Size: {x: 8.981486, y: 2.9716463, z: 2.9547396}
+  m_Center: {x: 3.9906888, y: -0.21826077, z: -2.0928817}
 --- !u!1001 &1203907907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23909,8 +23909,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.9640107, y: 2.9697444, z: 7.261116}
-  m_Center: {x: 8.391976, y: -0.21730995, z: 0.06030655}
+  m_Size: {x: 5.9640107, y: 2.9412935, z: 7.261116}
+  m_Center: {x: 8.391976, y: -0.2315355, z: 0.06030655}
 --- !u!1001 &1520407616
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32758,6 +32758,14 @@ PrefabInstance:
     - target: {fileID: 8771119827098713568, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_fDoubleForce
       value: 1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827405689128, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_Interpolate
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827405689128, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder

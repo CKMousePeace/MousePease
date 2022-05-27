@@ -16,8 +16,6 @@ public class CRoar : CBossController
         g_agent.velocity = Vector3.zero;
         m_Actor.g_Animator.SetTrigger("Roar");
 
-        GameObject.Find("BossFinish").GetComponent<BossSoundManager>().PlayRoar();
-
         gameObject.SetActive(false);
 
         if (m_Actor.CompareController("MonBite"))

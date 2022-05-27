@@ -76,7 +76,17 @@ public class CBossController : CControllerBase
     private void Update()
     {
         BossAnimation();
-        CurrentBehavior.UpdateStep(this);
+
+        try
+        {
+            CurrentBehavior.UpdateStep(this);
+        }
+        catch
+        {
+            throw new System.Exception("오류아냐!");
+            //플레이어가 비활성화 되어서 Chase 할 대상이 없어져서 그래.
+        }
+        
 
         if (m_agent.enabled == false)
         {
@@ -129,6 +139,8 @@ public class CBossController : CControllerBase
         m_Actor.g_Animator.SetFloat("Speed", velocity);
     }
 
+
+    //지금은 안써..
     IEnumerator StartIntro()
     {
         GameManager.GameStopEvent();

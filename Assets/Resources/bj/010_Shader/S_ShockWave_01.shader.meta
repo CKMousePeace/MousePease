@@ -5,7 +5,8 @@ ShaderImporter:
   defaultTextures:
   - _mask_2: {fileID: 2800000, guid: 53ce8ee271233ce4eb8adce7de709138, type: 3}
   - _T_Beam_01: {fileID: 2800000, guid: 29345f9746d28be4b89568e7cecbbd71, type: 3}
-  - _mask_3: {fileID: 2800000, guid: 53ce8ee271233ce4eb8adce7de709138, type: 3}
+  - _noise_2: {fileID: 2800000, guid: 361ad8520f33fa34c952576ee93a70ad, type: 3}
+  - _TextureSample0: {fileID: 2800000, guid: 53ce8ee271233ce4eb8adce7de709138, type: 3}
   nonModifiableTextures: []
   preprocessorOverride: 0
   userData: 

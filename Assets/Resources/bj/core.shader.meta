@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 3d6cabe899d407d4aa892810844875bb
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _water: {fileID: 2800000, guid: 07697c4d543f8dd49bdcd7ec5d04ede5, type: 3}
+  - _T_cell_256_02: {fileID: 2800000, guid: 2423305b1c9f4ff40b3f97fd2a1d389d, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

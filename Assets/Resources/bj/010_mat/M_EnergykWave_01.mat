@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: M_EnergykWave_01
   m_Shader: {fileID: 4800000, guid: 0dc3d3fbfe9876a42829d8ad237242a7, type: 3}
-  m_ShaderKeywords: _TOGGLESWITCH0_ON
+  m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -20,11 +20,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _T_Beam_02:
-        m_Texture: {fileID: 2800000, guid: 1f765424d5e2b2f44972a5fc6be692dd, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3c254d7f3dd35e34d9e767b649f1c034, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _distortion_5:
         m_Texture: {fileID: 2800000, guid: 70508125036ef6841a4372db0e10e797, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ggg:
+        m_Texture: {fileID: 2800000, guid: fb417006e44fd234296b3855aaf9f893, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _mask_2:
@@ -38,8 +42,9 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _ToggleSwitch0: 0
-    - _inten: 10
-    - _size: 0.8
+    - _inten: 50
+    - _size: 1
+    - _uvdistort: 0.2
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

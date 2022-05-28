@@ -42,7 +42,7 @@ Material:
     m_Floats:
     - _AlphaCutoff: 0.5
     - _ToggleSwitch0: 0
-    - _alphainten: 5
+    - _alphainten: 20
     - _inten: 5
     - _size: 1
     - _uvdistort: 0

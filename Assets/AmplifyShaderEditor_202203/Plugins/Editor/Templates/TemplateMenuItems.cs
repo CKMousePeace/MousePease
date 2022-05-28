@@ -71,5 +71,50 @@ namespace AmplifyShaderEditor
 		{
 			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "ed95fe726fd7b4644bb42f4d1ddd2bcd" );
 		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/DefaultUnlit", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyDefaultUnlit()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "420e61d387a0700438a9c64310a253ce" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Legacy/Lit 1", false, 85 )]
+		public static void ApplyTemplateLegacyLit1()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "8e4d2e50bf3a0a34dae3b9e84c5061f3" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/Multi Pass Unlit", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyMultiPassUnlit()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "467ea13a5025e7b469dd25e2f4fa2978" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/Particles Alpha Blended", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyParticlesAlphaBlended()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "49528fda727a88743b1a8ebe1f444564" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/PostProcess", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyPostProcess()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "9b5aa5e199ef59b49a3404dd1e1a40ef" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/Sprites Default", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacySpritesDefault()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "ddbc6a103fca5174dbc5ee27b2b5d973" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/UIDefault", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyUIDefault()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "679d259269d85ee4996a10abc4991bd5" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Unlit", false, 85 )]
+		public static void ApplyTemplateTemplatesUnlit()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "e5f4574059c2a7d4b870e7e337f35805" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Templates/Legacy/UnlitLightmap", false, 85 )]
+		public static void ApplyTemplateTemplatesLegacyUnlitLightmap()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "a6551d7ceca7138459be89622f37bd05" );
+		}
 	}
 }

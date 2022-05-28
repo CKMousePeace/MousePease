@@ -57586,6 +57586,22 @@ PrefabInstance:
       propertyPath: Detectable
       value: 
       objectReference: {fileID: 1986997022}
+    - target: {fileID: 6337685078999702708, guid: f926ee8482389be419ae64cf227369c5, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6337685078999702708, guid: f926ee8482389be419ae64cf227369c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37342d637e13def4f99406491c490c4e, type: 2}
+    - target: {fileID: 6337685078999702708, guid: f926ee8482389be419ae64cf227369c5, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 37342d637e13def4f99406491c490c4e, type: 2}
+    - target: {fileID: 6337685078999702710, guid: f926ee8482389be419ae64cf227369c5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6337685079194891084, guid: f926ee8482389be419ae64cf227369c5, type: 3}
       propertyPath: m_Target
       value: 
@@ -57596,7 +57612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6337685079198789610, guid: f926ee8482389be419ae64cf227369c5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6337685079198789616, guid: f926ee8482389be419ae64cf227369c5, type: 3}
       propertyPath: m_RootOrder
@@ -57654,6 +57670,10 @@ PrefabInstance:
       propertyPath: PatrolPoints.Array.data[2]
       value: 
       objectReference: {fileID: 286125642}
+    - target: {fileID: 6337685079483174048, guid: f926ee8482389be419ae64cf227369c5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: be928e20459660244928877786d7c8f7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f926ee8482389be419ae64cf227369c5, type: 3}
 --- !u!1 &5489277469060887720

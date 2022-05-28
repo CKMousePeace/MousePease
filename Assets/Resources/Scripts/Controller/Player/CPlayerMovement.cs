@@ -7,22 +7,29 @@ public class CPlayerMovement : CControllerBase
 
     [SerializeField] private float m_fMaxSpeed;
     [SerializeField, Range(0.1f, 1.0f)] private float m_TurnSpeed;
-    
+
+
+    [SerializeField] private float m_EffectTime;
+    [SerializeField] private CColliderChecker m_Checker;
 
     private float m_currentSpeed;
     private float m_DirX, m_DirY;
     private float m_Yaw = 90.0f;
     private bool m_IsInCheese;
     private float m_BuffSpeed;
+    private float m_currentVelocity = 2;
+    private float m_CurrentLifeTime;
     
-
-    [SerializeField] private CColliderChecker m_Checker;
-    [SerializeField] private Vector2 m_ChaseTimeRange;
     
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
+    public bool g_isChase { get; set; }
     public float g_fMaxSpeed => m_fMaxSpeed;
+
+    public float g_ChaseAnimTime = 0.0f;
+
+    
 
 
     private void OnDisable()
@@ -34,10 +41,11 @@ public class CPlayerMovement : CControllerBase
 
     private void Update()
     {
+        m_CurrentLifeTime += Time.deltaTime;
         if (!GameManager.g_isGameStart) return;
         if (PlayerMoveState()) return;
-        PlayerMoveKey();        
-        
+        PlayerMoveKey();
+        MovementEffect();
     }
     private void FixedUpdate()
     {
@@ -46,14 +54,39 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Animator.SetFloat("Walking", 0.0f);
             return;
         }
+
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
         WallJumpCheck();
 
+        
         if (!m_Actor.CompareController("WallJump"))
-            m_Actor.g_Animator.SetFloat("Walking", m_currentSpeed / m_fMaxSpeed);
+        {
+            if (m_DirX == 0.0f)
+            {
+                g_ChaseAnimTime = 0.0f;
+                m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+            }
+            else if (!g_isChase)
+            {
+                g_ChaseAnimTime = Mathf.SmoothDamp(g_ChaseAnimTime, 0.5f, ref m_currentVelocity, 0.1f);
+                m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+            }
+            else
+            {
+                if (g_ChaseAnimTime == 0.0f)
+                {
+                    m_Actor.g_Animator.SetFloat("Walking", 1.0f);
+                }
+                else
+                {
+                    g_ChaseAnimTime = Mathf.SmoothDamp(g_ChaseAnimTime, 1.0f, ref m_currentVelocity, 0.1f);
+                    m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
+                }
+            }         
+        }
     }
 
 
@@ -68,12 +101,10 @@ public class CPlayerMovement : CControllerBase
         if (Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance) ||
             Physics.Raycast(m_Actor.transform.position - WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance))
         {
-
             if (hit.transform.CompareTag("Wall"))
             {                
                 m_Actor.GenerateController("WallJump");
             }
-
         }
         else
         {
@@ -185,15 +216,31 @@ public class CPlayerMovement : CControllerBase
         }
     }
 
+    private void MovementEffect()
+    {
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y) * 1.2f ;
+        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
+
+        if (m_DirX != 0.0f)
+        {
+            if (m_CurrentLifeTime > m_EffectTime && Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, -m_Actor.transform.up , WallJumpRayDistance))
+            {
+                float PlayerbounsY = (m_Checker.g_Collider.bounds.extents.y) * 0.5f;
+                var OffsetY = new Vector3(0.0f, PlayerbounsY, 0.0f);
+                var Rotation = m_Actor.transform.rotation;                 
+
+                CObjectPool.g_instance.ObjectPop("PlayerRunEffect", m_Actor.transform.position - OffsetY, Quaternion.Euler(-90.0f , Rotation.eulerAngles.y - 90.0f, 0.0f), Vector3.one);
+                m_CurrentLifeTime = 0.0f;
+            }
+        }
+    }
 
     private void OnDrawGizmos()
     {
         if (m_Actor == null || m_Checker == null) return;
 
         float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.x) * 1.8f;
-        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
-
-               
+        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);             
 
 
         Gizmos.color = Color.red;
@@ -203,6 +250,8 @@ public class CPlayerMovement : CControllerBase
         //WallJump »ý¼º
 
     }
+
+    
 
 
 }

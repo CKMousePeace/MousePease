@@ -56,9 +56,9 @@ public class CDash : CControllerBase
         {
             m_DirY = 0.0f;
         }
-        
-        m_Actor.g_Animator.SetTrigger("Dash");
-        
+
+        CObjectPool.g_instance.ObjectPop("PlayerDashEffect", m_Actor.transform.position , Quaternion.Euler(-90.0f , m_Actor.transform.eulerAngles.y - 90.0f , 0.0f) , Vector3.one);
+        m_Actor.g_Animator.SetTrigger("Dash");        
         
         m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, m_DirY, 0.0f).normalized;
         m_Dir.Normalize();
@@ -121,7 +121,6 @@ public class CDash : CControllerBase
     private bool DashChecker(float Dirx , float DirY)
     {
 
-
         if (g_DashItem == true)
         {
             g_DashItem = false;
@@ -146,17 +145,12 @@ public class CDash : CControllerBase
             }
         }
 
-
-
-
         if (Time.time - m_CurrentDelayTime <= m_DashCool)
         {
             gameObject.SetActive(false);
             return true;
-        }
+        }     
         
-        
-
         if (m_Actor.CompareBuff("KnockBack"))
         {
             if (m_CurrentDelayTime != 0)

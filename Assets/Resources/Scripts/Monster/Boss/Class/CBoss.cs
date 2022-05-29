@@ -1,20 +1,25 @@
+using System.Collections;
+using UnityEngine;
 
-public class CBoss : CDynamicObject
+namespace Assets.Resources.Scripts.Monster.Boss.Class
 {
-    protected override void Start()
+    public class CBoss : CDynamicObject
     {
-        base.Start();
-    }
-
-    protected void Update()
-    {
-        if (CompareBuff("")) return;
-
-        foreach (var controller in m_ControllerBases)
+        protected override void Start()
         {
+            base.Start();
+        }
+
+        protected void Update()
+        {
+            if (CompareBuff("")) return;
+
+            foreach (var controller in m_ControllerBases)
+            {
+
+            }
 
         }
 
     }
-
 }

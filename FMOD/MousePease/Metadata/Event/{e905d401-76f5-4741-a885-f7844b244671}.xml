@@ -116,9 +116,6 @@ Recordings by David at Track Time Audio.</value>
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{04ff217a-6838-4446-8254-6239c1ff7e14}">
-		<property name="volume">
-			<value>-5</value>
-		</property>
 		<relationship name="effectChain">
 			<destination>{098d2167-900f-4b62-909f-1a7c82abb11c}</destination>
 		</relationship>
@@ -165,9 +162,6 @@ Recordings by David at Track Time Audio.</value>
 		</property>
 		<property name="voiceStealing">
 			<value>3</value>
-		</property>
-		<property name="volume">
-			<value>-10</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{cd05ae94-c431-4dba-b16a-4facc0f57802}</destination>

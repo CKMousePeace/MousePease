@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Jump_Pad_Ani
+  m_Name: jumpPad_Animation
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -70,18 +70,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0.0011841166, y: 0, z: -0.0009339143}
-        inSlope: {x: 2.6020852e-17, y: -0, z: -1.4869058e-17}
-        outSlope: {x: 2.6020852e-17, y: -0, z: -1.4869058e-17}
+        value: {x: 0.05920583, y: 0, z: -0.046695717}
+        inSlope: {x: 1.3010426e-15, y: -0, z: -7.4345294e-16}
+        outSlope: {x: 1.3010426e-15, y: -0, z: -7.4345294e-16}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.033333335
-        value: {x: 0.0011841166, y: 0, z: -0.0009339143}
-        inSlope: {x: 1.1151794e-17, y: -0, z: -3.4694466e-17}
-        outSlope: {x: 1.1151794e-17, y: -0, z: -3.4694466e-17}
+        value: {x: 0.05920583, y: 0, z: -0.046695717}
+        inSlope: {x: 5.575897e-16, y: -0, z: -1.7347234e-15}
+        outSlope: {x: 5.575897e-16, y: -0, z: -1.7347234e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -95,7 +95,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.008970132, y: -0.00130016, z: -0.0011615815}
+        value: {x: -0.4485066, y: -0.065008, z: -0.058079075}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -104,7 +104,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 0.5
-        value: {x: -0.008970132, y: -0.00130016, z: -0.0011615815}
+        value: {x: -0.4485066, y: -0.065008, z: -0.058079075}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -576,18 +576,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.0011841166
-        inSlope: 2.6020852e-17
-        outSlope: 2.6020852e-17
+        value: 0.05920583
+        inSlope: 1.3010426e-15
+        outSlope: 1.3010426e-15
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.033333335
-        value: 0.0011841166
-        inSlope: 1.1151794e-17
-        outSlope: 1.1151794e-17
+        value: 0.05920583
+        inSlope: 5.575897e-16
+        outSlope: 5.575897e-16
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -632,18 +632,18 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0009339143
-        inSlope: -1.4869058e-17
-        outSlope: -1.4869058e-17
+        value: -0.046695717
+        inSlope: -7.4345294e-16
+        outSlope: -7.4345294e-16
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.033333335
-        value: -0.0009339143
-        inSlope: -3.4694466e-17
-        outSlope: -3.4694466e-17
+        value: -0.046695717
+        inSlope: -1.7347234e-15
+        outSlope: -1.7347234e-15
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -660,7 +660,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.008970132
+        value: -0.4485066
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -669,7 +669,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: -0.008970132
+        value: -0.4485066
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -688,7 +688,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.00130016
+        value: -0.065008
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -697,7 +697,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: -0.00130016
+        value: -0.065008
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -716,7 +716,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: -0.0011615815
+        value: -0.058079075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -725,7 +725,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.5
-        value: -0.0011615815
+        value: -0.058079075
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1402,11 +1402,4 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events:
-  - time: 0.033333335
-    functionName: PlayJumpPad
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
+  m_Events: []

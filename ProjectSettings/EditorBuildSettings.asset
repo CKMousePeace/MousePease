@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Resources/Scenes/mapping/TutorialStage.unity
+    path: Assets/Resources/Scenes/mapping/Lasttest/TutorialStage.unity
     guid: d51a37eb2910f60438f6e48ae6fd5776
   m_configObjects: {}

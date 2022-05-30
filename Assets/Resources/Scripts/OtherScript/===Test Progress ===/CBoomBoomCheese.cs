@@ -7,7 +7,7 @@ public class CBoomBoomCheese : MonoBehaviour
     [SerializeField] private float m_BoomForce;
 
     [Header("ÆÄ±« µô·¹ÀÌ ÃÊ´ÜÀ§")]
-    [SerializeField] private int DelayTime = 1;
+    [SerializeField] private float DelayTime = 1;
 
 
     private void OnCollisionEnter(Collision col)
@@ -19,7 +19,7 @@ public class CBoomBoomCheese : MonoBehaviour
         else return;
     }
 
-    IEnumerator DelayBoomBoom(int delay)
+    IEnumerator DelayBoomBoom(float delay)
     {
         yield return new WaitForSeconds(delay);
 

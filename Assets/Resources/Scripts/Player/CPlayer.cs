@@ -19,8 +19,16 @@ public class CPlayer : CDynamicObject
             if (!m_DeadAnim)
             {
                 StartCoroutine(DeadCheak());
-            }             
+            }
             return;
+        }
+        else
+        {
+            if (g_fHP <= 0.0f)
+            {
+                g_IsDead = true;
+            }
+
         }
 
 

@@ -11,7 +11,11 @@ GameObject:
   - component: {fileID: 2753116510539979773}
   - component: {fileID: 1268558742206583896}
   - component: {fileID: 3926615772207538322}
+<<<<<<< HEAD
   - component: {fileID: 4422035249536257789}
+=======
+  - component: {fileID: 460022645268853547}
+>>>>>>> origin/plan/Jungmin
   m_Layer: 0
   m_Name: Level_Block_01
   m_TagString: Untagged
@@ -82,7 +86,11 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+<<<<<<< HEAD
 --- !u!65 &4422035249536257789
+=======
+--- !u!65 &460022645268853547
+>>>>>>> origin/plan/Jungmin
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,5 +101,10 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+<<<<<<< HEAD
   m_Size: {x: 0.99999976, y: 1.0000002, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
+=======
+  m_Size: {x: 1.0000004, y: 1.0000005, z: 1.0000004}
+  m_Center: {x: 0, y: 0.00000023841858, z: 0.00000047683716}
+>>>>>>> origin/plan/Jungmin

@@ -591,6 +591,7 @@ GameObject:
   - component: {fileID: 1827859007310196685}
   - component: {fileID: 1827859007310196687}
   - component: {fileID: 1827859007310196684}
+  - component: {fileID: 5509255700139900899}
   m_Layer: 5
   m_Name: 'HP_BAR_ORANGE '
   m_TagString: Untagged
@@ -646,15 +647,28 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: a5123ab5d41b89c4bb8d8db3e1d4bc37, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 1
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5509255700139900899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827859007310196690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b70373f9f99d204eae77fb6ecffdbf9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DashImage: {fileID: 1827859007310196684}
 --- !u!1 &1827859007488637078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,6 +1290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HeartePrefabs: {fileID: 6645709122817808558, guid: f145670d1b7d5dd4a8455e8ac1141bfe, type: 3}
   m_GameOver: {fileID: 1374730290}
+  m_GameDelay: 0
 --- !u!1 &1827859008454626515
 GameObject:
   m_ObjectHideFlags: 0

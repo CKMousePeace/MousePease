@@ -36,6 +36,7 @@ public class CDashUI : MonoBehaviour
         {
             Value = 1.0f;
         }
+        Debug.Log(Value);
         m_Current = Mathf.Lerp(m_Current, Value, 0.3f);
         m_DashImage.fillAmount = m_Current;
     }

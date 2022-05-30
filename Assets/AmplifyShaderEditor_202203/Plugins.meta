@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Environment_Final/Animation/Jump_Pad_Ani.anim.meta
+guid: 4ed541fb78647494a956d310d566f046
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 7400000
+========
+guid: 3306ce0ede814a84c8d289893da72b7a
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+>>>>>>>> origin/Boss/AddEffect_Intro:Assets/AmplifyShaderEditor_202203/Plugins.meta
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

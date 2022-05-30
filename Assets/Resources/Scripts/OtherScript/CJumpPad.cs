@@ -9,6 +9,8 @@ public class CJumpPad : CStaticObject
     private CPlayer m_Player;
     private Rigidbody rb;
 
+    [SerializeField] private Animator Animator;
+
     private void OnCollisionEnter(Collision collision)
     {        
         if (collision.transform.CompareTag("Player"))
@@ -27,6 +29,9 @@ public class CJumpPad : CStaticObject
 
             rb.velocity = Vector3.zero;
             rb.velocity = Vector3.up * m_Force;
+
+            //애니메 트리거
+            Animator.SetTrigger("PlayerTrigger");
 
 
         }

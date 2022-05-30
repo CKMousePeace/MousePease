@@ -28,8 +28,7 @@ public class CJumpPad : CStaticObject
             {
                 m_Player.DestroyController("Jump");
             }
-
-            rb.velocity = Vector3.zero;
+            rb.velocity = Vector3.zero;            
             rb.velocity = Vector3.up * m_Force;
 
             //애니메 트리거

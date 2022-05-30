@@ -28,6 +28,8 @@ public class CDash : CControllerBase
         }
     }
 
+    public float g_MaxDashCool => m_DashCool;
+
     public bool g_DashItem { get; set; }
 
     public override void init(CDynamicObject actor)

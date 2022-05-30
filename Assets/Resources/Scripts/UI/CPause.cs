@@ -20,6 +20,15 @@ public class CPause : MonoBehaviour
     private Rect m_ExitRect;
 
 
+    private void OnEnable()
+    {
+        Time.timeScale = 0.0f;
+    }
+    private void OnDisable()
+    {
+        Time.timeScale = 1.0f;
+    }
+
 
     // Start is called before the first frame update
     void Start()

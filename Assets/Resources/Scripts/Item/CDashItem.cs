@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CDashItem : CItemBase
 {
+    [SerializeField] private float m_RotateSpeed = 100f;
+
+    private void FixedUpdate()
+    {
+        transform.Rotate(new Vector3(0, m_RotateSpeed * Time.deltaTime, 0));
+    }
 
     protected override void OnTriggerEnter(Collider other)
     {

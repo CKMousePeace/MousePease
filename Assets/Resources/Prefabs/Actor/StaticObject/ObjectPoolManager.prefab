@@ -46,3 +46,11 @@ MonoBehaviour:
   m_ListObject:
   - m_Object: {fileID: 1989494560928221969, guid: 9e82594dc3a6f5a4c8d7aa17ecc0b2e8, type: 3}
     m_Name: BoomBoom
+  - m_Object: {fileID: 4063266139433552070, guid: d41a2dde7d63d7546ae4ce3782bd96bf, type: 3}
+    m_Name: PlayerDashEffect
+  - m_Object: {fileID: 9011521913505044496, guid: 71f0d8ade8d644d498c558eee3aa476f, type: 3}
+    m_Name: PlayerGlideEffect
+  - m_Object: {fileID: 6629765752687232082, guid: 33c18a5973f39164380d52658a69b509, type: 3}
+    m_Name: PlayerJumpEffect
+  - m_Object: {fileID: 4890842114354479359, guid: f3ee150ef6601e64390c8881e39aae7b, type: 3}
+    m_Name: PlayerRunEffect

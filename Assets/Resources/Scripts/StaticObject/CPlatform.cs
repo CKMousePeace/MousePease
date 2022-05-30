@@ -42,8 +42,10 @@ public class CPlatform : MonoBehaviour
     Vector3 m_firstPos = Vector3.zero;                                           //for OnDrawGizmos 게임 시작 상태를 파악하고 초기 좌표를 저장
 
 
+
     void Awake()
     {
+
         if (m_RelativeMovePoint.Length <= 0)                                     //if there is no component, just delet it.       컴포넌트 없으면 삭제.
         {
             Destroy(this);
@@ -61,6 +63,7 @@ public class CPlatform : MonoBehaviour
             StartCoroutine(Move());
         }
     }
+
 
     IEnumerator Move()
     {
@@ -105,9 +108,8 @@ public class CPlatform : MonoBehaviour
             }
             else                                                  //The platform is moving unless it arrives at a stopover. 경유지에 도착한게 아니라면 이동 중이다.
             {
-
                 transform.position = Vector3.MoveTowards(transform.position, m_Pos[m_Cur], m_Speed * Time.deltaTime); //move towards the destination. 목적지를 향해 이동한다.
- 
+
                 yield return delay;
             }
         }
@@ -133,18 +135,17 @@ public class CPlatform : MonoBehaviour
         }
     }
 
-
-    private void OnCollisionEnter(Collision Col)
+    private void OnCollisionStay(Collision Col)
     {
-        if (Col.collider.CompareTag("Player"))
+        if (Col.gameObject.CompareTag("Player"))
         {
-
             if (m_PlatformDes == true)                      //if the platform destination is enabled... then start coroutine. m_PlatformDes 가 활성화 되어있으면 삭제 코루틴 실행
             {
                 StartCoroutine(DestroyWaitForHold());
             }
         }
     }
+
 
     private void DestroyWait()                //A function that is called when it needs to disappear after reaching the final destination from above. 위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
     {

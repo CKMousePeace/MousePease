@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: e7d17dbe515bf9a478c95e31d7e364a8
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _Tile_A: {fileID: 2800000, guid: 7f9d9b11423928b4ca8b1a86ae3ba036, type: 3}
+  - _Tile_N: {fileID: 2800000, guid: 02e1e1f9f72b36040b229912f82b8ee3, type: 3}
+  - _Tile_O: {fileID: 2800000, guid: 7c9713c503e306044b78fb8d4556f9fd, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

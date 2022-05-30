@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 5b5e034ccd0bb1c40aef71eaf5c6f81f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _T_Bubble_02: {fileID: 2800000, guid: c7c73ad797224424ab5102d1574c18ac, type: 3}
+  - _cell_31: {fileID: 2800000, guid: 85acae6c19b18e94e8d5451777094186, type: 3}
+  - _cell_3: {fileID: 2800000, guid: 85acae6c19b18e94e8d5451777094186, type: 3}
+  - _spark_22: {fileID: 2800000, guid: 59c846cd5efe8624fae33e8569e8da5d, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

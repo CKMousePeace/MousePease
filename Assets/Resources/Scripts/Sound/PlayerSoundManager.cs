@@ -21,12 +21,17 @@ public class PlayerSoundManager : MonoBehaviour
     private FMOD.Studio.EventInstance SFX_PC_Jump_Up;       //점프
     private FMOD.Studio.EventInstance SFX_PC_Jump_Down;     //착지
     [SerializeField] CURRENT_TERRAIN currentTranin;
+    [SerializeField] private GameObject PlayerJump;
 
-
+    private void Start()
+    {
+        PlayerJump = GameObject.Find("Jump");
+    }
 
     private void Update()
     {
         DetermineTerrain();
+        
     }
 
     private void DetermineTerrain()     //지형 감지 함수  (인자를 fmod 에 넘겨줌)
@@ -34,7 +39,6 @@ public class PlayerSoundManager : MonoBehaviour
         RaycastHit[] hit;
 
         hit = Physics.RaycastAll(transform.position, Vector3.down, 10.0f);
-
         foreach (RaycastHit rayhit in hit)
         {
             if (rayhit.transform.gameObject.layer == LayerMask.NameToLayer("Normal"))
@@ -74,13 +78,17 @@ public class PlayerSoundManager : MonoBehaviour
         }
     }
 
+
     private void PlayFootstep(int terrain)      //플레이어 기본 발자국 소리
     {
-        SFX_PC_Run = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Run");
-        SFX_PC_Run.setParameterByName("Tarrain", terrain);
-        SFX_PC_Run.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
-        SFX_PC_Run.start();
-        SFX_PC_Run.release();
+        //if (PlayerJump.GetComponent<CJump>().g_isJump == true)
+        
+            SFX_PC_Run = RuntimeManager.CreateInstance("event:/Character player/SFX_PC_Run");
+            SFX_PC_Run.setParameterByName("Tarrain", terrain);
+            SFX_PC_Run.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+            SFX_PC_Run.start();
+            SFX_PC_Run.release();
+        
     }
 
     private void PlayDash()                 //플레이어 데쉬 소리

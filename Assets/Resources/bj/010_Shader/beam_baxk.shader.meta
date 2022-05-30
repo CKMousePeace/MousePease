@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+guid: f99193b26006aec4e96c87d15fdd272e
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures:
+  - _beam_smooth: {fileID: 2800000, guid: 9e3eca0578dbc934cadd20bd65b2508c, type: 3}
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

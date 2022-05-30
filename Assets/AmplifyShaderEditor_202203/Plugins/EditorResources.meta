@@ -1,9 +1,13 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Resources/Environment_Final/Prepabs/Trap_Movement.prefab.meta
+guid: 0e7d945fce5d21b4f8512fc2be6e6c09
+PrefabImporter:
+========
 guid: 0932db7ec1402c2489679c4b72eab5eb
 folderAsset: yes
-timeCreated: 1481126943
-licenseType: Store
 DefaultImporter:
+>>>>>>>> origin/Boss/AddEffect_Intro:Assets/AmplifyShaderEditor_202203/Plugins/EditorResources.meta
+  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

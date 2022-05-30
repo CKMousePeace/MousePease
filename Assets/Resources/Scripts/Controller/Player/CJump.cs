@@ -26,15 +26,17 @@ public class CJump : CControllerBase
 
 
 
-    private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    private bool m_isDoubleJump = false;
     private bool m_isDoubleJumpCheck = false;
-    private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경        
+    private bool m_isJump = false;     
 
     private bool m_JumpCheck = false;
-    public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool g_isDoubleJump => m_isDoubleJump;
     public bool g_MoveCheck { get; set; }
-    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
-    
+    public bool g_isJump => m_isJump;
+    public bool g_JumpCheck => m_JumpCheck;
+
+
 
 
     private float m_MaxGroundDot;
@@ -90,6 +92,7 @@ public class CJump : CControllerBase
         TempJump = false;
         m_JumpCheck = false;
 
+        CObjectPool.g_instance.ObjectPop("PlayerJumpEffect" , m_Actor.transform.position , Quaternion.identity , Vector3.one);
         
         if (!m_Actor.CompareController("WallJump"))
         {

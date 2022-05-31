@@ -163,6 +163,9 @@ Recordings by David at Track Time Audio.</value>
 		<property name="voiceStealing">
 			<value>3</value>
 		</property>
+		<property name="volume">
+			<value>-2</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{cd05ae94-c431-4dba-b16a-4facc0f57802}</destination>
 			<destination>{bbee94c0-039e-4699-97a9-e8aefd5df9eb}</destination>

@@ -225,11 +225,11 @@ public class CPlayerMovement : CControllerBase
         {
             if (m_CurrentLifeTime > m_EffectTime && Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, -m_Actor.transform.up , WallJumpRayDistance))
             {
-                float PlayerbounsY = (m_Checker.g_Collider.bounds.extents.y) * 0.5f;
+                float PlayerbounsY = (m_Checker.g_Collider.bounds.extents.y) * 0.9f ;
                 var OffsetY = new Vector3(0.0f, PlayerbounsY, 0.0f);
                 var Rotation = m_Actor.transform.rotation;                 
 
-                CObjectPool.g_instance.ObjectPop("PlayerRunEffect", m_Actor.transform.position - OffsetY, Quaternion.Euler(-90.0f , Rotation.eulerAngles.y - 90.0f, 0.0f), Vector3.one);
+                CObjectPool.g_instance.ObjectPop("PlayerRunEffect", m_Actor.transform.position  - OffsetY, Quaternion.Euler(-90.0f , Rotation.eulerAngles.y - 90.0f, 0.0f), Vector3.one);
                 m_CurrentLifeTime = 0.0f;
             }
         }

@@ -51537,6 +51537,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -19.722263
       objectReference: {fileID: 0}
+    - target: {fileID: 8771119825539923029, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_DashStamina
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827098713568, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_fStamina
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8771119827405689130, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -51584,6 +51592,10 @@ PrefabInstance:
     - target: {fileID: 8771119827405689141, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771119827405689143, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_fMaxStamina
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8781253691995609207, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

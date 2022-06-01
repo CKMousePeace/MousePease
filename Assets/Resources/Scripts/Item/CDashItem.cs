@@ -22,7 +22,7 @@ public class CDashItem : CItemBase
         var Dash = Actor.GetController("Dash") as CDash;
         if (Dash == null) return;
 
-        Dash.g_DashItem = true;
+        //Dash.g_DashItem = true;
 
         PlayDashItem();
 

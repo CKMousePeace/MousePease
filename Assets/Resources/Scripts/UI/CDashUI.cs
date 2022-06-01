@@ -24,20 +24,7 @@ public class CDashUI : MonoBehaviour
             m_Dash = m_Player.GetController("Dash") as CDash;            
             return;
         }
-
-        var Value = 1.0f - (m_Dash.g_DashCool / m_Dash.g_MaxDashCool);
-        if (Value >= 1.0f)
-        {
-            Value = 1.0f;
-        
-        }
-
-        if (m_Dash.g_DashItem)
-        {
-            Value = 1.0f;
-        }
-        Debug.Log(Value);
-        m_Current = Mathf.Lerp(m_Current, Value, 0.3f);
-        m_DashImage.fillAmount = m_Current;
+        m_Current = Mathf.Lerp(m_Current , m_Player.g_fStamina , 0.3f);
+        m_DashImage.fillAmount = m_Current / m_Player.g_fMaxStamina;
     }
 }

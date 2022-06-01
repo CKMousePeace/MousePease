@@ -6,6 +6,8 @@ public class CDownHill : CSkillBase
 {
     [SerializeField]
     private CColliderChecker m_ColliderChecer;
+    [SerializeField]
+    private CPlayer m_Player;
 
     
 
@@ -20,6 +22,13 @@ public class CDownHill : CSkillBase
     [SerializeField]
     private float m_FlySpeed;
 
+    [SerializeField]
+    private float m_Stamina;
+
+    [SerializeField] 
+    private float m_FirstSection;
+
+
 
     private bool m_isDeceleration;
     private float m_GroundCheckData;
@@ -30,7 +39,6 @@ public class CDownHill : CSkillBase
     private float m_PlayerSpeed;
 
 
-    [SerializeField] private float m_FirstSection;
 
     public override void init(CDynamicObject actor)
     {   
@@ -38,6 +46,7 @@ public class CDownHill : CSkillBase
         m_isDeceleration = false;        
         var PlayerMovemnet = m_Actor.GetController("Movement") as CPlayerMovement;
         m_PlayerSpeed = PlayerMovemnet.g_fMaxSpeed;
+        m_Player = m_Actor.transform.GetComponent<CPlayer>();
         gameObject.SetActive(false);
     }
 
@@ -79,15 +88,27 @@ public class CDownHill : CSkillBase
     private void Update()
     {
         var PlayerMovemnet = m_Actor.GetController("Jump") as CJump;
+        var DeltaStamina = m_Stamina * Time.deltaTime;
+        
         if (Input.GetKeyUp(PlayerMovemnet.g_Key))
         {
             gameObject.SetActive(false);
+            return;
         }
 
         if (m_Actor.CompareBuff("KnockBack"))
         {
             gameObject.SetActive(false);
+            return;
         }
+        if (m_Player.g_fStamina <= DeltaStamina)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+        m_Player.g_fStamina -= DeltaStamina;
+
+
     }
 
     private void FixedUpdate()

@@ -508,8 +508,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 33.774487, y: 92.83854, z: 88.55226}
-  m_Center: {x: 47.451557, y: 18.76586, z: -24.322174}
+  m_Size: {x: 33.751797, y: 92.83854, z: 88.55226}
+  m_Center: {x: 47.462902, y: 18.76586, z: -24.322174}
 --- !u!114 &671206095499632934
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isGlobal: 0
   priority: 0
-  blendDistance: 5
+  blendDistance: 10
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 1a4331a15b1359a4ca3833f19da150b9, type: 2}
 --- !u!1 &5736361241833359187

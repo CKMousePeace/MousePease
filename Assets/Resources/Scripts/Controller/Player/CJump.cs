@@ -18,12 +18,11 @@ public class CJump : CControllerBase
 
     [SerializeField]
     private float m_DownhillKeyDownTime;
+    [SerializeField]
+    private float m_fStamina;
 
 
     private float m_CurrentDownHillKeyDownTime;
-    private float g_WallControllerChecker;
-
-
 
 
     private bool m_isDoubleJump = false;
@@ -50,8 +49,7 @@ public class CJump : CControllerBase
     
 
     private bool m_IsWallJump;
-    private bool m_IsWallJumpCheck;
-    private bool m_CoroutineCheck;
+    private bool m_IsWallJumpCheck;    
 
     public bool g_IsWallJumpCheck => m_IsWallJumpCheck;
 
@@ -81,8 +79,13 @@ public class CJump : CControllerBase
             gameObject.SetActive(false);
             return;
         }
+        if (m_Player.g_fStamina < m_fStamina)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
-
+        m_Player.g_fStamina -= m_fStamina;
         m_CurrentDownHillKeyDownTime = 0.0f;
         m_IsWallJumpCheck = false;
         m_DownHillCheck = false;

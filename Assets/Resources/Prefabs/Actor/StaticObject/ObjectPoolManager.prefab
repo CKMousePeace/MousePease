@@ -54,3 +54,5 @@ MonoBehaviour:
     m_Name: PlayerJumpEffect
   - m_Object: {fileID: 4890842114354479359, guid: f3ee150ef6601e64390c8881e39aae7b, type: 3}
     m_Name: PlayerRunEffect
+  - m_Object: {fileID: 543063689886231389, guid: 713b2d65b6a41d0488f68f1488e70244, type: 3}
+    m_Name: RollingBoi

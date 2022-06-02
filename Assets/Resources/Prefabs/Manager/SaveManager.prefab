@@ -43,7 +43,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e997618f2a8eb74897a595f7d90afca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  g_Save:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   GameDataFileName: SaveDataBoi.json
   _gameData:
-    Tutorial_Middle: 0
-    Tutorial_Clear: 0
+    Checker: 0
+    Tutorial_1: 0
+    Tutorial_2: 0
+    Tutorial_3: 0

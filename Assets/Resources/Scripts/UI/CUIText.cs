@@ -47,7 +47,7 @@ public class CUIText : MonoBehaviour
 
 
         
-        m_Dash.text = "Dash Cool Time : " + Mathf.CeilToInt(m_DashConrol.g_DashCool);        
+        
         
     }
 

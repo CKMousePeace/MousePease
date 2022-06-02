@@ -7,9 +7,12 @@ using System;
 [Serializable]
 public class CGameData
 {
-    //잠김 여부
-    public bool Tutorial_Middle;
-    public bool Tutorial_Clear;
+
+    public int Checker = 0;
+    //튜토리얼 스테이지 세이브 데이터 : 3개
+    public bool Tutorial_1 = false;
+    public bool Tutorial_2 = false;
+    public bool Tutorial_3 = false;
 
 }
 

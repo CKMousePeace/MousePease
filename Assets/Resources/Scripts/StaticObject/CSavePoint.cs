@@ -10,29 +10,73 @@ public class CSavePoint : MonoBehaviour
     [Header("플레이어 넣어주세요")]
     [SerializeField] private GameObject m_Player;
 
+    [Header("세이브 번호")]
+    [SerializeField] private int SaveNum = 0;
 
     private void Start()
     {
-        if (m_Save.GetComponent<CSaveController>().gameData.Tutorial_Middle == true)
+        m_Save.GetComponent<CSaveController>().LoadGameData();
+
+        switch (m_Save.GetComponent<CSaveController>().gameData.Checker)
         {
-            m_Player.transform.position = gameObject.transform.position;
-            m_Save.GetComponent<CSaveController>().SaveGameData();
-            Destroy(gameObject);
+            case 1:
+                m_Player.transform.position = m_Save.GetComponent<CSaveController>().g_Save[0].transform.position;
+                m_Save.GetComponent<CSaveController>().SaveGameData();
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
+                
+                break;
+
+            case 2:
+                m_Player.transform.position = m_Save.GetComponent<CSaveController>().g_Save[1].transform.position;
+                m_Save.GetComponent<CSaveController>().SaveGameData();
+
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1]);
+                
+
+                break;
+
+            case 3:
+
+                m_Player.transform.position = m_Save.GetComponent<CSaveController>().g_Save[2].transform.position;
+                m_Save.GetComponent<CSaveController>().SaveGameData();
+
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[2]);
+
+                break;
         }
     }
 
     private void OnTriggerEnter(Collider col)
     {
-
         if (col.CompareTag("Player"))
         {        
-            m_Save.GetComponent<CSaveController>().gameData.Tutorial_Middle = true;
-            m_Save.GetComponent<CSaveController>().SaveGameData();
+            switch (SaveNum){
 
-            Destroy(gameObject);
+                case 1:
+                    m_Save.GetComponent<CSaveController>().gameData.Tutorial_1 = true;
+                    m_Save.GetComponent<CSaveController>().gameData.Checker = 1;
+                    m_Save.GetComponent<CSaveController>().SaveGameData();
+                    Destroy(gameObject);
+                    break;
+
+                case 2:
+                    m_Save.GetComponent<CSaveController>().gameData.Tutorial_2 = true;
+                    m_Save.GetComponent<CSaveController>().gameData.Checker = 2;
+                    m_Save.GetComponent<CSaveController>().SaveGameData();
+                    Destroy(gameObject);
+                    break;
+
+                case 3:
+                    m_Save.GetComponent<CSaveController>().gameData.Tutorial_3 = true;
+                    m_Save.GetComponent<CSaveController>().gameData.Checker = 3;
+                    m_Save.GetComponent<CSaveController>().SaveGameData();
+                    Destroy(gameObject);
+                    break;
+
+            }
         }
-
     }
-
-
 }

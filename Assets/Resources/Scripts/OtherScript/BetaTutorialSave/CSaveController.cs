@@ -3,6 +3,9 @@ using System.IO;
 
 public class CSaveController : MonoBehaviour
 {
+    [Header("세이브 포인트 순서대로 대입")]
+    public GameObject[] g_Save;
+
 
     static GameObject _container;
     static GameObject Container

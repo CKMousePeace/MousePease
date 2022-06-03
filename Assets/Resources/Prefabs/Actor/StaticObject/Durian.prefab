@@ -103,7 +103,8 @@ MonoBehaviour:
     - 2
     - 10
     - 1
-    m_Value_Vector3: []
+    m_Value_Vector3:
+    - {x: 0, y: 1, z: 0}
   m_BuffinfoNoDamage:
     m_Value_Int: 
     m_Value_Float:

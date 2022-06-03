@@ -8,17 +8,12 @@ public class GameManager : MonoBehaviour
 {
 
     private static bool m_isGameStart = true;
-
     public static bool g_isGameStart => m_isGameStart;
-
-
-
 
     public static void GameStartEvent()
     {
         m_isGameStart = true;
     }
-
     public static void GameStopEvent()
     {
         m_isGameStart = false;
@@ -26,16 +21,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-
-        if (Input.GetKey(KeyCode.Escape))
-        {
-            SceneManager.LoadScene(0);
-        }
-
 
     }
 
@@ -46,6 +31,4 @@ public class GameManager : MonoBehaviour
         GameStartEvent();
 
     }
-
-
 }

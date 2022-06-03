@@ -18,23 +18,24 @@ public class CJump : CControllerBase
 
     [SerializeField]
     private float m_DownhillKeyDownTime;
+    [SerializeField]
+    private float m_fStamina;
 
 
     private float m_CurrentDownHillKeyDownTime;
-    private float g_WallControllerChecker;
 
 
-
-
-    private bool m_isDoubleJump = false;                //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    private bool m_isDoubleJump = false;
     private bool m_isDoubleJumpCheck = false;
-    private bool m_isJump = false;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경        
+    private bool m_isJump = false;     
 
     private bool m_JumpCheck = false;
-    public bool g_isDoubleJump => m_isDoubleJump; //플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경
+    public bool g_isDoubleJump => m_isDoubleJump;
     public bool g_MoveCheck { get; set; }
-    public bool g_isJump => m_isJump;       //체크 플랫폼에서 점프하는지 아닌지 확인하기에 public 으로 변경 
-    
+    public bool g_isJump => m_isJump;
+    public bool g_JumpCheck => m_JumpCheck;
+
+
 
 
     private float m_MaxGroundDot;
@@ -48,8 +49,7 @@ public class CJump : CControllerBase
     
 
     private bool m_IsWallJump;
-    private bool m_IsWallJumpCheck;
-    private bool m_CoroutineCheck;
+    private bool m_IsWallJumpCheck;    
 
     public bool g_IsWallJumpCheck => m_IsWallJumpCheck;
 
@@ -79,8 +79,13 @@ public class CJump : CControllerBase
             gameObject.SetActive(false);
             return;
         }
+        if (m_Player.g_fStamina < m_fStamina)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
 
-
+        m_Player.g_fStamina -= m_fStamina;
         m_CurrentDownHillKeyDownTime = 0.0f;
         m_IsWallJumpCheck = false;
         m_DownHillCheck = false;

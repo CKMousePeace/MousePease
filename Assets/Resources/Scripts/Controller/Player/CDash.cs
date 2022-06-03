@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class CDash : CControllerBase
 {
+
     [SerializeField] private float m_DashForce;
     [SerializeField] private float m_DashTime;   
     [SerializeField] private CColliderChecker m_ColliderChecker;
     [SerializeField] private float m_DashCool;
+    [SerializeField] private float m_DashStamina;
     private float m_CurrentDelayTime;
     
     
 
     private Vector3 m_Dir;    
     private float m_CurrentTime;
-    private CPlayer m_Player;
+    private CPlayer m_Player;    
 
-    public float g_DashCool
-    {
-        get { 
-            var time = m_DashCool - (Time.time - m_CurrentDelayTime);
-            if (time > 0 && !g_DashItem)
-                return time;
-            else
-                return 0;
-
-        }
-    }
-
-    public bool g_DashItem { get; set; }
+    
 
     public override void init(CDynamicObject actor)
     {
@@ -62,9 +52,9 @@ public class CDash : CControllerBase
         
         m_Dir = new Vector3(m_Actor.transform.forward.x * m_DirX, m_DirY, 0.0f).normalized;
         m_Dir.Normalize();
+        m_Player.g_fStamina -= m_DashStamina;
         m_Actor.g_Rigid.useGravity = false;
-        m_Actor.g_Rigid.velocity = Vector3.zero;
-        g_DashItem = false;
+        m_Actor.g_Rigid.velocity = Vector3.zero;        
         m_CurrentTime = 0.0f;
     }
 
@@ -120,15 +110,12 @@ public class CDash : CControllerBase
 
     private bool DashChecker(float Dirx , float DirY)
     {
-
-        if (g_DashItem == true)
+        if (m_Player.g_fStamina < m_DashStamina)
         {
-            g_DashItem = false;
-            m_CurrentDelayTime = Time.time;
-            return false;
+            gameObject.SetActive(false);
+            return true;
         }
-
-        if (m_Player.CompareInCheese())
+        else if (m_Player.CompareInCheese())
         {
             if (Dirx == 0.0f && DirY == 0.0f)
             {
@@ -143,13 +130,7 @@ public class CDash : CControllerBase
                 gameObject.SetActive(false);
                 return true;
             }
-        }
-
-        if (Time.time - m_CurrentDelayTime <= m_DashCool)
-        {
-            gameObject.SetActive(false);
-            return true;
-        }     
+        }         
         
         if (m_Actor.CompareBuff("KnockBack"))
         {

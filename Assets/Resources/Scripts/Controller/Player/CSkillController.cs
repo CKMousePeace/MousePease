@@ -57,6 +57,17 @@ public class CSkillController : CControllerBase
         return false;
     }
 
+    public void DestroySkill(string SkillName)
+    {
+        if (m_DicSkills.ContainsKey(SkillName))
+        {
+            if (m_DicSkills[SkillName].gameObject.activeInHierarchy)
+            {
+                m_DicSkills[SkillName].gameObject.SetActive(false);                
+            }
+        }
+    }
 
 
+    
 }

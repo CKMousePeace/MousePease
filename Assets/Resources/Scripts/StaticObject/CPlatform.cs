@@ -34,6 +34,11 @@ public class CPlatform : MonoBehaviour
     [Header("재생성 시간")]
     [SerializeField] private float m_RespawnTime = 1.0f;
 
+    [Header("파괴효과 줄 플랫폼")]
+    [SerializeField] private GameObject Platform_Dest;
+    [Header("터질때 줄 효과")]
+    [SerializeField] private float m_BoomForce;
+
     private int m_Cur = 1;                                                       //Current route number                         현재 가야할 경로 번호
     private bool m_Back = false;                                                 //Make sure you have arrived at your current destination and are returning 현재 목적지에 도착하고 돌아가고 있는지 확인
 
@@ -151,6 +156,7 @@ public class CPlatform : MonoBehaviour
     {
         
         this.gameObject.SetActive(false);     //It needs to be reused, so just disable it.  재사용 해야하므로 비활성화만 시켜준다.
+        BoomPlatform();        //Destructable Platform added
         Invoke("Respawn", m_RespawnTime);     //Wait as much as the regeneration waiting time with the Invoke function.  재생성 대기시간만큼 Invoke함수로 대기시킨다.
 
     }
@@ -160,6 +166,7 @@ public class CPlatform : MonoBehaviour
         yield return new WaitForSeconds(m_DestroyTime);
        // Player.transform.parent = null;
         this.gameObject.SetActive(false);     //비활성화만 시켜준다.
+        BoomPlatform();
 
         Invoke("Respawn", m_RespawnTime);     //재생성 대기시간만큼 Invoke함수로 대기시킨다.
 
@@ -174,5 +181,16 @@ public class CPlatform : MonoBehaviour
         this.enabled = true;
         this.gameObject.SetActive(true);
         StartCoroutine(Move());
+    }
+
+    private void BoomPlatform()
+    {
+        GameObject BCS = Instantiate(Platform_Dest, transform.position, transform.rotation);
+
+        foreach (Rigidbody rb in BCS.GetComponentsInChildren<Rigidbody>())
+        {
+            Vector3 force = (rb.transform.position - transform.position).normalized * m_BoomForce;
+            rb.AddForce(force);
+        }
     }
 }

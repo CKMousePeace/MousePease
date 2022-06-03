@@ -85,8 +85,10 @@ public class CSaveController : MonoBehaviour
     }
 
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
+        Debug.Log("Quit");
+        _gameData = new CGameData();
         SaveGameData();
     }
 

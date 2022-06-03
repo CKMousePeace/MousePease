@@ -69,6 +69,8 @@ MonoBehaviour:
   m_PlatformDes: 1
   m_DestroyTime: 2
   m_RespawnTime: 2
+  Platform_Dest: {fileID: 148609288186162130, guid: 5535e5aca03c91e47b7cd628208e67b0, type: 3}
+  m_BoomForce: 100
 --- !u!1001 &5819941290676445723
 PrefabInstance:
   m_ObjectHideFlags: 0

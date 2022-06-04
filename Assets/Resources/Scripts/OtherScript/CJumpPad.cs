@@ -33,6 +33,7 @@ public class CJumpPad : CStaticObject
 
             //애니메 트리거
             Animator.SetTrigger("PlayerTrigger");
+            m_Player.g_Animator.SetTrigger("JumpPad");
             PlayJumpPad();
         }
     }

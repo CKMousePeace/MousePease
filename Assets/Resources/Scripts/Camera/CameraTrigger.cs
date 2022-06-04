@@ -5,11 +5,11 @@ using UnityEngine;
 public class CameraTrigger : MonoBehaviour
 {
 
-    public int zoom = 20;
-    public int zoomout = -20;
-    public int normal = 60;
-    public float smooth = 5;
-    public int FOV = 30;
+    [SerializeField] private int zoom = 20;
+    [SerializeField] private int zoomout = -20;
+    [SerializeField] private int normal = 60;
+    [SerializeField] private float smooth = 5;
+    [SerializeField] private int FOV = 30;
 
     public bool isZoomed = false;
     public bool isZoomOut = false;

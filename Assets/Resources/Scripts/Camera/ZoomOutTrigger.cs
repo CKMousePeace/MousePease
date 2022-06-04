@@ -6,17 +6,6 @@ public class ZoomOutTrigger : MonoBehaviour
 {
     public GameObject ZoomOut_Trigger;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerStay(Collider other)
     {
 

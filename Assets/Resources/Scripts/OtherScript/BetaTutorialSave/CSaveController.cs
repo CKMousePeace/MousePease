@@ -8,7 +8,7 @@ public class CSaveController : MonoBehaviour
 
 
     static GameObject _container;
-    static GameObject Container
+    public static GameObject Container
     {
         get
         {
@@ -85,8 +85,10 @@ public class CSaveController : MonoBehaviour
     }
 
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
+        Debug.Log("Quit");
+        _gameData = new CGameData();
         SaveGameData();
     }
 

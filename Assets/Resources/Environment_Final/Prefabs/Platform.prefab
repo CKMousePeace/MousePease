@@ -69,6 +69,8 @@ MonoBehaviour:
   m_PlatformDes: 1
   m_DestroyTime: 2
   m_RespawnTime: 2
+  Platform_Dest: {fileID: 148609288186162130, guid: 5535e5aca03c91e47b7cd628208e67b0, type: 3}
+  m_BoomForce: 100
 --- !u!1001 &5819941290676445723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128,6 +130,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: f2de05607464d454a8c4966783b39f44, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46649d3548190a74f934c752a79a2b6b, type: 2}
     - target: {fileID: 919132149155446097, guid: f2de05607464d454a8c4966783b39f44, type: 3}
       propertyPath: m_Name
       value: Level_Move_Flatform

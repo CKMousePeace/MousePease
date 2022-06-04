@@ -16,10 +16,14 @@ public class CSliding : CSkillBase
 
     private void OnEnable()
     {
+        if (m_Actor == null) return;
+
         m_Actor.g_Animator.SetBool("Sliding", true);
     }
     private void OnDisable()
     {
+        if (m_Actor == null) return;
+
         m_Actor.g_Animator.SetBool("Sliding", false);
     }
     

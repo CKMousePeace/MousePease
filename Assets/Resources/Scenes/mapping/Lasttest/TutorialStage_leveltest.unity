@@ -51741,6 +51741,10 @@ PrefabInstance:
       propertyPath: m_SecStamina
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 8771119825539923029, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
+      propertyPath: m_DashStamina
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 8771119825747577056, guid: 31788443a6113e9468df5918d7e27ac5, type: 3}
       propertyPath: m_IsActive
       value: 1

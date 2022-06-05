@@ -23,7 +23,6 @@ public class CSavePoint : MonoBehaviour
                 m_Player.transform.position = m_Save.GetComponent<CSaveController>().g_Save[0].transform.position;
                 m_Save.GetComponent<CSaveController>().SaveGameData();
                 Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
-                
                 break;
 
             case 2:

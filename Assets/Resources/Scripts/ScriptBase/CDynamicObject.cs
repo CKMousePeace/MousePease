@@ -81,6 +81,17 @@ public abstract class CDynamicObject : CActor
         return false;
     }
 
+    public bool DestroySkill(string SkillName)
+    {
+        if (m_ControllerDic.ContainsKey("SkillController"))
+        {
+            CSkillController SkillController = (CSkillController)m_ControllerDic["SkillController"];
+            SkillController.DestroySkill(SkillName);
+            return true;
+        }
+        return false;
+    }
+
     // 스킬 생성하는 함수 입니다.
     public bool GenerateSkill(string SkillName)
     {

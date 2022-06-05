@@ -8,7 +8,6 @@ public class CPlayerMovement : CControllerBase
     [SerializeField] private float m_fMaxSpeed;
     [SerializeField, Range(0.1f, 1.0f)] private float m_TurnSpeed;
 
-
     [SerializeField] private float m_EffectTime;
     [SerializeField] private CColliderChecker m_Checker;
 
@@ -19,8 +18,7 @@ public class CPlayerMovement : CControllerBase
     private float m_BuffSpeed;
     private float m_currentVelocity = 2;
     private float m_CurrentLifeTime;
-    
-    
+    private float m_NormalX = 0.0f;
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
@@ -29,9 +27,11 @@ public class CPlayerMovement : CControllerBase
 
     public float g_ChaseAnimTime = 0.0f;
 
+    public float g_NormalX => m_NormalX;
     
 
-
+    private RaycastHit m_Hit;
+    private bool m_HitCheck;
     private void OnDisable()
     {
         m_currentSpeed = 0.0f;             
@@ -41,12 +41,55 @@ public class CPlayerMovement : CControllerBase
 
     private void Update()
     {
+        if (m_Actor.CompareSkill("Sliding"))
+        {
+            return;
+        }
         m_CurrentLifeTime += Time.deltaTime;
         if (!GameManager.g_isGameStart) return;
         if (PlayerMoveState()) return;
         PlayerMoveKey();
         MovementEffect();
     }
+
+    private void SlidingCheck()
+    {
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y);
+        Vector3 ExtentsY = new Vector3(0.0f, WallJumpRayDistance, 0.0f);
+        m_HitCheck = Physics.Raycast(m_Actor.transform.position - ExtentsY, -m_Actor.transform.up, out m_Hit, 0.5f);
+
+
+        if (m_HitCheck)
+        {
+            m_NormalX = m_Hit.normal.x;
+            if (m_Hit.transform.CompareTag("SlidingTile"))
+            {
+                if (!m_Actor.CompareSkill("Sliding"))
+                    m_Actor.GenerateSkill("Sliding");
+            }
+            else
+            {
+                if (m_Actor.CompareSkill("Sliding"))
+                {
+                    if (!m_Actor.DestroySkill("Sliding"))
+                    {
+                        Debug.LogError("Sliding 가 없습니다.");
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (m_Actor.CompareSkill("Sliding"))
+            {
+                if (!m_Actor.DestroySkill("Sliding"))
+                {
+                    Debug.LogError("Sliding 가 없습니다.");
+                }
+            }
+        }
+    }
+
     private void FixedUpdate()
     {
         if (!GameManager.g_isGameStart)
@@ -55,13 +98,20 @@ public class CPlayerMovement : CControllerBase
             return;
         }
 
+        SlidingCheck();
+        if (m_Actor.CompareSkill("Sliding"))
+        {
+            return;
+        }
+
+
+
+
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
         WallJumpCheck();
-
-        
         if (!m_Actor.CompareController("WallJump"))
         {
             if (m_DirX == 0.0f)
@@ -85,9 +135,15 @@ public class CPlayerMovement : CControllerBase
                     g_ChaseAnimTime = Mathf.SmoothDamp(g_ChaseAnimTime, 1.0f, ref m_currentVelocity, 0.1f);
                     m_Actor.g_Animator.SetFloat("Walking", g_ChaseAnimTime);
                 }
-            }         
+            }
         }
+
+
+        
+
+
     }
+
 
 
     private void WallJumpCheck()
@@ -170,7 +226,8 @@ public class CPlayerMovement : CControllerBase
         }
         m_Yaw = m_DirX * 90.0f;
     }
-   
+
+
     private bool PlayerMoveState()
     {
         if (m_Actor.CompareBuff("KnockBack"))
@@ -183,6 +240,8 @@ public class CPlayerMovement : CControllerBase
         }
         return false;
     }
+
+
 
     /// <summary>
     ///치즈 관련 부분 
@@ -235,23 +294,22 @@ public class CPlayerMovement : CControllerBase
         }
     }
 
+
     private void OnDrawGizmos()
     {
         if (m_Actor == null || m_Checker == null) return;
 
-        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.x) * 1.8f;
-        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);             
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y);
+        Vector3 ExtentsY = new Vector3(0.0f, WallJumpRayDistance, 0.0f);
 
+        Gizmos.DrawRay(m_Actor.transform.position - ExtentsY , -m_Actor.transform.up * 0.3f); 
+        
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(m_Actor.transform.position + WallJumpOffsetY, m_Actor.transform.position + WallJumpOffsetY + m_Actor.transform.forward * WallJumpRayDistance);
-        Gizmos.DrawLine(m_Actor.transform.position - WallJumpOffsetY, m_Actor.transform.position - WallJumpOffsetY + m_Actor.transform.forward * WallJumpRayDistance);
+    }    
 
-        //WallJump 생성
-
-    }
+}
 
     
 
 
-}
+

@@ -13,6 +13,7 @@ TagManager:
   - MeltedCheese
   - Wall
   - Boss
+  - SlidingTile
   layers:
   - Default
   - TransparentFX

@@ -8,7 +8,7 @@ public class CSaveController : MonoBehaviour
 
 
     static GameObject _container;
-    static GameObject Container
+    public static GameObject Container
     {
         get
         {

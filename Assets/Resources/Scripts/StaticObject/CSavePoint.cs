@@ -104,4 +104,3 @@ public class CSavePoint : MonoBehaviour
         SFX_SavePoint.release();
     }
 }
-}

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{96cb10d9-e877-4a93-952d-172a4c70cc5f}">
 		<property name="assetPath">
-			<value>Boss_HoldDown_Voice.wav</value>
+			<value>Character/Boss_HoldDown_Voice.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

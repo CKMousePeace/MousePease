@@ -7,6 +7,7 @@ public class CDashItem : CItemBase
 {
     [SerializeField] private float m_RotateSpeed = 100f;
     private FMOD.Studio.EventInstance SFX_DashItem;
+    private CPlayer m_Player;
 
     private void FixedUpdate()
     {
@@ -18,12 +19,12 @@ public class CDashItem : CItemBase
         base.OnTriggerEnter(other);
         var Actor = other.gameObject.GetComponent<CDynamicObject>();
         if (Actor == null) return;
+        if (m_Player == null)
+        {
+            m_Player = Actor.transform.GetComponent<CPlayer>();
+        }
 
-        var Dash = Actor.GetController("Dash") as CDash;
-        if (Dash == null) return;
-
-        //Dash.g_DashItem = true;
-
+        m_Player.g_fStamina = m_Player.g_fMaxStamina;
         PlayDashItem();
 
 

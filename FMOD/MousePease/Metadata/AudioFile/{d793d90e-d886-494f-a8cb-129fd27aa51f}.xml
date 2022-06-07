@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<objects serializationModel="Studio.02.01.00">
+<objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{d793d90e-d886-494f-a8cb-129fd27aa51f}">
 		<property name="assetPath">
-			<value>SmashNormal.wav</value>
+			<value>Character/SmashNormal.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class CSavePoint : MonoBehaviour
 {
@@ -12,6 +13,12 @@ public class CSavePoint : MonoBehaviour
 
     [Header("세이브 번호")]
     [SerializeField] private int SaveNum = 0;
+
+    [Header("파티클-Prefab에서 관리")]
+    [SerializeField] private ParticleSystem SaveParticle;
+
+
+    private FMOD.Studio.EventInstance SFX_SavePoint;
 
     private void Start()
     {
@@ -58,24 +65,42 @@ public class CSavePoint : MonoBehaviour
                     m_Save.GetComponent<CSaveController>().gameData.Tutorial_1 = true;
                     m_Save.GetComponent<CSaveController>().gameData.Checker = 1;
                     m_Save.GetComponent<CSaveController>().SaveGameData();
-                    Destroy(gameObject);
+
+                    PlaySavePoint();
+                    Destroy(this);
                     break;
 
                 case 2:
                     m_Save.GetComponent<CSaveController>().gameData.Tutorial_2 = true;
                     m_Save.GetComponent<CSaveController>().gameData.Checker = 2;
                     m_Save.GetComponent<CSaveController>().SaveGameData();
-                    Destroy(gameObject);
+
+                    PlaySavePoint();
+                    Destroy(this);
                     break;
 
                 case 3:
                     m_Save.GetComponent<CSaveController>().gameData.Tutorial_3 = true;
                     m_Save.GetComponent<CSaveController>().gameData.Checker = 3;
                     m_Save.GetComponent<CSaveController>().SaveGameData();
-                    Destroy(gameObject);
+                    
+                    PlaySavePoint();
+                    Destroy(this);
                     break;
 
             }
         }
+    }
+
+
+
+    private void PlaySavePoint()
+    {
+        SaveParticle.transform.position = gameObject.transform.position;
+        SaveParticle.Play();        //Particle
+        SFX_SavePoint = RuntimeManager.CreateInstance("event:/Interactables/SFX_SavePoint");
+        SFX_SavePoint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_SavePoint.start();
+        SFX_SavePoint.release();
     }
 }

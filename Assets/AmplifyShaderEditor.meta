@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/AmplifyShaderEditor_202203.meta
+<<<<<<<< HEAD:Assets/Resources/Environment_Final/Animation.meta
+guid: 0c859a53f118167418d0c933631977aa
+========
+guid: 4a2f9527af9cda64f8140e90430bbf72
+>>>>>>>> origin/Boss/AddEffect_Intro:Assets/AmplifyShaderEditor_202203.meta
+=======
+guid: 323ef165648d42040908d29dc467bb0f
+>>>>>>> origin/Boss/AddEffect_Intro:Assets/AmplifyShaderEditor.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

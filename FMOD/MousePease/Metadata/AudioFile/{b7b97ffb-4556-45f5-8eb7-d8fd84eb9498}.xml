@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{b7b97ffb-4556-45f5-8eb7-d8fd84eb9498}">
 		<property name="assetPath">
-			<value>AC_Squeaky_Mouse_01.wav</value>
+			<value>Character/AC_Squeaky_Mouse_01.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>48</value>

@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="AudioFile" id="{de691fa5-7214-4c43-b139-4cbe4bd883c6}">
 		<property name="assetPath">
-			<value>Boss_Dead.wav</value>
+			<value>Character/Boss_Dead.wav</value>
 		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>

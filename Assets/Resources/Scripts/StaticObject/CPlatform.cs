@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class CPlatform : MonoBehaviour
 {
@@ -41,6 +42,7 @@ public class CPlatform : MonoBehaviour
 
     private int m_Cur = 1;                                                       //Current route number                         현재 가야할 경로 번호
     private bool m_Back = false;                                                 //Make sure you have arrived at your current destination and are returning 현재 목적지에 도착하고 돌아가고 있는지 확인
+    private FMOD.Studio.EventInstance SFX_Platform;
 
     Vector3[] m_Pos;                                                             //m_relativeMovePoint값을 토대로 변환한 실제 월드좌표를 가지고 있는 배열
 
@@ -186,11 +188,19 @@ public class CPlatform : MonoBehaviour
     private void BoomPlatform()
     {
         GameObject BCS = Instantiate(Platform_Dest, transform.position, transform.rotation);
-
+        PlayPlatformCrash();
         foreach (Rigidbody rb in BCS.GetComponentsInChildren<Rigidbody>())
         {
             Vector3 force = (rb.transform.position - transform.position).normalized * m_BoomForce;
             rb.AddForce(force);
         }
+    }
+
+    private void PlayPlatformCrash()
+    {
+        SFX_Platform = RuntimeManager.CreateInstance("event:/Interactables/SFX_Platform");
+        SFX_Platform.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
+        SFX_Platform.start();
+        SFX_Platform.release();
     }
 }

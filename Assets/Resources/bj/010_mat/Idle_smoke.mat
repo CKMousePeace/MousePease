@@ -148,6 +148,7 @@ Material:
     - _ToggleSwitch2: 0
     - _WorkflowMode: 0
     - _ZWrite: 1
+    - __dirty: 0
     - _dis: 0.97
     - _end_size: 2.63
     - _inten: 0.8

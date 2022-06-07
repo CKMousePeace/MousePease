@@ -8740,14 +8740,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f532a5741d5364b97e808d6ded0076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 20
-  zoomout: 20
-  normal: 60
-  smooth: 5
-  FOV: 30
-  isZoomed: 0
-  isZoomOut: 0
-  zoomcamera: {fileID: 1150138788}
 --- !u!1001 &320694451
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31740,14 +31732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53f532a5741d5364b97e808d6ded0076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 20
-  zoomout: 40
-  normal: 60
-  smooth: 3.5
-  FOV: 25
-  isZoomed: 0
-  isZoomOut: 0
-  zoomcamera: {fileID: 1150138788}
 --- !u!114 &1150138792
 MonoBehaviour:
   m_ObjectHideFlags: 0

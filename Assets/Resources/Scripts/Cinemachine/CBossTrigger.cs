@@ -10,24 +10,14 @@ public class CBossTrigger : MonoBehaviour
     [SerializeField] private Image m_FadeOut;
     [SerializeField] private GameObject FadeCover;
 
-    private bool isCheck = false;
-
-
-    private void Update()
-    {
-        StartCoroutine(DelayStart());
-    }
-
 
     private void OnTriggerEnter(Collider col)
     {
-        if (isCheck == true)
+        if (col.CompareTag("Player"))
         {
             FadeCover.SetActive(true);
             StartCoroutine(FadeOutBoss());
         }
-        else
-            return;
     }
 
 
@@ -43,12 +33,6 @@ public class CBossTrigger : MonoBehaviour
         }
         SceneManager.LoadScene("Tutorial");
 
-    }
-
-    IEnumerator DelayStart()
-    {
-        yield return new WaitForSeconds(4.0f);
-        isCheck = true;
     }
 
 }

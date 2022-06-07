@@ -1,13 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class InGameFadeIn : MonoBehaviour
 {
     //인게임에 적용 될 페이드 인
     [SerializeField] private Image m_FadeOut;
+    [SerializeField] private GameObject canvers;
 
     void Start()
     {
@@ -27,7 +26,7 @@ public class InGameFadeIn : MonoBehaviour
 
         if (FadeInCount < 1.0f)
         {
-            Destroy(gameObject);
+            canvers.SetActive(false);
         }
     }
 

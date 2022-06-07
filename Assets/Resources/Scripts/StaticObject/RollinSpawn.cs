@@ -23,9 +23,9 @@ public class RollinSpawn : MonoBehaviour
 
        CObjectPool.g_instance.ObjectPop("RollingBoi", new Vector3(m_RollingSpawnLocation.position.x,
                         m_RollingSpawnLocation.position.y, m_RollingSpawnLocation.position.z), Quaternion.Euler(0, 0, 0), new Vector3(1.0f, 1.0f, 1.0f));
-       CObjectPool.g_instance.ObjectPush();
+        //CObjectPool.g_instance.ObjectPush();
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 
 }

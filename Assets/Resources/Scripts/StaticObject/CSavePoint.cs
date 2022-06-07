@@ -14,8 +14,6 @@ public class CSavePoint : MonoBehaviour
     [Header("세이브 번호")]
     [SerializeField] private int SaveNum = 0;
 
-    [Header("파티클-Prefab에서 관리")]
-    [SerializeField] private ParticleSystem SaveParticle;
 
 
     private FMOD.Studio.EventInstance SFX_SavePoint;
@@ -96,8 +94,10 @@ public class CSavePoint : MonoBehaviour
 
     private void PlaySavePoint()
     {
-        gameObject.transform.position = SaveParticle.transform.position;
-        SaveParticle.Play();        //Particle
+
+        CObjectPool.g_instance.ObjectPop("SaveBoi", new Vector3(transform.position.x,
+                 transform.position.y, transform.position.z), Quaternion.Euler(0, 0, 0), new Vector3(1.0f, 1.0f, 1.0f));
+
         SFX_SavePoint = RuntimeManager.CreateInstance("event:/Interactables/SFX_SavePoint");
         SFX_SavePoint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));
         SFX_SavePoint.start();

@@ -41,7 +41,7 @@ public class CPlayerMovement : CControllerBase
 
     private void Update()
     {
-        if (m_Actor.CompareSkill("Sliding"))
+        if (m_Actor.CompareSkill("Sliding") || !BoxCastCheck())
         {
             return;
         }
@@ -97,21 +97,27 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Animator.SetFloat("Walking", 0.0f);
             return;
         }
-
-        SlidingCheck();
-        if (m_Actor.CompareSkill("Sliding"))
+        if (m_Actor.CompareSkill("Sliding") || !BoxCastCheck())
         {
             return;
         }
 
 
 
-
+        SlidingCheck();
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();
         Movement();
         WallJumpCheck();
+        WallJump();
+
+
+    }
+
+
+    private void WallJump()
+    {
         if (!m_Actor.CompareController("WallJump"))
         {
             if (m_DirX == 0.0f)
@@ -139,11 +145,8 @@ public class CPlayerMovement : CControllerBase
         }
 
 
-        
-
 
     }
-
 
 
     private void WallJumpCheck()
@@ -234,11 +237,37 @@ public class CPlayerMovement : CControllerBase
         {
             return true;
         }
-        if (m_Actor.CompareController("Dash"))
+        else if (m_Actor.CompareController("Dash"))
+        {
+            return true;
+        }
+        else if (m_Actor.CompareSkill("DownHill"))
         {
             return true;
         }
         return false;
+    }
+
+    private bool BoxCastCheck()
+    {
+        RaycastHit hitinfo;
+        if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f, transform.forward,out hitinfo, m_Actor.transform.rotation, 0.2f)) 
+        {
+
+            if (hitinfo.collider.isTrigger)
+            {             
+                return true;
+            }
+            var CeilX = Mathf.Ceil(m_DirX);
+            var CeilNormalX = Mathf.Ceil(hitinfo.normal.x);
+            if (CeilNormalX != CeilX)
+            {                
+                m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+                return false;
+            }
+
+        }
+        return true;
     }
 
 
@@ -293,7 +322,6 @@ public class CPlayerMovement : CControllerBase
             }
         }
     }
-
 
     private void OnDrawGizmos()
     {

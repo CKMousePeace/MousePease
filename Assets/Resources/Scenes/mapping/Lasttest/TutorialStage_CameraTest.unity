@@ -1418,7 +1418,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.920227
+      value: 36.93023
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1750,7 +1750,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.920227
+      value: 36.94023
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -7951,7 +7951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 36.920227
+      value: 36.91023
       objectReference: {fileID: 0}
     - target: {fileID: 857822914473533096, guid: ecdb23d73b4fe6d4c80d05806de134a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9895,7 +9895,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ac540d1313426544bd5355a9cb43db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomtrigger: {fileID: 0}
+  isZoomed: 0
+  isZoomOut: 0
+  g_PlayerFollower: {fileID: 319795783}
+  zoom: 20
+  zoomout: -20
+  smooth: 5
+  m_FOV: 30
 --- !u!65 &358748574
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13323,7 +13329,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb91788e21c12746b63d184b23d2379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoomOut_Trigger: {fileID: 466964534}
+  isZoomed: 0
+  isZoomOut: 0
+  g_PlayerFollower: {fileID: 319795783}
+  zoom: 20
+  zoomout: -20
+  smooth: 5
+  m_FOV: 30
 --- !u!65 &466964537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25103,7 +25115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb91788e21c12746b63d184b23d2379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoomOut_Trigger: {fileID: 872363436}
+  isZoomed: 0
+  isZoomOut: 0
+  g_PlayerFollower: {fileID: 319795783}
+  zoom: 20
+  zoomout: -20
+  smooth: 5
+  m_FOV: 30
 --- !u!65 &872363439
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43255,7 +43273,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb91788e21c12746b63d184b23d2379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoomOut_Trigger: {fileID: 1613618224}
+  isZoomed: 0
+  isZoomOut: 0
+  g_PlayerFollower: {fileID: 319795783}
+  zoom: 20
+  zoomout: -20
+  smooth: 5
+  m_FOV: 30
 --- !u!65 &1613618227
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46635,7 +46659,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: beb91788e21c12746b63d184b23d2379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ZoomOut_Trigger: {fileID: 1751017057}
+  isZoomed: 0
+  isZoomOut: 0
+  g_PlayerFollower: {fileID: 319795783}
+  zoom: 20
+  zoomout: -20
+  smooth: 5
+  m_FOV: 30
 --- !u!65 &1751017060
 BoxCollider:
   m_ObjectHideFlags: 0

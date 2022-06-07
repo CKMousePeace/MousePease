@@ -108,7 +108,7 @@ public class CJump : CControllerBase
         }
 
         
-        m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.y);
+        //m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, 0.0f, m_Actor.g_Rigid.velocity.y);
 
         m_Actor.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderStay += ColliderStay;
@@ -224,7 +224,7 @@ public class CJump : CControllerBase
 
         if (m_isJump && !m_JumpCheck)
         {
-            m_Actor.g_Rigid.velocity = Vector3.zero;
+            
             var velocity = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fForce) * Dir;            
             m_Actor.g_Rigid.velocity = velocity;
             if (m_IsWallJumpCheck)

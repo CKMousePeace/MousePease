@@ -60,6 +60,7 @@ public class CDownHill : CSkillBase
         var Right = Vector2.right;
         var Left = Vector2.left;
 
+        m_Actor.g_Rigid.velocity = Vector3.zero;
         m_Actor.g_Animator.SetTrigger("Gliding");
         m_Actor.g_Animator.SetBool("EndGliding", false);
 

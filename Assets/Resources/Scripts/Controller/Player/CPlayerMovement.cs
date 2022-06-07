@@ -234,7 +234,11 @@ public class CPlayerMovement : CControllerBase
         {
             return true;
         }
-        if (m_Actor.CompareController("Dash"))
+        else if (m_Actor.CompareController("Dash"))
+        {
+            return true;
+        }
+        else if (m_Actor.CompareSkill("DownHill"))
         {
             return true;
         }

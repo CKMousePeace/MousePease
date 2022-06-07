@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Resources/Scenes/mapping/Lasttest/TutorialStage_soundTest.unity
     guid: 949fde008323ec84b9759823565064c6
   - enabled: 1
-    path: Assets/Resources/Scenes/mapping/Lasttest/TutorialStage_leveltest.unity
-    guid: 839b9c75d5d693042879d6f0b36cbd96
+    path: Assets/Resources/Scenes/mapping/Lasttest/TutorialStage_CameraTest.unity
+    guid: 9ff286b6af97eb44b9c7ba2db96cca9a
   m_configObjects: {}

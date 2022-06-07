@@ -21,9 +21,9 @@ public class CPlayerMovement : CControllerBase
     private float m_NormalX = 0.0f;
 
     public float g_currentSpeed => m_currentSpeed;
-    public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; }  }
+    public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; } }
     public bool g_isChase { get; set; }
-    public float g_fMaxSpeed => m_fMaxSpeed;
+    public float g_fMaxSpeed { get { return m_fMaxSpeed; } set { m_fMaxSpeed = value; } }
 
     public float g_ChaseAnimTime = 0.0f;
 

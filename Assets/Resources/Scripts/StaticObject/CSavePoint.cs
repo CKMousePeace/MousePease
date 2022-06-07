@@ -96,7 +96,7 @@ public class CSavePoint : MonoBehaviour
 
     private void PlaySavePoint()
     {
-        SaveParticle.transform.position = gameObject.transform.position;
+        gameObject.transform.position = SaveParticle.transform.position;
         SaveParticle.Play();        //Particle
         SFX_SavePoint = RuntimeManager.CreateInstance("event:/Interactables/SFX_SavePoint");
         SFX_SavePoint.set3DAttributes(RuntimeUtils.To3DAttributes(gameObject));

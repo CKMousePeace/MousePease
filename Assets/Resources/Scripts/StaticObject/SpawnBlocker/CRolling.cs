@@ -39,7 +39,7 @@ public class CRolling : CStaticObject
     private void FixedUpdate()
     {
         if (gameObject.transform.position.z < -15)
-            Destroy(gameObject);
+            gameObject.SetActive(false);
 
     }
 

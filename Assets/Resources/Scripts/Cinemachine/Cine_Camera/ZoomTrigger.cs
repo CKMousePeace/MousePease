@@ -2,14 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoomTrigger : CCinemachine
+public class ZoomTrigger : MonoBehaviour
 {
+
+    [SerializeField] private GameObject CCin;
+    private void Start()
+    {
+        if (CCin == null)
+            CCin = GameObject.Find("CMTuto vcam");
+    }
 
     private void OnTriggerStay(Collider col)
     {
         if(col.CompareTag("Player"))
         {
-            isZoomed = true;
+            CCin.GetComponent<CCinemachine>().isZoomed = true;
         }
       }
 
@@ -17,7 +24,7 @@ public class ZoomTrigger : CCinemachine
     {
         if(col.CompareTag("Player"))
         {
-            isZoomed = false;
+            CCin.GetComponent<CCinemachine>().isZoomed = false;
         }
 
     }

@@ -11,33 +11,37 @@ public class CCinemachine : MonoBehaviour
 
     public CinemachineVirtualCamera g_PlayerFollower;
 
-    [SerializeField] private int zoom = 20;
-    [SerializeField] private int zoomout = -20;
+    [SerializeField] private int m_Zoom = 20;
+    [SerializeField] private int m_Zoomout = -20;
 
-    [SerializeField] private float smooth = 5;
+    [SerializeField] private float m_Smooth = 5;
 
     [SerializeField] private float m_FOV = 30;
 
-    void Update()
+    void FixedUpdate()
     {
         if (isZoomed)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, zoom, Time.deltaTime * smooth);
+            g_PlayerFollower.m_Lens.FieldOfView = 
+                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_Zoom, Time.deltaTime * m_Smooth);
 
         }
         if (!isZoomed)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * smooth);
+            g_PlayerFollower.m_Lens.FieldOfView = 
+                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * m_Smooth);
         }
 
         if (isZoomOut)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, zoomout, Time.deltaTime * smooth);
+            g_PlayerFollower.m_Lens.FieldOfView = 
+                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_Zoomout, Time.deltaTime * m_Smooth);
 
         }
         if (!isZoomOut)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * smooth);
+            g_PlayerFollower.m_Lens.FieldOfView = 
+                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * m_Smooth);
         }
 
     }

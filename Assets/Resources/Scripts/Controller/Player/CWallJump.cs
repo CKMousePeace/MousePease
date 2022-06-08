@@ -7,13 +7,14 @@ public class CWallJump : CControllerBase
     [SerializeField] private float m_FallingSpeed;
     [SerializeField] private float m_SecStamina;
     private CPlayer m_Player;
+    
 
     private float m_fDeltaStamina;
-
+    
     public override void init(CDynamicObject actor)
     {
         base.init(actor);
-        m_Player = actor.transform.GetComponent<CPlayer>();
+        m_Player = actor.transform.GetComponent<CPlayer>();    
         gameObject.SetActive(false);
     }
 
@@ -29,6 +30,7 @@ public class CWallJump : CControllerBase
             return;
         }
 
+               
         m_Actor.g_Animator.SetTrigger("WallIdle");        
         m_Actor.g_Animator.SetBool("isWallIdle", true);
         m_Actor.g_Rigid.velocity = Vector3.zero;
@@ -37,8 +39,7 @@ public class CWallJump : CControllerBase
 
     private void OnDisable()
     {        
-        m_Actor.g_Animator.SetBool("isWallIdle", false);
-        m_Actor.g_Animator.SetBool("IsWallJumpNormal", false);                
+        m_Actor.g_Animator.SetBool("isWallIdle", false);            
     }
 
     private void Update()
@@ -52,12 +53,16 @@ public class CWallJump : CControllerBase
         }
 
         m_Player.g_fStamina -= m_fDeltaStamina;
+
+        
     }
 
     private void FixedUpdate()
     {
         if (m_Actor.g_Rigid.velocity.y < -m_FallingSpeed)
             m_Actor.g_Rigid.velocity = new Vector3(m_Actor.g_Rigid.velocity.x, -m_FallingSpeed, m_Actor.g_Rigid.velocity.z);
+
+       
     }
 
 

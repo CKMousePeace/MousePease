@@ -1,23 +1,15 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Destroy_Fade : MonoBehaviour
 {
     Renderer m_Renderer;
 
-
-    private void OnEnable()
-    {
-        
-    }
-
     void Start()
     {
         m_Renderer = gameObject.GetComponent<Renderer>();
         StartCoroutine(FadeOff_Dest());
     }
-
 
     IEnumerator FadeOff_Dest()
     {
@@ -37,6 +29,14 @@ public class Destroy_Fade : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
         Destroy(gameObject);
+    }
 
+    private void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.CompareTag("Floor"))
+        {
+            Debug.Log("ªË¡¶µ ");
+            Destroy(gameObject);
+        }
     }
 }

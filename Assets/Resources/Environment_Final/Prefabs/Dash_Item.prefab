@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_itemInfo: {fileID: 11400000, guid: e3636ce37d16cc14d9546eeec313c04d, type: 2}
+  m_RotateSpeed: 100
 --- !u!1001 &4303306054927381588
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88,15 +89,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 706ce449b87b0384086a9e111532c38d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 706ce449b87b0384086a9e111532c38d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 706ce449b87b0384086a9e111532c38d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 706ce449b87b0384086a9e111532c38d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

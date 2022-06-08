@@ -8,19 +8,23 @@ public class CGameEndTrigger : MonoBehaviour
     [SerializeField] private Image m_FadeOut;
     [SerializeField] private GameObject FadeCover;
 
+    [Header("어두워지는 속도")]
+    [SerializeField] private float m_FadeSpeed = 0.01f;
+
 
     private void OnTriggerEnter(Collider col)
     {
-        FadeCover.SetActive(true);
-        StartCoroutine(FadeOutScene());
+        
+        StartCoroutine(FadeOutScene(m_FadeSpeed));
     }
 
-    IEnumerator FadeOutScene()
+    IEnumerator FadeOutScene(float speed)
     {
+        FadeCover.SetActive(true);
         float FadeOutCount = 0;
         while (FadeOutCount < 1.0f)
         {
-            FadeOutCount += 0.03f;
+            FadeOutCount += speed;
             yield return new WaitForSeconds(0.01f);
             m_FadeOut.color = new Color(0, 0, 0, FadeOutCount);
         }

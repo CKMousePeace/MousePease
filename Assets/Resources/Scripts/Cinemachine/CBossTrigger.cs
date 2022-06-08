@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CBossTrigger : MonoBehaviour
 {
+    [Header("보스 플레이어 킬 트리거")]
 
     [SerializeField] private Image m_FadeOut;
     [SerializeField] private GameObject FadeCover;

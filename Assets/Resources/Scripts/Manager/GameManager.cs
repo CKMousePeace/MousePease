@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        GameStartEvent();
+    }
 
     public void ButtonMovemnt(bool isOn )
     {

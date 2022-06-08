@@ -28,6 +28,8 @@ public class CPlayerMovement : CControllerBase
     public float g_ChaseAnimTime = 0.0f;
 
     public float g_NormalX => m_NormalX;
+
+    private bool g_isWallCheck;
     
 
     private RaycastHit m_Hit;
@@ -41,14 +43,21 @@ public class CPlayerMovement : CControllerBase
 
     private void Update()
     {
-        if (m_Actor.CompareSkill("Sliding") || !BoxCastCheck())
-        {
+        
+        if (m_Actor.CompareSkill("Sliding") )
+        {            
             return;
         }
         m_CurrentLifeTime += Time.deltaTime;
         if (!GameManager.g_isGameStart) return;
         if (PlayerMoveState()) return;
         PlayerMoveKey();
+
+        if (!g_isWallCheck)
+        {
+            m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+            return;
+        }
         MovementEffect();
     }
 
@@ -97,14 +106,17 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Animator.SetFloat("Walking", 0.0f);
             return;
         }
-        if (m_Actor.CompareSkill("Sliding") || !BoxCastCheck())
+        SlidingCheck();
+        g_isWallCheck = BoxCastCheck();
+        if (m_Actor.CompareSkill("Sliding") )
+        {
+            return;
+        }
+        if (!g_isWallCheck)
         {
             return;
         }
 
-
-
-        SlidingCheck();
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();
@@ -251,22 +263,27 @@ public class CPlayerMovement : CControllerBase
     private bool BoxCastCheck()
     {
         RaycastHit hitinfo;
-        if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f, transform.forward,out hitinfo, m_Actor.transform.rotation, 0.2f)) 
-        {
+        Vector3 velocity = m_Actor.g_Rigid.velocity;
 
-            if (hitinfo.collider.isTrigger)
-            {             
+        if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f , transform.forward, out hitinfo, m_Actor.transform.rotation, 0.2f))
+        {
+            if (hitinfo.collider.isTrigger || hitinfo.transform.CompareTag("Wall"))
+            {
                 return true;
             }
-            var CeilX = Mathf.Ceil(m_DirX);
-            var CeilNormalX = Mathf.Ceil(hitinfo.normal.x);
-            if (CeilNormalX != CeilX)
-            {                
-                m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+            var PointDir = m_Actor.transform.forward.x;
+            var CeilDir = m_DirX;
+
+            Debug.Log(PointDir);
+            Debug.Log(CeilDir);
+            if ((CeilDir > 0.0f && PointDir > 0.0f) || (CeilDir < 0.0f && PointDir < 0.0f))
+            {
+                velocity.x = 0.0f;
+                m_Actor.g_Rigid.velocity = velocity;
                 return false;
             }
-
         }
+        
         return true;
     }
 

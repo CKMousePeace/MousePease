@@ -38,5 +38,10 @@ public class CBlock : CStaticObject
             gameObject.SetActive(false);
 
     }
+    private void FixedUpdate()
+    {
+        if (gameObject.transform.position.z < -15)
+            gameObject.SetActive(false);
 
+    }
 }

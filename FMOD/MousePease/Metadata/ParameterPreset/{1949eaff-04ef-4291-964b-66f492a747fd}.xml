@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{1949eaff-04ef-4291-964b-66f492a747fd}">
+		<property name="name">
+			<value>BGMSelect</value>
+		</property>
+		<relationship name="folder">
+			<destination>{a418e0de-c7d0-05c9-280a-b529dc02e12e}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{cd8e2923-4655-4f0f-9dc7-cd85162e8d7c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{cd8e2923-4655-4f0f-9dc7-cd85162e8d7c}">
+		<property name="parameterType">
+			<value>2</value>
+		</property>
+		<property name="maximum">
+			<value>3</value>
+		</property>
+		<property name="enumerationLabels">
+			<value>1</value>
+			<value>2</value>
+			<value>3</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

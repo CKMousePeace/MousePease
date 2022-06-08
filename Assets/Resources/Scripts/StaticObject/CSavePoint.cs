@@ -5,10 +5,10 @@ using FMODUnity;
 
 public class CSavePoint : MonoBehaviour
 {
-    [Header("SaveManager 넣어주세요")]
+    [Header("SaveManager 넣을게~ ")]
     [SerializeField] private GameObject m_Save;
 
-    [Header("플레이어 넣어주세요")]
+    [Header("플레이어 넣을게~ ")]
     [SerializeField] private GameObject m_Player;
 
     [Header("세이브 번호")]

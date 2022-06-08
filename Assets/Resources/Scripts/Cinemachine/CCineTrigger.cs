@@ -13,6 +13,9 @@ public class CCineTrigger : MonoBehaviour
     [SerializeField] private float m_PlayereditSpeed;
     [SerializeField] private CPlayer m_Player;
     private CPlayerMovement m_PlayerMovement;
+
+    [Header("디버그. 연출재생")]
+    [SerializeField]  private bool TestPlayer = false;
         //뒤에 연출 부분 
     private void OnTriggerEnter(Collider col)
     {
@@ -37,5 +40,16 @@ public class CCineTrigger : MonoBehaviour
         }
 
 
+    }
+
+
+    private void Update()
+    {
+        if(TestPlayer == true)
+        {
+            m_CineBoss.SetActive(true);
+            m_CineCamera.SetActive(false);
+            m_CineTimeline.Play();
+        }
     }
 }

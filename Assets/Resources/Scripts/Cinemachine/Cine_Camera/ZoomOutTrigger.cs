@@ -2,22 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZoomOutTrigger : CCinemachine
+public class ZoomOutTrigger : MonoBehaviour
 {
+
+    [SerializeField] private GameObject CCin;
+    private void Start()
+    {
+        if(CCin == null)
+            CCin = GameObject.Find("CMTuto vcam");
+    }
 
     private void OnTriggerStay(Collider col)
     {
 
         if (col.CompareTag("Player"))
         {
-            isZoomOut = true;
+            CCin.GetComponent<CCinemachine>().isZoomOut = true;
         }
      }
     private void OnTriggerExit(Collider col)
     {
         if (col.CompareTag("Player"))
         {
-            isZoomOut = false;
+            CCin.GetComponent<CCinemachine>().isZoomOut = false;
         }
     }
 }

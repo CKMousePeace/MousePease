@@ -321,8 +321,8 @@ public class CJump : CControllerBase
             {
                 
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
-                m_Actor.g_Animator.SetBool("IsWallJumpNormal", true);
-                Dir = new Vector3(-m_DirX, 10.0f, 0.0f).normalized;
+                m_Actor.g_Animator.SetTrigger("IsWallJumpNormal");
+                Dir = new Vector3(-m_DirX, 5.0f, 0.0f).normalized;
                 Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
                 //Debug.LogAssertion(m_DirX.ToString() + " " + transform.forward.x.ToString());
             }

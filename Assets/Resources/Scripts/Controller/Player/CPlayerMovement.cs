@@ -19,6 +19,7 @@ public class CPlayerMovement : CControllerBase
     private float m_currentVelocity = 2;
     private float m_CurrentLifeTime;
     private float m_NormalX = 0.0f;
+    private RaycastHit m_Hit;
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; } }
@@ -30,9 +31,9 @@ public class CPlayerMovement : CControllerBase
     public float g_NormalX => m_NormalX;
 
     private bool g_isWallCheck;
-    
 
-    private RaycastHit m_Hit;
+    public RaycastHit g_Hit => m_Hit;
+
     private bool m_HitCheck;
     private void OnDisable()
     {
@@ -108,20 +109,14 @@ public class CPlayerMovement : CControllerBase
         }
         SlidingCheck();
         g_isWallCheck = BoxCastCheck();
-        if (m_Actor.CompareSkill("Sliding") )
-        {
-            return;
-        }
-        if (!g_isWallCheck)
-        {
-            return;
-        }
+
+        if (m_Actor.CompareSkill("Sliding") ) return;        
+        if (!g_isWallCheck) return;
 
         GravityCheck();
         if (PlayerMoveState()) return;
         BuffCheck();
-        Movement();
-        WallJumpCheck();
+        Movement();        
         WallJump();
 
 
@@ -158,29 +153,6 @@ public class CPlayerMovement : CControllerBase
 
 
 
-    }
-
-
-    private void WallJumpCheck()
-    {
-        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.x) * 1.3f;
-        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
-
-
-        RaycastHit hit;
-        //WallJump »ý¼º
-        if (Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance) ||
-            Physics.Raycast(m_Actor.transform.position - WallJumpOffsetY, m_Actor.transform.forward, out hit, WallJumpRayDistance))
-        {
-            if (hit.transform.CompareTag("Wall"))
-            {                
-                m_Actor.GenerateController("WallJump");
-            }
-        }
-        else
-        {
-            m_Actor.DestroyController("WallJump");
-        }
     }
 
     private void PlayerMoveKey()
@@ -261,27 +233,37 @@ public class CPlayerMovement : CControllerBase
     }
 
     private bool BoxCastCheck()
-    {
-        RaycastHit hitinfo;
+    {        
         Vector3 velocity = m_Actor.g_Rigid.velocity;
 
-        if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f , transform.forward, out hitinfo, m_Actor.transform.rotation, 0.2f))
+        if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f, transform.forward, out m_Hit, m_Actor.transform.rotation, 0.2f))
         {
-            if (hitinfo.collider.isTrigger || hitinfo.transform.CompareTag("Wall"))
-            {
-                return true;
-            }
+
             var PointDir = m_Actor.transform.forward.x;
             var CeilDir = m_DirX;
 
-            Debug.Log(PointDir);
-            Debug.Log(CeilDir);
+            if (m_Hit.transform.CompareTag("Wall"))
+            {
+                if (!m_Actor.CompareController("WallJump"))
+                {
+                    m_Actor.GenerateController("WallJump");
+                }
+            }
+
+            if (m_Hit.collider.isTrigger)
+            {
+                return true;
+            }
             if ((CeilDir > 0.0f && PointDir > 0.0f) || (CeilDir < 0.0f && PointDir < 0.0f))
             {
                 velocity.x = 0.0f;
                 m_Actor.g_Rigid.velocity = velocity;
                 return false;
             }
+        }
+        else
+        {            
+            m_Actor.DestroyController("WallJump");
         }
         
         return true;

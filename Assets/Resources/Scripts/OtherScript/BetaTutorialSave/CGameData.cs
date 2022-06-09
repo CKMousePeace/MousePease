@@ -13,6 +13,7 @@ public class CGameData
     public bool Tutorial_1 = false;
     public bool Tutorial_2 = false;
     public bool Tutorial_3 = false;
+    public bool Tutorial_4 = false;
 
 }
 

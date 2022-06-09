@@ -10,41 +10,47 @@ public class CCinemachine : MonoBehaviour
     public bool isZoomOut = false;
 
     public CinemachineVirtualCamera g_PlayerFollower;
+    public CinemachineFollowZoom g_PlayerZoom;
 
-    [SerializeField] private int m_Zoom = 20;
-    [SerializeField] private int m_Zoomout = -20;
+    //[SerializeField] private int m_Zoom = 20;
+    //[SerializeField] public int m_Zoomout = 35;
 
-    [SerializeField] private float m_Smooth = 5;
+    [SerializeField] private float m_Smooth = 3;
 
-    [SerializeField] private float m_FOV = 30;
+    [Header("¡‹¿Œ Fov")]
+    [SerializeField] private int ZoonInFov = 5;
+
+    [Header("¡‹æ∆øÙ Fov")]
+    [SerializeField] private int ZoonOutFov = 35;
+
+    [Header("±‚∫ª Fov")]
+    [SerializeField] private int NormalFov = 22;
+
 
     void FixedUpdate()
     {
         if (isZoomed)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = 
-                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_Zoom, Time.deltaTime * m_Smooth);
-
+            g_PlayerZoom.m_MinFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, ZoonInFov, Time.deltaTime * m_Smooth);
         }
+
         if (!isZoomed)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = 
-                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * m_Smooth);
+            g_PlayerZoom.m_MinFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, NormalFov, Time.deltaTime * m_Smooth);
         }
 
         if (isZoomOut)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = 
-                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_Zoomout, Time.deltaTime * m_Smooth);
+
+            g_PlayerZoom.m_MinFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, ZoonOutFov, Time.deltaTime * m_Smooth);
 
         }
+
         if (!isZoomOut)
         {
-            g_PlayerFollower.m_Lens.FieldOfView = 
-                Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * m_Smooth);
+            g_PlayerZoom.m_MinFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, NormalFov, Time.deltaTime * m_Smooth);
+
         }
-
     }
-
 
 }

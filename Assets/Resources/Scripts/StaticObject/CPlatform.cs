@@ -48,6 +48,17 @@ public class CPlatform : MonoBehaviour
 
     Vector3 m_firstPos = Vector3.zero;                                           //for OnDrawGizmos 게임 시작 상태를 파악하고 초기 좌표를 저장
 
+    [Header("디버그 : true = 플랫폼 파괴")]
+    [SerializeField] private bool isDebug = false;
+
+
+    private void Update()
+    {
+        if(isDebug == true)
+        {
+            DestroyWait();
+        }
+    }
 
 
     void Awake()
@@ -158,7 +169,7 @@ public class CPlatform : MonoBehaviour
     {
         
         this.gameObject.SetActive(false);     //It needs to be reused, so just disable it.  재사용 해야하므로 비활성화만 시켜준다.
-        BoomPlatform();        //Destructable Platform added
+        BoomPlatform();                       //Destructable Platform added
         Invoke("Respawn", m_RespawnTime);     //Wait as much as the regeneration waiting time with the Invoke function.  재생성 대기시간만큼 Invoke함수로 대기시킨다.
 
     }
@@ -166,7 +177,6 @@ public class CPlatform : MonoBehaviour
     IEnumerator DestroyWaitForHold()          //위에서 최종목적지에 도달하여 사라져야 할 때 호출되는 함수
     {
         yield return new WaitForSeconds(m_DestroyTime);
-       // Player.transform.parent = null;
         this.gameObject.SetActive(false);     //비활성화만 시켜준다.
         BoomPlatform();
 
@@ -187,7 +197,7 @@ public class CPlatform : MonoBehaviour
 
     private void BoomPlatform()
     {
-        GameObject BCS = Instantiate(Platform_Dest, transform.position, transform.rotation);
+        GameObject BCS = Instantiate(Platform_Dest, transform.position, Quaternion.Euler(60,0,0));
         PlayPlatformCrash();
         foreach (Rigidbody rb in BCS.GetComponentsInChildren<Rigidbody>())
         {

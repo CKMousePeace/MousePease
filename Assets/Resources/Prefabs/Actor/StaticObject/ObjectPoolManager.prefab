@@ -56,3 +56,5 @@ MonoBehaviour:
     m_Name: PlayerRunEffect
   - m_Object: {fileID: 543063689886231389, guid: 713b2d65b6a41d0488f68f1488e70244, type: 3}
     m_Name: RollingBoi
+  - m_Object: {fileID: 7870121882794470624, guid: eba28cb88934bee4f8e9d8677484dcee, type: 3}
+    m_Name: SaveBoi

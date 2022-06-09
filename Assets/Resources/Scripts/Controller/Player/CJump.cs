@@ -27,7 +27,9 @@ public class CJump : CControllerBase
 
     private bool m_isDoubleJump = false;
     private bool m_isDoubleJumpCheck = false;
-    private bool m_isJump = false;     
+    private bool m_isJump = false;
+    private CPlayerMovement m_PlayerMovement;
+    
 
     private bool m_JumpCheck = false;
     public bool g_isDoubleJump => m_isDoubleJump;
@@ -60,6 +62,7 @@ public class CJump : CControllerBase
         gameObject.SetActive(false);
         base.init(actor);
         m_Player = actor.GetComponent<CPlayer>();
+        m_PlayerMovement = m_Player.GetController("Movement") as CPlayerMovement;
         g_MoveCheck = true;
 
     }
@@ -113,8 +116,7 @@ public class CJump : CControllerBase
         m_Actor.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderStay += ColliderStay;
 
-    }
-    private void OnDisable()
+    }    private void OnDisable()
     {
         if (m_Actor == null) return;
 
@@ -267,10 +269,11 @@ public class CJump : CControllerBase
         if (!m_isJump && m_isDoubleJump && m_JumpCheck && !m_isDoubleJumpCheck)
         {
             TempJump = false;            
-            var force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce);
-            var Dir = new Vector3(m_DirX, 2.0f, 0.0f).normalized;
+            var forceY = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_fDoubleForce);
+            
+            var Dir = new Vector3(m_DirX * m_PlayerMovement.g_fMaxSpeed, forceY, 0.0f);
             m_Actor.g_Rigid.velocity = Vector3.zero;
-            m_Actor.g_Rigid.velocity  = force * Dir;
+            m_Actor.g_Rigid.velocity  = Dir;
 
             if (m_IsWallJumpCheck)
             {

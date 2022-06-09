@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CTitile : MonoBehaviour
 {
@@ -18,6 +16,7 @@ public class CTitile : MonoBehaviour
 
     private Rect m_ImageRect;
     private Rect m_ExitRect;
+    private int m_SelectTitle;
 
 
     private void Start()
@@ -28,19 +27,37 @@ public class CTitile : MonoBehaviour
         m_ImageRect.center = m_PlayImage.rectTransform.position;
         m_ExitRect.center = m_ExitImage.rectTransform.position;
 
-        m_LeftSelectImage.rectTransform.position = m_PlayImage.rectTransform.position;
-        m_LeftSelectImage.rectTransform.position -= new Vector3(m_PlayImage.rectTransform.rect.width * 0.5f + 70 , 0.0f , 0.0f);
-
-
-
-        m_RightSelectImage.rectTransform.position = m_PlayImage.rectTransform.position;
-        m_RightSelectImage.rectTransform.position += new Vector3(m_PlayImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+        m_SelectTitle = 1;
 
     }
     // Update is called once per frame
     void Update()
     {
         if (m_ImageRect.Contains(Input.mousePosition))
+        {            
+            m_SelectTitle = 1;
+        }
+        else if (m_ExitRect.Contains(Input.mousePosition))
+        {
+            m_SelectTitle = 0;
+
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                m_SelectTitle--;
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                m_SelectTitle++;
+            }
+
+            m_SelectTitle = Mathf.Clamp(m_SelectTitle, 0, 1);
+
+        }
+
+        if (m_SelectTitle == 1)
         {
             m_LeftSelectImage.rectTransform.position = m_PlayImage.rectTransform.position;
             m_LeftSelectImage.rectTransform.position -= new Vector3(m_PlayImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
@@ -48,14 +65,25 @@ public class CTitile : MonoBehaviour
             m_RightSelectImage.rectTransform.position = m_PlayImage.rectTransform.position;
             m_RightSelectImage.rectTransform.position += new Vector3(m_PlayImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
         }
-        else if (m_ExitRect.Contains(Input.mousePosition))
+        else if (m_SelectTitle == 0)
         {
             m_LeftSelectImage.rectTransform.position = m_ExitImage.rectTransform.position;
             m_LeftSelectImage.rectTransform.position -= new Vector3(m_ExitImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
 
             m_RightSelectImage.rectTransform.position = m_ExitImage.rectTransform.position;
             m_RightSelectImage.rectTransform.position += new Vector3(m_ExitImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+        }
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (m_SelectTitle == 1)
+            {
+                GameStartEvent();
+            }
+            else
+            {
+                GameExitEvent();
+            }
         }
     }
 

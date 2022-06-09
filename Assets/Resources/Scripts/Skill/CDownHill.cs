@@ -97,7 +97,7 @@ public class CDownHill : CSkillBase
             return;
         }
 
-        if (m_Actor.CompareBuff("KnockBack"))
+        if (m_Actor.CompareBuff("KnockBack") || m_Actor.CompareController("WallJump"))
         {
             gameObject.SetActive(false);
             return;

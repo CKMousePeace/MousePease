@@ -168,10 +168,10 @@ public class CJump : CControllerBase
             
         }
 
-        if (Input.GetKey(m_Key))
+        if (Input.GetKey(m_Key) && !m_Actor.CompareController("WallJump"))
         {
             m_CurrentDownHillKeyDownTime += Time.deltaTime;
-            if (m_CurrentDownHillKeyDownTime > m_DownhillKeyDownTime)
+            if (m_CurrentDownHillKeyDownTime > m_DownhillKeyDownTime) 
             {
                 if (!m_Player.CompareSkill("DownHill") && !m_DownHillCheck)
                 {

@@ -36,7 +36,7 @@ public class CCinemachine : MonoBehaviour
         if (isZoomOut)
         {
 
-            g_PlayerZoom.m_MinFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, m_Zoomout, Time.deltaTime * m_Smooth);
+            g_PlayerZoom.m_MaxFOV = Mathf.Lerp(g_PlayerZoom.m_MinFOV, m_Zoomout, Time.deltaTime * m_Smooth);
 
         }
 
@@ -44,7 +44,7 @@ public class CCinemachine : MonoBehaviour
         {
             //g_PlayerZoom.m_Damping = m_Smooth;
 
-            g_PlayerZoom.m_MinFOV = MinFov;
+            g_PlayerZoom.m_MaxFOV = MaxFov;
             //g_PlayerFollower.m_Lens.FieldOfView = 
             //    Mathf.Lerp(g_PlayerFollower.m_Lens.FieldOfView, m_FOV, Time.deltaTime * m_Smooth);
         }

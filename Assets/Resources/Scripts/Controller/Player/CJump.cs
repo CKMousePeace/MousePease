@@ -22,6 +22,7 @@ public class CJump : CControllerBase
     private float m_fStamina;
 
 
+
     private float m_CurrentDownHillKeyDownTime;
 
 
@@ -64,13 +65,11 @@ public class CJump : CControllerBase
         m_Player = actor.GetComponent<CPlayer>();
         m_PlayerMovement = m_Player.GetController("Movement") as CPlayerMovement;
         g_MoveCheck = true;
-
-    }
-
-    private void OnValidate()
-    {
         m_MaxGroundDot = Mathf.Cos(Mathf.Deg2Rad * m_MaxGroundAngle);
+
     }
+
+    
 
 
     private void OnEnable()
@@ -250,6 +249,7 @@ public class CJump : CControllerBase
                 var normal = collder.GetContact(i).normal;
                 if (normal.y > m_MaxGroundDot)
                 {                    
+                    Debug.Log(m_MaxGroundDot);
                     gameObject.SetActive(false);
                     break;
                 }

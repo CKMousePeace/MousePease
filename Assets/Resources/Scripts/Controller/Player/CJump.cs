@@ -45,6 +45,10 @@ public class CJump : CControllerBase
 
     private bool TempJump;
 
+    [SerializeField]
+    private float m_WallJumpDelay;
+    private float m_CurrentWallJumpDelay;
+
     private float m_EndJumpDistance = 0.5f;
     private float m_DirX;
     private CPlayer m_Player;
@@ -53,7 +57,6 @@ public class CJump : CControllerBase
 
     private bool m_IsWallJump;
     private bool m_IsWallJumpCheck;    
-
     public bool g_IsWallJumpCheck => m_IsWallJumpCheck;
 
 
@@ -97,8 +100,10 @@ public class CJump : CControllerBase
         TempJump = false;
         m_JumpCheck = false;
 
+       
         CObjectPool.g_instance.ObjectPop("PlayerJumpEffect" , m_Actor.transform.position , Quaternion.identity , Vector3.one);
-        
+        m_CurrentWallJumpDelay = Time.time - m_WallJumpDelay;
+
         if (!m_Actor.CompareController("WallJump"))
         {
             m_isJump = true;
@@ -115,7 +120,8 @@ public class CJump : CControllerBase
         m_Actor.g_Animator.SetBool("isGround", false);
         m_ColliderChecker.m_ColliderStay += ColliderStay;
 
-    }    private void OnDisable()
+    }   
+    private void OnDisable()
     {
         if (m_Actor == null) return;
 
@@ -136,7 +142,6 @@ public class CJump : CControllerBase
         m_Actor.g_Animator.SetBool("isGround", true);
         m_Actor.g_Animator.SetBool("JumpReturn", true);
         m_Actor.DestroyController("WallJump");        
-
     }
 
     private void Update()
@@ -248,8 +253,7 @@ public class CJump : CControllerBase
             {
                 var normal = collder.GetContact(i).normal;
                 if (normal.y > m_MaxGroundDot)
-                {                    
-                    Debug.Log(m_MaxGroundDot);
+                {
                     gameObject.SetActive(false);
                     break;
                 }
@@ -266,6 +270,8 @@ public class CJump : CControllerBase
     // 더블 점프를 사용 할 수 있는지 판별합니다.
     private void DoubleJump()
     {
+
+
         if (!m_isJump && m_isDoubleJump && m_JumpCheck && !m_isDoubleJumpCheck)
         {
             TempJump = false;            
@@ -284,6 +290,7 @@ public class CJump : CControllerBase
                 g_MoveCheck = false;
             }
             m_isDoubleJumpCheck = true;
+
         }
         else
         {
@@ -301,8 +308,11 @@ public class CJump : CControllerBase
     //벽 점프 사용
     private void WallJump()
     {
-        
+
+        Debug.Log(Time.time - m_CurrentWallJumpDelay);
+        if (Time.time - m_CurrentWallJumpDelay <= m_WallJumpDelay) return;
         if (m_DirX == 0.0f) return;
+
         if (!m_IsWallJumpCheck && m_IsWallJump)
         {
             
@@ -312,6 +322,7 @@ public class CJump : CControllerBase
             var force = 0.0f;
             var Dir = Vector3.zero;
             m_Actor.g_Rigid.velocity = Vector3.zero;
+
             if (!((m_Actor.transform.forward.x < 0.0f && m_DirX < 0.0f) || (m_Actor.transform.forward.x > 0.0f && m_DirX > 0.0f)))
             {
                 
@@ -324,15 +335,16 @@ public class CJump : CControllerBase
             {
                 
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
-                m_Actor.g_Animator.SetTrigger("IsWallJumpNormal");
+                m_Actor.g_Animator.SetBool("IsWallJumpNormal" , true);
                 Dir = new Vector3(-m_DirX, 5.0f, 0.0f).normalized;
-                Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());
-                //Debug.LogAssertion(m_DirX.ToString() + " " + transform.forward.x.ToString());
+                Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());                
             }
             
             m_Actor.g_Rigid.velocity = force * Dir;
             StartCoroutine(DecreaseVelocityX());
             g_MoveCheck = true;
+            m_CurrentWallJumpDelay = Time.time;
+
         }
 
     }

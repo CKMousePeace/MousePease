@@ -33,6 +33,7 @@ public class CWallJump : CControllerBase
                
         m_Actor.g_Animator.SetTrigger("WallIdle");        
         m_Actor.g_Animator.SetBool("isWallIdle", true);
+        m_Actor.g_Animator.SetBool("IsWallJumpNormal", false);
         m_Actor.g_Rigid.velocity = Vector3.zero;
 
     }

@@ -4310,7 +4310,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
       propertyPath: m_WallJumpDelay
-      value: 0.3
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
       propertyPath: m_WallJumpPower

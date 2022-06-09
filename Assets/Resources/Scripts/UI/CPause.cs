@@ -16,9 +16,13 @@ public class CPause : MonoBehaviour
 
 
     [SerializeField] private GameObject m_InGameUI;
+
     private Rect m_ResumeRect;
     private Rect m_ExitRect;
+    private int m_SelectTitle;
 
+
+    
 
     private void OnEnable()
     {
@@ -31,7 +35,7 @@ public class CPause : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         m_ResumeRect = m_ReSumeImage.rectTransform.rect;
         m_ExitRect = m_ExitImage.rectTransform.rect;
@@ -39,36 +43,74 @@ public class CPause : MonoBehaviour
         m_ResumeRect.center = m_ReSumeImage.rectTransform.position;
         m_ExitRect.center = m_ExitImage.rectTransform.position;
 
-        m_LeftSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
-        m_LeftSelectImage.rectTransform.position -= new Vector3(m_ReSumeImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
-
-
-        m_RightSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
-        m_RightSelectImage.rectTransform.position += new Vector3(m_ReSumeImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+        m_SelectTitle = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        var width = Screen.width / 1920.0f;
+        
+        var RectReSumeWidth = m_ReSumeImage.rectTransform.rect.width * 0.5f;
+        var RectExitWidth = m_ExitImage.rectTransform.rect.width * 0.5f;
+
         if (m_ResumeRect.Contains(Input.mousePosition))
         {
-            m_LeftSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
-            m_LeftSelectImage.rectTransform.position -= new Vector3(m_ReSumeImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
-
-            m_RightSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
-            m_RightSelectImage.rectTransform.position += new Vector3(m_ReSumeImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+            m_SelectTitle = 1;
 
         }
 
         else if (m_ExitRect.Contains(Input.mousePosition))
         {
+            m_SelectTitle = 0;
 
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                m_SelectTitle--;
+            }
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                m_SelectTitle++;
+            }
+
+            m_SelectTitle = Mathf.Clamp(m_SelectTitle, 0, 1);
+
+        }
+
+
+        if (m_SelectTitle == 1)
+        {
+            m_LeftSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
+            m_LeftSelectImage.rectTransform.position -= new Vector3((RectReSumeWidth + 70.0f) * width, 0.0f, 0.0f);
+
+            m_RightSelectImage.rectTransform.position = m_ReSumeImage.rectTransform.position;
+            m_RightSelectImage.rectTransform.position += new Vector3((RectReSumeWidth + 70.0f) * width, 0.0f, 0.0f);
+        }
+        else if (m_SelectTitle == 0)
+        {
             m_LeftSelectImage.rectTransform.position = m_ExitImage.rectTransform.position;
-            m_LeftSelectImage.rectTransform.position -= new Vector3(m_ExitImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+            m_LeftSelectImage.rectTransform.position -= new Vector3((RectExitWidth + 70.0f) * width, 0.0f, 0.0f);
 
             m_RightSelectImage.rectTransform.position = m_ExitImage.rectTransform.position;
-            m_RightSelectImage.rectTransform.position += new Vector3(m_ExitImage.rectTransform.rect.width * 0.5f + 70, 0.0f, 0.0f);
+            m_RightSelectImage.rectTransform.position += new Vector3((RectExitWidth + 70.0f) * width, 0.0f, 0.0f);
         }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (m_SelectTitle == 1)
+            {
+                CancelPause();
+            }
+            else
+            {
+                Exit();
+            }
+        }
+
     }
 
     public void CancelPause()
@@ -82,3 +124,5 @@ public class CPause : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
+
+

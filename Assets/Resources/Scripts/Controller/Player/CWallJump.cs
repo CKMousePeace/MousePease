@@ -21,10 +21,9 @@ public class CWallJump : CControllerBase
     private void OnEnable()
     {
         if (m_Actor == null) return;
+                
 
-        m_fDeltaStamina = m_SecStamina * Time.deltaTime;
-
-        if (m_Player.g_fStamina < m_fDeltaStamina)
+        if (m_Player.g_fStamina < m_SecStamina)
         {
             gameObject.SetActive(false);
             return;

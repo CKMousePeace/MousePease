@@ -61,5 +61,6 @@ public class CCineTrigger : MonoBehaviour
         GameManager.GameStopEvent();
         yield return new WaitForSeconds(WaitTime);
         GameManager.GameStartEvent();
+        Destroy(gameObject);
     }
 }

@@ -47,9 +47,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   GameDataFileName: SaveDataBoi.json
   _gameData:
     Checker: 0
     Tutorial_1: 0
     Tutorial_2: 0
     Tutorial_3: 0
+    Tutorial_4: 0

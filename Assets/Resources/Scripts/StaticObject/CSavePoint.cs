@@ -28,7 +28,7 @@ public class CSavePoint : MonoBehaviour
                 m_Player.transform.position = new Vector3(m_Save.GetComponent<CSaveController>().g_Save[0].transform.position.x,
                     m_Save.GetComponent<CSaveController>().g_Save[0].transform.position.y, -1.9f);
                 m_Save.GetComponent<CSaveController>().SaveGameData();
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0].GetComponent<CSavePoint>());
                 break;
 
             case 2:
@@ -36,8 +36,8 @@ public class CSavePoint : MonoBehaviour
                     m_Save.GetComponent<CSaveController>().g_Save[1].transform.position.y, -1.9f);
                 m_Save.GetComponent<CSaveController>().SaveGameData();
 
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1].GetComponent<CSavePoint>());
                 
 
                 break;
@@ -48,9 +48,9 @@ public class CSavePoint : MonoBehaviour
                     m_Save.GetComponent<CSaveController>().g_Save[2].transform.position.y, -1.9f);
                 m_Save.GetComponent<CSaveController>().SaveGameData();
 
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[2]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[2].GetComponent<CSavePoint>());
 
                 break;
 
@@ -60,10 +60,10 @@ public class CSavePoint : MonoBehaviour
     m_Save.GetComponent<CSaveController>().g_Save[3].transform.position.y, -1.9f);
                 m_Save.GetComponent<CSaveController>().SaveGameData();
 
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[2]);
-                Destroy(m_Save.GetComponent<CSaveController>().g_Save[3]);
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[0].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[1].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[2].GetComponent<CSavePoint>());
+                Destroy(m_Save.GetComponent<CSaveController>().g_Save[3].GetComponent<CSavePoint>());
 
                 break;
         }

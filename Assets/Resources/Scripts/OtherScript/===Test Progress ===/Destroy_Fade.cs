@@ -14,11 +14,11 @@ public class Destroy_Fade : MonoBehaviour
     IEnumerator FadeOff_Dest()
     {
         yield return new WaitForSeconds(2.5f);
-        Debug.Log("페이드 실행");
+
         int i = 10;
         while (i > 0)
         {
-            Debug.Log( "나는 옅어진다 : " + i);
+
             i -= 1;
             float f = i / 10.0f;
             Color c = m_Renderer.material.color;
@@ -27,7 +27,7 @@ public class Destroy_Fade : MonoBehaviour
             yield return new WaitForSeconds(0.02f);
         }
 
-        if (i < 0) 
+        if (i <= 0) 
         {
             yield return new WaitForSeconds(0.5f);
             Destroy(gameObject);
@@ -38,6 +38,11 @@ public class Destroy_Fade : MonoBehaviour
     private void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.CompareTag("Floor"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (col.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
         }

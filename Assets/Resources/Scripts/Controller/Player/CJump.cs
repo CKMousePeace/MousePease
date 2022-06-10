@@ -336,7 +336,7 @@ public class CJump : CControllerBase
                 
                 force = Mathf.Sqrt(-2.0f * Physics.gravity.y * m_WallJumpPower);
                 m_Actor.g_Animator.SetBool("IsWallJumpNormal" , true);
-                Dir = new Vector3(-m_DirX, 5.0f, 0.0f).normalized;
+                Dir = new Vector3(-m_DirX, 3.5f, 0.0f).normalized;
                 Debug.Log(m_DirX.ToString() + " " + transform.forward.x.ToString());                
             }
             
@@ -344,7 +344,6 @@ public class CJump : CControllerBase
             StartCoroutine(DecreaseVelocityX());
             g_MoveCheck = true;
             m_CurrentWallJumpDelay = Time.time;
-
         }
 
     }

@@ -1067,7 +1067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1383097054715289279, guid: 233730ac4828c574f8e320e18cc5d2ad, type: 3}
       propertyPath: m_Stamina
-      value: 35
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1383097054715289279, guid: 233730ac4828c574f8e320e18cc5d2ad, type: 3}
       propertyPath: m_FlySpeed
@@ -1478,6 +1478,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
+      propertyPath: m_Key
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
       propertyPath: m_DashCool
       value: 3
       objectReference: {fileID: 0}
@@ -1491,7 +1495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
       propertyPath: m_DashStamina
-      value: 100
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 638467998449605519, guid: b29f9e1a95e0666458e4c11257b8a2da, type: 3}
       propertyPath: m_ColliderChecker
@@ -4298,7 +4302,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
       propertyPath: m_Key
-      value: 122
+      value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 1012335447955040144, guid: 9c9e77eb15e7628479de6e07c51fbc37, type: 3}
       propertyPath: m_fForce

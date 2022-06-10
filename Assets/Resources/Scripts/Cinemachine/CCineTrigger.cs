@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -20,8 +19,7 @@ public class CCineTrigger : MonoBehaviour
 
     [Header("디버그. 연출재생")]
     [SerializeField]  private bool TestPlayer = false;
-
-
+    [SerializeField] private Collider m_BGMcol;
     private void Update()
     {
         if (TestPlayer == true)
@@ -61,6 +59,6 @@ public class CCineTrigger : MonoBehaviour
         GameManager.GameStopEvent();
         yield return new WaitForSeconds(WaitTime);
         GameManager.GameStartEvent();
-        Destroy(gameObject);
+        Destroy(m_BGMcol);
     }
 }

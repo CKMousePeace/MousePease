@@ -5,7 +5,9 @@ using UnityEngine;
 public class RollinSpawn : MonoBehaviour
 { 
     [SerializeField] private Transform m_RollingSpawnLocation;
+    [SerializeField] private Transform m_Player;
     [SerializeField] private float m_WaitTime = 0;
+
 
     private void OnTriggerEnter(Collider col)
     {

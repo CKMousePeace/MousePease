@@ -153,7 +153,7 @@ public class CPlatform : MonoBehaviour
         }
     }
 
-    private void OnCollisionStay(Collision Col)
+    private void OnCollisionEnter(Collision Col)
     {
         if (Col.gameObject.CompareTag("Player"))
         {

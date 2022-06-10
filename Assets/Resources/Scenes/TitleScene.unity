@@ -204,7 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6802948068731980471, guid: d601cc075a116744cb4436a6680eebec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: OnApplicationQuit
+      value: theNewSave
       objectReference: {fileID: 0}
     - target: {fileID: 6802948068731980471, guid: d601cc075a116744cb4436a6680eebec, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -782,6 +782,7 @@ MonoBehaviour:
     Tutorial_1: 0
     Tutorial_2: 0
     Tutorial_3: 0
+    Tutorial_4: 0
 --- !u!114 &939296238
 MonoBehaviour:
   m_ObjectHideFlags: 0

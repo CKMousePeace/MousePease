@@ -9,9 +9,16 @@ public class CDashItem : CItemBase
     private FMOD.Studio.EventInstance SFX_DashItem;
     private CPlayer m_Player;
 
+
+    private void Start()
+    {
+        transform.Rotate(new Vector3(30.0f, 0.0f, 0.0f));
+
+    }
     private void FixedUpdate()
     {
-        transform.Rotate(new Vector3(0, m_RotateSpeed * Time.deltaTime, 0));
+        
+        transform.Rotate(new Vector3(0.0f, m_RotateSpeed * Time.deltaTime, 0.0f));
     }
 
     protected override void OnTriggerEnter(Collider other)

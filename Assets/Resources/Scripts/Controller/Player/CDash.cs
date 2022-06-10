@@ -140,6 +140,12 @@ public class CDash : CControllerBase
                 return true;
             }
         }
+        if (m_Actor.CompareController("WallJump"))
+        {
+            gameObject.SetActive(false);
+            return true;
+        }
+
         m_CurrentDelayTime = Time.time;
         return false;
     }

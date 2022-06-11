@@ -110,6 +110,10 @@ public class CPause : MonoBehaviour
                 Exit();
             }
         }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CancelPause(); 
+        }
 
     }
 

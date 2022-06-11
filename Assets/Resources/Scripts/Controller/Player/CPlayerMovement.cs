@@ -5,6 +5,7 @@ using UnityEngine;
 public class CPlayerMovement : CControllerBase
 {
 
+    #region 각종 변수들
     [SerializeField] private float m_fMaxSpeed;
     [SerializeField, Range(0.1f, 1.0f)] private float m_TurnSpeed;
 
@@ -20,6 +21,7 @@ public class CPlayerMovement : CControllerBase
     private float m_CurrentLifeTime;
     private float m_NormalX = 0.0f;
     private RaycastHit m_Hit;
+    private bool m_isGround;
 
     public float g_currentSpeed => m_currentSpeed;
     public bool g_IsInCheese { get => m_IsInCheese; set { m_IsInCheese = value; } }
@@ -35,6 +37,8 @@ public class CPlayerMovement : CControllerBase
     public RaycastHit g_Hit => m_Hit;
 
     private bool m_HitCheck;
+    #endregion
+
     private void OnDisable()
     {
         m_currentSpeed = 0.0f;             
@@ -42,6 +46,7 @@ public class CPlayerMovement : CControllerBase
         
     }
 
+    #region Update함수
     private void Update()
     {
         
@@ -59,9 +64,31 @@ public class CPlayerMovement : CControllerBase
             m_Actor.g_Animator.SetFloat("Walking", 0.0f);
             return;
         }
-        MovementEffect();
+        
     }
 
+    private void FixedUpdate()
+    {
+        if (!GameManager.g_isGameStart)
+        {
+            m_Actor.g_Animator.SetFloat("Walking", 0.0f);
+            return;
+        }
+        SlidingCheck();
+        g_isWallCheck = BoxCastCheck();
+        if (m_Actor.CompareSkill("Sliding") ) return;        
+        if (!g_isWallCheck) return;       
+        if (PlayerMoveState()) return;
+        MovementEffect();
+        BuffCheck();
+        Movement();
+        ChaseWalking();
+
+    }
+
+    #endregion
+
+    #region 슬라이드 부분
     private void SlidingCheck()
     {
         float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y);
@@ -100,30 +127,11 @@ public class CPlayerMovement : CControllerBase
         }
     }
 
-    private void FixedUpdate()
-    {
-        if (!GameManager.g_isGameStart)
-        {
-            m_Actor.g_Animator.SetFloat("Walking", 0.0f);
-            return;
-        }
-        SlidingCheck();
-        g_isWallCheck = BoxCastCheck();
-
-        if (m_Actor.CompareSkill("Sliding") ) return;        
-        if (!g_isWallCheck) return;
-
-        GravityCheck();
-        if (PlayerMoveState()) return;
-        BuffCheck();
-        Movement();        
-        WallJump();
+    #endregion
 
 
-    }
-
-
-    private void WallJump()
+    #region 쫒기는 코드
+    private void ChaseWalking()
     {
         if (!m_Actor.CompareController("WallJump"))
         {
@@ -154,16 +162,20 @@ public class CPlayerMovement : CControllerBase
 
 
     }
+    #endregion
 
+
+    #region MoveKey입력
     private void PlayerMoveKey()
     {
         m_DirX = Input.GetAxisRaw("Horizontal");
         m_DirY = Input.GetAxisRaw("Vertical");
     }
-        
+    #endregion
 
+    //실질적으로 플레이어 움직이는 함수 들
 
-    // 달리는 함수입니다.
+    #region 실제로 달리는 함수
     private void Movement()
     {
         if (!m_Actor.CompareController("WallJump"))
@@ -172,8 +184,8 @@ public class CPlayerMovement : CControllerBase
             TurnRot();
         }
     }
-    
-    //실질적으로 플레이어 움직이는 함수
+
+
     private void PlayerMove()
     {
         if (!m_IsInCheese)
@@ -181,23 +193,22 @@ public class CPlayerMovement : CControllerBase
             m_DirY = 0.0f;
         }
 
-        
+
         var AbsDir = Mathf.Abs(m_DirX);
         var Dir = new Vector3(m_Actor.transform.forward.x * AbsDir, m_DirY, 0.0f).normalized;
 
         var JumpController = m_Actor.GetController("Jump") as CJump;
-        
-        if ((m_DirY == 0.0f && m_DirX == 0.0f) || (!JumpController.g_MoveCheck))            
+
+        if ((m_DirY == 0.0f && m_DirX == 0.0f) || (!JumpController.g_MoveCheck))
         {
-            m_currentSpeed = 0.0f;            
+            m_currentSpeed = 0.0f;
             return;
         }
-        
+
         m_currentSpeed = m_fMaxSpeed + m_BuffSpeed;
-        var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;                
+        var Displacement = Dir * (m_currentSpeed) * Time.fixedDeltaTime;
         m_Actor.g_Rigid.MovePosition(m_Actor.transform.position + Displacement);
     }
-
 
     // y축 angle을 변경하는 함수 입니다.
     private void TurnRot()
@@ -208,32 +219,45 @@ public class CPlayerMovement : CControllerBase
         m_Actor.g_Rigid.MoveRotation(Quaternion.Euler(new Vector3(PlayerEulerAngles.x, CurrentAngle, PlayerEulerAngles.z)));
 
         if (m_DirX == 0.0f)
-        {            
+        {
             return;
         }
         m_Yaw = m_DirX * 90.0f;
     }
+    #endregion
 
-
-    private bool PlayerMoveState()
+    #region 달리는 이펙트 함수
+    private void MovementEffect()
     {
-        if (m_Actor.CompareBuff("KnockBack"))
-        {
-            return true;
-        }
-        else if (m_Actor.CompareController("Dash"))
-        {
-            return true;
-        }
-        else if (m_Actor.CompareSkill("DownHill"))
-        {
-            return true;
-        }
-        return false;
-    }
+        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y) * 1.2f;
+        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
 
+        if (m_DirX != 0.0f)
+        {
+            if (Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, -m_Actor.transform.up, WallJumpRayDistance))
+            {
+                m_isGround = true;
+                if (m_CurrentLifeTime > m_EffectTime)
+                {
+                    float PlayerbounsY = (m_Checker.g_Collider.bounds.extents.y) * 0.9f;
+                    var OffsetY = new Vector3(0.0f, PlayerbounsY, 0.0f);
+                    var Rotation = m_Actor.transform.rotation;
+
+                    CObjectPool.g_instance.ObjectPop("PlayerRunEffect", m_Actor.transform.position - OffsetY, Quaternion.Euler(-90.0f, Rotation.eulerAngles.y - 90.0f, 0.0f), Vector3.one);
+                    m_CurrentLifeTime = 0.0f;
+                }
+            }
+            else
+            {
+                m_isGround = false;
+            }
+        }
+    }
+    #endregion
+
+    #region 앞에 물체 있는지 확인 하는 함수
     private bool BoxCastCheck()
-    {        
+    {
         Vector3 velocity = m_Actor.g_Rigid.velocity;
 
         if (Physics.BoxCast(m_Checker.g_Collider.bounds.center, m_Checker.g_Collider.bounds.extents * 0.7f, transform.forward, out m_Hit, m_Actor.transform.rotation, 0.2f))
@@ -242,7 +266,7 @@ public class CPlayerMovement : CControllerBase
             var PointDir = m_Actor.transform.forward.x;
             var CeilDir = m_DirX;
 
-            if (m_Hit.transform.CompareTag("Wall"))
+            if ((m_Actor.CompareController("Jump") || !m_isGround) && m_Hit.transform.CompareTag("Wall"))
             {
                 if (!m_Actor.CompareController("WallJump"))
                 {
@@ -262,31 +286,15 @@ public class CPlayerMovement : CControllerBase
             }
         }
         else
-        {            
+        {
             m_Actor.DestroyController("WallJump");
         }
-        
+
         return true;
     }
+    #endregion
 
-
-
-    /// <summary>
-    ///치즈 관련 부분 
-    /// </summary>
-    private void GravityCheck()
-    {
-        if (m_Actor.CompareController("Dash") || m_Actor.CompareSkill("DownHill")) return;
-        if (g_IsInCheese)
-        {
-            m_Actor.g_Rigid.useGravity = false;
-        }
-        else
-        {
-            m_Actor.g_Rigid.useGravity = true;
-        }
-    }
-
+    #region 버프 확인 하는 함수
     private void BuffCheck()
     {
         m_BuffSpeed = 0.0f;
@@ -302,41 +310,24 @@ public class CPlayerMovement : CControllerBase
             m_BuffSpeed += (m_fMaxSpeed * (SlowBuff.g_FastSpeed) * 0.01f);
         }
     }
+    #endregion
 
-    private void MovementEffect()
+    #region 플레이어가 움직일 수 있는지 확인 하는 함수
+    private bool PlayerMoveState()
     {
-        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y) * 1.2f ;
-        Vector3 WallJumpOffsetY = new Vector3(0.0f, -m_Checker.g_Collider.bounds.extents.y * 0.7f, 0.0f);
-
-        if (m_DirX != 0.0f)
+        if (m_Actor.CompareBuff("KnockBack"))
         {
-            if (m_CurrentLifeTime > m_EffectTime && Physics.Raycast(m_Actor.transform.position + WallJumpOffsetY, -m_Actor.transform.up , WallJumpRayDistance))
-            {
-                float PlayerbounsY = (m_Checker.g_Collider.bounds.extents.y) * 0.9f ;
-                var OffsetY = new Vector3(0.0f, PlayerbounsY, 0.0f);
-                var Rotation = m_Actor.transform.rotation;                 
-
-                CObjectPool.g_instance.ObjectPop("PlayerRunEffect", m_Actor.transform.position  - OffsetY, Quaternion.Euler(-90.0f , Rotation.eulerAngles.y - 90.0f, 0.0f), Vector3.one);
-                m_CurrentLifeTime = 0.0f;
-            }
+            return true;
         }
+        else if (m_Actor.CompareController("Dash"))
+        {
+            return true;
+        }
+        else if (m_Actor.CompareSkill("DownHill"))
+        {
+            return true;
+        }
+        return false;
     }
-
-    private void OnDrawGizmos()
-    {
-        if (m_Actor == null || m_Checker == null) return;
-
-        float WallJumpRayDistance = (m_Checker.g_Collider.bounds.extents.y);
-        Vector3 ExtentsY = new Vector3(0.0f, WallJumpRayDistance, 0.0f);
-
-        Gizmos.DrawRay(m_Actor.transform.position - ExtentsY , -m_Actor.transform.up * 0.3f); 
-        
-
-    }    
-
+    #endregion
 }
-
-    
-
-
-

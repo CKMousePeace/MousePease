@@ -39,7 +39,9 @@ public class CWallJump : CControllerBase
 
     private void OnDisable()
     {        
-        m_Actor.g_Animator.SetBool("isWallIdle", false);            
+        m_Actor.g_Animator.SetBool("isWallIdle", false);     
+        m_Actor.g_Animator.SetBool("IsWallJumpNormal", false);
+
     }
 
     private void Update()

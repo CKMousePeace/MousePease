@@ -12,7 +12,7 @@ public class CDashItem : CItemBase
 
     private void Start()
     {
-        transform.Rotate(new Vector3(30.0f, 0.0f, 0.0f));
+        transform.Rotate(new Vector3(0.0f, 0.0f, 0.0f));
 
     }
     private void FixedUpdate()

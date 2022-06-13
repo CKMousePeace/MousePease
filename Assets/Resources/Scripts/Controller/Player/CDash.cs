@@ -88,7 +88,8 @@ public class CDash : CControllerBase
         if (Physics.Linecast(m_Actor.transform.position + ExtentY * 0.5f , m_Actor.transform.position + MoveData + ExtentY * 0.5f, out hit) ||
             Physics.Linecast(m_Actor.transform.position - ExtentY * 0.5f, m_Actor.transform.position + MoveData - ExtentY * 0.5f, out hit))
         {
-            if (!hit.collider.CompareTag("Cheese"))
+
+            if (!hit.collider.CompareTag("Cheese") && !hit.collider.CompareTag("Volume"))
             {
                 Debug.Log("Ãæµ¹" + hit.transform.name);
                 m_Actor.g_Rigid.position -= m_Actor.transform.forward * 0.1f;
